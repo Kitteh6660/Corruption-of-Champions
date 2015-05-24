@@ -984,7 +984,7 @@ public function campLoversMenu(descOnly:Boolean = false):void {
 		else {
 			if (flags[kFLAGS.KIHA_CHILD_MATURITY_COUNTER] > 160 && (flags[kFLAGS.KIHA_CHILD_MATURITY_COUNTER] % 3 == 0 || model.time.hours == 20)) outputText("Kiha is breastfeeding her offspring right now.\n\n");
 			else if (flags[kFLAGS.KIHA_CHILD_MATURITY_COUNTER] > 80 && flags[kFLAGS.KIHA_CHILD_MATURITY_COUNTER] <= 160 && (flags[kFLAGS.KIHA_CHILD_MATURITY_COUNTER] % 7 == 0 || model.time.hours == 20)) outputText("Kiha is telling stories to her draconic child" + (kihaFollower.totalKihaChildren() == 1 ? "" : "ren") + " right now.\n\n");
-			else if (flags[kFLAGS.KIHA_CHILD_MATURITY_COUNTER] <= 80 && (flags[kFLAGS.KIHA_CHILD_MATURITY_COUNTER] % 3 == 0 || model.time.hours == 20)) {
+			else if (kihaFollower.totalKihaChildren() > 0 && flags[kFLAGS.KIHA_CHILD_MATURITY_COUNTER] <= 80 && (flags[kFLAGS.KIHA_CHILD_MATURITY_COUNTER] % 3 == 0 || model.time.hours == 20)) {
 				outputText("Kiha is training her " + (kihaFollower.totalKihaChildren() == 1 ? "child to become a strong warrior" : "children to become strong warriors") + ". ");
 				if (rand(2) == 0) outputText("Right now, she's teaching various techniques.");
 				else outputText("Right now, she's teaching her child" + (kihaFollower.totalKihaChildren() == 1 ? "" : "ren") + " how to make use of axes.\n\n");
@@ -1180,12 +1180,12 @@ public function campFollowers(descOnly:Boolean = false):void {
 			else outputText("bedroll");
 			outputText(". It reads \"<i>Come see me at the lake. I've finished your spider-silk ");
 			switch(flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00275]) {
-				case 1: outputText("armor");
-				case 2: outputText("robes");
-				case 3: outputText("bra");
-				case 4: outputText("panties");
-				case 5: outputText("loincloth");
-				default: outputText("robes");
+				case 1: outputText("armor"); break;
+				case 2: outputText("robes"); break;
+				case 3: outputText("bra"); break;
+				case 4: outputText("panties"); break;
+				case 5: outputText("loincloth"); break;
+				default: outputText("robes"); break;
 			}
 			outputText(". -Rathazul</i>\".\n\n");
 		}
@@ -2328,28 +2328,25 @@ private function ascendForReal():void {
 }
 
 public function setLevelButton():Boolean {
-	if((player.XP >= player.requiredXP() && player.level < kGAMECLASS.levelCap) || player.perkPoints > 0 || player.statPoints > 0) {
-		if (player.XP < player.requiredXP() || player.level >= kGAMECLASS.levelCap)
-		{
-			if (player.statPoints > 0) {
-				mainView.setMenuButton( MainView.MENU_LEVEL, "Stat Up" );
-				mainView.levelButton.toolTipText = "Distribute your stats points. \n\nYou currently have " + String(player.statPoints) + ".";
-			}
-			else {
-				mainView.setMenuButton( MainView.MENU_LEVEL, "Perk Up" );
-				mainView.levelButton.toolTipText = "Spend your perk points on a new perk. \n\nYou currently have " + String(player.perkPoints) + ".";
-			}
-		}
-		else {
-			mainView.setMenuButton( MainView.MENU_LEVEL, "Level Up" );
-			mainView.levelButton.toolTipText = "Level up to increase your maximum HP by 15 and gain 5 attribute points and 1 perk points.";
-			if (flags[kFLAGS.AUTO_LEVEL] > 0) {
-				kGAMECLASS.levelUpGo();
-				return true; //True indicates that you should be routed to level-up.
-			}
+	if(player.XP >= player.requiredXP() && player.level < kGAMECLASS.levelCap) {
+		mainView.setMenuButton( MainView.MENU_LEVEL, "Level Up" );
+		mainView.levelButton.toolTipText = "Level up to increase your maximum HP by 15 and gain 5 attribute points and 1 perk points.";
+		if (flags[kFLAGS.AUTO_LEVEL] > 0) {
+			kGAMECLASS.levelUpGo();
+			return true; //True indicates that you should be routed to level-up.
 		}
 		mainView.showMenuButton( MainView.MENU_LEVEL );
 		mainView.statsView.showLevelUp();
+	} else if (player.perkPoints > 0 || player.statPoints > 0) {
+		if (player.statPoints > 0) {
+			mainView.setMenuButton( MainView.MENU_LEVEL, "Stat Up" );
+			mainView.levelButton.toolTipText = "Distribute your stats points. \n\nYou currently have " + String(player.statPoints) + ".";
+		}
+		else {
+			mainView.setMenuButton( MainView.MENU_LEVEL, "Perk Up" );
+			mainView.levelButton.toolTipText = "Spend your perk points on a new perk. \n\nYou currently have " + String(player.perkPoints) + ".";
+		}
+		mainView.showMenuButton( MainView.MENU_LEVEL );
 	}
 	else {
 		mainView.hideMenuButton( MainView.MENU_LEVEL );

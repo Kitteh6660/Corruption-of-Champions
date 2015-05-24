@@ -1248,9 +1248,9 @@ public function goreAttack():void {
 			damage = doDamage(damage);
 		}
 		//Different horn damage messages
-		if(damage < 20) outputText("You pull yourself free, dealing " + damage + " damage.");
-		if(damage >= 20 && damage < 40) outputText("You struggle to pull your horns free, dealing " + damage + " damage.");
-		if(damage >= 40) outputText("With great difficulty you rip your horns free, dealing " + damage + " damage.");
+		if(damage < 20) outputText("You pull yourself free, dealing <b><font color=\"#800000\">" + String(damage) + "</font></b> damage.");
+		if(damage >= 20 && damage < 40) outputText("You struggle to pull your horns free, dealing <b><font color=\"#800000\">" + String(damage) + "</font></b> damage.");
+		if(damage >= 40) outputText("With great difficulty you rip your horns free, dealing <b><font color=\"#800000\">" + String(damage) + "</font></b> damage.");
 	}
 	//Miss
 	else {
@@ -5293,7 +5293,7 @@ public function foxFire():void {
 		if(monster.findPerk(PerkLib.Acid) < 0) monster.createPerk(PerkLib.Acid,0,0,0,0);
 	}
 	dmg = doDamage(dmg);
-	outputText("  (" + dmg + ")\n\n", false);
+	outputText("  <b>(<font color=\"#800000\">" + dmg + "</font>)</b>\n\n", false);
 	statScreenRefresh();
 	flags[kFLAGS.SPELLS_CAST]++;
 	spellPerkUnlock();
