@@ -194,14 +194,14 @@ private function rathazulWorkOffer():Boolean {
 		}
 	}
 	//SPOIDAH
-	if (player.hasItem(useables.T_SSILK) && flags[kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN] + flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00275] == 0) {
+	if (player.hasItem(useables.T_SSILK, 5) && flags[kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN] + flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00275] == 0) {
 		showArmorMenu = true;
 		spoken = true;
 		totalOffers++;
 		outputText("\"<i>Oooh, is that some webbing from a giant spider or spider-morph?  Most excellent!  With a little bit of alchemical treatment, it is possible I could loosen the fibers enough to weave them into something truly magnificent - armor, or even a marvelous robe,</i>\" offers Rathazul.\n\n", false);
 	}
 	//Dragonscale
-	if (player.hasItem(useables.D_SCALE)) {
+	if (player.hasItem(useables.D_SCALE, 5)) {
 		showArmorMenu = true;
 		totalOffers++;
 		outputText("\"<i>Oooh, is that dragon scale? If you happen to have five of these, I can work them into armor,</i>\" Rathazul says.\n\n");
@@ -538,10 +538,10 @@ public function rathazulArmorMenu():void {
 	if(player.hasItem(useables.B_CHITN, 5)) {
 		addButton(1, "BeeArmor", craftCarapace);
 	}
-	if(player.hasItem(useables.T_SSILK) && flags[kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN] + flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00275] == 0) {
+	if(player.hasItem(useables.T_SSILK, 5) && flags[kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN] + flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00275] == 0) {
 		addButton(2, "SpiderSilk", craftSilkArmor);
 	}
-	if(player.hasItem(useables.D_SCALE)) {
+	if(player.hasItem(useables.D_SCALE, 5)) {
 		addButton(3, "Dragonscale", craftDragonscaleArmor);
 	}
 	if (player.hasKeyItem("Tentacled Bark Plates") >= 0) {
