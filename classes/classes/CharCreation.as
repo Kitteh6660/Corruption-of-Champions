@@ -1233,6 +1233,9 @@
 			if (choice == PerkLib.HistoryFortune) {
 				player.gems += 250;
 			}
+			if (choice == PerkLib.HistoryFighter) {
+				player.gems += 50;
+			}
 			if (flags[kFLAGS.HISTORY_PERK_SELECTED] == 0) {
 				flags[kFLAGS.HISTORY_PERK_SELECTED] = 1;
 				completeCharacterCreation();
