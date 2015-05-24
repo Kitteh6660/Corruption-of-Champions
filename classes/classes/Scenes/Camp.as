@@ -1180,12 +1180,12 @@ public function campFollowers(descOnly:Boolean = false):void {
 			else outputText("bedroll");
 			outputText(". It reads \"<i>Come see me at the lake. I've finished your spider-silk ");
 			switch(flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00275]) {
-				case 1: outputText("armor");
-				case 2: outputText("robes");
-				case 3: outputText("bra");
-				case 4: outputText("panties");
-				case 5: outputText("loincloth");
-				default: outputText("robes");
+				case 1: outputText("armor"); break;
+				case 2: outputText("robes"); break;
+				case 3: outputText("bra"); break;
+				case 4: outputText("panties"); break;
+				case 5: outputText("loincloth"); break;
+				default: outputText("robes"); break;
 			}
 			outputText(". -Rathazul</i>\".\n\n");
 		}
