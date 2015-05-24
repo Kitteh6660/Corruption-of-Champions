@@ -1247,7 +1247,7 @@ package classes.Scenes.NPCs
 			menu();
 			kGAMECLASS.hideUpDown();
 			var foundItem:Boolean = false;
-			for (var x:int = 0; x < 5; x++) {
+			for (var x:int = 0; x < inventory.getMaxSlots(); x++) {
 				if (player.itemSlots[x].quantity > 0 && giveableToAnemone(player.itemSlots[x].itype)) {
 					addButton(x, player.itemSlots[x].itype.shortName + " x" + player.itemSlots[x].quantity, placeInAnemone, x);
 					foundItem = true;
