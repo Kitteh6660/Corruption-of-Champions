@@ -1559,7 +1559,7 @@ package classes.Scenes.Monsters
 				flags[kFLAGS.CODEX_ENTRY_IMPS] = 1;
 				outputText("\n\n<b>New codex entry unlocked: Imps!</b>")
 			}
-			doNext(camp.returnToCampUseOneHour);
+			doNext(playerMenu);
 		}
 		
 		//IMP WARLORD
