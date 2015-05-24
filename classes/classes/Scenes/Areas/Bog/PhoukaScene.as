@@ -418,8 +418,7 @@ package classes.Scenes.Areas.Bog
 			if(newScreen) clearOutput();
 			else outputText("\n\n");
 			outputText("The lusty " + phoukaName() + " continues to pound his cock into the earth as you prepare to go, oblivious to your presence.");
-			kGAMECLASS.clearStatuses(false);
-			kGAMECLASS.awardPlayer(); //This will provide loot and return to camp, 1 hour used
+			cleanupAfterCombat();
 		}
 
 		internal function phoukaPlayerWins(hpVictory:Boolean):void
@@ -427,8 +426,7 @@ package classes.Scenes.Areas.Bog
 			clearOutput();
 			if (hpVictory) { //You win by physical damage, the phouka cheats and runs
 				outputText("The seriously injured " + phoukaName() + " stumbles backward, but before you can strike again it twists and stretches in mid-air, dropping to the ground in the form of a long black eel.  You're pretty sure you hear the eel curse at you as it dives into the mire and sinks out of view.\n\nWith your attacker gone you struggle and strain to get yourself free of the thick mass of roots and muck around your [legs].  Your lower half is soaked and you decide to head home.");
-				kGAMECLASS.clearStatuses(false);
-				kGAMECLASS.awardPlayer();  //This will provide loot and return to camp, 1 hour used
+				cleanupAfterCombat();
 			}
 			else { //You win by lust and have the chance to fuck the phouka if you’re horny
 				outputText("The " + phoukaName() + " collapses to the ground and begins to jab his cock into the peat.");
