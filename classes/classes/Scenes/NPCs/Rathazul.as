@@ -550,6 +550,7 @@ public function rathazulArmorMenu():void {
 	if (player.hasKeyItem("Divine Bark Plates") >= 0) {
 		addButton(6, "D.Bark Armor", craftMaraeArmor, true);
 	}
+	addButton(14,"Back",rathazulWorkOffer);
 }
 
 private function craftSilkArmor():void {
