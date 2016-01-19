@@ -34,6 +34,7 @@ package classes.Scenes.Monsters
 			this.armorDef = 6;
 			this.fatigue = 0;
 			this.bonusHP = 275;
+			this.bonusLust = 10;
 			this.lust = 35;
 			this.lustVuln = 0.4;
 			this.temperment = TEMPERMENT_RANDOM_GRAPPLES;
@@ -44,6 +45,7 @@ package classes.Scenes.Monsters
 					add(weapons.W_STAFF,1).
 					add(armors.FURLOIN,1).
 					add(jewelries.MYSTRNG,1).
+					add(shields.KITE_SH,1).
 					addMany(1,consumables.L_DRAFT,
 							consumables.PINKDYE,
 							consumables.BLUEDYE,
