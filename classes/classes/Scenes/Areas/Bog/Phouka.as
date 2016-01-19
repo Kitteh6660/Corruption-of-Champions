@@ -300,6 +300,7 @@ package classes.Scenes.Areas.Bog
 			this.armorDef = 80;
 
 			this.bonusHP = 300;
+			this.bonusLust = 5;
 			this.lust = 30;
 			this.lustVuln = .5;
 

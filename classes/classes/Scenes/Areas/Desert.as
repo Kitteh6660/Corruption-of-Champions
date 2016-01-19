@@ -55,6 +55,16 @@ package classes.Scenes.Areas
 				antsScene.antColonyEncounter();
 				return;
 			}
+			//Imps
+			if (player.level >= 2 && rand(20) < 10) {
+				kGAMECLASS.exploration.genericImpEncounters1();
+				return;
+			}
+			//Boosts imps rates!
+			if (player.findPerk(PerkLib.PiercedLethite) >= 0 && rand(3) == 0) {
+				if (rand(2) == 0) chooser = 1;
+				else chooser = 3;
+			}
 			//int over 50?  Chance of alice encounter!
 			if (rand(4) == 0 && player.inte > 50) {
 				if (flags[kFLAGS.FOUND_WIZARD_STAFF] == 0) {
@@ -75,8 +85,14 @@ package classes.Scenes.Areas
 					flags[kFLAGS.ACHIEVEMENT_PROGRESS_SCAVENGER] += extractedNail;
 					player.addKeyValue("Carpenter's Toolbox", 1, extractedNail);
 					outputText("After spending nearly an hour scavenging, you've managed to extract " + extractedNail + " nails.\n\n");
+					if (flags[kFLAGS.MATERIALS_STORAGE_UPGRADES] >= 2) {
+					outputText("Nails: " + player.keyItemv1("Carpenter's Toolbox") + "/600")
+					}
+					else {
 					outputText("Nails: " + player.keyItemv1("Carpenter's Toolbox") + "/200")
-					if (player.keyItemv1("Carpenter's Toolbox") > 200) player.addKeyValue("Carpenter's Toolbox", 1, -(player.keyItemv1("Carpenter's Toolbox") - 200));
+					}
+					if (player.keyItemv1("Carpenter's Toolbox") > 200 && flags[kFLAGS.MATERIALS_STORAGE_UPGRADES] >= 2) player.addKeyValue("Carpenter's Toolbox", 1, -(player.keyItemv1("Carpenter's Toolbox") - 600));
+					else (player.keyItemv1("Carpenter's Toolbox") > 200 && flags[kFLAGS.MATERIALS_STORAGE_UPGRADES] < 2) player.addKeyValue("Carpenter's Toolbox", 1, -(player.keyItemv1("Carpenter's Toolbox") - 200));
 					doNext(camp.returnToCampUseOneHour);
 					return;
 				}

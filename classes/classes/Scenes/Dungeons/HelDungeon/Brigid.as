@@ -84,6 +84,7 @@ package classes.Scenes.Dungeons.HelDungeon
 			this.armorName = "armor";
 			this.armorDef = 20;
 			this.bonusHP = 1000;
+			this.bonusLust = 15;
 			this.lust = 20;
 			this.lustVuln = .25;
 			this.temperment = TEMPERMENT_LOVE_GRAPPLES;
@@ -94,7 +95,7 @@ package classes.Scenes.Dungeons.HelDungeon
 			this.tailType = TAIL_TYPE_DEMONIC;
 			this.hornType = HORNS_DEMON;
 			this.horns = 2;
-			this.drop = NO_DROP;
+			this.drop = new WeightedDrop(shields.GREATSH,1);
 			checkMonster();
 		}
 		
