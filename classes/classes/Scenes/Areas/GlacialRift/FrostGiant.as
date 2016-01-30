@@ -245,6 +245,7 @@ package classes.Scenes.Areas.GlacialRift
 			this.armorName = "ice";
 			this.armorDef = 17;
 			this.bonusHP = 600;
+			this.bonusLust = 5;
 			this.lust = 10;
 			this.lustVuln = 0.4;
 			this.temperment = TEMPERMENT_LUSTY_GRAPPLES;
