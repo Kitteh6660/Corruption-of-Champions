@@ -76,6 +76,7 @@ package classes.Scenes.Places.Owca
 			this.armorName = "demonic skin";
 			//6 attacks: 5 from demons (10 damage each), 1 from Vapula (80 damage), 200 gems, 200 xp, 700 hp*/
 			this.bonusHP = 680;
+			this.bonusLust = 175;
 			this.lust = 30;
 			this.lustVuln = .3;
 			this.temperment = TEMPERMENT_LOVE_GRAPPLES;
