@@ -40,6 +40,7 @@
 			initLibSensCor(85, 60, 100);
 			
 			this.bonusHP = 600;
+			this.bonusLust = 20;
 			this.fatigue = 0;
 			
 			this.gems = 50 + rand(33);

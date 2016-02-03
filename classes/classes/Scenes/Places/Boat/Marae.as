@@ -167,6 +167,10 @@ package classes.Scenes.Places.Boat
 				this.bonusHP += 2700;
 				if (game.flags[kFLAGS.MINERVA_TOWER_TREE] > 0) this.bonusHP += 1000;
 			}
+			this.bonusLust = 50;
+			if (game.flags[kFLAGS.FACTORY_SHUTDOWN] == 2) {
+				this.bonusLust += 150;
+			}
 			this.lust = 30;
 			this.lustVuln = .04;
 			this.temperment = TEMPERMENT_RANDOM_GRAPPLES;
