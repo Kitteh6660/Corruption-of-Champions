@@ -154,7 +154,7 @@ package classes
 		
 		private var _furColor:String = "no"; //Fur colour!
 		public function get furColor():String {
-			if (hasFur()) return _furColor;
+			if (hasFur() || hasFleece()) return _furColor;
 			else return hairColor;
 		}
 		public function get newFurColor():String { return _furColor; } // alternative getter for the furColor. Ignores the skinType (Stadler76)
@@ -2462,7 +2462,22 @@ package classes
 		{
 			return skinType == SKIN_TYPE_PLAIN;
 		}
-
+		
+		public function hasFleece():Boolean
+		{
+			return skinType == SKIN_TYPE_FLEECE;
+		}
+		
+		public function hasFurOrFleece():Boolean
+		{
+			return hasFur() || hasFleece();
+		}
+		
+		public function isFurry():Boolean
+		{
+			return hasFur() || hasFleece();
+		}
+		
 		public function isBiped():Boolean
 		{
 			return legCount == 2;

@@ -46,6 +46,12 @@ package classes.Items.Consumables
 				game.addButtonDisabled(1, "Fur", "You have no fur!");
 			}
 			
+			if (game.player.hasFleece()) {
+				outputText("\n\nYou have " + game.player.furColor + " fleece.");
+				if (game.player.furColor != _color) game.addButton(1, "Fleece", dyeFur);
+				else game.addButtonDisabled(1, "Fleece", "Your already have " + _color + " fleece!");
+			}
+			
 			game.addButton(4, "Nevermind", dyeCancel);
 			return true;
 		}
@@ -71,10 +77,13 @@ package classes.Items.Consumables
 		}
 		
 		private function dyeFur():void {
+			var furname:String = "fur";
+			if (player.hasFleece())
+				furname = "fleece";
 			clearOutput();
-			outputText("You rub the dye into your fur, then use a bucket of cool lakewater to rinse clean a few minutes later.  ");
+			outputText("You rub the dye into your " + furname + ", then use a bucket of cool lakewater to rinse clean a few minutes later.  ");
 			game.player.furColor = _color;
-			outputText("You now have " + game.player.furColor + " fur.");
+			outputText("You now have " + game.player.furColor + " " + furname + ".");
 			if (game.player.lust > 50) {
 				outputText("\n\nThe cool water calms your urges somewhat, letting you think more clearly.");
 				game.dynStats("lus", -15);

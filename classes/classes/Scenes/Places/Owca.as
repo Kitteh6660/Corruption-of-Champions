@@ -572,6 +572,7 @@ private function owcaMainScreenOn():void {
 	var pit:Function = null;
 	var herd:Function = null;
 	var tavern:Function = null;
+	var clovis:Function = null;
 	if (model.time.hours >= 16 && flags[kFLAGS.OWCA_SACRIFICE_DISABLED] == 0) {
 		//Pit. Requires 16:00 or later. Leads to the night gangbang (with possible fight) scene, this time fully equipped and clothed. Attitude is raised by 3.
 		pit = zePit;
@@ -588,8 +589,18 @@ private function owcaMainScreenOn():void {
 		//Option: Tavern. Leads to the Tavern, needs 10 attitude
 		tavern = owcaTavern;
 	}
-	//[Pit][Herds][Rebecc][Tavern]
-	simpleChoices("Pit", pit, "Herds", herd, "Rebecc", rebeccMenu, "Tavern", tavern, "Leave", camp.returnToCampUseOneHour);
+	if (flags[kFLAGS.OWCAS_ATTITUDE] >= 10) {
+		if (flags[kFLAGS.OWCA_CLOVER_MET] != 1)
+			outputText("\n\nBeyond the initial herd of sheep, you spy a separated pen, with large walls that block out what is inside the pen. A green-colored sheep-girl lies on the ground in front of the entrance to the pen - she looks asleep.");
+		else
+			outputText("\n\nBeyond the initial herd of sheep, you spy a separated pen, with large walls that block out what is inside the pen. Clover is still asleep in front of the entrance.");
+		//Option: Clovis encounter
+		clovis = clovisEncounter;
+	}
+	//[Pit][Herds][Rebecc][Tavern][Clovis]
+	simpleChoices("Pit", pit, "Herds", herd, "Rebecc", rebeccMenu, "Tavern", tavern, "Clover", clovis);
+	addButton(5, "Leave", camp.returnToCampUseOneHour);
+	if (flags[kFLAGS.OWCA_CLOVER_MET] != 1) addButton(4, "Sleeping Girl", clovis)
 	if (flags[kFLAGS.GRIMDARK_MODE] > 0) addButton(4, "Leave", leaveOwcaGrimdark);
 }
 
@@ -642,6 +653,194 @@ private function buyOwcaShit(bleh:ItemType,price:Number = 0):void {
 	inventory.takeItem(bleh, owcaTavern);
 }
 	
+//Clovis
+private function clovisEncounter():void {
+	clearOutput();
+	if (flags[kFLAGS.OWCA_CLOVER_MET] != 1) {
+		outputText("You walk over to the sleeping girl, crouching down and giving her a prod. At your assault, she jumps up, suddenly awake. Spotting you once more, she smiles sweetly. <i>\"Hello there, have we met? My name's...\"</i> She pauses, apparently having to think about it for a moment. <i>\"My name's Clover,\"</i> she exclaims enthusastically. You tell her your name, and she nods, repeating it a few times to remember it.\n\nYou ask her what she's got in that big pen of hers. Excitedly, she responds - <i>\"That's my private sheep farm! I harvest their wool and sell it for a whole lotta money - way more than the other farms around here.\"</i> Wait, it's just a regular old sheep farm? You ask why her wool sells for so much more. She gives a wink as she explains: <i>\"My sheep are special - their wool is so soft, you'd think it was a cloud! It's all in how you treat your sheep - make them feel reeeaaaaaallly good, and it'll show in their wool.\"</i> You can take a guess as to what kind of \"treatment\" she gives her livestock.\n\nYou try to sneak a peek inside the pen, but are quickly stopped by an agitated Clover. <i>\"S-sorry, you can't see what's in there! It's private. Secrets of the trade, you know?\"</i>\n\nDamn. Now you <i>really</i> want to see.\n\nShe inspects you for a moment, taking in your form. <i>\"I bet you'd look really cute as a big, fluffy sheep, you know?\"</i> You ponder this. If nothing else, the wool would give you some warmth during the winter.\n\nShe presses a bottle of liquid into your hands. <i>\"Think about it, okay? I'd love to see you all fluffy and cute, just like me!\"</i> You thank her and walk off, strange bottle in hand. You take a glance back at her as you leave, finding her already dozed off once again.\n\n")
+		flags[kFLAGS.OWCA_CLOVER_MET] = 1;
+		inventory.takeItem(consumables.CLOVIS, camp.returnToCampUseOneHour);
+	}
+	else {
+		outputText("You walk over to Clover, having to poke her awake once again. She predictably jumps, and relaxes as she sees you again. <i>\"[name], you came back! Hope you enjoyed my gift...wait, I did give it to you last time, right?\"</i> You reassure her that, yes, she gave you a bottle of Clovis.\n\nYou notice that Clover's attention wavers from time to time. If you were quick enough, maybe you could get a peek inside her pen.");
+		
+		simpleChoices("Talk", clover_talk, "Sex", clover_sex, "Peek", clover_peek, "Appearance", clover_appearance, "Leave", clover_leave);
+		
+	}
+}
+	
+// Clover talk
+private function clover_talk():void {
+	clearOutput();
+	outputText("Clover bounces. <i>\"You wanna talk? Sure! Whaddya wanna talk about?\"</i>");
+	addButton(0, "Clovis", clover_talk_clovis);
+	addButton(1, "Clover", clover_talk_clover);
+	addButton(2, "Wool", clover_talk_wool);
+	addButton(5, "Back", clovisEncounter);
+	removeButton(3);
+	removeButton(4);
+}
+
+private function clover_talk_clovis():void {
+	clearOutput();
+	outputText("Clover perks up as you mention Clovis. <i>\"You wanna know about it? I made it! I looooooove big, fuzzy friends, so I made Clovis so I could make a lot more people cute and fuzzy! Now I have so many sheep friends to cuddle with, and they also make me a ton of-\"</i> She cuts her rambling short, covering her mouth quickly with her soft hands. <i>\"A-anyway, it's really great and makes you really great, so you should drink a lot of it! Plus it tastes delicious.\"</i>\n\nYou ask her if there are any negative side effects. She ponders for a while. <i>\"Ummmmmmmmmmmmm oh yeah people complained that it was making them dumber but I don't think that's true! It just makes you feel really great and fill your head with soft, fuzzy thoughts!\"</i> Right. Maybe you should be careful around this stuff.\n\n<i>\"Oh!\"</i> She continues, apparently remembering something else. <i>\"There's a lotta corruption around and it's real icky. No one around here likes it and I don't either. But it turns out Clovis is really good for getting rid of corruption! Now a lot of people drink lots of Clovis so they can stay pure, which is great cause that just means more friends to cuddle with!\"</i>");
+	doNext(clover_leave);
+}
+
+private function clover_talk_clover():void {
+	clearOutput();
+	outputText("You say that you want to know about her, and she thinks to herself. <i>\"Well...I like fluffy things...and I like sleeping...\"</i> She seems to be having trouble thinking of things to say, so you prompt her by asking if she was always a sheep-morph. <i>\"Actually I was a lotta different things! I was a snake girl, a cow, a dog - that one was fun cause I was so fuzzy - and...\"</i> She continues to list off her different forms. The list is staggeringly long.\n\n<i>\"I was sad cause no matter what, I never felt...right, you know? Then I found the sheep people around here and it was perfect and I spent so much time creating Clovis and then I was a big fluffy sheep!\"</i> She beams, showing off her woolen body. <i>\"I think it changed my personality kinda but it was still great cause I felt so great and soft and fluffy!\"</i>\n\nCurious, you ask if she has someone special in her life. <i>\"Not really. I only like fluffy sheep but all the sheep are too interested in sleeping and being soft and so am I so I never had a lot of sex! Not that I'm not willing, especially if they're cute.\"</i> She gives an obvious wink, rubbing her wool against you. It really is soft.");
+	doNext(clover_leave);
+}
+
+private function clover_talk_wool():void {
+	clearOutput();
+	outputText("You ask about her wool. She shakes her body around, and gives herself a hug. <i>\"It's soft, right? It's so soft! I get mine sheared every day, and I use the wool for all kinds of things!\"</i>\n\nEvery day? That doesn't sound right. You ask her how she manages to get sheared every day. <i>\"Well it's cause it grows back every day! Maybe that's kinda short actually. It could be because of all the Clovis I drink all the time...\"</i> With that kind of growth, she must be rolling in gems. Still, you probably wouldn't go so far as to fill up on Clovis just to make a bit of cash. How much of that stuff does this girl drink, anyway?\n\nYou ask her what happens to all that wool, after she sells it. She shrugs. <i>\"It's probably used for all kinds of stuff. Some of my buyers use it to make sex toys! I wonder how those would feel...\"</i> She starts to drift off, apparently fantasizing about sex toys using her own wool. You admit it does sound a little enticing.");
+	doNext(clover_leave);
+}
+
+// Clover sex
+private function clover_sex():void {
+	clearOutput();
+	if (player.hasFleece()) {
+		outputText("Clover starts to think. <i>\"Welllllllllll okay, sure!\"</i>\n\nNow you just need to decide what to do with her.");
+		removeButton(0);
+		removeButton(1);
+		if (player.hasCock()) addButton(0, "FuckHerVag", clover_sex_dick);
+		if (player.hasVagina()) addButton(1, "Lesbians", clover_sex_vag);
+		removeButton(2);
+		removeButton(3);
+		removeButton(4);
+		removeButton(5);
+		addButton(6, "Back", clovisEncounter);
+	}
+	else {
+		outputText("Clover frowns. <i>\"Sorry, I'm...not really interested. But...maybe I'd be more interested if you became more like a cute sheep!\"</i>\n\n");
+		doNext(clovisEncounter);
+	}
+}
+
+// Clover dick fuck
+private function clover_sex_dick():void {
+	if (int(flags[kFLAGS.CLOVER_SUBMISSIVENESS]) < 1) flags[kFLAGS.CLOVER_SUBMISSIVENESS] = 0;
+	
+	clearOutput();
+	
+	if (flags[kFLAGS.CLOVER_SUBMISSIVENESS] < 25) {
+		outputText("Clover slowly climbs on top of you, her soft wool like heaven against your skin. Your " + player.cockDescript(0) + " is almost painfully hard as she grinds against it, before slipping inside with a soft moan. Once you're fully inside her, she swings forward, hugging herself against your chest as you both revel in the mix of pleasure and blissful softness of wool against skin. Clover moves only slightly, a gentle rising motion of only an inch or two, but her insides squeeze you with every movement, creating a slow, heady wave of pleasure.\n\nShe rides you like this for what feels like hours, steadily milking your cock as she pants softly, her own pleasure clearly visible. Instead of the short, rapid bursts you're accustomed to in sex, the sensations almost seem to build on themselves, a steady rise of pleasure washing through you, leading you inexorably towards your next orgasm. You try to say something, but Clover catches you in a kiss before a word can leave your lips, and you shiver as you finally reach your limits. You and Clover break the kiss, before you moan together, losing control as you cum deep inside her, even as she tightens around you in her own orgasm. Sitting the way you are, your cum soon begins to "); 
+		if (player.cumQ() < 600) outputText("drip");
+		else if (player.cumQ() < 900) outputText("spill");
+		else outputText("gush");
+		outputText(" out from where you two are still joined, soaking your crotch as Clover goes limp against you, too tired to remain sitting up. You pull out and are rewarded with the sight of your cum spilling from her well-fucked slit, before you both relax against the soft grass.");
+	}
+	else if (flags[kFLAGS.CLOVER_SUBMISSIVENESS] < 50) {
+		outputText("Clover moves as though she's going to ride on top of you, but you stop her with a firm hand on her wrist. Her normally lidded eyes fly open with alarm, staring into your own. <i>\"Wh-what are you doing?\"</i> You smirk, before rolling over, pinning the sheep-morph beneath you as your " + player.cockDescript(0) + " begins to stiffen, stroking yourself against her wool. <i>\"It's my turn to take charge, Clover. Are you going to be a good little girl? Or,\"</i> you say, as you grip her a little tighter and lean in close, face almost touching her neck, <i>\"am I going to have to take what I want from you?\"</i> Clover struggles underneath you, trying to push you away, but you easily overpower her. <i>\"That settles it then,\"</i> you growl, before lining your " + player.cockDescript(0) + " with her pussy and forcing yourself inside.\n\nClover whimpers as you start to fuck her pussy, unable to move from her position beneath you. She continues to struggle to push you off, but the combination of your weight on top of her and her own weakness as she's being fucked means she can do no more than press against you, face flushed as you continue to use her. Though she tries to hide it, the flush slowly creeping up her face and the panting as you pound her slit gives away the fact that what's happening is still causing her to feel good, and you know that she'll cum if you keep this up.\n\nWith the way she's clenching around your cock, it doesn't take long for you to reach your own limit, and you groan in pleasure, nibbling Clover's neck as you slam home inside her. Your cock begins to throb, twitching as you fill her pussy with your hot cum, and her yelp trails off into a strained moan as she hits her peak as well. The sheep-morph's body goes limp, while her pussy clenches around you, milking even more cum from your straining dick. When you're finally spent, you pull away from her, watching your cum spill out from her well-fucked hole. You smile triumphantly. You have a feeling that Clover will likely not be able to think for a while, much less move.");
+	}
+	else if (flags[kFLAGS.CLOVER_SUBMISSIVENESS] < 75) {
+		outputText("Clover moves as though she's going to ride on top of you, but you grab her wrist once more, and she looks at you angrily. <i>\"No! You can't do that to me again-\"</i> You don't let her finish speaking, instead turning her around, pinning the sheep-morph underneath you with her ass raised in the air. <i>\"It seems someone hasn't learned her lesson yet,\"</i> you say, before adminstering a swift smack to her ass, making her bleat in surprise. <i>\"I'm in charge right now, and you'll <b>do. As. You're. Told.</b>\"</i> You punctuate each word with another smack to her ass, now bright red, and she yelps each time your hand connects. You stop once you can see a clear imprint of your hand on each cheek, and lean back slightly, letting her move freely once more. <i>\"Are you going to behave now, Clover?\"</i> you ask, and begin to gently stroke her ass when she nods. She shivers, the sensitivity from already being hit making the sensations so much stronger, but relaxes more as you continue to soothe her reddened flesh.\n\nWhen you finish, she's bleating quietly, but gasps as you suddenly push yourself in, your thighs pressed against her ass as you sink yourself to the hilt. Without giving her a chance to push away, you start to ram the sheep-morph's wet slit, rocking her forward with every thrust. It doesn't take long before Clover is moaning openly, her own hips pushing back into yours as you pound into her, her desire to cum more important than her loss of control. You twirl your fingers in her hair, wrapping the wool around your fingers before you give a soft tug, pulling Clover's head back as her tongue lolls out. Each thrust brings you closer to your own limit, and you struggle to hold back as long as you can. Fortunately, it doesn't take long for Clover to tense up beneath you, saying only <i>\"Oh gosh...[name]...\"</i> before moaning loudly as her pussy clamps down on your now-throbbing cock. You answer her with a moan of your own, yanking on her hair and raising her head up as you cum, before slumping over her body, spent.");
+	}
+	else {
+		outputText("Clover moves as though she's going to ride on top of you, but you stop her with a firm hand on her wrist. She looks up at you in fear, but you can see her face flush as she realizes what you intend to do to her. <i>\"Please...not again...\"</i> You smirk, before rolling over, pinning the sheep-morph beneath you as your " + player.cockDescript(0) + " begins to stiffen, stroking yourself against her wool. You don't even need to say anything to her, as she spreads her own legs apart, ready for you to take her. Her eyes are clouded with lust, and she's grinding back against your dick, her wool massaging you and only making you more excited. You chuckle, before lining your " + player.cockDescript(0) + " with her now-dripping pussy and pushing into her, inch after inch slipping inside.\n\nYou waste no time in using her like the cum-dump she is, your cock pistoning in and out of her as she moans, flat on her back beneath you. Each thrust sends her rocking back slightly, the grass rustling furiously around you. <i>\"Can you hear that, slut?\"</i> You say, fucking her with abandon as you revel in your control. <i>\"I wonder if anyone else knows you're out here, being held down and used like nothing more than a cheap fucktoy?\"</i> Clover is panting now, each breath barely passing her lips before it rushes out again, her own hands playing with her tits as she flushes. You can tell she's almost at her limit, and lean in close once more, fucking her as hard as you can before slamming home inside her as your own orgasm catches you unaware, cum flooding the sheep-morph's well-fucked pussy. <i>\"Cum for me, slut,\"</i> you growl, pressing against her as your cum continues to rush inside her with every stream from your " + player.cockDescript(0) + ".\n\nClover's breath hisses out of her in a soft whine, eyes rolling back as she cums, legs clamping around your back. Your cum spills out of her as you pull your softening cock free, leaving the sheep-morph a quivering mess. You have an almost predatory grin on your face, staring at the peace of fuck-meat you'd claimed as your own, before leaning in close to her ear and grazing her neck with your teeth once more. <i>\"Didn't that feel good?\"</i> you purr, trailing a finger along her chest even as her eyes settle back to their normal half-lidded position. She doesn't answer at first, as if trying to remember where she was before she'd been used as nothing more than a toy for your pleasure. It takes awhile, but you hear a quiet bleat, almost too soft to notice: <i>\"Yes...");
+		if (player.gender == 1 || player.gender == 3) outputText("Master...");
+		else outputText("Mistress...");
+		outputText("\"</i>");
+	}
+	
+	doNext(clover_postFuck);
+}
+
+// Clover vag fuck
+private function clover_sex_vag():void {
+	if (int(flags[kFLAGS.CLOVER_SUBMISSIVENESS]) < 1) flags[kFLAGS.CLOVER_SUBMISSIVENESS] = 0;
+	
+	clearOutput();
+	outputText("Clover slowly climbs on top of you, her soft wool like heaven against your skin. Your " + player.clitDescript() + " is clearly visible and hard as she grinds against it, shivers running up and down your spine as she moves. Wrapping her arms a little tighter around you, she begins to grind her slit against yours, the two of you panting and gasping almost in tune. Clover moves only slightly, a gentle rising motion of only an inch or two, but each movement rubs her soft wool against your own sensitive skin, sending pleasure cascading through you.\n\nShe rides you like this for what feels like hours, giving off soft bleats of pleasure each time your moist slit presses against hers. Instead of the short, rapid bursts you’re accustomed to in sex, the sensations almost seem to build on themselves, a steady rise of pleasure washing through you, leading you inexorably towards your next orgasm. You try to say something, but Clover catches you in a kiss before a word can leave your lips, and you shiver as you finally reach your limits. You and Clover break the kiss, before you moan together, losing control as your body shakes, an orgasm tearing through you. She reaches her peak at the same time, hugging you tightly as she moaned into your ear. Sitting the way you are, your femcum sprays against her, soaking your crotches as Clover goes limp against you, too tired to remain sitting up. You pull back from her and are rewarded with the sight of her pussy also dripping, before you both relax against the wall of her pen.");
+	/*
+	if (flags[kFLAGS.CLOVER_SUBMISSIVENESS] < 25) {
+		outputText("");
+	}
+	else if (flags[kFLAGS.CLOVER_SUBMISSIVENESS] < 50) {
+		outputText("");
+	}
+	else if (flags[kFLAGS.CLOVER_SUBMISSIVENESS] < 75) {
+		outputText("");
+	}
+	else {
+		outputText("");
+	}
+	*/
+	doNext(clover_postFuck);
+}
+
+// Clover after sex
+private function clover_postFuck():void {
+	if (flags[kFLAGS.CLOVER_SUBMISSIVENESS] < 100) flags[kFLAGS.CLOVER_SUBMISSIVENESS] += 25;
+	if (flags[kFLAGS.CLOVER_SUBMISSIVENESS] > 100) flags[kFLAGS.CLOVER_SUBMISSIVENESS] = 100;
+	
+	clearOutput();
+		
+	if (player.inte < 20) {
+		// Bad end - <=20 Intelligence, full sheep form
+		outputText("Exhausted by your efforts, you simply collapse in a heap next to Clover, the green-fleeced girl rubbing your head with a smile. <i>\"Poor baby, you're all worn out, aren't you? Let's get you home.\"</i> You hardly notice her slip the collar around your neck, \"[name]\" printed in bold lettering across the outside. Nor did you see her begin to lead you in, not towards your campsite, but into her pen, among the other sheep-morphs. <i>\"You just stay right there and take a nap like a good ");
+		if (player.gender == 1) outputText("boy");
+		if (player.gender == 2) outputText("girl");
+		if (player.gender == 3) outputText("sheep");
+		outputText(", you'll be fed soon...\"</i> Sleep sounds good. You're right where you belong, after all. Your eyes slip blissfully shut as Clover saunters out the door, a small smile on her face as another animal is added to her flock. She begins running the numbers on just how much you can bring in for her.")
+		getGame().gameOver();
+	}
+	else {
+		outputText("You slump next to Clover, both of you panting heavily as sweat slowly drips off your bodies, pattering against the ground. Catching her breath, Clover slowly rolls over, wrapping her arms around you as she rubs her face against your chest. <i>\"Won't you stay with me for a while? We could take a nice nap together, right here...\"</i>");
+		
+		addButton(0, "Stay", clover_postFuck_stay);
+		addButton(1, "Leave", clover_postFuck_leave);
+		removeButton(2);
+		removeButton(3);
+		removeButton(4);
+		removeButton(5);
+		removeButton(6);
+	}
+}
+
+private function clover_postFuck_stay():void {
+	clearOutput();
+	outputText("With her sleepy eyes looking into yours, and her face nuzzled against your chest, you could hardly deny her what she wanted. Wrapping your own arms around her, you close your eyes and relax, content to cuddle with her for a few hours. You drift off, your mind going into a haze as you sink into bliss...\n\nEventually you wake up, and manage to pry yourself from the sleeping sheep, walking regrettably back to camp.");
+	dynStats("inte", -5);
+	doNext(camp.returnToCampUseOneHour);
+}
+
+private function clover_postFuck_leave():void {
+	clearOutput();
+	outputText("As enticing as the idea sounds, you really do need to get back to camp. You ruffle her wool slightly and apologize, before gently pushing her arms off of you as you get ready to leave. She seems upset, but curls up on her own, asleep even before you close the door.");
+	doNext(camp.returnToCampUseOneHour);
+}
+
+// Clover peek
+private function clover_peek():void {
+	clearOutput();
+	if (player.spe >= 70)
+		outputText("You dart past the slow sheep girl, stealing a good look at what's in her pen - they're certainly sheep, but not quite what you expected. The pen is full of sheep-morphs, all trotting around like they were actual sheep, some sheared and some with wool ready to be sheared.\n\nYou get pushed back by an agitated Clover. <i>\"Y-you didn't see anything, did you?\"</i> You shake your head, and she sighs in relief.");
+	else if (player.spe >= 40)
+		outputText("You try to sneak past the sheep girl, getting a quick glance in the pen. They're sheep alright, but something seemed odd about them. You don't get to see anymore before an agitated Clover pushes you back. <i>\"Y-you didn't see anything, did you?\"</i> You shake your head, and she sighs in relief.");
+	else
+		outputText("You try to sneak past the sheep girl, but you're just not fast enough to get past her. Her surprisingly strong, fluff-covered body stops you from getting at the pen. <i>\"Please don't do that, it really is private!\"</i> You relent, though now even more curious as to what's in that pen of hers.");
+	doNext(clovisEncounter);
+}
+
+// Clover appearance
+private function clover_appearance():void {
+	clearOutput();
+	outputText("Clover stands before you. She has a feminine face, complete with a cute button nose and a small, adorable smile. Her ruby eyes give off a sleepy expression at all times. Her short, light-green hair curls around her head, parting around two sheeplike ears that droop down in a teardrop shape. Short, nubby horns sprout from her head.\n\nYou estimate that the girl is about 5 feet tall. Her complete lack of clothing displays her curvy body, though she has wooly light-green fleece that generously covers her D-cup breasts and legs. Her above-average thighs extend downward into sheep-like legs, complete with little hooves at the ends.\n\nThe sheep-morph seems rather absent-minded, and if you don't keep her attention, she'll easily drift off. With her sleepy looks, she seems like she could doze off even with you still there.");
+	
+	doNext(clovisEncounter);
+}
+
+// Clover leave
+private function clover_leave():void {
+	clearOutput();
+	outputText("You wave goodbye and begin walking away, regrettably having to leave the girl so soon. Quickly, she runs over and hands another bottle of Clovis to you, with a big smile on her face.\n\n");
+	inventory.takeItem(consumables.CLOVIS, camp.returnToCampUseOneHour);
+}
+
 //Herds (Z)
 private function herds():void {
 	clearOutput();

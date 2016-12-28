@@ -345,6 +345,14 @@ public function goNext(time:Number, needNext:Boolean):Boolean  {
 		}
 		// Benoit preggers update
 		if (flags[kFLAGS.FEMOIT_EGGS] > 0) flags[kFLAGS.FEMOIT_INCUBATION]--; // We're not capping it, we're going to use negative values to figure out diff events
+		
+		// Plush capacity stabilizer
+		if (flags[kFLAGS.PLUSH_EMPTY]) {
+			if (player.findStatusEffect(StatusEffects.BonusVCapacity) < 0) player.createStatusEffect(StatusEffects.BonusVCapacity, 0, 0, 0, 0);
+			if (player.findStatusEffect(StatusEffects.BonusACapacity) < 0) player.createStatusEffect(StatusEffects.BonusACapacity, 0, 0, 0, 0);
+			player.changeStatusValue(StatusEffects.BonusVCapacity, 1, 9999);
+			player.changeStatusValue(StatusEffects.BonusACapacity, 1, 9999);
+		}
 	}
 	
 	// Hanging the Uma massage update here, I think it should work...

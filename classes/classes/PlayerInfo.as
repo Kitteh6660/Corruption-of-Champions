@@ -385,6 +385,10 @@ package classes
 			if (flags[kFLAGS.KATHERINE_UNLOCKED] >= 4) {
 				interpersonStats += "<b>Katherine Submissiveness:</b> " + getGame().telAdre.katherine.submissiveness() + "\n";
 			}
+			
+			if (flags[kFLAGS.CLOVER_SUBMISSIVENESS] > 0) {
+				interpersonStats += "<b>Clover Submissiveness:</b> " + flags[kFLAGS.CLOVER_SUBMISSIVENESS] + "%\n";
+			}
 
 			if (player.findStatusEffect(StatusEffects.Kelt) >= 0 && flags[kFLAGS.KELT_BREAK_LEVEL] == 0 && flags[kFLAGS.KELT_KILLED] == 0) {
 				if (player.statusEffectv2(StatusEffects.Kelt) >= 130)

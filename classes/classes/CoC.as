@@ -215,6 +215,7 @@ the text from being too boring.
 		public var arianScene:ArianScene = new ArianScene();
 		public var ceraphScene:CeraphScene = new CeraphScene();
 		public var ceraphFollowerScene:CeraphFollowerScene = new CeraphFollowerScene();
+		public var dollScene:DollScene = new DollScene();
 		public var emberScene:EmberScene = new EmberScene();
 		public var exgartuan:Exgartuan = new Exgartuan();
 		public var helFollower:HelFollower = new HelFollower();

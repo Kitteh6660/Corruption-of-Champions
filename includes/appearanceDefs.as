@@ -18,6 +18,7 @@ public static const SKIN_TYPE_GOO:int                                           
 public static const SKIN_TYPE_UNDEFINED:int                                         =    4; // DEPRECATED, silently discarded upon loading a saved game
 public static const SKIN_TYPE_DRAGON_SCALES:int                                     =    5;
 public static const SKIN_TYPE_FISH_SCALES:int                                       =    6; // NYI, for future use
+public static const SKIN_TYPE_FLEECE:int                                            =    7;
 
 // hairType
 public static const HAIR_NORMAL:int                                                =     0;
@@ -28,6 +29,7 @@ public static const HAIR_ANEMONE:int                                            
 public static const HAIR_QUILL:int                                                 =     5;
 public static const HAIR_BASILISK_SPINES:int                                       =     6;
 public static const HAIR_BASILISK_PLUME:int                                        =     7;
+public static const HAIR_WOOL:int                                                  =     8;
 
 // beardType
 public static const BEARD_NORMAL:int                                               =     0;
@@ -75,6 +77,8 @@ public static const EYES_BLACK_EYES_SAND_TRAP:int                               
 public static const EYES_LIZARD:int                                                 =   3;
 public static const EYES_DRAGON:int                                                 =   4; // Slightly different description/TF and *maybe* in the future(!) grant different perks/combat abilities
 public static const EYES_BASILISK:int                                               =   5;
+public static const EYES_BUTTON:int                                                 =   6;
+public static const EYES_SHEEP:int                                                  =   7;
 
 // earType
 public static const EARS_HUMAN:int                                                  =   0;
@@ -95,6 +99,7 @@ public static const EARS_PIG:int                                                
 public static const EARS_RHINO:int                                                  =  15;
 public static const EARS_ECHIDNA:int                                                =  16;
 public static const EARS_DEER:int                                                   =  17;
+public static const EARS_SHEEP:int                                                  =  18;
 
 // hornType
 public static const HORNS_NONE:int                                                  =   0;
@@ -106,6 +111,8 @@ public static const HORNS_ANTLERS:int                                           
 public static const HORNS_GOAT:int                                                  =   6;
 public static const HORNS_UNICORN:int                                               =   7;
 public static const HORNS_RHINO:int                                                 =   8;
+public static const HORNS_SHEEP:int                                                 =   9;
+public static const HORNS_RAM:int        	                                        =  10;
 
 // antennae
 public static const ANTENNAE_NONE:int                                               =   0;
@@ -160,6 +167,7 @@ public static const TAIL_TYPE_RHINO:int                                         
 public static const TAIL_TYPE_ECHIDNA:int                                           =  23;
 public static const TAIL_TYPE_DEER:int                                              =  24;
 public static const TAIL_TYPE_SALAMANDER:int                                        =  25;
+public static const TAIL_TYPE_SHEEP:int                                        		=  26;
 
 // wingType
 public static const WING_TYPE_NONE:int                                              =   0;
@@ -202,6 +210,7 @@ public static const LOWER_BODY_TYPE_CLOVEN_HOOFED:int                           
 public static const LOWER_BODY_TYPE_ECHIDNA:int                                     =  23;
 public static const LOWER_BODY_TYPE_DEERTAUR:int                                    =  24; // DEPRECATED, use LOWER_BODY_TYPE_CLOVEN_HOOFED and legCount=4
 public static const LOWER_BODY_TYPE_SALAMANDER:int                                  =  25;
+public static const LOWER_BODY_TYPE_SHEEP:int                                  		=  26;
 
 // piercingtypesNOPEDISABLED
 public static const PIERCING_TYPE_NONE:int                                          =   0;
