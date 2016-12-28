@@ -14,6 +14,7 @@ package classes.Scenes.Combat
 		public function CombatTeases() {}
 		
 		public function teaseAttack():void {
+			flags[kFLAGS.IN_COMBAT_USE_PLAYER_TEASED_FLAG] = 1;
 			if (monster.lustVuln == 0) {
 				clearOutput();
 				outputText("You try to tease " + monster.a + monster.short + " with your body, but it doesn't have any effect on " + monster.pronoun2 + ".\n\n");
@@ -33,6 +34,7 @@ package classes.Scenes.Combat
 		
 		// Just text should force the function to purely emit the test text to the output display, and not have any other side effects
 		public function tease(justText:Boolean = false):void {
+			flags[kFLAGS.IN_COMBAT_USE_PLAYER_TEASED_FLAG] = 1;
 			if (!justText) clearOutput();
 			//You cant tease a blind guy!
 			if (monster.findStatusEffect(StatusEffects.Blind) >= 0) {

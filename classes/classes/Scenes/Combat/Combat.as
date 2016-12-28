@@ -234,6 +234,7 @@ package classes.Scenes.Combat
 		public function combatMenu(newRound:Boolean = true):void { //If returning from a sub menu set newRound to false
 			clearOutput();
 			flags[kFLAGS.IN_COMBAT_USE_PLAYER_WAITED_FLAG] = 0;
+			flags[kFLAGS.IN_COMBAT_USE_PLAYER_TEASED_FLAG] = 0;
 			mainView.hideMenuButton(MainView.MENU_DATA);
 			mainView.hideMenuButton(MainView.MENU_APPEARANCE);
 			mainView.hideMenuButton(MainView.MENU_PERKS);

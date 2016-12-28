@@ -2209,6 +2209,7 @@
 					[SKIN_TYPE_UNDEFINED, "undefined flesh"],
 					[SKIN_TYPE_DRAGON_SCALES, "scales"],
 					[SKIN_TYPE_FISH_SCALES, "scales"],
+					[SKIN_TYPE_FLEECE, "fleece"]
 				]
 		);
 		public static const DEFAULT_SKIN_DESCS:Object = createMapFromPairs(
@@ -2220,6 +2221,7 @@
 					[SKIN_TYPE_UNDEFINED, "skin"],
 					[SKIN_TYPE_DRAGON_SCALES, "scales"],
 					[SKIN_TYPE_FISH_SCALES, "scales"],
+					[SKIN_TYPE_FLEECE, "skin"]
 				]
 		);
 		public static const DEFAULT_HAIR_NAMES:Object = createMapFromPairs(
@@ -2232,6 +2234,7 @@
 					[HAIR_QUILL, "quill"],
 					[HAIR_BASILISK_SPINES, "spiny basilisk"],
 					[HAIR_BASILISK_PLUME, "feathery plume"],
+					[HAIR_WOOL, "woolen"],
 				]
 		);
 		public static const DEFAULT_BEARD_NAMES:Object = createMapFromPairs(
@@ -2287,6 +2290,8 @@
 					[EYES_LIZARD, "lizard"],
 					[EYES_DRAGON, "dragon"],
 					[EYES_BASILISK, "basilisk"],
+					[EYES_BUTTON, "button"],
+					[EYES_SHEEP, "sheep"],
 				]
 		);
 		public static const DEFAULT_EARS_NAMES:Object = createMapFromPairs(
@@ -2308,7 +2313,8 @@
 					[EARS_PIG, "pig"],
 					[EARS_RHINO, "rhino"],
 					[EARS_ECHIDNA, "echidna"],
-					[EARS_DEER, "deer"]
+					[EARS_DEER, "deer"],
+					[EARS_SHEEP, "sheep"]
 				]
 		);
 		public static const DEFAULT_HORNS_NAMES:Object = createMapFromPairs(
@@ -2320,7 +2326,9 @@
 					[HORNS_DRACONIC_X4_12_INCH_LONG, "four 12\" long draconic"],
 					[HORNS_ANTLERS, "deer"],
 					[HORNS_GOAT, "goat"],
-					[HORNS_RHINO, "rhino"]
+					[HORNS_RHINO, "rhino"],
+					[HORNS_SHEEP, "sheep"],
+					[HORNS_RAM, "ram"]
 				]
 		);
 		public static const DEFAULT_ANTENNAE_NAMES:Object = createMapFromPairs(
@@ -2364,7 +2372,8 @@
 					[TAIL_TYPE_RHINO, "rhino"],
 					[TAIL_TYPE_ECHIDNA, "echidna"],
 					[TAIL_TYPE_DEER, "deer"],
-					[TAIL_TYPE_SALAMANDER, "salamander"]
+					[TAIL_TYPE_SALAMANDER, "salamander"],
+					[TAIL_TYPE_SHEEP, "sheep"]
 				]
 		);
 		public static const DEFAULT_WING_NAMES:Object = createMapFromPairs(
@@ -2425,7 +2434,8 @@
 					[LOWER_BODY_TYPE_CLOVEN_HOOFED, "cloven-hoofed"],
 					[LOWER_BODY_TYPE_ECHIDNA, "echidna"],
 					[LOWER_BODY_TYPE_ECHIDNA, "deertaur"],
-					[LOWER_BODY_TYPE_SALAMANDER, "salamander"]
+					[LOWER_BODY_TYPE_SALAMANDER, "salamander"],
+					[LOWER_BODY_TYPE_SHEEP, "sheep"]
 				]
 		);
 		public static const DEFAULT_PIERCING_NAMES:Object = createMapFromPairs(

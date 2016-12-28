@@ -72,6 +72,10 @@ package classes.Scenes.NPCs
 		{
 			return kGAMECLASS.ceraphFollowerScene.ceraphIsFollower();
 		}
+		protected function get dollScene():DollScene
+		{
+			return kGAMECLASS.dollScene;
+		}
 		// Ember
 		protected function get emberScene():EmberScene
 		{

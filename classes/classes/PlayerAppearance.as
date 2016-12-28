@@ -25,7 +25,10 @@ package classes
 			output.clear().header("Appearance");
 			if (race != player.startingRace)	output.text("You began your journey as a " + player.startingRace + ", but gave that up as you explored the dangers of this realm.  ");
 			//Height and race.
-			output.text("You are a [tallness] tall [malefemaleherm] [race], with [bodytype].");
+			output.text("You are a [tallness] tall [malefemaleherm]");
+			if (flags[kFLAGS.PLUSH_SKIN])
+				outputText(" plush");
+			outputText(" [race], with [bodytype].");
 			
 			outputText("  <b>You are currently " + (player.armorDescript() != "gear" ? "wearing your " + player.armorDescript() : "naked") + "" + " and using your " + player.weaponName + " as a weapon.</b>", false);
 			if (player.featheryHairPinEquipped()) {
@@ -258,7 +261,15 @@ package classes
 				if (player.eyeType == EYES_BASILISK)
 					outputText(" Others seem compelled to look into them.");
 			}
-
+			else if (player.eyeType == EYES_BUTTON)
+			{
+				outputText("  Large black buttons occupy the space that your eyes once rested in, however for some odd reason they have no effect on your ability to see.");
+			}
+			else if (player.eyeType == EYES_SHEEP)
+			{
+				outputText("  You have sheeplike eyes with horizontal pupils that constantly give off a lazy, sleepy expression.");
+			}
+			
 			//Hair
 			//if bald
 			if (player.hairLength == 0) 
@@ -301,6 +312,8 @@ package classes
 					outputText("  A pair of small rounded openings appear on your head that are your ears.");
 				else if (player.earType == EARS_DEER) 
 					outputText("  A pair of deer-like ears rise up from the top of your head.", false);
+				else if (player.earType == EARS_SHEEP)
+					outputText("  A pair of teardrop-shaped ears peek out from the sides of your head, their fluffy texture and lazy positioning giving you a cute and sleepy air.", false);
 				//</mod>
 				if (player.antennae == ANTENNAE_BEE) 
 					outputText("  Floppy antennae also appear on your skull, bouncing and swaying in the breeze.", false);
@@ -345,6 +358,10 @@ package classes
 					outputText("  Your " + player.hairDescript() + " makes it near-impossible to see the small, rounded openings that are your ears.");
 				else if (player.earType == EARS_DEER) 
 					outputText("  The " + player.hairDescript() + " on your head parts around a pair of deer-like ears that grow up from your head.", false);
+				else if (player.earType == EARS_SHEEP)
+					outputText("  The " + player.hairDescript() + " on your head parts around a pair of teardrop-shaped ears peeking out from the sides of your head, their fluffy texture and lazy positioning giving you a cute and sleepy air.", false);
+				if (player.hairType == HAIR_WOOL)
+					outputText("  Your hair is thick and poofy, giving off the feel of a sheep's wool. Its soft curls refuse to obey your attempts to straighten it.");
 				//</mod>
 				if (player.gillType == GILLS_FISH) 
 				{
@@ -451,6 +468,16 @@ package classes
 					outputText("  You estimate it to be about "+numInchesOrCentimetres(6)+" long.");
 				else
 					outputText("  It has developed its own cute little spiral. You estimate it to be about "+numInchesOrCentimetres(12)+" long, "+numInchesOrCentimetres(2)+" thick and very sturdy. A very useful natural weapon.");
+			}
+			//Sheep horns
+			if (player.hornType == HORNS_SHEEP)
+			{
+				outputText("  A pair of small sheep horns sit atop your head. They curl out and upwards in a slight crescent shape.");
+			}
+			//Ram horns
+			if (player.hornType == HORNS_RAM)
+			{
+				outputText("  A set of large ram horns sit atop your head, curling around in a tight spiral at the side of your head before coming to an upwards hook around your ears.");
 			}
 			//BODY PG HERE
 			outputText("\n\nYou have a humanoid shape with the usual torso, arms, hands, and fingers.", false);
@@ -756,6 +783,10 @@ package classes
 			{
 				outputText("  A very short, stubby deer tail sprouts from just above your butt.");
 			}
+			else if (player.tailType == TAIL_TYPE_SHEEP) 
+			{
+				outputText("  A fluffy sheep tail hangs down from your rump. It occasionally twitches and shakes, its puffy fluff begging to be touched.");
+			}
 			//</mod>
 			//LOWERBODY SPECIAL
 			if (player.lowerBody == LOWER_BODY_TYPE_HUMAN) 
@@ -799,8 +830,27 @@ package classes
 				outputText("  Your " + num2Text(player.legCount)+ " legs, though covered in fur, are humanlike.  Long feet on the ends bear equally long toes, and the pads on the bottoms are quite sensitive to the touch.");
 			else if (player.lowerBody == LOWER_BODY_TYPE_CLOVEN_HOOFED) 
 				outputText("  " + Num2Text(player.legCount)+ " digitigrade legs form below your [hips], ending in cloven hooves.");
+			else if (player.lowerBody == LOWER_BODY_TYPE_SHEEP) 
+				outputText("  Your " + num2Text(player.legCount) + " sheep-like legs grow from your thighs, their slightly stocky lengths ending in cute little hooves.", false);
 			if (player.findPerk(PerkLib.Incorporeality) >= 0)
 				outputText("  Of course, your " + player.legs() + " are partially transparent due to their ghostly nature.", false); // isn't goo transparent anyway?
+			if (player.hasFleece())
+				outputText("\n\nA " + player.furColor + " fleece covers your middle and thighs like a fluffy bunny suit. Its soft wool slightly obscures your sexual parts in a teasing manner.", false);
+			if (flags[kFLAGS.PLUSH_SKIN])
+				outputText("\n\nYour " + player.skin() + " seems to be fashioned entirely out of a cloth-like material, giving your body a soft feel, while still maintaining the texture of your " + player.skin(true, true) + ".");
+			if (flags[kFLAGS.PLUSH_STITCHES])
+				outputText(" Stitches line your body in artful shapes and designs, making you look like an oversized toy.");
+			if (flags[kFLAGS.PLUSH_EMPTY])
+			{
+				outputText(" Your body is devoid of internals, instead replaced with cotton fluff.");
+				if (player.hasVagina())
+					outputText(" With the amount of room inside you");
+				else
+					outputText(" With the amount of room inside your " + player.assDescript());
+				outputText(", you can fit practically anything, making you seem more like a sex toy than a person.");
+			}
+			if (flags[kFLAGS.PLUSH_ZIPPER])
+				outputText(" A large metal zipper runs down your torso, ending just above your crotch, letting you unzip it and reach into white cottony insides, if you so wish.");
 			
 			outputText("\n", false);
 			if (player.findStatusEffect(StatusEffects.GooStuffed) >= 0)
@@ -1108,7 +1158,7 @@ package classes
 				{
 					if (player.hasPlainSkin()) 
 						outputText("A " + player.sackDescript() + " with " + player.ballsDescript() + " swings heavily under where a penis would normally grow.", false);
-					if (player.hasFur()) 
+					if (player.hasFur() || player.hasFleece()) 
 						outputText("A fuzzy " + player.sackDescript() + " filled with " + player.ballsDescript() + " swings low under where a penis would normally grow.", false);
 					if (player.hasScales()) 
 						outputText("A scaley " + player.sackDescript() + " hugs your " + player.ballsDescript() + " tightly against your body.", false);
@@ -1119,14 +1169,14 @@ package classes
 				{
 					if (player.hasPlainSkin()) 
 						outputText("A " + player.sackDescript() + " with " + player.ballsDescript() + " swings heavily beneath your " + player.multiCockDescriptLight() + ".", false);
-					if (player.hasFur()) 
+					if (player.hasFurOrFleece()) 
 						outputText("A fuzzy " + player.sackDescript() + " filled with " + player.ballsDescript() + " swings low under your " + player.multiCockDescriptLight() + ".", false);
 					if (player.hasScales()) 
 						outputText("A scaley " + player.sackDescript() + " hugs your " + player.ballsDescript() + " tightly against your body.", false);
 					if (player.hasGooSkin()) 
 						outputText("An oozing, semi-solid sack with " + player.ballsDescript() + " swings heavily beneath your " + player.multiCockDescriptLight() + ".", false);
 				}
-				outputText("  You estimate each of them to be about " + numInchesOrCentimetres(player.ballSize) + " across\n");
+				outputText("  You estimate each of them to be about " + numInchesOrCentimetres(player.ballSize) + " across.\n");
 			}	
 			//VAGOOZ
 			if (player.vaginas.length > 0) 
@@ -1253,7 +1303,7 @@ package classes
 					outputText("\nLooking positively perverse, a " + player.cocks[0].pShortDesc + " adorns your " + player.cockDescript(0) + ".", false);
 				}
 			}
-			if (flags[kFLAGS.CERAPH_BELLYBUTTON_PIERCING] == 1) 
+			if (flags[kFLAGS.CERAPH_BELLYBUTTON_PIERCING] == 1)  
 				outputText("\nA magical, ruby-studded bar pierces your belly button, allowing you to summon Ceraph on a whim.", false);
 			if (player.hasVagina()) 
 			{
