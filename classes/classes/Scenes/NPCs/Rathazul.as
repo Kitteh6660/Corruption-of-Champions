@@ -222,6 +222,8 @@ private function rathazulWorkOffer():Boolean {
 		pCounter++;
 	if (player.hasItem(consumables.MINOCUM))
 		pCounter++;
+	if (player.hasItem(consumables.HAPPLE))
+		pCounter++;
 	if (pCounter > 0) {
 		if (pCounter == 1) 
 			outputText("The rat mentions, \"<i>I see you have at least one tainted item on you... for 20 gems I could remove most of the taint, making it a good deal safer to use.  Of course, who knows what kind of freakish transformations it would cause...</i>\"\n\n", false);
@@ -842,6 +844,9 @@ private function purifySomething():void {
 	}
 	if (player.hasItem(consumables.MINOCUM)) {
 		addButton(4, "MinoCum", rathazulPurifyItem, consumables.MINOCUM, consumables.P_M_CUM);
+	}
+	if (player.hasItem(consumables.HAPPLE)) {
+		addButton(5, "HspunAppl", rathazulPurifyItem, consumables.HAPPLE, consumables.UAPPLE);
 	}
 	addButton(14, "Back", returnToRathazulMenu);
 }

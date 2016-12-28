@@ -914,6 +914,10 @@ use namespace kGAMECLASS;
 					if (faceType == 0) race = "deer-" + mf("morph", "girl");
 				}
 			}
+			if (sheepScore() >= 4)
+			{
+				race = "sheep-" + mf("boy", "girl");
+			}
 			//Special, bizarre races
 			if (dragonneScore() >= 6)
 			{
@@ -1760,6 +1764,27 @@ use namespace kGAMECLASS;
 			if (hasFur() && catCounter >= 6)
 				catCounter++;
 			return catCounter;
+		}
+		
+		//Sheep
+		public function sheepScore():Number
+		{
+			var sheepCounter:Number = 0;
+			if (earType == EARS_SHEEP)
+				sheepCounter += 1;
+			if (tailType == TAIL_TYPE_SHEEP)
+				sheepCounter += 1;
+			if (lowerBody == LOWER_BODY_TYPE_HOOFED)
+				sheepCounter += 1;
+			if (eyeType == EYES_SHEEP)
+				sheepCounter += 1;
+			if (hairType == HAIR_WOOL)
+				sheepCounter += 1;
+			if (hornType == HORNS_SHEEP || hornType == HORNS_RAM)
+				sheepCounter += 1;
+			if (hasFleece())
+				sheepCounter += 1;
+			return sheepCounter;
 		}
 		
 		public function lactationQ():Number
@@ -3181,7 +3206,7 @@ use namespace kGAMECLASS;
 		}
 		
 		public function setFurColor(colorArray:Array, ignoreSkinType:Boolean = false):void {
-			if (!ignoreSkinType && !hasFur()) return;
+			if (!ignoreSkinType && !isFurry()) return;
 			furColor = colorArray[rand(colorArray.length)];
 		}
 	}

@@ -80,6 +80,7 @@ package classes.Items
 		public const BIMBOCH:SimpleConsumable = mk("BimboCh","BimboCh", "a bottle of bimbo champagne", curry(function(player:Player):void{getGame().telAdre.niamh.bimboChampagne(player,true,true)}), "A bottle of bimbo champagne. Drinking this might incur temporary bimbofication.", 1);
 		public const C_BREAD:CumBread         = new CumBread();
 		public const CCUPCAK:SimpleConsumable = mk("CCupcak","CCupcak", "a gigantic, chocolate cupcake", m.giantChocolateCupcake, "A gigantic, chocolate cupcake. You could easily get full from eating this!", 250);
+		public const CLOVIS:SimpleConsumable = mk("Clovis","Clovis", "a bottle marked \"Clovis\"", m.clovis, "A small bottle containing a light-pink liquid. There is a round, soft-looking sheep with a clover on its body on the label. The back of the label reads \"Clovis - to help you live in clover.\"")
 		public const FISHFIL:SimpleConsumable = mk("FishFil", "FishFil", "a fish fillet", m.fishFillet, "A perfectly cooked piece of fish.  You're not sure what type of fish is, since you're fairly certain \"delicious\" is not a valid species.");
 		public const FR_BEER:SimpleConsumable = mk("Fr Beer", "Fr Beer", "a mug of frothy beer", m.frothyBeer, "A bottle of beer from The Black Cock.");
 		public const GODMEAD:SimpleConsumable = mk("GodMead","GodMead", "a pint of god's mead", m.godMead,"A horn of potent, honey-colored mead. A single whiff makes your head swim and your thoughts turn to violence and heroism.");
@@ -159,6 +160,8 @@ package classes.Items
 		public const GLDRIND:GoldenRind       = new GoldenRind();
 		public const GLDSEED:SimpleConsumable = mk("GldSeed","GoldenSeed", "a golden seed", curry(m.goldenSeed,0),"This seed looks and smells absolutely delicious.  Though it has an unusual color, the harpies prize these nuts as delicious treats.  Eating one might induce some physical transformations.");
 		public const GOB_ALE:SimpleConsumable = mk("Gob.Ale","Gob.Ale", "a flagon of potent goblin ale", m.goblinAle, "This sealed flagon of 'Goblin Ale' sloshes noisily with alcoholic brew.  Judging by the markings on the flagon, it's a VERY strong drink, and not to be trifled with.");
+		public const HAPPLE:SimpleConsumable = mk("HspunAppl", "HspunAppl", "a homespun apple", m.homespunApple, "An apple that looks to be made entirely out of light-green, knit woolen yarn. Yarn doesn't seem like an edible food item.");
+		public const UAPPLE:SimpleConsumable = mk("UspunAppl", "UspunAppl", "an unspun apple", m.unspunApple, "Though the apple is still its old light-green color, it now appears to be an actual apple.");
 		public const HUMMUS_:SimpleConsumable = mk("Hummus ","Hummanus", "a jar of cheesy-looking hummus", m.regularHummus, "This small clay jar contains a substance known as hummus. Given the label, it's probably going to help you regain lost humanity.", 100);
 		public const IMPFOOD:SimpleConsumable = mk("ImpFood","ImpFood", "a parcel of imp food", m.impFood, "This is a small parcel of reddish-brown bread stuffed with some kind of meat.  It smells delicious.");
 		public const KANGAFT:SimpleConsumable = mk("KangaFt","KangaFruit", "a piece of kanga fruit", curry(m.kangaFruit,0),"A yellow, fibrous, tubular pod.  A split in the end reveals many lumpy, small seeds inside.  The smell of mild fermentation wafts from them.");
