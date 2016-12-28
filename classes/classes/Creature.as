@@ -2473,11 +2473,6 @@ package classes
 			return hasFur() || hasFleece();
 		}
 		
-		public function isFurry():Boolean
-		{
-			return hasFur() || hasFleece();
-		}
-		
 		public function isBiped():Boolean
 		{
 			return legCount == 2;
