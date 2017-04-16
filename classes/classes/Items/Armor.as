@@ -24,6 +24,15 @@ package classes.Items
 			_supportsUndergarment = supportsUndergarment;
 		}
 		
+		override public function canUse():Boolean {
+			if ((this == game.armors.LMARMOR || this == game.armors.R_BDYST || this == game.armors.BONSTRP || this == game.armors.RBBRCLT || this == game.armors.S_SWMWR) &&
+				(game.player.upperGarment != UndergarmentLib.NOTHING || game.player.lowerGarment != UndergarmentLib.NOTHING)) {
+				outputText("It would be awkward to put on " + longName + " when you're currently wearing undergarments. You should consider removing them. You put it back into your inventory.");
+				return false;
+			}
+			return super.canUse();
+		}
+
 		public function get def():Number { return _def; }
 		
 		public function get perk():String { return _perk; }
