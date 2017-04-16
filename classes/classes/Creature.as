@@ -1,6 +1,7 @@
 ﻿//CoC Creature.as
 package classes
 {
+	import classes.BodyParts.Skin;
 	import classes.GlobalFlags.kGAMECLASS;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.PerkType;
@@ -153,13 +154,9 @@ package classes
 		public var hairColor:String = "no";
 		public var hairLength:Number = 0;
 		
-		private var _furColor:String = "no"; //Fur colour!
-		public function get furColor():String {
-			if (hasFur()) return _furColor;
-			else return hairColor;
-		}
-		public function get newFurColor():String { return _furColor; } // alternative getter for the furColor. Ignores the skinType (Stadler76)
-		public function set furColor(value:String):void { _furColor = value; }
+		public function get furColor():String { return skinData.furColor; }
+		public function get newFurColor():String { return skinData.newFurColor; }
+		public function set furColor(value:String):void { skinData.furColor = value; }
 		/*Beardstyle
 		0- normal
 		1- goatee
@@ -173,14 +170,15 @@ package classes
 		1 - furry
 		2 - scaley
 		3 - goopey*/
-		private var _skinType:Number = SKIN_TYPE_PLAIN;
-		public function get skinType():Number { return _skinType; }
-		public function set skinType(value:Number):void { _skinType = value; }
-		private var _skinTone:String = "albino";
-		public function get skinTone():String { return _skinTone; }
-		public function set skinTone(value:String):void { _skinTone = value; }
-		public var skinDesc:String = "skin";
-		public var skinAdj:String = "";
+		public var skinData:Skin;
+		public function get skinType():Number { return skinData.type; }
+		public function set skinType(value:Number):void { skinData.type = value; }
+		public function get skinTone():String { return skinData.tone; }
+		public function set skinTone(value:String):void { skinData.tone = value; }
+		public function get skinDesc():String { return skinData.desc; }
+		public function set skinDesc(value:String):void { skinData.desc = value; }
+		public function get skinAdj():String { return skinData.adj; }
+		public function set skinAdj(value:String):void { skinData.adj = value; }
 		
 /*		Facetype:
 		0 - human
@@ -513,6 +511,7 @@ package classes
 		//Constructor
 		public function Creature()
 		{
+			skinData = new Skin(this);
 			//cocks = new Array();
 			//The world isn't ready for typed Arrays just yet.
 			cocks = [];
@@ -2636,23 +2635,7 @@ package classes
 			return "legs";
 		}
 
-		public function skinFurScales():String
-		{
-			var skinzilla:String = "";
-			//Adjectives first!
-			if (skinAdj != "")
-				skinzilla += skinAdj + ", ";
-			//Fur handled a little differently since it uses
-			//haircolor
-			if (hasFur())
-				skinzilla += furColor + " ";
-			else if (hasDragonScales())
-				skinzilla += "iron-like, " + _skinTone + " shield-shaped ";
-			else
-				skinzilla += _skinTone + " ";
-			skinzilla += skinDesc;
-			return skinzilla;
-		}
+		public function skinFurScales():String { return skinData.skinFurScales(); }
 
 		// <mod name="Predator arms" author="Stadler76">
 		public function claws():String
