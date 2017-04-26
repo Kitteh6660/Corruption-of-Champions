@@ -1211,7 +1211,7 @@ private function getThatRatAss():void {
 	clearOutput();
 	outputText("You slide over to Rathazul's spot in camp and wink at him, saying, \"<i>Hey cutie, do you have 11 protons? Cause your sodium fine.</i>\"\n\n");
 	outputText("Rathazul looks up from the whatever it is he's working on and blinks wearily. \"<i>What?</i>\"\n\n");
-	outputText("\"<i>Oh, nothing.</i>\" You let out a soft laugh. \"<i>Just that we have chemistry, so I think it's time we try some biology.</i>"\n\n");
+	outputText("\"<i>Oh, nothing.</i>\" You let out a soft laugh. \"<i>Just that we have chemistry, so I think it's time we try some biology.</i>\"\n\n");
 	outputText("There's a moment of silence, then he coughs. \"<i>I-I'm sorry, what are you trying to say?</i>\" There's a glimmer of a plea in his eyes, asking you to stop.\n\n");
 	outputText("No way. You are getting what you came here for. You puff your chest and declare, \"<i>I wanna fuck you.</i>\"\n\n");
 	outputText("\"<i>Oh... Ohhhh no...</i>\" He takes a couple steps back, mumbling, \"<i>No, no no no no no no, no, no...</i>\" His eyes glaze over and his steps grow uncoordinated as his soul seems to leave his body. \"<i>No, no, no... No... No...</i>\"\n\n");
