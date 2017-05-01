@@ -1374,7 +1374,7 @@ use namespace kGAMECLASS;
 			if (tailType == TAIL_TYPE_FOX)
 				kitsuneCounter++;
 			//If the character has two or more fox tails, +2
-			if (tailType == TAIL_TYPE_FOX && tailVenom >= 2)
+			if (tailType == TAIL_TYPE_FOX && tailCount >= 2)
 				kitsuneCounter += 2;
 			//If the character has tattooed skin, +1
 			//9999
@@ -2206,7 +2206,7 @@ use namespace kGAMECLASS;
 		
 		public function addToWornClothesArray(armor:Armor):void {
 			for (var i:int = 0; i < previouslyWornClothes.length; i++) {
-				if (previouslyWornClothes[i] == armor.shortName) return; //Already have?
+				if (previouslyWornClothes[i] == armor) return; //Already have?
 			}
 			previouslyWornClothes.push(armor.shortName);
 		}
@@ -2627,17 +2627,17 @@ use namespace kGAMECLASS;
 			}
 			if (kitsuneScore() >= 4) {
 				if (tailType == 13) {
-					if (tailVenom == 1) {
+					if (tailCount == 1) {
 						maxStr -= 2;
 						maxSpe += 2;
 						maxInt += 1;
 					}
-					else if (tailVenom >= 2 && tailVenom < 9) {
-						maxStr -= tailVenom + 1;
-						maxSpe += tailVenom + 1;
-						maxInt += (tailVenom/2) + 0.5;
+					else if (tailCount >= 2 && tailCount < 9) {
+						maxStr -= tailCount + 1;
+						maxSpe += tailCount + 1;
+						maxInt += (tailCount/2) + 0.5;
 					}
-					else if (tailVenom >= 9) {
+					else if (tailCount >= 9) {
 						maxStr -= 10;
 						maxSpe += 10;
 						maxInt += 5;

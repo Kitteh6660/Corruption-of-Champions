@@ -481,7 +481,7 @@
 			}
 			var isPierced:Boolean = (creature.cocks.length == 1) && (creature.cocks[cockIndex].isPierced); //Only describe as pierced or sock covered if the creature has just one cock
 			var hasSock:Boolean = (creature.cocks.length == 1) && (creature.cocks[cockIndex].sock != "");
-			var isGooey:Boolean = (creature.skinType == CoC.SKIN_TYPE_GOO);
+			var isGooey:Boolean = (creature.skinType == SKIN_TYPE_GOO);
 			return cockDescription(cockType, creature.cocks[cockIndex].cockLength, creature.cocks[cockIndex].cockThickness, creature.lust, creature.cumQ(), isPierced, hasSock, isGooey);
 		}
 
@@ -2045,12 +2045,17 @@
 			return DEFAULT_EYES_NAMES[i_creature.eyeType] + " eyes";
 		}
 
-		public static function nagaLowerBodyColor2(i_creature:Creature):String
+		public static function lighterColor(color:String):String
 		{
-			if (i_creature.underBody.skin.tone in NAGA_LOWER_BODY_COLORS)
-				return NAGA_LOWER_BODY_COLORS[i_creature.underBody.skin.tone];
-
-			return i_creature.underBody.skin.tone;
+			if (color in LIGHTER_COLORS)
+				return LIGHTER_COLORS[color];
+			return color;
+		}
+		public static function secondaryScaleColor(color:String):String
+		{
+			if (color in SCALE_SECONDARY_COLORS)
+				return SCALE_SECONDARY_COLORS[color];
+			return color;
 		}
 		
 		public static const BREAST_CUP_NAMES:Array = [
@@ -2109,27 +2114,32 @@
 			return result;
 		}
 
-		public static const NAGA_LOWER_BODY_COLORS:Object = createMapFromPairs(
+		public static const LIGHTER_COLORS:Object = createMapFromPairs(
 				[
 					["red",          "orange"],
 					["orange",       "yellow"],
-					["yellow",       "yellowgreen"],
 					["yellowgreen",  "yellow"],
-					["green",        "light green"],
-					["spring green", "cyan"],
 					["cyan",         "ocean blue"],
 					["ocean blue",   "light blue"],
 					["blue",         "light blue"],
 					["purple",       "light purple"],
-					["magenta",      "blue"],
 					["deep pink",    "pink"],
-					["black",        "dark gray"],
-					["white",        "light gray"],
-					["gray",         "light gray"],
-					["light gray",   "white"],
-					["dark gray",    "gray"],
 					["pink",         "pale pink"],
+					["black",        "dark gray"],
+					["dark gray",    "gray"],
+					["gray",         "light gray"],
+					["light gray",   "white"]
 				]
+		);
+		public static const SCALE_SECONDARY_COLORS:Object = copyObject(
+				shallowCopy(LIGHTER_COLORS),
+				createMapFromPairs([
+					["green",        "light green"],
+					["yellow",       "white"],
+					["spring green", "cyan"],
+					["magenta",      "blue"],
+					["white",        "light gray"]
+				])
 		);
 		public static const DEFAULT_GENDER_NAMES:Object = createMapFromPairs(
 				[
@@ -2540,16 +2550,15 @@
 			
 			var descript:String = "";
 			
-			if (i_creature.tailType == TAIL_TYPE_FOX && i_creature.tailVenom >= 1)
+			if (i_creature.tailType == TAIL_TYPE_FOX && i_creature.tailCount >= 1)
 			{
-				// Kitsune tails, we're using tailVenom to track tail count
-				if (i_creature.tailVenom > 1)
+				if (i_creature.tailCount > 1)
 				{
-					if (i_creature.tailVenom == 2) descript += "pair ";
-					else if (i_creature.tailVenom == 3) descript += "trio ";
-					else if (i_creature.tailVenom == 4) descript += "quartet ";
-					else if (i_creature.tailVenom == 5) descript += "quintet ";
-					else if (i_creature.tailVenom > 5) descript += "bundle ";
+					if (i_creature.tailCount == 2) descript += "pair ";
+					else if (i_creature.tailCount == 3) descript += "trio ";
+					else if (i_creature.tailCount == 4) descript += "quartet ";
+					else if (i_creature.tailCount == 5) descript += "quintet ";
+					else if (i_creature.tailCount > 5) descript += "bundle ";
 					
 					descript += "of kitsune tails";
 				}
@@ -2574,9 +2583,9 @@
 			
 			var descript:String = "";
 			
-			if (i_creature.tailType == TAIL_TYPE_FOX && i_creature.tailVenom >= 1)
+			if (i_creature.tailType == TAIL_TYPE_FOX && i_creature.tailCount >= 1)
 			{
-				if (i_creature.tailVenom == 1)
+				if (i_creature.tailCount == 1)
 				{
 					descript += "your kitsune tail";
 				}

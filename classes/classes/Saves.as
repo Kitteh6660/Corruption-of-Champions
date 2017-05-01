@@ -6,6 +6,7 @@
 	import classes.GlobalFlags.kACHIEVEMENTS;
 	import classes.Scenes.Inventory;
 	import classes.Scenes.Places.TelAdre.Katherine;
+	import classes.internals.SimpleJsonable;
 	import classes.internals.LoggerFactory;
 	import mx.logging.ILogger;
 
@@ -894,6 +895,14 @@ public function saveGameObject(slot:String, isFile:Boolean):void
 		saveFile.data.clawTone = player.clawTone;
 		saveFile.data.clawType = player.clawType;
 		// </mod>
+		/*for each (var key:String in ["underBody","lowerBodyPart","skin","clawsPart"]) {
+			saveFile.data[key] = (player[key] as SimpleJsonable).saveToObject();
+		}*/
+		saveFile.data.face = player.facePart.saveToObject();
+		saveFile.data.lowerBodyPart = player.lowerBodyPart.saveToObject();
+		saveFile.data.skin = player.skin.saveToObject();
+		saveFile.data.clawsPart = player.clawsPart.saveToObject();
+
 		saveFile.data.wingDesc = player.wingDesc;
 		saveFile.data.wingType = player.wingType;
 		saveFile.data.lowerBody = player.lowerBody;
@@ -1366,6 +1375,98 @@ public function onDataLoaded(evt:Event):void
 	//playerMenu();
 }
 
+/**
+ * Upgrade loaded saveFile.data object to most recent version
+ * so the loadGameObject can proceed without hacks
+ */
+private function unFuckSaveDataBeforeLoading(data:Object):void {
+	if (typeof data.lowerBodyPart != 'object') {
+		if (data.legCount == undefined) {
+			switch (data.lowerBody) {
+				case LOWER_BODY_TYPE_DRIDER_LOWER_BODY:
+					data.legCount = 8;
+					break;
+				case LOWER_BODY_TYPE_CENTAUR:
+					data.legCount  = 4;
+					data.lowerBody = LOWER_BODY_TYPE_HOOFED;
+					break;
+				case LOWER_BODY_TYPE_PONY:
+					data.legCount = 4;
+					break;
+				case LOWER_BODY_TYPE_DEERTAUR:
+					data.legCount  = 4;
+					data.lowerBody = LOWER_BODY_TYPE_CLOVEN_HOOFED;
+					break;
+				case LOWER_BODY_TYPE_NAGA:
+					data.legCount = 1;
+					break;
+				case LOWER_BODY_TYPE_GOO:
+					data.legCount = 1;
+					break;
+				default:
+					data.legCount = 2;
+			}
+		}
+		data.lowerBodyPart = {
+			type    : data.lowerBody,
+			legCount: data.legCount
+		};
+	}
+	if (typeof data.skin != 'object') {
+		//Convert from old skinDesc to new skinAdj + skinDesc!
+		var skinDesc:* = data.skinDesc;
+		var skinAdj:*  = data.skinAdj;
+		var skinType:* = data.skinType;
+		for each (var legacyAdj:String in ["smooth", "thick", "rubber", "latex", "slimey"]) {
+			if (skinDesc.indexOf(legacyAdj) != -1) {
+				skinAdj = legacyAdj;
+				if (skinType == SKIN_TYPE_FUR) {
+					skinDesc = "fur";
+				} else if (skinType == SKIN_TYPE_GOO) {
+					skinDesc = "goo";
+				} else if ([
+							   SKIN_TYPE_DRAGON_SCALES,
+							   SKIN_TYPE_FISH_SCALES,
+							   SKIN_TYPE_LIZARD_SCALES
+						   ].indexOf(skinType) >= 0) {
+					skinDesc = "scales";
+				} else {
+					skinDesc = "skin";
+				}
+			}
+		}
+		data.skin = {
+			type    : data.skinType || SKIN_TYPE_PLAIN,
+			desc    : skinDesc || "skin",
+			adj     : skinAdj || "",
+			color   : data.skinTone || "albino",
+			furColor: data.furColor || "no"
+		}
+	}
+	if (typeof data.clawPart !== "object") {
+		data.clawPart = {
+			clawTone: data.clawTone||"",
+			clawType: data.clawType|0
+		}
+	}
+	if (typeof data.facePart !== "object") {
+		data.facePart = {
+			type: data.faceType
+		}
+	}
+	if (typeof data.tail !== "object") {
+		var venomAsCount:Boolean = data.tailType == TAIL_TYPE_FOX;
+		data.tail = {
+			type    : data.tailType,
+			venom   : venomAsCount ? 0 : data.tailVenum,
+			recharge: data.tailRecharge,
+			count   : (data.tailType == 0) ? 0 : venomAsCount ? data.tailVenum : 1
+		}
+	}
+	if (typeof data.underBody !== "object") {
+		data.underBody = {};
+	}
+}
 public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 {
 	var game:CoC = getGame();
@@ -1379,10 +1480,11 @@ public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 	player.slotName = slot;
 
 	var counter:Number = player.cocks.length;
-	trace("Loading save!")
+	trace("Loading save!");
 	//Initialize the save file
 	//var saveFile:Object = loader.data.readObject();
 	var saveFile:* = saveData;
+	var data:Object = saveFile.data;
 	if (saveFile.data.exists)
 	{
 
@@ -1410,9 +1512,9 @@ public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 			game.versionID = saveFile.data.versionID;
 			trace("Found internal versionID:", game.versionID);
 		}
-
+		unFuckSaveDataBeforeLoading(saveFile.data);
 		//PIERCINGS
-		
+
 		//trace("LOADING PIERCINGS");
 		player.nipplesPierced = saveFile.data.nipplesPierced;
 		player.nipplesPShort = saveFile.data.nipplesPShort;
@@ -1432,7 +1534,7 @@ public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 		player.nosePierced = saveFile.data.nosePierced;
 		player.nosePShort = saveFile.data.nosePShort;
 		player.nosePLong = saveFile.data.nosePLong;
-		
+
 		//MAIN STATS
 		player.str = saveFile.data.str;
 		player.tou = saveFile.data.tou;
@@ -1658,10 +1760,6 @@ public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 			player.thickness = saveFile.data.thickness;
 		
 		player.tallness = saveFile.data.tallness;
-		if (saveFile.data.furColor == undefined || saveFile.data.furColor == "no")
-			player.furColor = saveFile.data.hairColor;
-		else
-			player.furColor = saveFile.data.furColor;
 		player.hairColor = saveFile.data.hairColor;
 		if (saveFile.data.hairType == undefined)
 			player.hairType = 0;
@@ -1678,82 +1776,14 @@ public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 		else
 			player.armType = saveFile.data.armType;
 		player.hairLength = saveFile.data.hairLength;
-		player.skinType = saveFile.data.skinType;
-		if (saveFile.data.skinAdj == undefined)
-			player.skinAdj = "";
-		else
-			player.skinAdj = saveFile.data.skinAdj;
-		player.skinTone = saveFile.data.skinTone;
-		player.skinDesc = saveFile.data.skinDesc;
-		//Silently discard SKIN_TYPE_UNDEFINED
-		if (player.skinType == SKIN_TYPE_UNDEFINED)
-		{
-			player.skinAdj = "";
-			player.skinDesc = "skin";
-			player.skinType = SKIN_TYPE_PLAIN;
-		}
-		//Convert from old skinDesc to new skinAdj + skinDesc!
-		if (player.skinDesc.indexOf("smooth") != -1)
-		{
-			player.skinAdj = "smooth";
-			if (player.hasPlainSkin())
-				player.skinDesc = "skin";
-			if (player.hasFur())
-				player.skinDesc = "fur";
-			if (player.hasScales())
-				player.skinDesc = "scales";
-			if (player.hasGooSkin())
-				player.skinDesc = "goo";
-		}
-		if (player.skinDesc.indexOf("thick") != -1)
-		{
-			player.skinAdj = "thick";
-			if (player.hasPlainSkin())
-				player.skinDesc = "skin";
-			if (player.hasFur())
-				player.skinDesc = "fur";
-			if (player.hasScales())
-				player.skinDesc = "scales";
-			if (player.hasGooSkin())
-				player.skinDesc = "goo";
-		}
-		if (player.skinDesc.indexOf("rubber") != -1)
-		{
-			player.skinAdj = "rubber";
-			if (player.hasPlainSkin())
-				player.skinDesc = "skin";
-			if (player.hasFur())
-				player.skinDesc = "fur";
-			if (player.hasScales())
-				player.skinDesc = "scales";
-			if (player.hasGooSkin())
-				player.skinDesc = "goo";
-		}
-		if (player.skinDesc.indexOf("latex") != -1)
-		{
-			player.skinAdj = "latex";
-			if (player.hasPlainSkin())
-				player.skinDesc = "skin";
-			if (player.hasFur())
-				player.skinDesc = "fur";
-			if (player.hasScales())
-				player.skinDesc = "scales";
-			if (player.hasGooSkin())
-				player.skinDesc = "goo";
-		}
-		if (player.skinDesc.indexOf("slimey") != -1)
-		{
-			player.skinAdj = "slimey";
-			if (player.hasPlainSkin())
-				player.skinDesc = "skin";
-			if (player.hasFur())
-				player.skinDesc = "fur";
-			if (player.hasScales())
-				player.skinDesc = "scales";
-			if (player.hasGooSkin())
-				player.skinDesc = "goo";
-		}
-		player.faceType = saveFile.data.faceType;
+		/*for each (var key:String in ["underBody","lowerBodyPart","skin","clawPart"]) {
+			(player[key] as SimpleJsonable).loadFromObject(saveFile.data[key],true);
+		}*/
+		player.lowerBodyPart.loadFromObject(data.lowerBodyPart||{},true);
+		player.skin.loadFromObject(data.skin||{},true);
+		player.clawsPart.loadFromObject(data.clawsPart||{},true);
+		player.facePart.loadFromObject(data.facePart||{},true);
+		player.tail.loadFromObject(data.tail||{},true);
 		if (saveFile.data.tongueType == undefined)
 			player.tongueType = TONGUE_HUMAN;
 		else
@@ -1780,46 +1810,12 @@ public function loadGameObject(saveData:Object, slot:String = "VOID"):void
 		if (saveFile.data.underBody is UnderBody)
 			player.underBody.setAllProps(saveFile.data.underBody);
 		// </mod>
-		// <mod name="Predator arms" author="Stadler76">
-		player.clawTone = (saveFile.data.clawTone == undefined) ? ""               : saveFile.data.clawTone;
-		player.clawType = (saveFile.data.clawType == undefined) ? CLAW_TYPE_NORMAL : saveFile.data.clawType;
-		// </mod>
 
 		player.wingDesc = saveFile.data.wingDesc;
 		player.wingType = saveFile.data.wingType;
-		player.lowerBody = saveFile.data.lowerBody;
-		player.tailType = saveFile.data.tailType;
-		player.tailVenom = saveFile.data.tailVenum;
-		player.tailRecharge = saveFile.data.tailRecharge;
 		player.hipRating = saveFile.data.hipRating;
 		player.buttRating = saveFile.data.buttRating;
-		
-		if (saveFile.data.legCount == undefined) {
-			if (player.lowerBody == LOWER_BODY_TYPE_DRIDER_LOWER_BODY) {
-				player.legCount = 8;
-			}
-			else if (player.lowerBody == LOWER_BODY_TYPE_CENTAUR) {
-				player.legCount = 4;
-				player.lowerBody = LOWER_BODY_TYPE_HOOFED;
-			}
-			else if (player.lowerBody == LOWER_BODY_TYPE_PONY) {
-				player.legCount = 4;
-			}
-			else if (player.lowerBody == LOWER_BODY_TYPE_DEERTAUR) {
-				player.legCount = 4;
-				player.lowerBody = LOWER_BODY_TYPE_CLOVEN_HOOFED;
-			}
-			else if (player.lowerBody == LOWER_BODY_TYPE_NAGA) {
-				player.legCount = 1;
-			}
-			else if (player.lowerBody == LOWER_BODY_TYPE_GOO) {
-				player.legCount = 1;
-			}
-			else player.legCount = 2;
-		}
-		else
-			player.legCount = saveFile.data.legCount;
-		
+
 		//Sexual Stuff
 		player.balls = saveFile.data.balls;
 		player.cumMultiplier = saveFile.data.cumMultiplier;
