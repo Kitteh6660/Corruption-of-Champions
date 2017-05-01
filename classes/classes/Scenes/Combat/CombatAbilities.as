@@ -1612,7 +1612,7 @@ package classes.Scenes.Combat
 				return;
 			}
 			//Works similar to bee stinger, must be regenerated over time. Shares the same poison-meter
-		    if (rand(player.spe/2 + 40) + 20 > monster.spe/1.5 || monster.hasStatusEffect(StatusEffects.Constricted)) {
+		    if (rand(player.spe/2 + 40) + 20 > monster.spe/1.5 || monster.hasStatusEffect(StatusEffects.Constricted)) {
 				//(if monster = demons)
 				if (monster.short == "demons") outputText("You look at the crowd for a moment, wondering which of their number you should bite. Your glance lands upon the leader of the group, easily spotted due to his snakeskin cloak. You quickly dart through the demon crowd as it closes in around you and lunge towards the broad form of the leader. You catch the demon off guard and sink your needle-like fangs deep into his flesh. You quickly release your venom and retreat before he, or the rest of the group manage to react.", false);
 				//(Otherwise) 
@@ -1643,7 +1643,7 @@ package classes.Scenes.Combat
 					monster.createStatusEffect(StatusEffects.NagaVenom,1,0,0,0);
 			}
 			else {
-		       outputText("You lunge headfirst, fangs bared. Your attempt fails horrendously, as " + monster.a + monster.short + " manages to counter your lunge, knocking your head away with enough force to make your ears ring.", false);
+		       outputText("You lunge headfirst, fangs bared. Your attempt fails horrendously, as " + monster.a + monster.short + " manages to counter your lunge, knocking your head away with enough force to make your ears ring.", false);
 			}
 			outputText("\n\n", false);
 			if (monster.HP < 1 || monster.lust >= monster.eMaxLust()) combat.combatRoundOver();
@@ -1673,7 +1673,7 @@ package classes.Scenes.Combat
 				return;
 			}
 			//Works similar to bee stinger, must be regenerated over time. Shares the same poison-meter
-		    if (rand(player.spe/2 + 40) + 20 > monster.spe/1.5) {
+		    if (rand(player.spe/2 + 40) + 20 > monster.spe/1.5) {
 				//(if monster = demons)
 				if (monster.short == "demons") outputText("You look at the crowd for a moment, wondering which of their number you should bite. Your glance lands upon the leader of the group, easily spotted due to his snakeskin cloak. You quickly dart through the demon crowd as it closes in around you and lunge towards the broad form of the leader. You catch the demon off guard and sink your needle-like fangs deep into his flesh. You quickly release your venom and retreat before he, or the rest of the group manage to react.", false);
 				//(Otherwise) 
@@ -1692,7 +1692,7 @@ package classes.Scenes.Combat
 				}
 			}
 			else {
-		       outputText("You lunge headfirst, fangs bared. Your attempt fails horrendously, as " + monster.a + monster.short + " manages to counter your lunge, pushing you back out of range.", false);
+		       outputText("You lunge headfirst, fangs bared. Your attempt fails horrendously, as " + monster.a + monster.short + " manages to counter your lunge, pushing you back out of range.", false);
 			}
 			outputText("\n\n", false);
 			if (monster.HP < 1 || monster.lust >= monster.eMaxLust()) combat.combatRoundOver();
