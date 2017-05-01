@@ -727,9 +727,9 @@ public function helSpawnsSetup():void {
 	if (flags[kFLAGS.HELSPAWN_DADDY] == 1) flags[kFLAGS.HELSPAWN_PERSONALITY] -= 10;
 	if (flags[kFLAGS.HELSPAWN_DADDY] == 0) {
 		//>If Corrupt (66+ Corr) PC is daddy: +10 Helspawn Slutty
-		if (player.cor >= 66) flags[kFLAGS.HELSPAWN_PERSONALITY] += 10;
+		if (player.cor >= (66 + player.corruptionTolerance())) flags[kFLAGS.HELSPAWN_PERSONALITY] += 10;
 		//>If Pure (33> Corr) PC is daddy: +10 Helspawn Chaste
-		if (player.cor <= 33) flags[kFLAGS.HELSPAWN_PERSONALITY] -= 10;
+		if (player.cor <= (33 + player.corruptionTolerance())) flags[kFLAGS.HELSPAWN_PERSONALITY] -= 10;
 	}
 	flags[kFLAGS.HELSPAWN_AGE] = 1;
 	flags[kFLAGS.HELSPAWN_GROWUP_COUNTER] = 1;
