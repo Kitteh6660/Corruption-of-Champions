@@ -215,7 +215,7 @@ package classes.Scenes.Areas
 				outputText("Your stroll around the lake increasingly bores you, leaving your mind to wander.  ", true);
 				if (player.cor > 30 || player.lust > 60 || player.lib > 40) outputText("Your imaginings increasingly seem to turn ", false);
 				else dynStats("int", 1);
-				if ((player.cor > 30 && player.cor < 60) || (player.lust > 60 && player.lust < 90) || (player.lib > 40 && player.lib < 75)) {
+				if ((player.cor > 30 && player.cor < (60 + player.corruptionTolerance())) || (player.lust > 60 && player.lust < 90) || (player.lib > 40 && player.lib < 75)) {
 					outputText("to thoughts of sex.", false);
 					dynStats("lus", (5 + player.lib / 10));
 					displayed = true;
