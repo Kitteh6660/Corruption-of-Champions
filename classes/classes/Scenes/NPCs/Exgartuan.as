@@ -824,7 +824,7 @@ private function leaveBeePostRape():void {
 private function exgartuanSleepSurprise():void {
 	spriteSelect(15);
 	//Low corruption
-	if (player.cor <= 20 && player.findPerk(PerkLib.BulgeArmor) >= 0) {
+	if (player.cor <= (20 + player.corruptionTolerance()) && player.findPerk(PerkLib.BulgeArmor) >= 0) {
 		outputText("A light breeze skims across your face, slowly fading away what little sleep you had managed to enjoy.  As your eyes slowly open and adjust, you begin to faintly make out the red moon sitting high in the sky through the fabric of your " + camp.homeDesc() + ".  What little light there is comes from the faint remnants of your campfire, down to just embers by this point.  You slowly roll your head to look towards the warmth only to find the entrance to your " + camp.homeDesc() + " still wide open.  A slight grimace forms as you begin to stretch awake, only to interrupt yourself upon the realization that you are still wearing your " + player.armorName + ".  A quick yet groggy glance also reveals that you've also managed to fall asleep on top of your " + camp.bedDesc() + " rather than nestled cozily inside it.\n\n", false);
 		
 		outputText("You glide your hands up past your forehead and through your " + player.hairDescript() + " as you sit up, indulging in a relaxing, deep breath.  Seeing as how you don't appear to have transmogrified or been roughed up in any discernible fashion, your best guess is that you fell asleep while unraveling your " + camp.bedDesc() + ".  Too tired to further debate this with yourself, you begin to strip naked while thoughts of returning to blissful slumber ease any lingering worries.", false);
