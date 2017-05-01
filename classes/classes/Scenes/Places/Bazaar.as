@@ -48,11 +48,11 @@ public function findBazaar():void {
 private function approachBazaarGuard():void {
 	clearOutput();
 	outputText("You step from concealment and walk up to the strange man, calling out in greeting.  He folds his arms across his chest and looks you up and down, peering at you with intense, black eyes.  They aren't solid onyx, but his irises are just as dark as the seemingly bottomless depths of his pupils.  His appraising gaze watches you, unblinking as second after second ticks by.  Just when you start to wonder if he speaks your language, he interrupts you by saying, \"<i>", false);
-	if (player.cor < 33 - player.corruptionTolerance() && flags[kFLAGS.MEANINGLESS_CORRUPTION] <= 0) outputText("Leave at once.  You are not yet ready for the wonders of the Bazaar.", false);
+	if (player.cor < (33 - player.corruptionTolerance()) && flags[kFLAGS.MEANINGLESS_CORRUPTION] <= 0) outputText("Leave at once.  You are not yet ready for the wonders of the Bazaar.", false);
 	else outputText("Welcome to the Bizarre Bazaar.  Enter, but be mindful of your actions within.", false);
 	outputText("</i>\"", false);
 	menu();
-	if (player.cor < 33 - player.corruptionTolerance() && flags[kFLAGS.MEANINGLESS_CORRUPTION] <= 0) {
+	if (player.cor < (33 - player.corruptionTolerance()) && flags[kFLAGS.MEANINGLESS_CORRUPTION] <= 0) {
 		addButton(0, "FIGHT!",initiateFightGuard);
 	} else {
 		addButton(0, "Enter",enterTheBazaar);
@@ -1055,7 +1055,7 @@ private function assaultYoRapistYo():void {
 		//open options [Leave][Abuse ass(70 or more corruption)]
 		menu();
 		addButton(4,"Leave", assaultWinAndLeave);
-		if (player.cor >= 66 - player.corruptionTolerance() || flags[kFLAGS.MEANINGLESS_CORRUPTION] > 0) addButton(0,"Abuse Ass",abuseHisAss);
+		if (player.cor >= (66 - player.corruptionTolerance()) || flags[kFLAGS.MEANINGLESS_CORRUPTION] > 0) addButton(0,"Abuse Ass",abuseHisAss);
 	}
 }
 
