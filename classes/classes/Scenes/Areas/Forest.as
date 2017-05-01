@@ -235,7 +235,7 @@ package classes.Scenes.Areas
 				case 1: //Jojo
 					clearOutput();
 					if (flags[kFLAGS.JOJO_STATUS] == 0 && !player.hasStatusEffect(StatusEffects.PureCampJojo)) {
-						if (player.cor < 25)
+						if (player.cor < (25 + player.corruptionTolerance()))
 						{
 							if (player.level >= 4)
 							{
@@ -325,7 +325,7 @@ package classes.Scenes.Areas
 						getGame().succubusScene.encounterSuccubus();
 					break;
 				default: //Failsafe
-					if (player.cor < 80) {
+					if (player.cor < (80 + player.corruptionTolerance())) {
 						outputText("You enjoy a peaceful walk in the woods, it gives you time to think.", false);
 						dynStats("tou", .5, "int", 1);
 					}
