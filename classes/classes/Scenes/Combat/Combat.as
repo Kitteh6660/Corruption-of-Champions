@@ -982,8 +982,8 @@ package classes.Scenes.Combat
 						monster.teased(monster.lustVuln * (5 + player.cor / 12));
 					}
 					if (player.weapon == weapons.SUCWHIP) {
-						if (player.cor < 60) dynStats("cor", .1);
-						if (player.cor < 90) dynStats("cor", .05);
+						if (player.cor < (60 + player.corruptionTolerance())) dynStats("cor", .1);
+						if (player.cor < (90 + player.corruptionTolerance())) dynStats("cor", .05);
 						if (!monster.plural) outputText("\n" + monster.capitalA + monster.short + " shivers and moans involuntarily from the whip's touches.", false);
 						else outputText("\n" + monster.capitalA + monster.short + " shiver and moan involuntarily from the whip's touches.", false);
 						monster.teased(monster.lustVuln * (20 + player.cor / 15));
@@ -994,8 +994,8 @@ package classes.Scenes.Combat
 						
 					}
 					if (player.weapon == weapons.L_WHIP) {
-						if (player.cor < 60) dynStats("cor", .1);
-						if (player.cor < 90) dynStats("cor", .05);
+						if (player.cor < (60 + player.corruptionTolerance())) dynStats("cor", .1);
+						if (player.cor < (90+ + player.corruptionTolerance())) dynStats("cor", .05);
 						if (!monster.plural) outputText("\n" + monster.capitalA + monster.short + " shivers and moans involuntarily from the flaming whip's touches.", false);
 						else outputText("\n" + monster.capitalA + monster.short + " shiver and moan involuntarily from the flaming whip's touches.", false);
 						monster.teased(monster.lustVuln * (25 + player.cor / 10));
@@ -1475,7 +1475,7 @@ package classes.Scenes.Combat
 				var slap:Number = 3 + (player.maxHP() * 0.02);
 				outputText("<b>Your muscles twitch in agony as the acid keeps burning you. <b>(<font color=\"#800000\">" + slap + "</font>)</b></b>\n\n", false);
 			}
-			if (player.findPerk(PerkLib.ArousingAura) >= 0 && monster.lustVuln > 0 && player.cor >= 70) {
+			if (player.findPerk(PerkLib.ArousingAura) >= 0 && monster.lustVuln > 0 && player.cor >= (70 - player.corruptionTolerance())) {
 				if (monster.lust < 50) outputText("Your aura seeps into " + monster.a + monster.short + " but does not have any visible effects just yet.\n\n", false);
 				else if (monster.lust < 60) {
 					if (!monster.plural) outputText(monster.capitalA + monster.short + " starts to squirm a little from your unholy presence.\n\n", false);
