@@ -155,7 +155,7 @@ internal function kihaSpiderEventIntro():void {
 	outputText("Furious, she screams, \"<i>I knew it!  You really ARE one of Lethice's spies, aren't you?  Why else would you keep harassing me?  What do you WANT!?</i>\"\n\n", false);
 
 	outputText("What the fuck?  ", false);
-	if (player.cor < 66) outputText("You try to calm the dragoness down, explaining that you aren't one of Lethice's minions, that what you told her the first time around was true - that you're here to end the demon threat.  Kiha doesn't seem to be buying it, though...\n\n", false);
+	if (player.cor < (66 + player.corruptionTolerance())) outputText("You try to calm the dragoness down, explaining that you aren't one of Lethice's minions, that what you told her the first time around was true - that you're here to end the demon threat.  Kiha doesn't seem to be buying it, though...\n\n", false);
 	else outputText("Irate, you stare her down, and with a dangerous gentleness, remind her that you're here to crush the demons.  Your fist tightens as, not unexpectedly, the erratic woman appears to hear none of it.\n\n", false);
 
 	outputText("\"<i>Bullshit!  You're working for the demons!</i>\" she howls.  \"<i>First you try and make me go soft, tell me I don't need to fight, and then suddenly you're sneaking into my home.  Well, no more!</i>\"  Her axe swings around to point straight at you.  \"<i>I've killed the Demon Queen's agents before, and if I have to, I'll kill you too, " + player.short + "!</i>\"\n\n", false);
@@ -297,7 +297,7 @@ public function beatSpiderMob():void {
 	outputText(",</i>\" she finally says as you finish talking.  \"<i>You could have gotten yourself raped, or beaten, or killed!  But still... I...</i>\" she suddenly flushes bright red, just like her scales.  \"<i>Thanks, I guess.</i>\"", false);
 
 	outputText("[pg]You ", false);
-	if (player.cor < 50) outputText("squeeze her shoulder and ", false);
+	if (player.cor < (50 + player.corruptionTolerance())) outputText("squeeze her shoulder and ", false);
 	outputText("tell her that maybe now, the two of you can be friends.", false);
 
 	outputText("[pg]\"<i>Friends... yeah, maybe that wouldn't be terrible,</i>\" Kiha says, giving you an arrogant smile.  \"<i>Go on, get out of here.</i>\"  You return her smile and start walking toward the water's edge.", false);
@@ -334,7 +334,7 @@ internal function kihaFriendlyGreeting(output:Boolean = true):void {
 		warmLoverKihaIntro(output);
 		return;
 	}
-	if (output && flags[kFLAGS.KIHA_TALK_STAGE] == 6 && player.cor <= 50) {
+	if (output && flags[kFLAGS.KIHA_TALK_STAGE] == 6 && player.cor <= (50 + player.corruptionTolerance())) {
 		//Talk to Friendly Kiha - Fourth Time (requires <=30 corruption on account of making the PC act like a bitch) (Z)
 		//(SPECIAL: Play next time the PC encounters Kiha after Talk 3 if he meets reqs, skipping the main menu)
 		outputText("As you wander through the swamp, you eventually come to the familiar territory of your friend, Kiha.  Remembering her hasty departure the last time you talked, a pang of worry takes hold in your chest.  She mentioned taking the fight to the demons.... Surely she didn't, did she? Grimacing at the thought, you pick up the pace and make your way to her little islet.", false);
@@ -1414,7 +1414,7 @@ private function kihaPlaysWithBigassCocksFemDomAhoy():void {
 	outputText("Kiha shivers slightly and brushes a few ropes of jism away from her eyes as she says, \"<i>Idiot!  You got me wet!</i>\"");
 	outputText("[pg]You slump down with a dopey smile, dragging the spooge-spattered dragoness with you, back into a hug.  Kiha snorts a puff of fire in irritation, but admits, \"<i>You know, if I do that to you... I wouldn't mind you getting all hot and bothered for me more often.  J-just keep it out of my hair next time, doofus!</i>\"  She stands, uncoiling her tail from your slowly-softening shaft and stretching, forcing you to look at the absolutely soaked wetness of her pussy.  The lips are tinged reddish and enflamed with lust, though Kiha seems to manage it well as she saunters away towards a stream.");
 	if (flags[kFLAGS.IZMA_CHILDREN_TIGERSHARKS] > 0) {
-		if (player.cor < 50) outputText("  You hope she doesn't get jumped upby your tiger-shark children.");
+		if (player.cor < (50 + player.corruptionTolerance())) outputText("  You hope she doesn't get jumped upby your tiger-shark children.");
 		else outputText("  You wonder what would happen if she got jumped by your tiger-shark children.");
 	}
 	outputText("[pg]Wiping up as best you can, you don your [armor] and walk back");
