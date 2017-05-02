@@ -1,4 +1,4 @@
-﻿package classes.Scenes.Places.TelAdre {
+package classes.Scenes.Places.TelAdre {
 	import classes.GlobalFlags.kFLAGS;
 
 	public class Loppe extends TelAdreAbstractContent {
@@ -1761,7 +1761,7 @@ private function loppeSqueezedickWhateverThatIs():void {
 	outputText("\n\nLoppe gasps raggedly, trying to recapture her breath.  \"<i>Please... you have to let me go.  It hurts!  I-I need to cum!  If you keep holding me I'm going to explode... ah!  No!  Here it comes again!</i>\"  She warns as you feel her rock hard shaft throb once more; yet another toe curling orgasm approaches, and you're not sure how much more she can physically take.");
 
 	//(Low corruption, no new pg)
-	if (player.cor < 50) {
+	if (player.cor < (50 + player.corruptionTolerance())) {
 		outputText("  You loosen your grip; this was supposed to be pleasurable, not painful, so it's definitely time to stop.");
 		//Goto [Let Go]
 		menu();
@@ -1788,7 +1788,7 @@ private function letsLoppeGoCum():void {
 	outputText("\n\nHaving caught her breath and recovered her senses, Loppe looks at you with a smile.  \"<i>No kidding.  I don't think I've ever come so hard before.  You really know how to get a girl worked up, don't you?  I still can't feel my toes.</i>\"  She tries to wiggle them experimentally, but if they're moving, you can't tell under the complete glazing she gave herself.  \"<i>Help me up, we should get cleaned up.</i>\"");
 
 	//[(low corr)
-	if (player.cor < 50) {
+	if (player.cor < (50 + player.corruptionTolerance())) {
 		outputText("\n\nYou nod and give her a hand to rise to her feet.  Not the brightest idea, in retrospect; she's so numb from the waist down that she promptly collapses against you and it's only your swift action that keeps her from falling.  The creamy-white liquid is now smeared all over your front, and Loppe giggles and delivers a cum-caked kiss straight to your lips.  \"<i>As fun as that was, I think I'll want to wait some time before trying that again.</i>\"");
 		outputText("\n\nThe two of you manage to clean up the worst of the mess you've made, and you move to leave.  Loppe draws you into another, much cleaner, kiss before letting you go.  \"<i>See you later, sugar!</i>\"");
 	}
