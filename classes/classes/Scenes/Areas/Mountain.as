@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Created by aimozg on 06.01.14.
  */
 package classes.Scenes.Areas
@@ -65,7 +65,7 @@ package classes.Scenes.Areas
 				if (flags[kFLAGS.HELLHOUND_MASTER_PROGRESS] < 3) {
 					trace("CHANCE AT HELLHOUND GAO");
 					//Requires canine face, [either two dog dicks, or a vag and pregnant with a hellhound], at least two other hellhound features (black fur, dog legs, dog tail), and corruption >=60.
-					if (player.faceType == FACE_DOG && (player.dogCocks() >= 2 || (player.hasVagina() && player.pregnancyType == PregnancyStore.PREGNANCY_HELL_HOUND)) && player.cor >= 60 && player.tailType == TAIL_TYPE_DOG && (player.lowerBody == LOWER_BODY_TYPE_DOG || player.hairColor == "midnight black")) {
+					if (player.faceType == FACE_DOG && (player.dogCocks() >= 2 || (player.hasVagina() && player.pregnancyType == PregnancyStore.PREGNANCY_HELL_HOUND)) && player.cor >= (60 - player.corruptionTolerance()) && player.tailType == TAIL_TYPE_DOG && (player.lowerBody == LOWER_BODY_TYPE_DOG || player.hairColor == "midnight black")) {
 						trace("PASS BODYCHECK");
 						if (flags[kFLAGS.HELLHOUND_MASTER_PROGRESS] == 0) {
 							hellHoundScene.HellHoundMasterEncounter();
@@ -216,7 +216,7 @@ package classes.Scenes.Areas
 				//If worms are on and not infested.
 				if (player.hasStatusEffect(StatusEffects.WormsOn) && !player.hasStatusEffect(StatusEffects.Infested)) {
 					if (player.hasStatusEffect(StatusEffects.WormsHalf) && rand(2) == 0) {
-						if (player.cor < 90) {
+						if (player.cor < (90 + player.corruptionTolerance())) {
 							outputText("Your hike in the mountains, while fruitless, reveals pleasant vistas and provides you with good exercise and relaxation.", true);
 							dynStats("tou", .25, "spe", .5, "lus", player.lib / 10 - 15);
 						}
@@ -236,7 +236,7 @@ package classes.Scenes.Areas
 							wormsScene.wormEncounter(); //You can only encounter the worms once.
 							return;
 						}
-						if (player.cor < 90) {
+						if (player.cor < (90 + player.corruptionTolerance())) {
 							outputText("Your hike in the mountains, while fruitless, reveals pleasant vistas and provides you with good exercise and relaxation.", true);
 							dynStats("tou", .25, "spe", .5, "lus", player.lib / 10 - 15);
 						}
