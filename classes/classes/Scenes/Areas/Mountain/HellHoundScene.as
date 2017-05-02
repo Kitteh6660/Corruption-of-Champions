@@ -378,7 +378,7 @@ package classes.Scenes.Areas.Mountain
 				player.orgasm('Vaginal');
 				player.orgasm('Anal', false);
 				//[if not corrupt]
-				if (player.cor < 940  + player.corruptionTolerance())) dynStats("tou", -2, "cor", 1);
+				if (player.cor < (40 + player.corruptionTolerance())) dynStats("tou", -2, "cor", 1);
 				//[if corrupt]
 				else dynStats("cor", 1.5);
 				//Preggers chance!
