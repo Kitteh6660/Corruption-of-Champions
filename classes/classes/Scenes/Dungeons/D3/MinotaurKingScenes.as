@@ -577,7 +577,7 @@ package classes.Scenes.Dungeons.D3
 			outputText("\n\n<i>“Atta " + player.mf("boy","girl") + ",”</i> the triumphant beast-man croons. <i>“This is where you belong.”</i>");
 			outputText("\n\nYou can hardly disagree. With his cock captive, no pre-cum will be wasted. The freely-spilling droplets have no choice but to slip down the length of your tongue and into your throat, where they can be swallowed. Your head might as well be filled with thick, pink cotton balls at this point, and every swallow, every eager gulp, adds more, blotting out worry and concern. Those anxious thoughts have no room to form, not when your head is so full of cock, literally and figuratively. Just thinking about it makes you want to smile and giggle, but there’s no room for that in a maw increasingly stuffed with phallus.");
 			outputText("\n\nWhether you’re leaning forward to slide it deeper or the hand on the back of your head is gently but inexorably force-fucking your face is a matter of debate. With a lascivious lick, you wonder why it can’t be both? It takes two to fuck, after all. You open wider, bathing your tonsils in a fresh spurt of the minotaur’s musky gunk, not even flinching when his cockhead flatters your uvula against your palate.");
-			if (player.findPerk(PerkLib.BimboBrains) >= 0 || player.cor >= 66)
+			if (player.findPerk(PerkLib.BimboBrains) >= 0 || player.cor >= (66 - player.corruptionTolerance()))
 			{
 				outputText(" You’re long past the point of having a gag reflex and glad for it.");
 			}
