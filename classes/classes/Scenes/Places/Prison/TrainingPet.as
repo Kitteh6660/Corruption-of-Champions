@@ -166,7 +166,7 @@ package classes.Scenes.Places.Prison
 					prisonCaptorPetEventSet(0);
 					break;
 				case 1:
-					if (petScore >= 5 && currentEvent > 0 && player.hasKeyItem("Mistress Elly's Slave Collar") >= 0 && player.esteem < 30 && player.cor < 15)
+					if (petScore >= 5 && currentEvent > 0 && player.hasKeyItem("Mistress Elly's Slave Collar") >= 0 && player.esteem < 30 && player.cor < (15 + player.corruptionTolerance()))
 					{
 						prisonCaptorPetTierSet(2);
 						prisonCaptorPetEventSet(0);
