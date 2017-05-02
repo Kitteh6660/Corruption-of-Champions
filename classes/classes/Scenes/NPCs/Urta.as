@@ -1,4 +1,4 @@
-﻿package classes.Scenes.NPCs{
+package classes.Scenes.NPCs{
 	import classes.*;
 	import classes.Scenes.Places.TelAdre.Katherine;
 	import classes.Scenes.Places.TelAdre.KatherineEmployment;
@@ -949,7 +949,7 @@ internal function takeUrtaInTheButtPublically():void {
 	urtaSprite();
 	clearOutput();
 	var tooBig:Boolean = false;
-	if (player.cor < (30 - player.corruptionTolerance()) && flags[kFLAGS.PC_FETISH] == 0) {
+	if (player.cor < (30 + player.corruptionTolerance()) && flags[kFLAGS.PC_FETISH] == 0) {
 		outputText("No way!  You're not going to do that in front of EVERYONE.", false);
 		doNext(telAdre.barTelAdre);
 		return;
@@ -960,7 +960,7 @@ internal function takeUrtaInTheButtPublically():void {
 	urtaLove(2);
 	flags[kFLAGS.URTA_TIME_SINCE_LAST_CAME] = 5;
 	outputText(images.showImage("urta-public-fuck"), false);
-	if (player.cor < 60 && flags[kFLAGS.PC_FETISH] == 0) outputText("You can't believe you're doing it, but you undo the lower half of your " + player.armorName + ".  ", false);
+	if (player.cor < (60 + player.corruptionTolerance()) && flags[kFLAGS.PC_FETISH] == 0) outputText("You can't believe you're doing it, but you undo the lower half of your " + player.armorName + ".  ", false);
 	else outputText("You happily remove the lower half of your " + player.armorName + ", more than a little excited at the prospect of putting on a show for the crowd.  ", false);
 	outputText("Urta casually flips up her skirt and ", false);
 	if (flags[kFLAGS.TIMES_FUCKED_URTA] < 11) outputText("unwinds her tail from around the beast", false);
@@ -1019,7 +1019,7 @@ internal function takeUrtaInTheButtPublically():void {
 	outputText("The eyes of everyone in the place are locked onto you, and ", false);
 
 	if (tooBig) outputText("you find yourself giggling drunkenly, barely feeling any pain and arching your back like a slut for the crowd.", false);
-	else if (player.cor < 50 && flags[kFLAGS.PC_FETISH] == 0) outputText("you find yourself whimpering, regretting the decision to climb on top of her, but aroused in spite of it.", false);
+	else if (player.cor < (50 + player.corruptionTolerance()) && flags[kFLAGS.PC_FETISH] == 0) outputText("you find yourself whimpering, regretting the decision to climb on top of her, but aroused in spite of it.", false);
 	else outputText("you find yourself sliding your hands under your " + player.armorName + " and pinching your " + player.nippleDescript(0) + "s, putting on a show for the crowd.", false);
 
 	outputText("  Urta starts breathing hard into your ear, and you start flexing your " + player.legs() + " to help her lift you up.  Grateful for the effort, the fox-girl increases the pace by helping to pull you back down each time.  By now it's starting to feel pretty good, and her pre-cum is making your " + player.assholeDescript() + " so wet and slippery that you can slide quite quickly along the column of horse-meat.\n\n", false);
@@ -1155,7 +1155,7 @@ internal function goBackToUrtasForLuvinz():void {
 	outputText("Walking a little strangely, you make your way to a waitress and pay off Urta's tab, feeling a bit flushed from the kiss and the action you're expecting later on.  Once done with the onerous task, you turn and realize Urta has vanished, though the backdoor to the bar is swinging once again.  You head out after her, stumbling directly into her exposed member as you step out into the alley.  Urta blushes fiercely and shivers, stammering, \"<i>It hurt too much to keep it penned up.  I'm sorry.</i>\"\n\n", false);
 
 	outputText("You assure her that you aren't offended", false);
-	if (player.lib > 50 || player.cor > 50) outputText(" and are actually turned on by the thought of walking through the city with such a 'big' lover hanging off your arm", false);
+	if (player.lib > 50 || player.cor > (50 - player.corruptionTolerance())) outputText(" and are actually turned on by the thought of walking through the city with such a 'big' lover hanging off your arm", false);
 	outputText(".  Urta smiles weakly and hooks her arm through yours, leading you towards her apartment, making sure to stick to the more abandoned back-roads.  Her caution doesn't stop the pair of you from giving a few free shows, and if anything, each brief encounter with a passerby seems to be making her bigger and harder, revealing a half-buried exhibitionist streak.\n\n", false);
 	goBackToUrtasForLuvinzII();
 }
@@ -1532,7 +1532,7 @@ private function comfortUrtaAfterTellinTruuf():void {
 	//(If PC has Edryn (<3) & fits her req's)
 	if (((player.isTaur() && player.totalCocks() > 0) ||
 		player.countCocksOfType(CockTypesEnum.HORSE) > 0 ||
-		(player.totalCocks() > 0 && player.cor > 50)) &&
+		(player.totalCocks() > 0 && player.cor > (50 - player.corruptionTolerance()))) &&
 	  	player.statusEffectv1(StatusEffects.Edryn) >= 4)
 		outputText("  Urta even suggests that the two of you take turns at Edryn sometime.", false);
 	//Slight love loss
@@ -1760,7 +1760,7 @@ public function blowUrtaUnderTheTableLuv():void {
 	outputText("  Urta grunts, doing her best to muffle the noise as it escapes her lips, but you can feel her twitch and thicken inside you, beginning to drip with proof of her complete and total submission to your mouth.\n\n", false);
 
 	outputText("You can hear chuckles from the bar's other occupants as they realize what's going on, and you blush, ", false);
-	if (player.cor < 50 && flags[kFLAGS.PC_FETISH] <= 0) outputText("wishing there was a tablecloth to hide your activities from prying eyes", false);
+	if (player.cor < (50 + player.corruptionTolerance()) && flags[kFLAGS.PC_FETISH] <= 0) outputText("wishing there was a tablecloth to hide your activities from prying eyes", false);
 	else outputText("wishing you had even more eyes watching your show", false);
 	outputText(".  The distraction does little to divert you from your chosen task, and you close your eyes, tasting your lover's throbbing shaft as it fills your mouth.  With both hands stroking, you bob up and down, completely centering your world around the pulsating horse-prick as it fills your mouth.\n\n", false);
 
@@ -1996,7 +1996,7 @@ private function oralFiestyUberExplosionUrta():void {
 		else outputText("grab hold of her cock and begin jerking her off into your mouth.  An immediate and copious gush of pre drips onto your tongue, showing you just how much the hermaphroditic fox loves the feeling.\n\n", false);
 
 		outputText("Not far from cumming yourself, you grind your " + player.hipDescript() + " on Urta's face, smearing her fur with your fragrant pussy-juices.  Her own moans of pleasure turn into noisy wet blubbering that vibrates through your " + player.vaginaDescript(0) + ", getting you off on the spot.  You squeal around the cock in your ", false);
-		if (player.cor <= 50) outputText("mouth", false);
+		if (player.cor <= (50 + player.corruptionTolerance())) outputText("mouth", false);
 		else outputText("throat", false);
 		outputText(", clamping your " + player.legs() + " onto Urta's head as you orgasm.  ", false);
 		if (player.vaginas[0].vaginalWetness > VAGINA_WETNESS_DROOLING) outputText("Fluids rush from your folds, splattering her face with sex fluid.  The fox opens wide, gulping it down like someone in a desert who has just found an oasis.", false);
@@ -2596,7 +2596,7 @@ private function makeUrtaSitOnYourLapWithScylla():void {
 	else if (rand(2) == 0) outputText("Oooh, you know how to treat a lady!", false);
 	else outputText("MMmm, that's nice!", false);
 	outputText("</i>\"  She's actually trying to watch you over her shoulder now, completely ignoring the cock-addled nun as the latter bobs on her horse-meat.  You make the most of it and ", false);
-	if (urtaLove() || player.cor <= 40) outputText("kiss her full on the mouth", false);
+	if (urtaLove() || player.cor <= (40 + player.corruptionTolerance())) outputText("kiss her full on the mouth", false);
 	else outputText("bite her neck", false);
 	outputText(" while you grab her soft, furred asscheeks and lift her up, feeling the exquisite texture of her pucker ", false);
 	if (y != -1) outputText("and twat ", false);
