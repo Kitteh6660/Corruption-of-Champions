@@ -1,4 +1,4 @@
-﻿package classes.Scenes.NPCs{
+package classes.Scenes.NPCs{
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kACHIEVEMENTS;
@@ -166,7 +166,7 @@ private function meetRaphaelPtII():void {
 		addDisabledButton(2, "Swoon");
 	}
 	addButton(1, "Slap", RaphaelFirstMeetingSLAP);
-	if (player.lust >= 33 && player.hasCock() && (player.cor >= 60 - player.corruptionTolerance() || player.findPerk(PerkLib.Pervert))) {
+	if (player.lust >= 33 && player.hasCock() && (player.cor >= (60 - player.corruptionTolerance()) || player.findPerk(PerkLib.Pervert))) {
 		addButton(3, "Rape", rapeRaphael);
 	} else {
 		addDisabledButton(3, "Rape");
@@ -453,7 +453,7 @@ private function RaphaelChooseFrisk():void {
 	
 	/// Int/Spe Variables ///
 	//({Int or Spe below 24 and Cor is not higher than 19} 
-	if ((player.inte < 24 && player.spe < 24) && player.cor < 19) {
+	if ((player.inte < 24 && player.spe < 24) && player.cor < (19 + player.corruptionTolerance())) {
 		outputText("You frown, befuddled and eyeing the body you hold close to yours. He must be a magician, you conclude.\n\n", false); 
 
 		outputText("When you look up again, you realize you have your arms around his neck. His verdant green eyes peer into yours daringly and before the awkward moment has a chance to pass, the russet rogue steals a kiss. Putting the tip of his snout on your lips, he gives you a kiss more passionate and skilled than you thought possible with a sharp muzzle such as his. He discontinues before you have the time to either enjoy it or feel intimidated by it.\n\n", false);
@@ -465,11 +465,11 @@ private function RaphaelChooseFrisk():void {
 		doNext(RaphaelPicnic);
 	}
 	//({Int or Spe between 24-36 and Cor is not higher than that}
-	else if ((player.inte < 36 && player.spe < 36) && player.cor < 36) {
+	else if ((player.inte < 36 && player.spe < 36) && player.cor < (36 + player.corruptionTolerance())) {
 		outputText("Not outdone through wit, you notice how the fox is moving his tail about. The wileful rogue is using his fifth limb to move the pendant about his body! You quickly reach around and pat him across the back and flanks, but inspecting the tip of his tail leaves the pendant nowhere to be found. By then Raphael is moving his arms and legs to misplace it further. In a game of cat and mouse all through his red fur, you follow the movement from his lower back, to his feet and his thighs. The sly vulpine clearly enjoys leading you on your hunt across his skin and supple deerskin attire, as you graze over taut leather spanned across a contoured, masculine body. Raphael always appears one step ahead. That is, until the trail ends near his crotch.\n\n", false);
 
 		//({If player corruption is below 15} 
-		if (player.cor <= 15) outputText("You have the strong urge to grab hold of the oddly enlarged bulge between his legs and retrieve the necklace from within his pants, but the lewdness of the gesture keeps you from it.\n\n", false);
+		if (player.cor <= (15 + player.corruptionTolerance())) outputText("You have the strong urge to grab hold of the oddly enlarged bulge between his legs and retrieve the necklace from within his pants, but the lewdness of the gesture keeps you from it.\n\n", false);
 		//{If player corruption is at or higher than 15} 
 		else outputText("With no intention to relent, you grab him by the oddly enlarged bulge in his tight leather pants and squeeze softly, discovering how several of his jewels are harder than others. He hid your gem amongst his own!\n\n", false);
 
@@ -480,7 +480,7 @@ private function RaphaelChooseFrisk():void {
 		doNext(RaphaelPicnic);
 	}
 	//({Int or Spe are above 35 and Cor is not higher than that}
-	else if (player.cor < 35) {
+	else if (player.cor < (35 + player.corruptionTolerance())) {
 		outputText("Figuring it out easily, you notice how the fox is moving his tail about. The sneaky rogue is using his fifth limb to move the pendant about his body! Deducing the only way he could do that without moving his arms, you reach for the heel of his lifted foot and intercept the string before he can pass it onto his leg.\n\n", false);
 
 		outputText("\"<i>Nice try!</i>\" You comment with a triumphant smile, when you quickly retrieve the necklace and walk away from Raphael before he realizes you've outwitted him. You hug the jewelry tight.\n\n", false);
@@ -1255,14 +1255,14 @@ private function coverForRaphael():void {
 	outputText("You stare back into the wolf's yellow eyes, keep a stiff back and answer him.  <i>\"I'm not seeing him right now.\"</i>\n\n", false);
 
 	//({Player corruption below 30}
-	if (player.cor < 30) outputText("You instantly feel bad for lying to the wolf. More so because he doesn't get troubled, disappointed or vexed.  He seems to instantly believe you... or at least, he wants to believe you, even though being a detective probably keeps him cynical.  You'll only be adding to that cynicism if he discovers your lie.\n\n", false);
+	if (player.cor < (30 + player.corruptionTolerance())) outputText("You instantly feel bad for lying to the wolf. More so because he doesn't get troubled, disappointed or vexed.  He seems to instantly believe you... or at least, he wants to believe you, even though being a detective probably keeps him cynical.  You'll only be adding to that cynicism if he discovers your lie.\n\n", false);
 
 	outputText("<i>\"Cute answer,\"</i> his partner remarks, taking a break from staring at the water barrel.\n\n", false);
 	outputText("Your hair stands upright when he leans back in over the barrel and appears to look down into the water, but you struggle not to slake a sigh of relief when he merely starts drinking from it instead.  A few long laps with his tongue and the wolf is sent cringing and shaking his head at the taste.  <i>\"Even the water tastes of him.\"</i>\n\n", false);
 
 	outputText("<i>\"Hati, enough!\"</i> The wolf in front of you turns his head, throws back his cuneate ears and snarls at his partner.  <i>\"We're not in the habit of throwing around accusations without material proof.\"</i>  His anger starts to decrease. <i>\"Don't help Raphael turn us into the bad guys.\"</i>  Skoll turns back to you with just as much friendly patience as ever.  <i>\"I'm sure she would have told us if she knew anything about that.\"</i>", false);
 	//({If cor is below 30}
-	if (player.cor < 30) outputText("  You slowly shake your head, tortured by the trusting twinkle in the wolf's soft yellow eyes.", false); 
+	if (player.cor < (30 + player.corruptionTolerance())) outputText("  You slowly shake your head, tortured by the trusting twinkle in the wolf's soft yellow eyes.", false); 
 	outputText("\n\n", false);
 
 	outputText("<i>\"The trail is strongest over towards the meadows.  He might have gone there.\"</i> Hati remarks after circling your camp one more time.\n\n", false);
