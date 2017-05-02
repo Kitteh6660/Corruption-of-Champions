@@ -844,7 +844,7 @@ public function beatUpOwca():void {
 	outputText("The last of the villagers drops his improvised weapon.  They are all lying defenseless before you.  At last, you notice Rebecc, the only one still conscious, curled up as she weeps uncontrollably.  She is clearly oblivious of her surroundings, undoubtedly shocked by the violent fight.  Even if she calls herself your friend, you don't think you'd be able to reason with her after pummeling her kin.  What do you do?");
 	//Rape Rebbecc/Torch Village (needs Akbal's fire or Whitefire)/Leave
 	menu();
-	if (!player.isGenderless() && player.lust >= 33 && (player.cor >= (60 - player.corruptionTolerance())) || player.findPerk(PerkLib.Sadist) >= 0)) {
+	if (!player.isGenderless() && player.lust >= 33 && (player.cor >= (60 - player.corruptionTolerance())) || player.findPerk(PerkLib.Sadist) >= 0) {
 		addButton(0, "Rape Rebecc", rapeRebecc, true);
 	} else {
 		addDisabledButton(0, "Rape Rebecc");
