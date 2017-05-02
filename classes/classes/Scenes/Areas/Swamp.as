@@ -41,7 +41,7 @@ package classes.Scenes.Areas
 			flags[kFLAGS.TIMES_EXPLORED_SWAMP]++;
 			/*  SPECIAL SCENE OVERWRITES */
 			//KIHA X HEL THREESOME!
-			if (!kGAMECLASS.kihaFollower.followerKiha() && player.cor < 60 && flags[kFLAGS.KIHA_AFFECTION_LEVEL] >= 1 && flags[kFLAGS.HEL_FUCKBUDDY] > 0 && player.hasCock() && flags[kFLAGS.KIHA_AND_HEL_WHOOPIE] == 0) {
+			if (!kGAMECLASS.kihaFollower.followerKiha() && player.cor < (60 + player.corruptionTolerance()) && flags[kFLAGS.KIHA_AFFECTION_LEVEL] >= 1 && flags[kFLAGS.HEL_FUCKBUDDY] > 0 && player.hasCock() && flags[kFLAGS.KIHA_AND_HEL_WHOOPIE] == 0) {
 				kGAMECLASS.kihaFollower.kihaXSalamander();
 				return;
 			}
