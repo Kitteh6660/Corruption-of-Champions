@@ -227,11 +227,11 @@ public function sheilaEncounterRouter():void {
 
 private function sheilaCorruptionUpdate():void {
 	//Always dump 10 points.
-	if (player.cor + player.corruptionTolerance()) > 90) {
+	if ((player.cor + player.corruptionTolerance()) > 90) {
 		dynStats("cor", -10);
 		sheilaCorruption(10);
 	}
-	else if (player.cor + player.corruptionTolerance()) > sheilaCorruption()) {
+	else if ((player.cor + player.corruptionTolerance()) > sheilaCorruption()) {
 		//Big change, dump ten.
 		if ((player.cor + player.corruptionTolerance()) - sheilaCorruption() >= 10) {
 			dynStats("cor", -10);
@@ -2941,7 +2941,7 @@ private function sheilaCowgirlRapesYou():void {
 		else outputText("\n\nWhat?!  You're not even near finishing yet!  ");
 		outputText("Sheila shivers and leans back, hair dangling, as her hips buck and her thighs squeeze your shaft.  ");
 		//(PC corr >=90 or > sheila corruption)
-		if (player.cor >= (90 - player.corruptionTolerance()) || sheilaCorruption() < (player.cor + player.corruptionTolerance()))) {
+		if (player.cor >= (90 - player.corruptionTolerance()) || sheilaCorruption() < (player.cor + player.corruptionTolerance())) {
 			outputText("You can feel your prick heating up where her pussy rubs against it... it almost feels like the rest is cooling down at the same time.  The woman atop you arches her back and sucks in her breath sharply, and her tits seem to claim your field of vision, swelling up - though that could just be the angle.");
 		}
 		else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) outputText("Her orgasm wets your prick, coating it with fluid as she comes.  Sheila wraps herself tighter in your limbs, squeezing her breasts against her chest, and you think you can feel them get a little smaller as your head fuzzes over with her excess emotion.");
