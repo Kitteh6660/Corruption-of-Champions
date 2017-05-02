@@ -1,4 +1,4 @@
-﻿package classes.Scenes.NPCs{
+package classes.Scenes.NPCs{
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.Scenes.Camp.*;
@@ -227,13 +227,13 @@ public function sheilaEncounterRouter():void {
 
 private function sheilaCorruptionUpdate():void {
 	//Always dump 10 points.
-	if (player.cor > 90) {
+	if (player.cor + player.corruptionTolerance()) > 90) {
 		dynStats("cor", -10);
 		sheilaCorruption(10);
 	}
-	else if (player.cor > sheilaCorruption()) {
+	else if (player.cor + player.corruptionTolerance()) > sheilaCorruption()) {
 		//Big change, dump ten.
-		if (player.cor - sheilaCorruption() >= 10) {
+		if ((player.cor + player.corruptionTolerance()) - sheilaCorruption() >= 10) {
 			dynStats("cor", -10);
 			sheilaCorruption(10);
 		}
@@ -254,9 +254,9 @@ private function sheilaCorruptionUpdate():void {
 			statScreenRefresh();
 		}		
 	}
-	else if (player.cor < sheilaCorruption()) {
+	else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) {
 		//Big Change!
-		if (sheilaCorruption() - player.cor >= 10) {
+		if (sheilaCorruption() - (player.cor + player.corruptionTolerance()) >= 10) {
 			dynStats("cor", 10);
 			sheilaCorruption(-10);
 		}
@@ -976,10 +976,10 @@ private function shielaXPThreeSexyTimePostSexStayII():void {
 		else outputText("chest");
 		outputText(" in her soft hair - but her hips keep pumping, incredibly.  ");
 		//(pc corr >= 90 or > sheila corruption)
-		if (player.cor >= 90 || player.cor > flags[kFLAGS.SHEILA_CORRUPTION]) {
+		if (player.cor >= (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > flags[kFLAGS.SHEILA_CORRUPTION]) {
 			outputText("  The tight, rippling muscles of her pussy clamp down on you, nearly holding your cock in place as she tries to ride you still but only manages to jerk your dick up and down and squeeze pre-cum from it.  \"<i>S-so full,</i>\" Sheila groans, \"<i>did you just get bigger in me?</i>\"  Her lungs inflate as she sucks in her breath, and her hard nipples push into your " + player.skinFurScales() + ".");
 		}
-		else if (player.cor < flags[kFLAGS.SHEILA_CORRUPTION]) outputText("  Her pussy clamps down around you, the rippling muscles so tight that she wouldn't even be able to pump if it weren't for the hot river of juice you feel around your tool.  \"<i>A-ah,</i>\" Sheila groans, \"<i>you thrust too!  Rail me silly!</i>\"  She tries to push against you with her hands, to return herself to an upright position, but can barely pull her chest apart from you - her nipples just narrowly recede from the surface of your " + player.skinFurScales() + " as her efforts peak.");
+		else if ((player.cor + player.corruptionTolerance()) < flags[kFLAGS.SHEILA_CORRUPTION]) outputText("  Her pussy clamps down around you, the rippling muscles so tight that she wouldn't even be able to pump if it weren't for the hot river of juice you feel around your tool.  \"<i>A-ah,</i>\" Sheila groans, \"<i>you thrust too!  Rail me silly!</i>\"  She tries to push against you with her hands, to return herself to an upright position, but can barely pull her chest apart from you - her nipples just narrowly recede from the surface of your " + player.skinFurScales() + " as her efforts peak.");
 		//(else if magically equal but < 90)
 		else outputText("  Her pussy squirts and sucks alternately, trying to find purchase on your cock even as her pumping hips deny it; the sensation drives you wild.  \"<i>[name], your old fella is amazing...</i>\"");
 		outputText("  Your dick twitches and swells, as if to fulfill her words, and your pelvis rocks into Sheila's as you begin to ejaculate.  \"<i>No... pull out, or you'll get me pregnant,</i>\" she cries, when ");
@@ -1003,7 +1003,7 @@ private function shielaXPThreeSexyTimePostSexStayII():void {
 		//reduce lust/lib and reset hours since cum; if sheila corruption >= 90 and pc corruption >= 90, redirect to demonization; else continue
 		player.orgasm('Dick');
 		dynStats("lib", -2);
-		if (player.cor >= 90 && sheilaCorruption() >= 90) {
+		if (player.cor >= (90 - player.corruptionTolerance()) && sheilaCorruption() >= 90) {
 			menu();
 			addButton(0,"Next",sheilaGoesDemon);
 			return;
@@ -1078,7 +1078,7 @@ private function shielaXPThreeSexyTimePostSexStayII():void {
 		
 		outputText("\n\nSheila's skin turns ruddy red in embarrassment as her body locks up, and her climax starts.  \"<i>Oh god... oh... I wish you'd kiss me!</i>\"");
 		//[(pc corr >= 90 or > sheila corruption)
-		if (player.cor >= 90 || player.cor > sheilaCorruption()) {
+		if (player.cor >= (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > sheilaCorruption()) {
 			outputText("  Her vagina doesn't wait for romance, spasming and opening wide to try to suck you in, pulling at your ");
 			if (player.isNaga()) outputText("scales");
 			else outputText("pussy");
@@ -1087,7 +1087,7 @@ private function shielaXPThreeSexyTimePostSexStayII():void {
 			if (player.isNaga()) outputText("  Her breasts swell in your hands as she sucks in her breath sharply, feeling your pussy drool its juice onto her ass.");
 		}
 		//(else if PC corr < sheila corruption)
-		else if (player.cor < sheilaCorruption()) {
+		else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) {
 			outputText("  Her vagina doesn't wait for symbolism, dumping a wave of orgasm that splashes almost audibly against you.  Your pussy answers with your own climax, and begins wetting the woman underneath");
 			if (player.isNaga()) outputText("; it feels like her breasts are pulling away from you as she tries to push her ass further into your quivering quim");
 			outputText(".");
@@ -1113,7 +1113,7 @@ private function shielaXPThreeSexyTimePostSexStayII():void {
 		//reduce lust/lib and reset hours since cum; if sheila corruption >= 90 and PC corr >= 90 go to demonization here, else continue
 		player.orgasm('Vaginal');
 		dynStats("lib", -2);
-		if (sheilaCorruption() >= 90 && player.cor >= 90) {
+		if (sheilaCorruption() >= 90 && player.cor >= (90 - player.corruptionTolerance())) {
 			menu();
 			addButton(0,"Next",sheilaGoesDemon);
 			return;
@@ -1163,13 +1163,13 @@ private function shielaXPThreeSexyTimePostSexStayII():void {
 		//(new PG)
 		outputText("\n\nYou work her soaked pussy over, plunging fingers in deep with little regard for anything but hitting nerves, and caressing her small, erect clitoris with your palm as you go.  At every touch, you whisper to her what a naughty girl she is; she responds by flicking her ear at you, but you reverse by blowing and nibbling on the long auricles, sending shivers through her body.  \"<i>Oh, my... seems this wanton woman has sensitive ears, doesn't it?</i>\" you tease, drawing out the syllables to hum into her skin.  Soon Sheila's melting against you, crying out her climax into your shoulder.");
 		//[(pc corr >= 90 or > sheila corruption)]
-		if (player.cor >= 90 || player.cor > sheilaCorruption()) outputText("  Her vagina heats up, squeezing your fingers so hard that you nearly can't pull out to rub her again, and you have a clear view of her breasts swelling up - arguable proof of your prowess, considering what she told you earlier.  Her people must be terrible at faking orgasm.");
+		if (player.cor >= (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > sheilaCorruption()) outputText("  Her vagina heats up, squeezing your fingers so hard that you nearly can't pull out to rub her again, and you have a clear view of her breasts swelling up - arguable proof of your prowess, considering what she told you earlier.  Her people must be terrible at faking orgasm.");
 		//(pc corr < sheila corruption)
-		else if (player.cor < sheilaCorruption()) outputText("  Her vagina gushes with clear fluid, filling the bowl made by your hand with warmth, and you think you can see her breasts tightening up slightly as her back arches, though it's hard to be sure with how she's shaking.");
+		else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) outputText("  Her vagina gushes with clear fluid, filling the bowl made by your hand with warmth, and you think you can see her breasts tightening up slightly as her back arches, though it's hard to be sure with how she's shaking.");
 		else outputText("  Her pussy quivers around you, and you draw the fingers out and pop them into Sheila's mouth.  The woman sucks on them greedily, and you raise an eyebrow at her.  She blushes again, but it's evidently not the first time she's done the same thing!");
 		
 		//if sheila corruption >= 90 and PC corruption >= 90, go to demonization, else continue
-		if (sheilaCorruption() >= 90 && player.cor >= 90) {
+		if (sheilaCorruption() >= 90 && player.cor >= (90 - player.corruptionTolerance())) {
 			menu();
 			addButton(0,"Next",sheilaGoesDemon);
 			return;
@@ -1641,7 +1641,7 @@ private function fuckBuddySheilaMeetingChatKids():void {
 			}
 			outputText("\n\nSheila sighs and gets up, nodding to you, and collects her stuff.  \"<i>Love you.  See you soon.</i>\"");
 			//corruption down if corr < 40
-			if (player.cor < 40) dynStats("cor", -1);
+			if (player.cor < (40 + player.corruptionTolerance())) dynStats("cor", -1);
 		}
 		//(else lib >=50)
 		else {
@@ -1807,21 +1807,21 @@ private function consensualSheila69(cock:Boolean = true):void {
 	else outputText("\n\n\"<i>Mmmh!  Mm mmnnn!</i>\" Sheila moans, muffled by your body.  The import doesn't hit you until a second later.");
 	outputText("  Her vagina convulses, ");
 	//(pc corr >= 90 or > sheila corruption
-	if (player.cor >= 90 || player.cor > flags[kFLAGS.SHEILA_CORRUPTION]) {
+	if (player.cor >= (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > flags[kFLAGS.SHEILA_CORRUPTION]) {
 		outputText("trying to pull your ");
 		if (!player.isTaur()) outputText("tongue");
 		else outputText("fingers");
 		outputText(" in ravenously.  You can literally feel her internal muscles rippling and undulating, stroking you as if they could coax out an ejaculation.  Sheila sucks in her breath as she climaxes, filling her chest; you can feel her tits pushing harder and harder against you.");
 	}
 	//(PC corr < sheila corruption)
-	else if (player.cor < flags[kFLAGS.SHEILA_CORRUPTION]) {
+	else if ((player.cor + player.corruptionTolerance()) < flags[kFLAGS.SHEILA_CORRUPTION]) {
 		outputText("pushing out a gush of fluid.  For what seems like several minutes, her pussy deluges your ");
 		if (!player.isTaur()) outputText("mouth, filling you with her taste.");
 		else outputText("hands, completely soaking them in her orgasm.");
 		outputText("   Her thighs tense, forcing her pelvis into the air and her cunt toward you as her chest slumps; slowly, you feel the perky nipples pressing into your stomach pull away.");
 	}
 	//(else if equal but below 90)
-	else if (player.cor == flags[kFLAGS.SHEILA_CORRUPTION] && player.cor < 90) {
+	else if ((player.cor + player.corruptionTolerance()) == flags[kFLAGS.SHEILA_CORRUPTION] && player.cor < (90 + player.corruptionTolerance())) {
 		outputText("drooling a trickle of fluid and licking at you as she screams her ecstasy into your crotch.");
 	}
 	outputText("  Sheila jams her face upward, ");
@@ -1876,13 +1876,13 @@ private function consensualSheila69(cock:Boolean = true):void {
 	
 	
 	//if sheila corruption >= 90 and PC corr >= 90, go to demonization, else continue
-	if (player.cor >= 90 && sheilaCorruption() >= 90) {
+	if (player.cor >= (90 - player.corruptionTolerance()) && sheilaCorruption() >= 90) {
 		menu();
 		addButton(0,"Next",sheilaGoesDemon);
 		return;
 	}
 	//[(corruption threshold warning if sheila corruption >= 80 and PC corr > sheila corruption and sheila xp =/= 3)
-	else if ((player.cor > 90 || player.cor > sheilaCorruption()) && sheilaCorruption() >= 80 && flags[kFLAGS.SHEILA_XP] != 3) {
+	else if ((player.cor > (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > sheilaCorruption()) && sheilaCorruption() >= 80 && flags[kFLAGS.SHEILA_XP] != 3) {
 		sheilaCorruptionUpdate();
 		/*if (player.cor > 90 || player.cor > sheilaCorruption()) {
 			dynStats("cor", -10);
@@ -2019,7 +2019,7 @@ private function consentacleVagSexForKangarooSlutBitches():void {
 	outputText(".  \"<i>Ohhh,</i>\" she moans, \"<i>YES!</i>\"  At that moment you feel her vagina clamp around your [cockFit 32], wringing it frantically as she reaches her climax.  You continue pumping as best you're able, but you can't stand up to the siege of her spasming pussy for long; ");
 	
 	//[(pc corr >= 90 or > sheila corruption) 
-	if (player.cor >= 90 || player.cor > flags[kFLAGS.SHEILA_CORRUPTION]) {
+	if (player.cor >= (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > flags[kFLAGS.SHEILA_CORRUPTION]) {
 		outputText("something builds to a painful intensity in your crotch.  It feels like two mind-blowing orgasms arriving together and fighting over which one gets to come out first.  You rise toward climax quickly and then are drawn back in moments of maddening frustration, over and over.  In response you intensify your thrusts even more, sawing in and out of the girl at a pace that would be blistering if the two of you weren't leaking enough pre-cum and pussy juice to put out a brushfire.  Eventually the pleasure overwhelms the strange reticence of your orgasm; you cry out loudly as you peak, and squeeze a tiny trickle of cum into her grasping vagina.");
 		//[(multi)
 		if (player.cockTotal() > 1 ) {
@@ -2031,7 +2031,7 @@ private function consentacleVagSexForKangarooSlutBitches():void {
 		outputText("  The intense sensation begins to ascend your dick slowly; your body works itself into overdrive and your partner's moans increase sympathetically as it nears the tip.  Finally, it exits your body with an enormous squeeze, alongside a jet of jism.  Sheila gives a complementary gasp as this pulse enters her, and her pussy convulses in a second orgasm, causing her back to arch.  Her breasts seem to jiggle more wildly than before as she thrashes on the ground in the grip of her pleasure.");
 	}
 	//(PC corruption < sheila corruption)
-	else if (player.cor < flags[kFLAGS.SHEILA_CORRUPTION]) {
+	else if ((player.cor + player.corruptionTolerance()) < flags[kFLAGS.SHEILA_CORRUPTION]) {
 		outputText("your resistance is condemned to die in failure as Sheila lets out a quavering scream of pleasure and wraps her arms and legs around you, pinning you inside.  Her vagina convulses around your cock powerfully; you could swear you feel yourself stretching longer and longer as her rippling pussy pulls you deeper in.  Just when you think that your dick must be a mile long, her whole body tenses up and her fingernails dig into your back.  Wearing a madwoman's expression, Sheila stares open-mouthed at you as her muscles lock and her pussy quivers out its fitful orgasm; even her ");
 		if (sheilaCorruption() < 30) outputText("perky");
 		else outputText("pillowy");
@@ -2076,13 +2076,13 @@ private function consentacleVagSexForKangarooSlutBitches():void {
 	dynStats("lib", -0.5);
 	
 	//if sheila corruption >= 90 and pc corr >= 90, go to demonization, else continue
-	if (player.cor >= 90 && sheilaCorruption() >= 90) {
+	if (player.cor >= (90 - player.corruptionTolerance()) && sheilaCorruption() >= 90) {
 		menu();
 		addButton(0,"Next",sheilaGoesDemon);
 		return;
 	}
 	//[(corruption threshold warning if sheila corruption >= 80 and PC corr > sheila corruption and sheila xp =/= 3)
-	else if ((player.cor > 90 || player.cor > sheilaCorruption()) && sheilaCorruption() >= 80 && flags[kFLAGS.SHEILA_XP] != 3) {
+	else if ((player.cor > (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > sheilaCorruption()) && sheilaCorruption() >= 80 && flags[kFLAGS.SHEILA_XP] != 3) {
 		sheilaCorruptionUpdate();
 		/*if (player.cor > 90 || player.cor > sheilaCorruption()) {
 			dynStats("cor", -10);
@@ -2270,11 +2270,11 @@ private function sheilaMutualMasturbation():void {
 	//(jack shit)
 	else outputText("fingers are pulled into her vagina by her muscles as her orgasm begins.");
 	//[( pc corr >= 90 or > sheila corruption) 
-	if (player.cor >= 90 || player.cor > flags[kFLAGS.SHEILA_CORRUPTION]) {
+	if (player.cor >= (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > flags[kFLAGS.SHEILA_CORRUPTION]) {
 		outputText("\n\nHer lips seem to draw yours in when she comes, until it feels like you've been pressing them into her since time began; her chest rises as she sucks, and you can clearly see her breasts swelling up - it's too much to bear, and you grab one with your free hand and squeeze.  Sheila answers you by sticking her tongue even deeper into your mouth.");
 	}
 	//(else pc corr < sheila corruption)
-	else if (player.cor < flags[kFLAGS.SHEILA_CORRUPTION]) {
+	else if ((player.cor + player.corruptionTolerance()) < flags[kFLAGS.SHEILA_CORRUPTION]) {
 		outputText("\n\nThe kiss breaks as the girl loses muscle control, and she leans forward, pressing her forehead into yours and looking up into your eyes with a smile and a  heavy-lidded stare.  She shivers again, and you can feel heat gathering in your face and fogging your brain even as she seems to curl up in your arms.");
 	}
 	//(else if equal corr but under 90)
@@ -2287,13 +2287,13 @@ private function sheilaMutualMasturbation():void {
 	//if not fucking nothing, reduce lust and reset hours since cum; if sheila corr = 90 and pc corr >= 90, go to demonization, else continue
 	if (target == "cunt" || target == "cock" || target == "nipplecunt") player.orgasm('Generic');
 	else dynStats("lus", 50);
-	if (player.cor >= 90 && sheilaCorruption() >= 90) {
+	if (player.cor >= (90 - player.corruptionTolerance()) && sheilaCorruption() >= 90) {
 		menu();
 		addButton(0,"Next",sheilaGoesDemon);
 		return;
 	}
 	//[(corruption threshold warning if sheila corruption >= 80 and PC corr > sheila corruption and sheila xp =/= 3)
-	else if ((player.cor > 90 || player.cor > sheilaCorruption()) && sheilaCorruption() >= 80 && flags[kFLAGS.SHEILA_XP] != 3) {
+	else if ((player.cor > (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > sheilaCorruption()) && sheilaCorruption() >= 80 && flags[kFLAGS.SHEILA_XP] != 3) {
 		sheilaCorruptionUpdate();
 		/*if (player.cor > 90 || player.cor > sheilaCorruption()) {
 			dynStats("cor", -10);
@@ -2467,7 +2467,7 @@ private function rapeSheilasCooter():void {
 	
 	//fuck-fork
 	//[(corruption < 50)
-	if (player.cor < 50) {
+	if (player.cor < (50 + player.corruptionTolerance())) {
 		outputText("\n\nYou frown at the girl.  She still wants to escape, even though her body is eager for this?  You can feel her wet pussy twitching at your " + player.cockHead(x) + ".  Dragging the oozing tip along her soaked panties provokes a shiver and another bloom of fluid from the girl, but she bites her lip and refuses to meet your eye.");
 		outputText("\n\n\"<i>Are you serious?</i>\" you ask, thrusting gently to part her labia and push the sodden cloth into her.  You can already see every outline of her pussy though it.");
 		
@@ -2541,14 +2541,14 @@ private function rapeSheilasCooter():void {
 		if (!player.isTaur()) outputText(" and she presses your hand uncomfortably");
 		outputText(", gasping as her own orgasm begins.  Her knees wrap around your sides, satisfying your prediction, and her vagina");
 		//[(pc corr >= 90 or > sheila corruption)
-		if (player.cor >= 90 || sheilaCorruption() < player.cor) {
+		if (player.cor >= (90 - player.corruptionTolerance()) || sheilaCorruption() < (player.cor + player.corruptionTolerance())) {
 			outputText(" pulls greedily at your [cockFit 48], drinking up your semen as fast as you can squirt it.  She sucks in breath as she climaxes, finally opening her eyes as her head tilts back");
 			//[(nonhors)
 			if (!player.isTaur()) outputText("; you can almost feel her breast heating up and swelling with blood under your hand, as the nipple pokes into your palm");
 			outputText(".");
 		}
 		//(PC corr < sheila corruption)
-		else if (player.cor < sheilaCorruption()) {
+		else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) {
 			outputText(" floods you with juices, dumping so much around your twitching cock that you feel like you're lowering it into a hot spring.");
 			//[(nonhors)
 			if (!player.isTaur()) outputText("  She squeezes your hand so hard that you swear you can feel her breast compressing under it as she screams her pleasure.");
@@ -2568,7 +2568,7 @@ private function rapeSheilasCooter():void {
 		}
 		outputText("\n\n\"<i>Haha,</i>\" you laugh softly.  \"<i>You wanted this as much as I thought.</i>\"");
 		//if sheila corr >= 90 and PC corr > 90, go to demonization scene, else continue
-		if (sheilaCorruption() >= 90 && player.cor >= 90) {
+		if (sheilaCorruption() >= 90 && player.cor >= (90 - player.corruptionTolerance())) {
 			menu();
 			addButton(0,"Next",sheilaGoesDemon);
 			return;
@@ -2687,7 +2687,7 @@ private function forcedSheilaOral(dick:Boolean = true):void {
 		//end width fork and length fork
 		//begin corruption worms fork
 		//(if corr >= 70 and Infest command is unlocked)
-		if (player.cor >= 70 && player.statusEffectv1(StatusEffects.Infested) == 5) {
+		if (player.cor >= (70 - player.corruptionTolerance()) && player.statusEffectv1(StatusEffects.Infested) == 5) {
 			outputText("\n\nA wicked idea flits through your head, brought on by the squirming annoyances ");
 			if (player.balls > 0) outputText("packing your [balls] and driving up your lust in their zeal to multiply");
 			else outputText("deep inside your body, trailing sensation along the nerves in your most intimate places and ramping up your production");
@@ -2807,11 +2807,11 @@ private function sheilaGetsRapedWithADildont():void {
 	
 	outputText("\n\n\"<i>Nnnnn,</i>\" she moans, humming into your " + player.skinFurScales() + ".  ");
 	//[(PC corr >= 90 and sheila corr >= 90)
-	if (player.cor >= 90 || player.cor > sheilaCorruption()) {
+	if (player.cor >= (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > sheilaCorruption()) {
 		outputText("Your face heats as she kisses you sloppily, and not all of the temperature is from her mouth.  It feels like she's pulling energy right out of you, and you can swear that her breasts are growing.");
 	}
 	//(else PC corr < sheila corruption)
-	else if (player.cor < sheilaCorruption()) {
+	else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) {
 		outputText("Her lips heat up and your body tingles; you can see her breasts shrinking as she shivers and slobbers on your face - or so it seems from the angle.");
 	}
 	//(else if magically equal but < 90)
@@ -2822,7 +2822,7 @@ private function sheilaGetsRapedWithADildont():void {
 	if (player.hasCock()) outputText("  \"<i>Perhaps next time you'd like to try a real cock in there?</i>\"  Even exhausted and messed up on goblin drugs, she has the presence of mind to shake her head at that.  You laugh.");
 	
 	//go to demonization if PC corr >= 90 and sheila corruption >= 90, else continue
-	if (player.cor >= 90 && sheilaCorruption() >= 90) {
+	if (player.cor >= (90 - player.corruptionTolerance()) && sheilaCorruption() >= 90) {
 		menu();
 		addButton(0,"Next",sheilaGoesDemon);
 		return;
@@ -2830,11 +2830,11 @@ private function sheilaGetsRapedWithADildont():void {
 	outputText("\n\nTurning around, you walk away from the woman, holding the used dildo out at an angle to make sure she can see it until you disappear.  Privately, you're also waiting to wash it before you put it away again - or use it on yourself, imagining the scene again in your head.");
 	
 	//end scene, gain lib-based lust, if PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption
-	if (player.cor >= 90 || sheilaCorruption() < player.cor) {
+	if (player.cor >= (90 - player.corruptionTolerance()) || sheilaCorruption() < (player.cor - player.corruptionTolerance())) {
 		dynStats("cor", -10);
 		sheilaCorruption(10);
 	}
-	else if (player.cor < sheilaCorruption()) {
+	else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) {
 		dynStats("cor", 10);
 		sheilaCorruption(-10);
 	}
@@ -2941,10 +2941,10 @@ private function sheilaCowgirlRapesYou():void {
 		else outputText("\n\nWhat?!  You're not even near finishing yet!  ");
 		outputText("Sheila shivers and leans back, hair dangling, as her hips buck and her thighs squeeze your shaft.  ");
 		//(PC corr >=90 or > sheila corruption)
-		if (player.cor >= 90 || sheilaCorruption() < player.cor) {
+		if (player.cor >= (90 - player.corruptionTolerance()) || sheilaCorruption() < (player.cor + player.corruptionTolerance()))) {
 			outputText("You can feel your prick heating up where her pussy rubs against it... it almost feels like the rest is cooling down at the same time.  The woman atop you arches her back and sucks in her breath sharply, and her tits seem to claim your field of vision, swelling up - though that could just be the angle.");
 		}
-		else if (player.cor < sheilaCorruption()) outputText("Her orgasm wets your prick, coating it with fluid as she comes.  Sheila wraps herself tighter in your limbs, squeezing her breasts against her chest, and you think you can feel them get a little smaller as your head fuzzes over with her excess emotion.");
+		else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) outputText("Her orgasm wets your prick, coating it with fluid as she comes.  Sheila wraps herself tighter in your limbs, squeezing her breasts against her chest, and you think you can feel them get a little smaller as your head fuzzes over with her excess emotion.");
 		else outputText("Her hips lock up when she comes, leaving you to try and finish yourself as she heats up around your shaft.");
 		
 		//[(sens >=50)
@@ -2955,7 +2955,7 @@ private function sheilaCowgirlRapesYou():void {
 			outputText("  Once the rain of semen peters out, she pulls apart from you, slimy and dripping.");
 			
 			//if PC corr >= 90 and sheila corruption >= 90, go to demonization, else continue
-			if (player.cor >= 90 && sheilaCorruption() >= 90) {
+			if (player.cor >= (90 - player.corruptionTolerance()) && sheilaCorruption() >= 90) {
 				menu();
 				addButton(0,"Next",sheilaGoesDemon);
 				return;
@@ -2972,7 +2972,7 @@ private function sheilaCowgirlRapesYou():void {
 			outputText("\n\nYou thrust vigorously, trying to push yourself over the edge, but Sheila's orgasm is already winding down - she scoots up and pulls her pussy away from your rubbing, tormenting shaft, leaving you alone in a painful vacuum of sensation.");
 			
 			//if PC corr >= 90 and sheila corruption >= 90, go to demonization, else continue
-			if (player.cor >= 90 && sheilaCorruption() >= 90) {
+			if (player.cor >= (90 - player.corruptionTolerance()) && sheilaCorruption() >= 90) {
 				menu();
 				addButton(0,"Next",sheilaGoesDemon);
 				return;
@@ -3038,9 +3038,9 @@ private function sheilaCowgirlRapesYou():void {
 			
 			outputText("\n\nThe stimulation is too much, and on one of the downthrusts, the tingling nerves at your tip trigger your climax and you ejaculate wordlessly into the distracted woman, who is still busy pumping her soaking pussy, not noticing the extra moisture.  She moans and gasps, rubbing her clitoris with two fingers, and begins to twitch as well, fucking you messily with her increasingly slimy pussy.  ");
 			//(PC corr >= 90 or > sheila corruption)
-			if (player.cor >= 90 || player.cor > sheilaCorruption()) outputText("You can feel her cum-slick inner walls pulling at you as she begins to orgasm, and your mind clears as you blow your load inside her, wondering when she'll likewise return to sense.");
+			if (player.cor >= (90 - player.corruptionTolerance()) || (player.cor - player.corruptionTolerance()) > sheilaCorruption()) outputText("You can feel her cum-slick inner walls pulling at you as she begins to orgasm, and your mind clears as you blow your load inside her, wondering when she'll likewise return to sense.");
 			//(else PC corr < sheila corruption)
-			else if (player.cor < sheilaCorruption()) outputText("Her pussy gushes with her orgasm, pushing out your semen and soaking her inner lips even as she continues riding your cock, and your mind clouds as you think of little except sneaking as much of your cum inside her as possible.");
+			else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) outputText("Her pussy gushes with her orgasm, pushing out your semen and soaking her inner lips even as she continues riding your cock, and your mind clouds as you think of little except sneaking as much of your cum inside her as possible.");
 			//else equal but < 90)
 			else outputText("Even as she comes mindlessly something makes you hold in your own moans, wondering how long it will take her to notice her pussy being filled with your egg-hunting sperm.");
 			//[(small cum)]
@@ -3056,7 +3056,7 @@ private function sheilaCowgirlRapesYou():void {
 			}
 			
 			//if PC corr >= 90 and sheila corruption >= 90, go to demonization, else continue
-			if (player.cor >= 90 && sheilaCorruption() >= 90) {
+			if (player.cor >= (90 - player.corruptionTolerance()) && sheilaCorruption() >= 90) {
 				menu();
 				addButton(0,"Next",sheilaGoesDemon);
 				return;
@@ -3132,7 +3132,7 @@ private function sheilaForcedOralGeneric():void {
 	}
 	outputText("\n\nThe woman's pussy clenches as she finishes, ");
 	//[(PC corr >= 90 or > sheila corruption)]
-	if (player.cor >= 90 || player.cor > sheilaCorruption()) {
+	if (player.cor >= (90 - player.corruptionTolerance()) || (player.cor + player.corruptionTolerance()) > sheilaCorruption()) {
 		outputText("strangling your tongue with muscles attempting to lock onto it, trying to pull it in.");
 		//[(demon/dragon tongue)
 		if (player.tongueType > TONGUE_HUMAN) outputText("  As tired as you are, you simply go along with it, allowing her rippling walls to slowly draw your tip deeper inside until it bumps against her cervix; she shivers and kisses the top of your head as you groggily run your tongue over the entrance to her womb.");
@@ -3140,7 +3140,7 @@ private function sheilaForcedOralGeneric():void {
 		outputText("  Sheila groans loudly and your vision fades; through the fog, you can swear you feel her breasts growing larger against your forehead.");
 	}
 	//(else PC corr < sheila corruption)
-	else if (player.cor < sheilaCorruption()) {
+	else if ((player.cor + player.corruptionTolerance()) < sheilaCorruption()) {
 		outputText("filling your mouth with her liquid love.  Your lips and throat heat up as you're forced to drink it from the nearness of her pussy; as she bucks her hips weakly into your face, trying to draw out her climax, you increasingly wish that you could return the favor, ");
 		if (player.hasCock()) outputText("face-fucking her and blowing a load into her mouth, then holding her jaw shut until she swallows it unhappily.");
 		else if (player.hasVagina()) outputText("smearing your gash on her face until you come and drown her in your squirting girl-jizz.");
@@ -3149,7 +3149,7 @@ private function sheilaForcedOralGeneric():void {
 	else outputText("and she pets your head affectionately as her walls squeeze your tongue.  \"<i>Oh, mate...</i>\" she whispers lovingly, completely forgetting the struggle that led to your tryst.");
 	
 	//if both sheila corruption and PC corr >= 90, go to demonization, else continue
-	if (player.cor >= 90 && sheilaCorruption() >= 90) {
+	if (player.cor >= (90 - player.corruptionTolerance()) && sheilaCorruption() >= 90) {
 		menu();
 		addButton(0,"Next",sheilaGoesDemon);
 		return;
@@ -4370,7 +4370,7 @@ private function clitSwellingDemonSheilaClitSoundingAnal():void {
 		outputText("  \"<i>... Oh, god dammit,</i>\" Sheila gripes.  She walks over and forces your face into them with a long, slow shake, then giggles as a joke comes to her.  \"<i>There, [name]; I've stained you with my colors!</i>\"  She plants a long kiss on your grass-smeared forehead, then drops you back to the ground, straightens up, and departs.  Exhausted, you slip into a doze, wondering if you'll be able to fit your swollen clit back into your clothing when you wake or if you'll have to walk back to camp with it sticking out.  It slowly deflates as you sleep, but does retain a bit of additional length.");
 	}
 	//reduce lust and libido, increase sensitivity, remove virgin vag if PC clit>12", slimefeed if PC clit>12" or PC corr <50, increase clit by 1" before perk mod; if PC corr <50 then +10 corr and -10 sheila corruption, else if PC corr >=50 then -10 corr and +10 sheila corruption
-	if (player.getClitLength() > 12 || player.cor < 50) {
+	if (player.getClitLength() > 12 || player.cor < (50 + player.corruptionTolerance())) {
 		player.cuntChange(12,false,false,false);
 		player.slimeFeed();
 	}
@@ -4569,8 +4569,8 @@ private function missionaryForThePurposesOfCreatingImpsWithSheila():void {
 		player.orgasm('Dick');
 		dynStats("lib", -1);
 		player.slimeFeed();
-		if (player.cor < 50) player.slimeFeed();
-		if (player.cor < 50) {
+		if (player.cor < (50 + player.corruptionTolerance())) player.slimeFeed();
+		if (player.cor < (50 + player.corruptionTolerance())) {
 			dynStats("cor", 10);
 			sheilaCorruption(-10);
 		}
@@ -4635,7 +4635,7 @@ private function sheilaAnalHateFuckAGoGo():void {
 	outputText("\n\n\"<i>[name]!  Finish in my pussy, please!  I want to raise your baby!  You're the only one that suits me!</i>\"");
 	
 	//if corruption >= 80 and PC has worms, present choices 
-	if (player.cor >= 80 && player.hasStatusEffect(StatusEffects.Infested)) {
+	if (player.cor >= (80 - player.corruptionTolerance()) && player.hasStatusEffect(StatusEffects.Infested)) {
 		menu();
 		//[No][Worms Suit You], else auto-output text from [No]
 		addButton(0,"No",sheilaAnalHateFuckAGoGoNO);
@@ -4738,7 +4738,7 @@ private function analHateFucksWithJojo():void {
 	outputText("\n\nHer face fills with defiant bitterness as she digests this last statement, looking at the ground.  \"<i>Please... [master],</i>\" she says, finally, \"<i>will you have your slave come in my unworthy pussy instead?</i>\"  She's still obviously resisting the lesson.");
 	
 	//present [No][Ruin Them]choices only if corruption >= 80, else output text from [No]
-	if (player.cor >= 80) {
+	if (player.cor >= (80 - player.corruptionTolerance())) {
 		menu();
 		addButton(0,"Next",analHateFucksWithJojoNo,true);
 		outputText("\n\n<b>You could really ruin them, but you'd probably never see Jojo again.</b>");
@@ -4948,7 +4948,7 @@ private function bigDickAndThighs():void {
 	//reduce lust, reduce libido, reduce sens, +10 corr and sheila corruption -10 if corr <50 or -10 corr and sheila corruption +10 if corr >= 50
 	player.orgasm('Dick');
 	dynStats("lib", -1, "sen", -1);
-	if (player.cor < 50) {
+	if (player.cor < (50 + player.corruptionTolerance())) {
 		dynStats("cor", 10);
 		sheilaCorruption(-10);
 	}
@@ -5027,7 +5027,7 @@ private function winAgainstDemoNSheilaForVaginas():void {
 	player.slimeFeed();
 	player.orgasm('Vaginal');
 	dynStats("lib", -1);
-	if (player.cor < 50) {
+	if (player.cor < (50 + player.corruptionTolerance())) {
 		sheilaCorruption(-10);
 		dynStats("cor", 10);
 	}
