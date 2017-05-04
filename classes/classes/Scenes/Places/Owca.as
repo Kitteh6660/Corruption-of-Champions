@@ -1,4 +1,4 @@
-﻿package classes.Scenes.Places{
+package classes.Scenes.Places{
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
@@ -104,7 +104,7 @@ private function agreeToFollowRebecFirstTime():void {
 			outputText("  If there's anything that can be done to hold off these evil creatures, you will do it.");
 		}
 		//[else if corr and libido both > 60]
-		else if (player.cor > 60 && player.lib > 60 && player.hasCock()) {
+		else if (player.cor > (60 - player.corruptionTolerance()) && player.lib > 60 && player.hasCock()) {
 			//[if silly mode on and presence of penis]
 			if (silly()) outputText("\n\nYou can't help but pop an enormous boner.  [EachCock] is pressing so hard against your [armor] that you're afraid that one or the other might break.  ");
 			//end of local silly willy condition
@@ -116,14 +116,14 @@ private function agreeToFollowRebecFirstTime():void {
 		outputText("\n\nYou know what kind of deal should be expected from these wicked creatures, but you let her take her time explaining.");
 		outputText("\n\n\"<i>At the end of every week, one of us must be chained and left at the demons' disposal for the full night.  It must be someone different every night.  Chosen people usually come back battered and sore, and they have dirty fluids and unthinkable mixtures leaking from every hole of their body.  It's a difficult thing to think about, but it's necessary for our community.  But then...</i>\"  She wavers for a moment, before looking back to you with a desperate plea in her eyes.  \"<i>You're a brave, courageous adventurer; you just said you were willing to handle these demons!  It would almost be a blessing to us if you could help - not that you have to, but... it seems like we're beyond saving.</i>\"  The girl looks despondent, but then changes her composure when she turns back to the village.  \"<i>I might be being selfish, but you'd have my eternal gratitude if you helped.</i>\"");
 		//[if corr < 50 and int >= 50]
-		if (player.cor < 50 && player.inte >= 50) {
+		if (player.cor < (50 + player.corruptionTolerance()) && player.inte >= 50) {
 			outputText("\n\nSo this is what it has come to.  Her playfulness, her enticing gestures, her seductive play... she had been planning it all along.  She must have put on the same act for many people before you.  You feel slightly angry at yourself for having been fooled that easily; you feel angrier at her because she tried to use you as a mere disposable victim to be toyed with and manipulated; but you feel angriest at these demons for forcing honest folks to resort to infamous practices and deceptive seduction so they can live their lives as usual.");
 			outputText("\n\nBut on second thought, she's right.  You're the champion of your own village; you're supposed to be selfless and resolute.  You were sent to this cursed land to prevent further corruption; your own physical integrity does not matter when other people are at stake.  Giving in to her demands would be certainly a noble and difficult act, something your elders would be proud of.  Of course it would seem like you had fallen for her trick, but do you really care?  You ponder your choices, thinking deeply");
 			if (player.lib > 50) outputText("... and considering what Rebecc meant by 'gratitude'");
 			outputText(".  Maybe it wasn't all an act?");
 		}
 		//[if corr < 50 and int < 50]
-		else if (player.cor < 50) {
+		else if (player.cor < (50 + player.corruptionTolerance())) {
 			outputText("\n\nYour eyes widen in surprise when you understand what she's asking of you, but after all, why not?  You're the champion; you're supposed to be selfless and resolute.  You were sent to this cursed land to prevent further corruption; your own physical integrity does not matter when other people are at stake.  Giving in to her demands would be certainly a noble and difficult act, something your elders would be proud of.  Of course it would seem like you had fallen for her trick, but do you really care?  You consider your choices");
 			if (player.lib > 50) outputText("... and considering what Rebecc meant by 'gratitude'");
 			outputText(".  Maybe it wasn't all an act?");
@@ -168,7 +168,7 @@ private function acceptRebeccsPlea(firstTime:Boolean = false, sacrificed:Boolean
 	outputText("\n\nA group of the farmers then proceeds to lead you across the village to a strange circle-shaped pit.  It's about one meter deep and ten meters in diameter.  At the center of the pit stands a tall wooden pole, adorned with several dangling ropes and chains.  You grimace as you realize you will be tied up and bound to the crudely fashioned post in order to make sure you don't escape before the demons show up.");
 	//if (player.armorName != "comfortable clothes") outputText("  The farmers almost eagerly help you out of your " +player.armorName+ ", supplying you with a set of shabby but comfortable peasant clothes.");
 	//[[if corr >70 and have gender]
-	if (player.cor > 70 && player.gender > 0) {
+	if (player.cor > (70 - player.corruptionTolerance()) && player.gender > 0) {
 		outputText("\n\nYou lick your lips in anticipation, your ");
 		if (player.hasVagina()) outputText(player.vaginaDescript(0));
 		if (player.hasVagina() && player.hasCock()) outputText(" and ");
@@ -715,7 +715,7 @@ private function rebeccMenu():void {
 	menu();
 	addButton(0, "Appearance", rebeccAppearance);
 	addButton(1, "Bath", rebeccBathScene);
-	if (player.cor >= 66 - player.corruptionTolerance() || player.findPerk(PerkLib.Sadist)) {
+	if (player.cor >= (66 - player.corruptionTolerance()) || player.findPerk(PerkLib.Sadist)) {
 		outputText("\n\nYou could try and force yourself on her, but you might not be welcome in town after...");
 		addButton(3, "Surprise Sex", rapeRebecc, false);
 	} else {
@@ -853,7 +853,7 @@ public function beatUpOwca():void {
 	outputText("The last of the villagers drops his improvised weapon.  They are all lying defenseless before you.  At last, you notice Rebecc, the only one still conscious, curled up as she weeps uncontrollably.  She is clearly oblivious of her surroundings, undoubtedly shocked by the violent fight.  Even if she calls herself your friend, you don't think you'd be able to reason with her after pummeling her kin.  What do you do?");
 	//Rape Rebbecc/Torch Village (needs Akbal's fire or Whitefire)/Leave
 	menu();
-	if (!player.isGenderless() && player.lust >= 33 && (player.cor >= 60 - player.corruptionTolerance() || player.findPerk(PerkLib.Sadist) >= 0)) {
+	if (!player.isGenderless() && player.lust >= 33 && (player.cor >= (60 - player.corruptionTolerance())) || player.findPerk(PerkLib.Sadist) >= 0) {
 		addButton(0, "Rape Rebecc", rapeRebecc, true);
 	} else {
 		addDisabledButton(0, "Rape Rebecc");
@@ -881,7 +881,7 @@ private function torchOwcaMotherFuckers():void {
 	flags[kFLAGS.OWCA_UNLOCKED] = -1;
 	dynStats("cor", 15);
 	menu();
-	if (!player.isGenderless() && player.lust >= 33 && (player.cor >= 60 - player.corruptionTolerance() || player.findPerk(PerkLib.Sadist) >= 0)) {
+	if (!player.isGenderless() && player.lust >= 33 && (player.cor >= (60 - player.corruptionTolerance()) || player.findPerk(PerkLib.Sadist) >= 0)) {
 		addButton(0, "Abuse Her", rapeRebecc, true);
 	} else {
 		addDisabledButton(0, "Abuse Her");
@@ -1023,7 +1023,7 @@ private function subdueVapula():void {
 	//choices: [Disband the horde]/[Enslave Vapula(requires cock or non-centaur vagina, D2 completion, libido >= 60, and corr >= 70)]
 	menu();
 	addButton(0, "Disband", disbandHorde);
-	if (!player.isGenderless() && (player.cor >= 66 - player.corruptionTolerance())) {
+	if (!player.isGenderless() && (player.cor >= (66 - player.corruptionTolerance()))) {
 		addButton(1, "EnslaveVapula", enslaveVapulaWithYourWang);
 	} else {
 		addDisabledButton(1, "EnslaveVapula", "This scene requires you to have genitals and high enough corruption.");

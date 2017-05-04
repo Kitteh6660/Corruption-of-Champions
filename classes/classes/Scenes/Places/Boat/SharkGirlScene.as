@@ -1,4 +1,4 @@
-﻿package classes.Scenes.Places.Boat{
+package classes.Scenes.Places.Boat{
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 
@@ -143,7 +143,7 @@ private function sharkgirlDickFuck():void {
 	combat.cleanupAfterCombat();
 	player.orgasm('Dick');
 	dynStats("sen", -1);
-	if (player.cor < 33) dynStats("cor", 1);
+	if (player.cor < (33 + player.corruptionTolerance())) dynStats("cor", 1);
 }
 
 private function sharkgirlSixtyNine():void {
@@ -180,7 +180,7 @@ private function sharkgirlSixtyNine():void {
 	combat.cleanupAfterCombat();
 	player.orgasm('Lips');
 	dynStats("sen", -1);
-	if (player.cor < 33) dynStats("cor", 1);
+	if (player.cor < (33 + player.corruptionTolerance())) dynStats("cor", 1);
 }
 
 //RAEP SOME FUKKIN SHARKGIRLZ NIGGA WITH DILDO!
@@ -333,8 +333,9 @@ internal function sharkLossRape():void {
 		outputText("The shark girl eventually sighs happily and relaxes her grip on your hair, pulling your head away a few inches. \"<i>Not bad bitch, not bad. Now get on your back.</i>\" You obey your mistress's command and flop onto your back. A sense of joy fills you as she positions her crotch in front of your face and moves her own head between your legs. You quickly resume eating her out, and this time she joins in the feast. It's not too long before the two of you orgasm, spraying girl-cum onto each other's faces.\n\n", false);
 		outputText("The shark girl stands to leave and winks at you before diving back into the water. You eventually pass out from the exertion.", false);
 		//(Corruption +2, Intelligence -4)
+
 		player.orgasm('Vaginal');
-		if (player.cor < 30) dynStats("cor", 1);
+		if (player.cor < (30 + player.corruptionTolerance())) dynStats("cor", 1);
 		combat.cleanupAfterCombat();
 		return;
 	}
@@ -354,7 +355,7 @@ internal function sharkLossRape():void {
 		outputText("Eventually, her vagina clamps down on your cock and she cries out in orgasm. You grunt loudly and cum a few seconds after, pumping your seed into her womb. The shark girl leans over and plants a tiny kiss on your lips. \"<i>Good boy. I'll be sure to see you again</i>\". She gets up again and you watch her re-enter the water before you pass out.", false);
 		player.orgasm('Dick');
 		dynStats("sen", 1);
-		if (player.cor < 30) dynStats("cor", 1);
+		if (player.cor < (30 + player.corruptionTolerance())) dynStats("cor", 1);
 		combat.cleanupAfterCombat();
 		return;
 	}

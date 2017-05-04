@@ -128,9 +128,9 @@ package classes.Scenes.Areas.Mountain
 			outputText("Trapped within the mass of worms, you are utterly helpless. The constant moving all over your body provides naught but unwanted stimulation. Your cock, not knowing any better, springs to attention, creating a peak in the mass. The worms immediately recognize what has happened to you. One particularly fat worm finds itself perched on top of your dick's throbbing glans. You feel it prodding about your urethral opening and come to a horrible realization that your precious penis is completely vulnerable to thousands of creatures capable of invading your body!!! Before you can react or curse your fate, the fat worm quickly forces open your urethra and begins to push its way inside your dick!\n\n", false);
 			outputText("Crying out in shock, you feel the fat worm push its way, inch by inch, into your urethra. Your nerves light up like a Christmas tree as each individual cell tells you of the creature's presence and movement deeper into your body. The fat beast easily finds its way into your prostate and settles within the organ. As it settles, it begins flailing inside your sex. The sensations shift from shock to grotesque pleasure as your body only senses the stimulation conductive to orgasmic response. Your groin cramps and bloats quickly by the torrent of semen building within you and the invader's presence. Obviously sensitive to your fluids, you feel the worm thrash around some more, causing your body to respond by making more semen. The flopping creature quickly erodes any orgasmic discipline you are capable of and with a great shrill cry, you force lances of cum into the air, launching goo and worms alike in a sick display of forced pleasure. After you empty your body of spunk, the remaining worms become hyperaggressive.\n\n", false);
 			outputText("Excited by the feel of your fluids on them, many smaller worms push their way into your penis. Your cock distends as the worms fight to get inside you and to the source of the milk that has so excited them. Your prostate quickly fills up with the squirming creatures. The discomfort in your bloated bludgeon and the ceaseless stimulation of your organs causes your body to produce more cum. However, you find yourself unable to climax as the invaders rest inside your body submerged in your salty lust. The rest of the colony disperses, having accomplished its true goal of infesting your body.\n\n", false);
-			if (player.cor < 25) {
+			if (player.cor < (25 + player.corruptionTolerance())) {
 				dynStats("cor", 1);
-				player.cor = 25;
+				player.cor = (25 + player.corruptionTolerance());
 			}
 			trace("GET INFESTED HERE");
 			if (player.hasStatusEffect(StatusEffects.Infested)) {trace("BWUH?");}
@@ -288,9 +288,9 @@ package classes.Scenes.Areas.Mountain
 				player.createStatusEffect(StatusEffects.Infested,0,0,0,0);
 				dynStats("cor", 0);
 			}
-			if (player.cor < 25) {
+			if (player.cor < (25 + player.corruptionTolerance())) {
 				dynStats("cor", 2);
-				player.cor = 25;
+				player.cor = (25 + player.corruptionTolerance());
 			}
 			doNext(playerMenu);
 		}

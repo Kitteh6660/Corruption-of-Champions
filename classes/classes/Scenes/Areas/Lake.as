@@ -114,8 +114,10 @@ import classes.Scenes.API.FnHelpers;
 				}
 			} else {
 				outputText("Your stroll around the lake increasingly bores you, leaving your mind to wander.  ", true);
+
 				if (player.cor >= 60 || player.lust >= 90 || player.lib >= 75) {
 					outputText("Your imaginings increasingly seem to turn into daydreams of raunchy perverted sex, flooding your groin with warmth.");
+
 					dynStats("lus", (player.cor / 10 + player.lib / 10));
 				} else if (player.cor > 30 || player.lust > 60 || player.lib > 40) {
 					outputText("Your imaginings increasingly seem to turn to thoughts of sex.", false);

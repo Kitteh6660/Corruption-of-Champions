@@ -1,4 +1,4 @@
-﻿package classes.Scenes.Areas.Plains{
+package classes.Scenes.Areas.Plains{
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.Items.Armors.LustyMaidensArmor;
@@ -240,7 +240,7 @@ internal function loseToSatyr():void {
 	satyrPreggo();
 	player.orgasm('VaginalAnal');
 	dynStats("sen", 3);
-	if (player.cor < 50) dynStats("cor", 1);
+	if (player.cor < (50 + player.corruptionTolerance())) dynStats("cor", 1);
 	combat.cleanupAfterCombat();
 }
 

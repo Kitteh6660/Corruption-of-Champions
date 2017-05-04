@@ -1,4 +1,4 @@
-﻿package classes.Scenes.Areas.HighMountains {
+package classes.Scenes.Areas.HighMountains {
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
@@ -1554,8 +1554,8 @@ private function drinkDirectly():void {
 	outputText("Approaching the pristine pond, you kneel on the shore and dip your hands into the water, cupping them together and lifting them out to scoop up a decent drink.  The water is cool and sweet to the taste, and every swallow makes you feel calmer, cleaner, and refreshed.  You drink until your thirst is quenched, feeling purer in both mind and body.  ", true);
 	dynStats("lus", -25, "cor", -.5, "resisted", false);
 	player.refillHunger(15);
-	if (player.cor > 50) dynStats("cor", -1);
-	if (player.cor > 75) dynStats("cor", -1);
+	if (player.cor > (50 + player.corruptionTolerance())) dynStats("cor", -1);
+	if (player.cor > (75 + player.corruptionTolerance())) dynStats("cor", -1);
 	doNext(camp.returnToCampUseOneHour);	
 }
 private function getBottle():void {

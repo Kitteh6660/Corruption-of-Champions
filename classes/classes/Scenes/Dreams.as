@@ -89,7 +89,7 @@
 				choices[choices.length] = 12;
 				choices[choices.length] = 12;
 				choices[choices.length] = 12;
-				if (player.hasCock() && player.cor > 50) {
+				if (player.hasCock() && player.cor > (50 - player.corruptionTolerance())) {
 					choices[choices.length] = 13;
 					choices[choices.length] = 13;
 					choices[choices.length] = 13;
@@ -398,7 +398,7 @@
 		public function dayTenDreams():void {
 			outputText("\n", false);
 			if (player.hasCock()) {
-				if (player.cor < 50) {
+				if (player.cor < (50 + player.corruptionTolerance())) {
 					outputText("Your task completed, you return through the portal to your home.  Exhausted but happy, the sight of your village fills you with a surge of emotions.  Most prominently, and perhaps most enjoyably: pride.  You did it.\n\n", false);
 
 					outputText("You drink and celebrate with your people long into the night, feasting and receiving accolades and praise.  It is a party the likes of which you have never seen, and rightfully so.  Never again will your village be threatened by the demons.  Late in the evening, you arrive at the home of your childhood and greet your mother.\n\n", false);
@@ -430,7 +430,7 @@
 				}
 			}
 			else {
-				if (player.cor < 50) {
+				if (player.cor < (50 + player.corruptionTolerance())) {
 					outputText("Your task completed, you return through the portal to your home.  Exhausted but happy, the sight of your village fills you with a surge of emotions.  Most prominently, and perhaps most enjoyably: pride.  You did it.\n\n", false);
 
 					outputText("You drink and celebrate with your people long into the night, feasting and receiving accolades and praise.  It is a party the likes of which you have never seen, and rightfully so.  Never again will your village be threatened by the demons.  Late in the evening, you arrive at the home of your childhood and greet your father.\n\n", false);
@@ -465,7 +465,7 @@
 					outputText("You wake up in a sweat.  Fuck.", false);
 				}
 			}
-			if (player.cor < 50) dynStats("lus", 10);
+			if (player.cor < (50 + player.corruptionTolerance())) dynStats("lus", 10);
 			else dynStats("lus", 25);
 			doNext(playerMenu);
 		}

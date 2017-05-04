@@ -292,7 +292,7 @@ public function beatUpHel():void {
 	if (monster.HP < 1) outputText("Unable to withstand your onslaught, the salamander collapses to a knee, barely supporting her weight on her sword.", false);
 	else outputText("Panting heavily, knees shaking, she collapses onto the ground, heavily leaning upon her sword.", false);	
 	outputText("\n\n", false);
-	if (player.cor < 85) helDefeatedNormal();
+	if (player.cor < (85 + player.corruptionTolerance())) helDefeatedNormal();
 	else helDefeatedCorrupt();
 }
 private function helDefeatedCorrupt():void {

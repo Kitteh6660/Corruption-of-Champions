@@ -827,11 +827,11 @@ package classes.Scenes.NPCs
 					outputText("\n\nMeditating seems to have helped, and you feel more in control of yourself, despite Joy's antics.");
 					dynStats("lus", -30);
 					var cleanse:int = -2; //Corruption reduction - faster at high corruption
-					if (player.cor > 80)
+					if (player.cor > (80 + player.corruptionTolerance()))
 						cleanse -= 3;
-					else if (player.cor > 60)
+					else if (player.cor > (60 + player.corruptionTolerance()))
 						cleanse -= 2;
-					else if (player.cor > 40)
+					else if (player.cor > (40 + player.corruptionTolerance()))
 						cleanse -= 1;
 					dynStats("cor", cleanse - player.countCockSocks("alabaster"));
 					if (player.str < 45) dynStats("str", 1); //Str boost to 45
@@ -1285,7 +1285,7 @@ package classes.Scenes.NPCs
 			outputText("\n\n\"<i>Like, okay, here goes...</i>\" She cracks the egg and gulps down the yolk, dropping the shell on the ground and giving out a throaty moan. As you watch, the bulge in her shorts shrinks smaller and smaller, until her crotch is completely flat. As if to confirm your suspicions, Joy pulls down her shorts and starts to feel the pink vagina that is now the only sexual organ present. \"<i>Aw... now I don't have a funstick anymore. I won't ever be able to grow it back, you know.</i>\" She tells you. She then starts to probe the interior of her sex, and you decide to leave her to get acquainted with her new body.");
 			flags[kFLAGS.JOY_COCK_SIZE] = 0;
 			incrementJoysCockFondness(1);
-			if (player.cor < 25) dynStats("cor", 1); //You monster!
+			if (player.cor < (25 + player.corruptionTolerance())) dynStats("cor", 1); //You monster!
 			doNext(genericMenu);
 		}
 		private function dontGiveJoyAPinkEggThanksGoodness():void {
@@ -1361,8 +1361,8 @@ package classes.Scenes.NPCs
 			if (player.lib > 66) dynStats("lib", -1);
 			//Corruption reduction
 			dynStats("cor", -1);
-			if (player.cor > 33) dynStats("cor", -1);
-			if (player.cor > 66) dynStats("cor", -1);
+			if (player.cor > (33 + player.corruptionTolerance())) dynStats("cor", -1);
+			if (player.cor > (66 + player.corruptionTolerance())) dynStats("cor", -1);
 			flags[kFLAGS.JOY_LACTAID_MILKED_COUNTER]++;
 			doNext(camp.returnToCampUseOneHour);
 		}

@@ -64,7 +64,7 @@ import classes.Scenes.API.FnHelpers;
 				menu();
 				addButton(0,"Continue", tentacleBeastScene.encounter);
 				addButton(4, "Leave", camp.returnToCampUseOneHour);
-			}else {
+			} else {
 				tentacleBeastScene.encounter();
 			}
 		}

@@ -1,4 +1,4 @@
-﻿package classes.Scenes.Areas.Forest{
+package classes.Scenes.Areas.Forest{
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
@@ -63,12 +63,12 @@ public function encounter():void {
 		//Warm up for neuters as per the old event:
 		outputText("You see a massive, shambling form emerge from the underbrush. While first appearing to be a large shrub, it shifts its bulbous mass and reveals a collection of thorny tendrils and cephalopodic limbs. Sensing your presence, it lumbers at you, full speed, tentacles outstretched.\n\n", false);
 		
-		if (player.cor > 50 && player.cor <= 75)
+		if (player.cor > (50 + player.corruptionTolerance()) && player.cor <= (75 + player.corruptionTolerance()))
 			outputText("You debate the merits of running from such a creature, and realize it's now too late to escape.  ", false);
-		if (player.cor > 75)
+		if (player.cor > (75 + player.corruptionTolerance()))
 			outputText("You smile and stride forward, welcoming the pleasure you expect from such a monster.  ", false);
 		//HILARIOUS NEUTER EVENT HERE
-		if (player.cor < 75)
+		if (player.cor < (75 + player.corruptionTolerance()))
 			outputText("While you attempt to resist the abomination, its raw muscle mass is too much. ", false);
 		outputText("It pins you to the ground easily. You feel slimy tentacles run up and down your groin as the creature searches for whatever gonads it expected you to have. When it realizes that you have neither penis nor vagina, it smartly casts you to the ground in apparent disgust.\n\n\"<i>WHAT THE FUCK IS THIS SHIT?!!</i>\" The creature speaks in an unnervingly human voice.\n\n", false);
 		outputText("Completely confused, all you can do is sit there in shock.\n\n\"<i>Where are your naughty bits, goddammit!</i>\" the creature bellows. \"<i>Us tentacle creatures need to FEED!</i>\"\n\n", false);
@@ -93,7 +93,7 @@ public function encounter():void {
 		doNext(camp.returnToCampUseOneHour);
 		return;
 	}
-	if (player.cor > 50) {
+	if (player.cor > (50 + player.corruptionTolerance())) {
 		outputText("Do you joyfully submit or fight back?\n\n", false);
 		menu();
 		addButton(0, "Fight", startTentacleBeastCombat);
@@ -249,7 +249,7 @@ internal function tentacleLossRape():void {
 	//Horsecock surprise!
 	if (player.countCocksOfType(CockTypesEnum.HORSE) > 0 && player.cocks[0].cockLength > 15 && player.cocks[0].cockThickness >= 3) 
 	{
-		if (player.cor < 75 && player.lust < player.maxLust()) outputText("It grabs you before you can get away!\n\nWhile you attempt to resist the abomination, its raw muscle mass is too much. ", false);
+		if (player.cor < (75 + player.corruptionTolerance()) && player.lust < player.maxLust()) outputText("It grabs you before you can get away!\n\nWhile you attempt to resist the abomination, its raw muscle mass is too much. ", false);
 		outputText("It pins you to the ground easily. You immediately feel a sharp, horrible pain at the base of your cock. You look down to see the end of a thorny tendril impaled in your pelvic region. Fiery pain courses through your veins as you feel the creature inject you with some sort of liquid. As the pain sears through you, your monstrous equine member immediately becomes fully erect and pre-cum flows freely from your flare.\n\n", false);
 		outputText("You see a large hollow tentacle attempt to descend upon your stiff cock. Much to your surprise and the creature's frustration, it barely opens wide enough to cover the tip of your impressive member. The creature mindlessly continues attempting to entrap your penis. It only succeeds in sending pangs of pleasure down your shaft as the thumping on the end of your cock shoots down to your roots.\n\n", false);
 		outputText("Amused as well as aroused, you choose to lull the creature into reticence as it keeps trying to suck your horsecock in. Each wave of pleasure makes your prick bob about", false);
@@ -280,7 +280,7 @@ internal function tentacleLossRape():void {
 			//count up
 			tbec.value1++;
 			//Bad end
-			if (tbec.value1 >= 3 && player.cor > 50 && player.gender == 3) {
+			if (tbec.value1 >= 3 && player.cor > (50 + player.corruptionTolerance()) && player.gender == 3) {
 				futaTentacleBadEnd();
 				return;
 			}

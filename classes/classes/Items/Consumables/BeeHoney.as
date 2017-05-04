@@ -88,15 +88,15 @@ package classes.Items.Consumables
 			if (changes < changeLimit && pure) { //Special honey will also reduce corruption, but uses different text and is handled separately
 				outputText("\n\n");
 				changes++;
-				if (player.cor > 80) outputText("Your head aches, as if thunder was echoing around your skull.  ");
-				else if (player.cor > 60) outputText("You feel a headache forming just behind your eyes.  In no time flat it reaches full strength.  ");
-				else if (player.cor > 40) outputText("A wave of stinging pain slices through your skull.  ");
-				else if (player.cor > 20) outputText("A prickling pain spreads throughout your skull.  ");
+				if (player.cor > (80 + player.corruptionTolerance())) outputText("Your head aches, as if thunder was echoing around your skull.  ");
+				else if (player.cor > (60 + player.corruptionTolerance())) outputText("You feel a headache forming just behind your eyes.  In no time flat it reaches full strength.  ");
+				else if (player.cor > (40 + player.corruptionTolerance())) outputText("A wave of stinging pain slices through your skull.  ");
+				else if (player.cor > (20 + player.corruptionTolerance())) outputText("A prickling pain spreads throughout your skull.  ");
 				else outputText("You feel a mildly unpleasant tingling inside your skull.  ");
-				if (player.cor > 0) outputText("It quickly passes, leaving you more clearheaded");
+				if (player.cor > (0 + player.corruptionTolerance())) outputText("It quickly passes, leaving you more clearheaded");
 				getGame().dynStats("cor", -(1 + (player.cor / 20)));
 				//Libido Reduction
-				if (player.cor > 0 && changes < changeLimit && Utils.rand(1.5) == 0 && player.lib > 40) {
+				if (player.cor > (0 + player.corruptionTolerance()) && changes < changeLimit && Utils.rand(1.5) == 0 && player.lib > 40) {
 					outputText(" and settling your overcharged sex-drive a bit.");
 					getGame().dynStats("lib", -3, "lus", -20);
 					changes++;
@@ -292,7 +292,7 @@ package classes.Items.Consumables
 					}
 					getGame().dynStats("sen", 3);
 				}
-				if (player.cor >= 5) {
+				if (player.cor >= (5 + player.corruptionTolerance())) {
 					outputText("\n\nYour mind feels surprisingly clear of the twisted thoughts that have plagued it as of late, but you find yourself feeling more and more aroused than usual.");
 					var corLoss:int = Math.min(0.1 * player.cor + 5, player.cor);
 					getGame().dynStats("cor", -corLoss, "lib", corLoss); //Lose corruption and gains that much libido

@@ -113,7 +113,7 @@ package classes.Scenes.Areas.Mountain
 				player.cumMultiplier += .2;
 				if (flags[kFLAGS.EVER_INFESTED] == 0) {
 					flags[kFLAGS.EVER_INFESTED] = 1;
-					if (player.cor < 25) player.cor = 25;
+					if (player.cor < (25 + player.corruptionTolerance())) player.cor = (25 + player.corruptionTolerance());
 				}
 				combat.cleanupAfterCombat();
 			}

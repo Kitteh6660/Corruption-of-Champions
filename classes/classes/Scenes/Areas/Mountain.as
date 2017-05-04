@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Created by aimozg on 06.01.14.
  */
 package classes.Scenes.Areas

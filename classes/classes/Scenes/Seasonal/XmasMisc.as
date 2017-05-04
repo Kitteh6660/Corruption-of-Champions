@@ -1,4 +1,4 @@
-﻿//CONSTS
+//CONSTS
 //const CANDY_CANE_YEAR_MET:int = 637;
 //const XMAS_CHICKEN_YEAR:int = 642;
 //const KAMI_ENCOUNTER:int = 643;
@@ -45,7 +45,7 @@ package classes.Scenes.Seasonal {
 			clearOutput();
 			outputText("You're not willing to run the risk of getting a foreign cock stuffed up your [butt].");
 			//(If corruption or libido>50) 
-			if (player.cor > 50 || player.lib > 50) outputText("  At least not right now.  You turn back, navigating your way back to your camp.");
+			if (player.cor > (50 + player.corruptionTolerance()) || player.lib > 50) outputText("  At least not right now.  You turn back, navigating your way back to your camp.");
 			doNext(camp.returnToCampUseOneHour);
 		}
 

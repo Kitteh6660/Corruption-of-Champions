@@ -96,6 +96,7 @@ import classes.Scenes.Areas.Swamp.*;
 		public function exploreSwamp():void
 		{
 			flags[kFLAGS.TIMES_EXPLORED_SWAMP]++;
+
 			return explorationEncounter.execEncounter();
 		}
 	}

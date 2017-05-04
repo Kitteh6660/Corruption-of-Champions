@@ -2436,7 +2436,7 @@ package classes.Scenes.Places.Prison
 				{
 					titChoice = true;
 				}
-				if (player.esteem >= 50 || (player.hasCock()) || !prison.trainingPet.prisonCaptorPetOptedOut() && player.esteem < 15 && player.cor < 10)
+				if (player.esteem >= 50 || (player.hasCock()) || !prison.trainingPet.prisonCaptorPetOptedOut() && player.esteem < 15 && player.cor < (10 + player.corruptionTolerance()))
 				{
 					cuntChoice = true;
 				}

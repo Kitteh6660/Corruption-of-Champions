@@ -1,4 +1,4 @@
-﻿package classes.Scenes.NPCs{
+package classes.Scenes.NPCs{
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 
@@ -845,7 +845,7 @@ private function drunkUrtaRidesARutPCsCock():void {
 
 	outputText("\n\nYou stop Urta, saying you're just as much to blame as she is.  ");
 	//If Corruption>35, or Exhibitionist
-	if (player.cor > 35 || flags[kFLAGS.PC_FETISH] > 0) outputText("You tell her it was actually a great experience to have such passionate sex publicly.  She blushes at that suggestion.");
+	if (player.cor > (35 - player.corruptionTolerance()) || flags[kFLAGS.PC_FETISH] > 0) outputText("You tell her it was actually a great experience to have such passionate sex publicly.  She blushes at that suggestion.");
 
 	//[If Urta is infertile]
 	if (!urtaQuestDone()) 

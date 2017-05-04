@@ -1297,7 +1297,7 @@ package classes.Scenes.Places
 					removeButton(4);
 				}
 				addButton(8, "Masturbate", getGame().masturbation.masturbateMenu);
-				if (((player.findPerk(PerkLib.HistoryReligious) >= 0 && player.cor <= 66) || (player.findPerk(PerkLib.Enlightened) >= 0 && player.cor < 10)) && !(player.hasStatusEffect(StatusEffects.Exgartuan) && player.statusEffectv2(StatusEffects.Exgartuan) == 0) || flags[kFLAGS.SFW_MODE] >= 1) addButton(8, "Meditate", getGame().masturbation.masturbateMenu);
+				if (((player.findPerk(PerkLib.HistoryReligious) >= 0 && player.cor <= (66 + player.corruptionTolerance())) || (player.findPerk(PerkLib.Enlightened) >= 0 && player.cor < (10 + player.corruptionTolerance()))) && !(player.hasStatusEffect(StatusEffects.Exgartuan) && player.statusEffectv2(StatusEffects.Exgartuan) == 0) || flags[kFLAGS.SFW_MODE] >= 1) addButton(8, "Meditate", getGame().masturbation.masturbateMenu);
 			}
 			//Alter menu depending on punishment.
 			if (flags[kFLAGS.PRISON_PUNISHMENT] == 1) {
@@ -1556,7 +1556,7 @@ package classes.Scenes.Places
 			{
 				dynStats("inte", 0.5);
 			}
-			if (silly() && player.inte >= 60 && player.cor <= 50) outputText("You are filled with DETERMINATION.");
+			if (silly() && player.inte >= 60 && player.cor <= (50 + player.corruptionTolerance())) outputText("You are filled with DETERMINATION.");
 			changeObey(-5,inPrison);
 			doNext(camp.returnToCampUseOneHour);
 		}

@@ -43,7 +43,7 @@ package classes.Scenes.Dungeons.D3
 		}
 		
 		public function encounterLethice():void {
-			if (player.cor < 90)
+			if (player.cor < (90 + player.corruptionTolerance()))
 				goFight();
 			else {
 				outputText("Do you fight Lethice and attempt to overthrow her or join her in ruling over Mareth, spreading even more corruption?");

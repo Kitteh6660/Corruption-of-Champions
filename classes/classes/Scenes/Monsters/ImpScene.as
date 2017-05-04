@@ -2126,7 +2126,7 @@ package classes.Scenes.Monsters
 			clearOutput();
 			flags[kFLAGS.IMPS_KILLED]++;
 			outputText("You make a quick work of the imp before dragging the corpse away. That's one less foul creature prowling the realms. ");
-			if (player.cor < 25) dynStats("cor", -0.5);
+			if (player.cor < (25 + player.corruptionTolerance())) dynStats("cor", -0.5);
 			menu();
 			addButton(0, "Take Skull", takeSkull);
 			addButton(1, "Leave", combat.cleanupAfterCombat);

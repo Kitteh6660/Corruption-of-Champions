@@ -404,7 +404,7 @@ private function femaleRapesOoze():void {
 	if (player.vaginas[0].virgin)
 	{	
 		//low corruption reveres this loss
-		if (player.cor <= 20)
+		if (player.cor <= (20 + player.corruptionTolerance()))
 		{
 			outputText("  You hesitate for a moment as you hover over the creature, a sudden surge of nervousness comes over you.  This is a moment that only comes once.  You let your weight push the creature into you, slowly at first, then forcing yourself down as far you can go.  You gasp at the initial pain, but it quickly dissipates as the creature's fluids coat your interior with a cool, soothing fluid.  ", false);
 		}
@@ -801,7 +801,7 @@ public function slimeVictory():void {
 		public function slimeVictoryRape():void
 		{
 			//Service for lower corruption
-			if (player.cor <= 33) {
+			if (player.cor <= (33 + player.corruptionTolerance())) {
 				clearOutput();
 				if (player.lust < 60) serviceLowCorruption();
 				else serviceLowCorruptionHighLust();

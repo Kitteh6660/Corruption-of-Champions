@@ -1,4 +1,4 @@
-﻿package classes.Scenes.Places {
+package classes.Scenes.Places {
 	import classes.*;
 	import classes.GlobalFlags.*;
 	import classes.Items.Armor;
@@ -136,18 +136,18 @@ private function encounterTelAdre():void {
 private function telAdreCrystal():void {
 	if (!getGame().telAdre.isDiscovered()) setStatus(true,false);
 	//-70+ corruption, or possessed by exgartuan
-	if (player.hasStatusEffect(StatusEffects.Exgartuan) || player.cor >= 70 + player.corruptionTolerance()) {
+	if (player.hasStatusEffect(StatusEffects.Exgartuan) || player.cor >= (70 + player.corruptionTolerance())) {
 		outputText("The crystal pendant begins to vibrate in the air, swirling around and glowing dangerously black.  Edryn snatches her hand back and says, \"<i>I'm sorry, but you're too far gone to step foot into our city.  If by some miracle you can shake the corruption within you, return to us.</i>\"\n\n", false);
 		outputText("You shrug and step back.  You could probably defeat these two, but you know you'd have no hope against however many friends they had beyond the walls.  You turn around and leave, a bit disgruntled at their hospitality.  After walking partway down the dune you spare a glance over your shoulder and discover the city has vanished!  Surprised, you dash back up the dune, flinging sand everywhere, but when you crest the apex, the city is gone.", false);
 		doNext(camp.returnToCampUseOneHour);
 		return;
 	}
 	//-50+ corruption or corrupted Jojo
-	else if (player.cor >= 50 || flags[kFLAGS.JOJO_STATUS] >= 5) {
+	else if (player.cor >= (50 + player.corruptionTolerance()) || flags[kFLAGS.JOJO_STATUS] >= 5) {
 		outputText("The crystal pendant shimmers, vibrating in place and glowing a purple hue.  Edryn steps back, watching you warily, \"<i>You've been deeply touched by corruption.  You balance on a razor's edge between falling completely and returning to sanity.  You may enter, but we will watch you closely.</i>\"\n\n", false);
 	}
 	//-25+ corruption or corrupted Marae
-	else if (player.cor >= 25 || flags[kFLAGS.FACTORY_SHUTDOWN] == 2) {
+	else if (player.cor >= (25 + player.corruptionTolerance()) || flags[kFLAGS.FACTORY_SHUTDOWN] == 2) {
 		outputText("The crystal pendant twirls in place, glowing a dull red.  Edryn takes a small step back and murmurs, \"<i>You've seen the darkness of this land first hand, but its hold on you is not deep.  You'll find sanctuary here.  The demons cannot find this place yet, and we promise you safe passage within the walls.</i>\"\n\n", false);
 	}
 	//-Low corruption/pure characters
@@ -2338,7 +2338,7 @@ public function gymDesc():void {
 	clearOutput();
 	outputText("Even though Ingnam, your hometown, was a large, prosperous village, you never saw a gym before coming to Tel'Adre.  The structure itself has numerous architectural differences from the surrounding buildings: short, waist-high walls, an arched ceiling supported by simple columns, and a sand-covered floor.  Perhaps the only 'normal' rooms inside are the changing stands and bathrooms, which ", false);
 	if (player.cor < 35) outputText("thankfully ", false);
-	else if (flags[kFLAGS.PC_FETISH] > 0 || player.cor > 80) outputText("unfortunately ", false);
+	else if (flags[kFLAGS.PC_FETISH] > 0 || player.cor > (80 - player.corruptionTolerance())) outputText("unfortunately ", false);
 	outputText("have full sized walls to protect their users' privacy.  A breeze blows by, revealing that the open-air design provides great ventilation.  You note a wall of weights of different sizes and shapes, perfect for building muscle and bulking up.  There are also jogging tracks and even a full-sized, grass-covered track out back for centaurs to run on.  Though some of the equipment seems a bit esoteric in nature, you're sure you can make use of most of this stuff.\n\n", false);
 
 	outputText("Though the gym sees heavy use by the city guard and various citizens, it's not too busy at present.", false);

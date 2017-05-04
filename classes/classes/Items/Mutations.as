@@ -1,4 +1,4 @@
-﻿package classes.Items
+package classes.Items
 {
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
@@ -374,8 +374,8 @@
 			dynStats("sen", 1, "lus", 10);
 			//-Raises corruption by 1 to 50, then by .5 to 75, then by .25 to 100.
 			if (!purified) {
-				if (player.cor < 50) dynStats("cor", 1);
-				else if (player.cor < 75) dynStats("cor", .5);
+				if (player.cor < (50 + player.corruptionTolerance())) dynStats("cor", 1);
+				else if (player.cor < (75 + player.corruptionTolerance())) dynStats("cor", .5);
 				else dynStats("cor", .25);
 			}
 			outputText("\n\nIntermittent waves of numbness wash through your body, turning into a warm tingling that makes you feel sensitive all over.  The warmth flows through you, converging in your loins and bubbling up into lust.", false);
@@ -2871,15 +2871,15 @@ public function wolfPepper(type: Number, player: Player): void {
 			//high corruption
 			if (player.cor >= 66) outputText("  You lick your lips, marvelling at how thick and sticky it is.", false);
 			//Corruption increase
-			if ((player.cor < 50 || rand(2)) && tainted) {
+			if ((player.cor < (50 + player.corruptionTolerance()) || rand(2)) && tainted) {
 				outputText("\n\nThe drink makes you feel... dirty.", false);
 				temp = 1;
 				//Corrupts the uncorrupted faster
-				if (player.cor < 50) temp++;
-				if (player.cor < 40) temp++;
-				if (player.cor < 30) temp++;
+				if (player.cor < (50 + player.corruptionTolerance())) temp++;
+				if (player.cor < (40 + player.corruptionTolerance())) temp++;
+				if (player.cor < (30 + player.corruptionTolerance())) temp++;
 				//Corrupts the very corrupt slower
-				if (player.cor >= 90) temp = .5;
+				if (player.cor >= (90 + player.corruptionTolerance())) temp = .5;
 				if (tainted) dynStats("cor", temp);
 				else dynStats("cor", 0);
 				changes++;
@@ -2957,15 +2957,15 @@ public function wolfPepper(type: Number, player: Player): void {
 			//high corruption
 			if (player.cor >= 66) outputText("  You lick your lips, marvelling at how thick and sticky it is.", false);
 			//Corruption increase
-			if (player.cor < 50 || rand(2)) {
+			if (player.cor < (50 - player.corruptionTolerance()) || rand(2)) {
 				outputText("\n\nThe drink makes you feel... dirty.", false);
 				temp = 1;
 				//Corrupts the uncorrupted faster
-				if (player.cor < 50) temp++;
-				if (player.cor < 40) temp++;
-				if (player.cor < 30) temp++;
+				if (player.cor < (50 - player.corruptionTolerance())) temp++;
+				if (player.cor < (40 - player.corruptionTolerance())) temp++;
+				if (player.cor < (30 - player.corruptionTolerance())) temp++;
 				//Corrupts the very corrupt slower
-				if (player.cor >= 90) temp = .5;
+				if (player.cor >= (90 + player.corruptionTolerance())) temp = .5;
 				dynStats("cor", temp + 2);
 				changes++;
 			}
@@ -3569,7 +3569,7 @@ public function wolfPepper(type: Number, player: Player): void {
 		{
 			player.slimeFeed();
 			//Bottle of Marble's milk - item
-			//Description: "A clear bottle of milk from Marble's breasts.  It smells delicious.  "
+			//Description: "A clear bottle of milk from Marble's breasts.  It smells delicious.  "
 			clearOutput();
 			//Text for when the player uses the bottle:
 			//[before the player is addicted, Addiction < 30]
@@ -3856,7 +3856,7 @@ public function wolfPepper(type: Number, player: Player): void {
 			//apply an effect where the player really wants
 			//to give their milk to other creatures
 			//(capable of getting them addicted):
-			if (!player.hasStatusEffect(StatusEffects.Feeder) && player.biggestLactation() >= 3 && rand(2) == 0 && player.biggestTitSize() >= 5 && player.cor >= 35) {
+			if (!player.hasStatusEffect(StatusEffects.Feeder) && player.biggestLactation() >= 3 && rand(2) == 0 && player.biggestTitSize() >= 5 && player.cor >= (35 - player.corruptionTolerance())) {
 				outputText("\n\nYou start to feel a strange desire to give your milk to other creatures.  For some reason, you know it will be very satisfying.\n\n<b>(You have gained the 'Feeder' perk!)</b>", false);
 				player.createStatusEffect(StatusEffects.Feeder, 0, 0, 0, 0);
 				player.createPerk(PerkLib.Feeder, 0, 0, 0, 0);
@@ -4642,24 +4642,24 @@ public function wolfPepper(type: Number, player: Player): void {
 		}
 
 
-//9)  Transformation Item - Snake Oil (S. Oil)
+//9)  Transformation Item - Snake Oil (S. Oil)
 		/*Effects:
-		  Boosts Speed stat
-		  Ass reduction
-		  Testicles return inside your body (could be reverted by the use of succubi delight)
-		  Can change penis into reptilian form  (since there's a lot of commentary here not knowing where to go, let me lay it out.)
+		  Boosts Speed stat
+		  Ass reduction
+		  Testicles return inside your body (could be reverted by the use of succubi delight)
+		  Can change penis into reptilian form  (since there's a lot of commentary here not knowing where to go, let me lay it out.)
 		 the change will select one cock (randomly if you have multiple)
 		 said cock will become two reptilian cocks
 		 these can then be affected separately, so if someone wants to go through the effort of removing one and leaving themselves with one reptile penis, they have the ability to do that
 		 This also means that someone who's already reached the maximum numbers of dicks cannot get a reptilian penis unless they remove one first
-		 "Your reptilian penis is X.X inches long and X.X inches thick.  The sheath extends halfway up the shaft, thick and veiny, while the smooth shaft extends out of the sheath coming to a pointed tip at the head. "
-		  Grow poisonous fangs (grants Poison Bite ability to player, incompatible with the sting ability, as it uses the same poison-meter)
-		  Causes your tongue to fork
-		  Legs fuse together and dissolve into snake tail  (grants Constrict ability to player, said tail can only be covered in scales, independently from the rest of the body)
-		  If snake tail exists:
-		    Make it longer, possibly larger (tail length is considered independently of your height, so it doesn't enable you to use the axe, for instance.
-		    Change tail's color according to location
-		      [Smooth] Beige and Tan (Desert), [Rough] Brown and Rust (Mountains), [Lush]  Forest Green and Yellow (Forest), [Cold] Blue and White (ice land?), [Fresh] Meadow Green [#57D53B - #7FFF00] and Dark Teal [#008080] (lake) , [Menacing] Black and Red (Demon realm, outside encounters), [Distinguished] Ivory (#FFFFF0) and Royal Purple/Amethyst (#702963) (Factory), [Mossy] Emerald and Chestnut (Swamp), [Arid] Orange and Olive pattern (Tel' Adre)
+		 "Your reptilian penis is X.X inches long and X.X inches thick.  The sheath extends halfway up the shaft, thick and veiny, while the smooth shaft extends out of the sheath coming to a pointed tip at the head. "
+		  Grow poisonous fangs (grants Poison Bite ability to player, incompatible with the sting ability, as it uses the same poison-meter)
+		  Causes your tongue to fork
+		  Legs fuse together and dissolve into snake tail  (grants Constrict ability to player, said tail can only be covered in scales, independently from the rest of the body)
+		  If snake tail exists:
+		    Make it longer, possibly larger (tail length is considered independently of your height, so it doesn't enable you to use the axe, for instance.
+		    Change tail's color according to location
+		      [Smooth] Beige and Tan (Desert), [Rough] Brown and Rust (Mountains), [Lush]  Forest Green and Yellow (Forest), [Cold] Blue and White (ice land?), [Fresh] Meadow Green [#57D53B - #7FFF00] and Dark Teal [#008080] (lake) , [Menacing] Black and Red (Demon realm, outside encounters), [Distinguished] Ivory (#FFFFF0) and Royal Purple/Amethyst (#702963) (Factory), [Mossy] Emerald and Chestnut (Swamp), [Arid] Orange and Olive pattern (Tel' Adre)
 
 		 9a) Item Description
 		 "A vial the size of your fist made of dark brown glass. It contains what appears to be an oily, yellowish liquid. The odor is abominable."
@@ -4677,9 +4677,9 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
 			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
 			//b) Description while used
-			outputText("Pinching your nose, you quickly uncork the vial and bring it to your mouth, determined to see what effects it might have on your body. Pouring in as much as you can take, you painfully swallow before going for another shot, emptying the bottle.", false);
+			outputText("Pinching your nose, you quickly uncork the vial and bring it to your mouth, determined to see what effects it might have on your body. Pouring in as much as you can take, you painfully swallow before going for another shot, emptying the bottle.", false);
 			//(if outside combat)
-			if (!kGAMECLASS.inCombat) outputText("  Minutes pass as you start wishing you had water with you, to get rid of the aftertaste.", false);
+			if (!kGAMECLASS.inCombat) outputText("  Minutes pass as you start wishing you had water with you, to get rid of the aftertaste.", false);
 			//+ speed to 70!
 			if (player.spe < 70 && rand(2) == 0) {
 				dynStats("spe", (2 - (player.spe / 10 / 5)));
@@ -4715,13 +4715,13 @@ public function wolfPepper(type: Number, player: Player): void {
 			//9c) I The tail ( http://tvtropes.org/pmwiki/pmwiki.php/Main/TransformationIsAFreeAction ) (Shouldn't we try to avert this? -Ace)
 			//Should the enemy "kill" you during the transformation, it skips the scene and immediately goes to tthe rape scene. (Now that I'm thinking about it, we should add some sort of appendix where the player realizes how much he's/she's changed. -Ace)
 			if (changes == 0 && player.faceType == FACE_SNAKE_FANGS && player.lowerBody != LOWER_BODY_TYPE_NAGA && rand(4) == 0 && changes < changeLimit) {
-				outputText("\n\nYou find it increasingly harder to keep standing as your legs start feeling weak.  You swiftly collapse, unable to maintain your own weight.", false);
+				outputText("\n\nYou find it increasingly harder to keep standing as your legs start feeling weak.  You swiftly collapse, unable to maintain your own weight.", false);
 				//(If used in combat, you lose a turn here. Half-corrupted Jojo and the Naga won't attack you during that period, but other monsters will)
 				//FUCK NO
 				outputText("\n\nTrying to get back up, you realize that the skin on the inner sides of your thighs is merging together like it was being sewn by an invisible needle.", false);
-				outputText("  The process continues through the length of your " + player.legs() + ", eventually reaching your " + player.feet() + ".  Just when you think that the transformation is over, you find yourself pinned to the ground by an overwhelming sensation of pain. You hear the horrible sound of your bones snapping, fusing together and changing into something else while you contort in unthinkable agony.  Sometime later you feel the pain begin to ease and you lay on the ground, spent by the terrible experience. Once you feel you've recovered, you try to stand, but to your amazement you discover that you no longer have " + player.legs() + ": the bottom half of your body is like that of a snake's.", false);
-				outputText("\n\nWondering what happened to your sex, you pass your hand down the front of your body until you find a large, horizontal slit around your pelvic area, which contains all of your sexual organs.", false);
-				if (player.balls > 0 && player.ballSize > 10) outputText("  You're happy not to have to drag those testicles around with you anymore.", false);
+				outputText("  The process continues through the length of your " + player.legs() + ", eventually reaching your " + player.feet() + ".  Just when you think that the transformation is over, you find yourself pinned to the ground by an overwhelming sensation of pain. You hear the horrible sound of your bones snapping, fusing together and changing into something else while you contort in unthinkable agony.  Sometime later you feel the pain begin to ease and you lay on the ground, spent by the terrible experience. Once you feel you've recovered, you try to stand, but to your amazement you discover that you no longer have " + player.legs() + ": the bottom half of your body is like that of a snake's.", false);
+				outputText("\n\nWondering what happened to your sex, you pass your hand down the front of your body until you find a large, horizontal slit around your pelvic area, which contains all of your sexual organs.", false);
+				if (player.balls > 0 && player.ballSize > 10) outputText("  You're happy not to have to drag those testicles around with you anymore.", false);
 				outputText("  But then, scales start to form on the surface of your skin, slowly becoming visible, recoloring all of your body from the waist down in a snake-like pattern. The feeling is... not that bad actually, kind of like callous, except on your whole lower body. The transformation complete, you get up, standing on your newly formed snake tail. You can't help feeling proud of this majestic new body of yours.", false);
 				player.lowerBody = LOWER_BODY_TYPE_NAGA;
 				player.legCount = 1;
@@ -4758,7 +4758,7 @@ public function wolfPepper(type: Number, player: Player): void {
 			 outputText("\n\nAs the liquid takes effect, ", false);
 			 //(if multicock)
 			 if (player.cockTotal() > 1) outputText("one of ", false);
-			 outputText("your " + player.multiCockDescriptLight() + " starts to throb painfully and swell to its full size.  With a horrifying ripping sensation, your cock splits down the middle, the pain causing you to black out momentarily.", false);
+			 outputText("your " + player.multiCockDescriptLight() + " starts to throb painfully and swell to its full size.  With a horrifying ripping sensation, your cock splits down the middle, the pain causing you to black out momentarily.", false);
 			 outputText("When you awaken, you quickly look down to see that where ", false);
 			 //(if multicock)
 			 if (player.cockTotal() > 1) outputText("one of ", false);
@@ -7698,7 +7698,7 @@ public function wolfPepper(type: Number, player: Player): void {
 				dynStats("spe", -1);
 			}
 			//- corruption increases by 1 up to low threshold (~20)
-			if (rand(3) == 0 && player.cor < 20 && changes < changeLimit) {
+			if (rand(3) == 0 && player.cor < (20 + player.corruptionTolerance()) && changes < changeLimit) {
 				outputText("\n\nYou shiver, a sudden feeling of cold rushing through your extremities.", false);
 				changes++;
 				dynStats("cor", 1);
@@ -8256,8 +8256,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			dynStats("lus", -25, "cor", (-3 - rand(2)), "resisted", false);
 			HPChange(20 + (5 * player.level) + rand(5 * player.level), true);
 			player.refillHunger(10);
-			if (player.cor > 50) dynStats("cor", -1);
-			if (player.cor > 75) dynStats("cor", -1);
+			if (player.cor > (50 - player.corruptionTolerance())) dynStats("cor", -1);
+			if (player.cor > (75 - player.corruptionTolerance())) dynStats("cor", -1);
 		}
 		
 		public function calmMint(player:Player):void
@@ -8365,7 +8365,7 @@ public function wolfPepper(type: Number, player: Player): void {
 				if (player.tou > 66) dynStats("tou", -1);
 				changes++;
 			}
-			if (mystic && changes < changeLimit && rand(2) == 0 && player.cor < 100) {
+			if (mystic && changes < changeLimit && rand(2) == 0 && player.cor < (100 + player.corruptionTolerance())) {
 				if (player.cor < 33) outputText("\n\nA sense of dirtiness comes over you, like the magic of this gem is doing some perverse impropriety to you.");
 				else if (player.cor < 66) outputText("\n\nA tingling wave of sensation rolls through you, but you have no idea what exactly just changed.  It must not have been that important.");
 				else outputText("\n\nThoughts of mischief roll across your consciousness, unbounded by your conscience or any concern for others.  You should really have some fun - who cares who it hurts, right?");
@@ -8985,7 +8985,7 @@ public function wolfPepper(type: Number, player: Player): void {
 					if (player.fertility > 0) outputText("mostly ");
 					outputText("sterile system.");
 					//[Low/No fertility + Trap/Corruption  >70:
-					if (player.cor > 70) outputText("  For some reason the fact that you cannot function as nature intended makes you feel helpless and submissive.  Perhaps the only way to be a useful creature now is to find a dominant, fertile being willing to plow you full of eggs? You shake the alien, yet oddly alluring thought away.");
+					if (player.cor > (70 - player.corruptionTolerance())) outputText("  For some reason the fact that you cannot function as nature intended makes you feel helpless and submissive.  Perhaps the only way to be a useful creature now is to find a dominant, fertile being willing to plow you full of eggs? You shake the alien, yet oddly alluring thought away.");
 				}
 				player.fertility -= 1 + rand(3);
 				if (player.fertility < 4) player.fertility = 4;
@@ -9597,9 +9597,9 @@ public function wolfPepper(type: Number, player: Player): void {
 				flags[kFLAGS.TIMES_TRANSFORMED]++;
 			}
 			//Grow demon wings
-			if (player.wingType != WING_TYPE_BAT_LIKE_LARGE && rand(8) == 0 && player.cor >= 50) {
+			if (player.wingType != WING_TYPE_BAT_LIKE_LARGE && rand(8) == 0 && player.cor >= (50 - player.corruptionTolerance())) {
 				//grow smalls to large
-				if (player.wingType == WING_TYPE_BAT_LIKE_TINY && player.cor >= 75) {
+				if (player.wingType == WING_TYPE_BAT_LIKE_TINY && player.cor >= (75 - player.corruptionTolerance())) {
 					outputText("\n\n", false);
 					outputText("Your small demonic wings stretch and grow, tingling with the pleasure of being attached to such a tainted body.  You stretch over your shoulder to stroke them as they unfurl, turning into full-sized demon-wings.  <b>Your demonic wings have grown!</b>", false);
 					player.wingType = WING_TYPE_BAT_LIKE_LARGE;

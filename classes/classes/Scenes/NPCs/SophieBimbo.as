@@ -1,4 +1,4 @@
-﻿package classes.Scenes.NPCs{
+package classes.Scenes.NPCs{
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
@@ -964,7 +964,7 @@ private function rideDatSophieVag(nice:Boolean = false):void {
 			if (y == x) y = player.smallestCockIndex();
 		}
 	}
-	if (player.cor <= 50) nice = true;
+	if (player.cor <= (50 + player.corruptionTolerance())) nice = true;
 	if (nice) {
 		outputText("Before you can decide what, exactly, you're going to do with your harpy slut, Sophie jiggles her way over to you, the insides of her thighs dripping with every step.  You watch as the plump bird wobbles, too aroused and too damn big to walk straight, but eventually she does manage to make it to you.");
 		if (pregnancy.event >= 2) outputText("  Her pregnancy-imbued middle doesn't really help, either.");
@@ -1104,7 +1104,7 @@ private function rideDatSophieVag(nice:Boolean = false):void {
 	if (sophieIsInSeason()) sophiePregChance();
 	player.orgasm('Dick');
 	dynStats("lib", .5, "sen", -4);
-	if (!nice && player.cor < 50) dynStats("cor", 1);
+	if (!nice && player.cor < (50 + player.corruptionTolerance())) dynStats("cor", 1);
 	sophieScene.luststickApplication(5);
 	doNext(camp.returnToCampUseOneHour);
 }
