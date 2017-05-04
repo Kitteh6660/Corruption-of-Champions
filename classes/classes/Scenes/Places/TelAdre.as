@@ -82,9 +82,27 @@ public var piercingMat:Number = 0;
 public var piercingType:Number = 0;
 //}endregion
 
+	public function isDiscovered():Boolean {
+		return player.hasStatusEffect(StatusEffects.TelAdre);
+	}
+	public function isAllowedInto():Boolean {
+		return player.statusEffectv1(StatusEffects.TelAdre) >= 1;
+	}
+	public function setStatus(discovered:Boolean,allowed:Boolean):void {
+		if (!discovered) {
+			player.removeStatusEffect(StatusEffects.TelAdre);
+		} else {
+			if (!player.hasStatusEffect(StatusEffects.TelAdre)) {
+				player.createStatusEffect(StatusEffects.TelAdre,allowed?1:0,0,0,0);
+			} else {
+				player.changeStatusValue(StatusEffects.TelAdre,1,allowed?1:0);
+			}
+		}
+	}
+
 public function discoverTelAdre():void {
 	clearOutput();
-	if (!player.hasStatusEffect(StatusEffects.TelAdre)) {
+	if (!getGame().telAdre.isDiscovered()) {
 		outputText("The merciless desert sands grind uncomfortably under your " + player.feet() + " as you walk the dunes, searching the trackless sands to uncover their mysteries.  All of a sudden, you can see the outline of a small city in the distance, ringed in sandstone walls.  Strangely it wasn't there a few moments before.  It's probably just a mirage brought on by the heat.  Then again, you don't have any specific direction you're heading, what could it hurt to go that way?", false);
 		outputText("\n\nDo you investigate the city in the distance?", false);
 	}
@@ -97,7 +115,7 @@ public function discoverTelAdre():void {
 //player chose to approach the city in the distance
 private function encounterTelAdre():void {
 	clearOutput();
-	if (!player.hasStatusEffect(StatusEffects.TelAdre)) {
+	if (!getGame().telAdre.isDiscovered()) {
 		outputText("You slog through the shifting sands for a long time, not really seeming to get that close.  Just when you're about to give up, you crest a large dune and come upon the walls of the city you saw before.  It's definitely NOT a mirage.  There are sandstone walls at least fifty feet tall ringing the entire settlement, and the only entrance you can see is a huge gate with thick wooden doors.  The entrance appears to be guarded by a female gray fox who's more busy sipping on something from a bottle than watching the desert.\n\n", false);
 		outputText("As if detecting your thoughts, she drops the bottle and pulls out a halberd much longer than she is tall.\n\n", false);
 		outputText("\"<i>Hold it!</i>\" barks the fox, her dark gray fur bristling in suspicion at your sudden appearance, \"<i>What's your business in the city of Tel'Adre?</i>\"\n\n", false);
@@ -116,7 +134,7 @@ private function encounterTelAdre():void {
 
 //Alignment crystal goooooo
 private function telAdreCrystal():void {
-	if (!player.hasStatusEffect(StatusEffects.TelAdre)) player.createStatusEffect(StatusEffects.TelAdre,0,0,0,0);
+	if (!getGame().telAdre.isDiscovered()) setStatus(true,false);
 	//-70+ corruption, or possessed by exgartuan
 	if (player.hasStatusEffect(StatusEffects.Exgartuan) || player.cor >= (70 + player.corruptionTolerance())) {
 		outputText("The crystal pendant begins to vibrate in the air, swirling around and glowing dangerously black.  Edryn snatches her hand back and says, \"<i>I'm sorry, but you're too far gone to step foot into our city.  If by some miracle you can shake the corruption within you, return to us.</i>\"\n\n", false);
@@ -142,7 +160,7 @@ private function telAdreCrystal():void {
 }
 
 private function telAdreTour():void {
-	player.changeStatusValue(StatusEffects.TelAdre,1,1);
+	setStatus(true,true);
 	clearOutput();
 	kGAMECLASS.urta.urtaSprite();
 	outputText("Urta leads you into the streets of Tel'Adre, giving you a brief run-down of her and her city, \"<i>You see, about two decades back, the demons were chewing their way through every settlement and civilization in Mareth.  The covenant, a group of powerful magic-users, realized direct confrontation was doomed to fail.  They hid us in the desert with their magic, and the demons can't corrupt what they can't find.  So we're safe, for now.</i>\"\n\n", false);
@@ -2616,7 +2634,7 @@ private function letsDoYaraSex(girl:Boolean = true):void {
 
 		outputText("Her head stops short, though.  Through your gasping relief, you managed to lock onto her legs.  \"<i>Nice... nice catch,</i>\" is about all Yara manages to share before resuming her purring contentment upside down, limp arms spread across the floor.  After a minute or so, the two of you regain some sort of composure, but the spectacular gymnast from before can only bare to slink around on the ground as she reorients herself.  The most you need to do is fix the back of your chair, lifting it to a more comfortable height.  \"<i>Can you spare one more helping hand here, friend?</i>\" Yara requests, now having at least managed to at least sit up straight.  The two of you exchange a knowing glance as you lift the metal-worker back to her feet.", false);
 	}
-	player.orgasm();
+	player.orgasm('Generic');
 	doNext(piercingStudio);
 }
 
@@ -2698,7 +2716,7 @@ private function fuckYvonneInZeBlacksmith():void {
 	outputText(" out, accompanied by a exhalation of female pleasure.");
 	outputText("\n\nYvonne staggers up on her footpaws, groaning the whole time, a trail of white dribbling on the floor behind her.  Her tail wags happily, and she grabs you, pulling you into her sweaty bosom as she affectionately squeezes your [butt].  You aren't released until you feel dizzy, half-suffocated by her preponderance of breast-tissues and potent pheromones.");
 	outputText("\n\nYvonne tosses you your gear, and you dress in a daze.  Before you've completely finished, she's pushing you out into the street, covered in sex-stink and stumbling over your own [feet].  She calls out after you, \"<i>Thanks babe, I gotta mop this mess up!</i>\"");
-	player.orgasm();
+	player.orgasm('Dick');
 	dynStats("sen", -1);
 	flags[kFLAGS.YVONNE_FUCK_COUNTER]++;
 	doNext(camp.returnToCampUseOneHour);
@@ -2760,7 +2778,7 @@ private function flirtWithVictoria(itype:ItemType):void {
 
 	outputText("\n\nA few seconds later your body finally gives out completely and you pass out.  You wake up about an hour later, still on the floor with Vicky on the ground near you, leaning up against the counter with her legs splayed, cum still dripping from her used pussy.  <i>\"I uh... s'pose you wanna leave now?\"</i>  She asks, still sounding a bit loopy.  She climbs unsteadily to her feet, and walks, a bit bowlegged to the door, unlocking it before slumping back down the wall.  <i>\"Do come back for a visit, love!\"</i>  You pull your pants back up and crawl back out into the street.  Climbing back to your feet, you notice a few passersby chuckling at you before you close the door.  Before you leave, you think you can make out Victoria muttering, <i>\"Gonna have to clean this place up...\"</i>");
 
-	player.orgasm();
+	player.orgasm('Dick');
 	dynStats("sen", -1);
 	doNext(camp.returnToCampUseOneHour);
 }
