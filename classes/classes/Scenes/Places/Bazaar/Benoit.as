@@ -915,7 +915,7 @@ private function benoitHairPinTalk():void
 
 private function benoitHairPinTFCheck():void
 {
-	if (player.cor < (30 + player.corruptionTolerance()) && player.isFemaleOrHerm() && player.featheryHairPinEquipped() && [HAIR_BASILISK_PLUME, HAIR_GOO].indexOf(player.hairType) == -1)
+	if (player.cor < Math.max(50, (30 + player.corruptionTolerance())) && player.isFemaleOrHerm() && player.featheryHairPinEquipped() && [HAIR_BASILISK_PLUME, HAIR_GOO].indexOf(player.hairType) == -1)
 	{
 		outputText("\n\nYou feel the hair pin " + benoitMF("Benoit", "Benoite") + " gave you heat up, a gentle warmth suffusing through your body."
 		          +" Something tells you that if you let it, this feminine hair piece will evoke some sort of change.");
