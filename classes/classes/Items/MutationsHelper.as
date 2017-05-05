@@ -275,7 +275,7 @@ package classes.Items
 				case "reptilum-dracolisk": //never 4get the basilisk hair discourse of may 2017
 					if (player.hairType == HAIR_BASILISK_PLUME && player.cor < Math.max(20, (65 - player.corruptionTolerance()))) return 0;
 
-					if (player.isFemaleOrHerm() && player.cor < Math.max(50, (15 + player.corruptionTolerance())) && player.featheryHairPinEquipped() && player.isBasilisk()) {
+					if (player.isFemaleOrHerm() && player.cor < Math.max(20, (15 + player.corruptionTolerance())) && player.featheryHairPinEquipped() && player.isBasilisk()) {
 						var benoitMFText:String = getGame().bazaar.benoit.benoitMF(
 							" your hair has changed into a plume of feathers that, like legend is told, belongs to a female basilisk!",
 							" you have a plume, like a female basilisk!"
