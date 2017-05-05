@@ -595,7 +595,7 @@ package classes {
 				}
 			}
 			if (player.hasStatusEffect(StatusEffects.Feeder)) { //Feeder checks
-				if (player.cor <= (20 - player.corruptionTolerance())) { //Go away if pure
+				if (player.cor <= (20 - player.corruptionTolerance()) || player.breastRows[0].breastRating <= 1) { //Go away if pure or A-Cup
 					outputText("\nThe desire to breastfeed fades into the background.  It must have been associated with the corruption inside you.\n\n(<b>You have lost the 'Feeder' perk.</b>)\n");
 					player.removeStatusEffect(StatusEffects.Feeder);
 					player.removePerk(PerkLib.Feeder);
