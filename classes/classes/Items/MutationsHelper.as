@@ -273,7 +273,7 @@ package classes.Items
 				case "PlayerEvents-benoitHairPin":
 				case "reptilum-basilisk":
 				case "reptilum-dracolisk":
-					if (player.hairType == HAIR_BASILISK_PLUME && player.cor < (65 + player.corruptionTolerance())) return 0;
+					if (player.hairType == HAIR_BASILISK_PLUME && player.cor < (65 - player.corruptionTolerance())) return 0;
 
 					if (player.isFemaleOrHerm() && player.cor < (15 + player.corruptionTolerance()) && player.featheryHairPinEquipped() && player.isBasilisk()) {
 						var benoitMFText:String = getGame().bazaar.benoit.benoitMF(
