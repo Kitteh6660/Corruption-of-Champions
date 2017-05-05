@@ -304,7 +304,7 @@ package classes.Items
 						return 1; // --> gained basilisk hair (plume)
 					}
 
-					if (player.cor >= Math.max(80, (65 + player.corruptionTolerance()))) && player.hairType != HAIR_BASILISK_SPINES && player.hasLizardScales() && player.hasReptileFace()) {
+					if (player.cor >= Math.max(80, (65 + player.corruptionTolerance())) && player.hairType != HAIR_BASILISK_SPINES && player.hasLizardScales() && player.hasReptileFace()) {
 						// Corrupted Basilisk
 						if (player.hairLength > 0 && [HAIR_GOO, HAIR_BASILISK_PLUME].indexOf(player.hairType) == -1) {
 							output.text("\n\nYour scalp feels tight and hot, causing you to run a hand through your [hair] to rub at it gingerly.");
