@@ -1014,8 +1014,52 @@ use namespace kGAMECLASS;
 				race += mf("boy", "girl");
 			}
 			
+			if (impScore() >= 4) {
+				race = "imp";
+			}
 			
 			return race;
+		}
+
+		//imp rating
+		public function impScore():Number
+		{
+			var impCounter:Number = 0;
+			if (earType == EARS_IMP)
+				impCounter++;
+			if (tailType == TAIL_TYPE_IMP)
+				impCounter++;
+			if (biggestCockLength >= 12)
+				impCounter++;
+			if (player.wingType == WING_TYPE_IMP)
+				impCounter++;
+			if (player.wingType == WING_TYPE_IMP_LARGE)
+				impCounter++;
+				impCounter++;
+			if (lowerBody == LOWER_BODY_TYPE_IMP)
+				impCounter++;
+			if (hasPlainSkin() && player.skinTone == ("red" || "orange"))
+				impCounter++;
+			if (hornType == HORNS_IMP)
+				impCounter++;
+			if (armType == ARM_TYPE_PREDATOR && clawType == CLAW_TYPE_IMP)
+				impCounter++;
+			if (tallness <= 42)
+				impCounter++;
+			if (tallness > 42)
+				impCounter--;
+			if (biggestTitSize() > 0)
+				impCounter--;
+			if (bRows() == 2) //Each extra row takes off a point
+				impCounter--;
+			if (bRows() == 3)
+				impCounter--;
+				impCounter--;
+			if (bRows() == 4) //If you have more than 4 why are trying to be an imp
+				impCounter--;
+				impCounter--;
+				impCounter--;
+			return impCounter;
 		}
 
 		//determine demon rating
@@ -2632,6 +2676,11 @@ use namespace kGAMECLASS;
 				}
 			}
 			//Alter max stats depending on race
+			if (impScore() >= 4) {
+				maxSpe += 10;
+				maxInt -= 5;
+				minLust += 10;
+			}
 			if (sheepScore() >= 4) {
 				maxSpe += 10;
 				maxInt -= 10;
