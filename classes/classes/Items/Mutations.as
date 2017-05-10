@@ -3028,7 +3028,9 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (player.averageNipplesPerBreast() > 1 && rand(3) == 0 && changes < changeLimit) {
 				outputText("\n\nA strange burning sensation fills your breasts, and you look in your " + player.armorName + " to see your extra nipples are gone! <b>You've lost your extra nipples!</b>", false);
 				dynStats("sen", -3);
-				player.breastRows[0].nipplesPerBreast = 1;
+				for (var k: Number = 0; k < player.breastRows.length; k++) {
+					player.breastRows[k].averageNipplesPerBreast() = 1;
+				}
 				changes++;
 			}
 			
@@ -3047,12 +3049,16 @@ public function wolfPepper(type: Number, player: Player): void {
 					player.biggestTitSize = 0;
 				}
 				if (player.averageNipplesPerBreast() > 1) {
-					outputText("\n\nA strange burning sensation fills your breasts, and you look in your " + player.armorName + " to see your extra nipples are gone! <b>You've lost your extra nipples due to being an imp!</b>", false);
-					player.breastRows[0].nipplesPerBreast = 1;
+					for (var k: Number = 0; k < player.breastRows.length; k++) {
+						outputText("\n\nA strange burning sensation fills your breasts, and you look in your " + player.armorName + " to see your extra nipples are gone! <b>You've lost your extra nipples due to being an imp!</b>", false);
+						player.breastRows[k].nipplesPerBreast = 1;
+					}
 				}
 				if (player.nippleLength() > 0.25) {
-					outputText("\n\nA strange burning sensation fills you, and you look in your " + player.armorName + " to see your nipples have shrunk! <b>Your nipples have shrunk due to being an imp!</b>", false);
-					player.nippleLength() = 0.25;
+					for (var k: Number = 0; k < player.breastRows.length; k++) {
+						outputText("\n\nA strange burning sensation fills you, and you look in your " + player.armorName + " to see your nipples have shrunk! <b>Your nipples have shrunk due to being an imp!</b>", false);
+						player.breastRows[k].nippleLength() = 0.25;
+					}
 				}
 				if (player.hasVagina()) {
 					outputText("\n\nA sudden pain in your groin brings you to your knees. You move your armor out of the way and watch as your cunt seals up, vanishing from your body entirely. <b>Your cunt has gone away due to being an imp!</b>", false);
