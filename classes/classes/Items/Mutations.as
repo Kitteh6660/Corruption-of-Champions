@@ -3028,7 +3028,7 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (player.averageNipplesPerBreast() > 1 && rand(3) == 0 && changes < changeLimit) {
 				outputText("\n\nA strange burning sensation fills your breasts, and you look in your " + player.armorName + " to see your extra nipples are gone! <b>You've lost your extra nipples!</b>", false);
 				dynStats("sen", -3);
-				player.averageNipplesPerBreast = 1;
+				player.breastRows[0].nipplesPerBreast = 1;
 				changes++;
 			}
 			
@@ -3048,7 +3048,7 @@ public function wolfPepper(type: Number, player: Player): void {
 				}
 				if (player.averageNipplesPerBreast() > 1) {
 					outputText("\n\nA strange burning sensation fills your breasts, and you look in your " + player.armorName + " to see your extra nipples are gone! <b>You've lost your extra nipples due to being an imp!</b>", false);
-					player.averageNipplesPerBreast() = 1;
+					player.breastRows[0].nipplesPerBreast = 1;
 				}
 				if (player.nippleLength() > 0.25) {
 					outputText("\n\nA strange burning sensation fills you, and you look in your " + player.armorName + " to see your nipples have shrunk! <b>Your nipples have shrunk due to being an imp!</b>", false);
