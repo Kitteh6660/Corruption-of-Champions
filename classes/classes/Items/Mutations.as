@@ -3028,8 +3028,9 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (player.averageNipplesPerBreast() > 1 && rand(3) == 0 && changes < changeLimit) {
 				outputText("\n\nA strange burning sensation fills your breasts, and you look in your " + player.armorName + " to see your extra nipples are gone! <b>You've lost your extra nipples!</b>", false);
 				dynStats("sen", -3);
-				for (var k: Number = 0; k < player.breastRows.length; k++) {
-					player.breastRows[k].nipplesPerBreast() = 1;
+				for(var x:int = 0; x < player.bRows(); x++)
+				{
+					player.breastRows[x].nipplesPerBreast = 1;
 				}
 				changes++;
 			}
@@ -3049,15 +3050,17 @@ public function wolfPepper(type: Number, player: Player): void {
 					player.biggestTitSize = 0;
 				}
 				if (player.averageNipplesPerBreast() > 1) {
-					for (var k: Number = 0; k < player.breastRows.length; k++) {
-						outputText("\n\nA strange burning sensation fills your breasts, and you look in your " + player.armorName + " to see your extra nipples are gone! <b>You've lost your extra nipples due to being an imp!</b>", false);
-						player.breastRows[k].nipplesPerBreast = 1;
+					outputText("\n\nA strange burning sensation fills your breasts, and you look in your " + player.armorName + " to see your extra nipples are gone! <b>You've lost your extra nipples due to being an imp!</b>", false);
+					for(var x:int = 0; x < player.bRows(); x++)
+					{
+						player.breastRows[x].nipplesPerBreast = 1;
 					}
 				}
 				if (player.nippleLength() > 0.25) {
-					for (var k: Number = 0; k < player.breastRows.length; k++) {
-						outputText("\n\nA strange burning sensation fills you, and you look in your " + player.armorName + " to see your nipples have shrunk! <b>Your nipples have shrunk due to being an imp!</b>", false);
-						player.breastRows[k].nippleLength() = 0.25;
+					outputText("\n\nA strange burning sensation fills you, and you look in your " + player.armorName + " to see your nipples have shrunk! <b>Your nipples have shrunk due to being an imp!</b>", false);
+					for(var x:int = 0; x < player.bRows(); x++)
+					{
+						player.breastRows[x].nippleLength = 0.25;
 					}
 				}
 				if (player.hasVagina()) {
@@ -3066,10 +3069,10 @@ public function wolfPepper(type: Number, player: Player): void {
 				}
 				if (!player.hasCock()) {
 					outputText("\n\nPressure builds between your legs, and you barely get your armor off in time to watch a cock grow out of you. <b>You've grown a cock due to being an imp!</b>", false);
-				player.createCock();
-				player.cocks[0].cockLength = 12;
-				player.cocks[0].cockThickness = 2;
-				player.cocks[0].cockType = 0;
+					player.createCock();
+					player.cocks[0].cockLength = 12;
+					player.cocks[0].cockThickness = 2;
+					player.cocks[0].cockType = 0;
 				}
 				if (player.balls() == 0) {
 					outputText("\n\nA strange, unpleasant pressure forms between your thighs. You take off your armor and see that you've grown balls. <b>You've grown balls due to being an imp!</b>", false);
