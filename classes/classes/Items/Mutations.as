@@ -3029,7 +3029,7 @@ public function wolfPepper(type: Number, player: Player): void {
 				outputText("\n\nA strange burning sensation fills your breasts, and you look in your " + player.armorName + " to see your extra nipples are gone! <b>You've lost your extra nipples!</b>", false);
 				dynStats("sen", -3);
 				for (var k: Number = 0; k < player.breastRows.length; k++) {
-					player.breastRows[k].averageNipplesPerBreast() = 1;
+					player.breastRows[k].nipplesPerBreast() = 1;
 				}
 				changes++;
 			}
