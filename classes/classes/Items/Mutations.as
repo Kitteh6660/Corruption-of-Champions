@@ -94,8 +94,8 @@
 			var temp2:Number = 0;
 			var temp3:Number = 0;
 			var rando:Number = rand(100);
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) rando += 10;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) rando -= 10;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && !player.hasStatusEffect(StatusEffects.PerksDisabled)) rando += 10;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) rando -= 10;
 			outputText("The draft is slick and sticky, ", true);
 			if (player.cor <= 33) outputText("just swallowing it makes you feel unclean.", false);
 			if (player.cor > 33 && player.cor <= 66) outputText("reminding you of something you just can't place.", false);
@@ -426,8 +426,8 @@
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			if (changeLimit == 1) changeLimit = 2;
 			//Temporary storage
 			var temp:Number = 0;
@@ -842,8 +842,8 @@
 			//Chancee to raise limit
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Used for random chances
 			// Maybe we should implement new Enums for furcolors and probably other colors and tones?
 			// For example: FurColorsEnum.HORSE, ScaleColorsEnum.LIZARD, SkinTonesEnum.HUMAN, SkinTonesEnum:SALAMANDER, HairColorsEnum.HUMAN and so on (Stadler76)
@@ -1317,8 +1317,8 @@
 			changes = 0;
 			changeLimit = 1;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			player.slimeFeed();
 			outputText("You down the potion, grimacing at the strong taste.", true);
 			if (changes < changeLimit && rand(2) == 0 && player.spe < 80) {
@@ -1371,8 +1371,8 @@
 			var temp2:Number = 0;
 			var temp3:Number = 0;
 			var rando:Number = Math.random() * 100;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) rando += 10;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) rando -= 10;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && !player.hasStatusEffect(StatusEffects.PerksDisabled) >= 0) rando += 10;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) rando -= 10;
 			if (rando >= 90 && !tainted) rando -= 10;
 			if (player.cor < 35) outputText("You wonder why in the gods' names you would drink such a thing, but you have to admit, it is the best thing you have ever tasted.", true);
 			if (player.cor >= 35 && player.cor < 70) {
@@ -1585,8 +1585,8 @@
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
 			// Perk change limit modifiers
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			outputText("You open the bottle of Clovis, its sweet smell making you feel carefree. You drink the contents and relax to the sensation it brings, feeling like you're being cuddled by a big fluffy cloud.", false);
 			// Stat changes!
 			if (player.inte > 90 && rand(3) == 0 && changes < changeLimit) {
@@ -1721,8 +1721,8 @@ public function wolfPepper(type: Number, player: Player): void {
     changeLimit = 1;
     if (rand(2) == 0) changeLimit++;
     if (rand(2) == 0) changeLimit++;
-    if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-    if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+    if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+    if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
     outputText("The pepper has an uncomfortable texture to it, being covered in soft fuzz like it's a peach but somewhat crunchy like any other pepper. Its spiciness makes you nearly spit it out, and you're left sniffling after.", false);
     if (rand(100) < 15) {
         crit = int(Math.random() * 20) / 10 + 2;
@@ -2117,8 +2117,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			changeLimit = 1;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Initial outputs & crit level
 			clearOutput();
 			if (type == 0) {
@@ -2853,8 +2853,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			//Chances to up the max number of changes
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Generic drinking text
 			outputText("You uncork the bottle and drink down the strange substance, struggling to down the thick liquid.", true);
 			//low corruption thoughts
@@ -2939,8 +2939,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			//Chances to up the max number of changes
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Generic drinking text
 			outputText("You uncork the bottle and drink down the strange substance, struggling to down the thick liquid.", true);
 			//low corruption thoughts
@@ -3556,8 +3556,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			if (enhanced) changeLimit += 2;
 			//Temporary storage
 			var temp:Number = 0;
@@ -4070,8 +4070,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(3) == 0) changeLimit++;
 			if (rand(4) == 0) changeLimit++;
 			if (rand(5) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			outputText("You drink the ale, finding it to have a remarkably smooth yet potent taste.  You lick your lips and sneeze, feeling slightly tipsy.", true);
 			dynStats("lus", 15);
 			//Stronger
@@ -4395,8 +4395,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			changeLimit = 2;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			if (type == 0) outputText("You have no idea why, but you decide to eat the pointed tooth. To your surprise, it's actually quite brittle, turning into a fishy-tasting dust. You figure it must just be a tablet made to look like a shark's tooth.", true);
 			else if (type == 1) outputText("You have no idea why, but you decide to eat the pointed, glowing tooth. To your surprise, it's actually quite brittle, crumbling into a fishy-tasting dust. Maybe it's just a tablet made to look like a shark's tooth.", true);
 			//STATS
@@ -4588,8 +4588,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			changeLimit = 1;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//b) Description while used
 			outputText("Pinching your nose, you quickly uncork the vial and bring it to your mouth, determined to see what effects it might have on your body. Pouring in as much as you can take, you painfully swallow before going for another shot, emptying the bottle.", false);
 			//(if outside combat)
@@ -4781,8 +4781,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			changeLimit = 1;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			clearOutput();
 			outputText("You crack open the small clay jar to reveal a lightly colored paste that smells surprisingly delicious. You begin eating it with your fingers, wishing all the while for some crackers...", false);
 			player.refillHunger(20);
@@ -5114,8 +5114,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Text go!
 			clearOutput();
 			outputText("You take a bite of the fruit and gulp it down. It's thick and juicy and has an almost overpowering sweetness. Nevertheless, it is delicious and you certainly could use a meal.  You devour the fruit, stopping only when the hard, nubby pit is left; which you toss aside.", false);
@@ -5442,8 +5442,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
 			if (rand(4) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//clear screen
 			clearOutput();
 			outputText("You uncork the vial of fluid and drink it down.  The taste is sour, like a dry wine with an aftertaste not entirely dissimilar to alcohol.  Instead of the warmth you'd expect, it leaves your throat feeling cold and a little numb.", false);
@@ -5802,8 +5802,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
 			if (rand(4) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//clear screen
 			clearOutput();
 			outputText("You uncork the hip flask and drink it down.  The taste is actually quite good, like an alcohol but with a little fire within.  Just as you expected, it makes you feel all hot and ready to take whole world head on.", false);
@@ -6056,8 +6056,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			changeLimit = 1;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//If this is a pregnancy change, only 1 change per proc.
 			if (pregnantChange) changeLimit = 1;
 			else clearOutput();
@@ -6400,8 +6400,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (type == 1) changeLimit += 2;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Generic eating text:
 			clearOutput();
 			outputText("You pop the nut into your mouth, chewing the delicious treat and swallowing it quickly.  No wonder harpies love these things so much!", false);
@@ -6754,8 +6754,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (type == 1) changeLimit += 2;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Used as a holding variable for biggest dicks and the like
 			var biggestCock:Number;
 			//****************
@@ -6971,8 +6971,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			changeLimit = 1;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Consuming Text
 			if (type == 0) outputText("You wad up the sweet, pink gossamer and eat it, finding it to be delicious and chewy, almost like gum.  Munching away, your mouth generates an enormous amount of spit until you're drooling all over yourself while you devour the sweet treat.", false);
 			else if (type == 1) outputText("You wad up the sweet, black gossamer and eat it, finding it to be delicious and chewy, almost like licorice.  Munching away, your mouth generates an enormous amount of spit until you're drooling all over yourself while you devour the sweet treat.", false);
@@ -7398,8 +7398,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			changeLimit = 1;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Effect script 1:  (higher intelligence)
 			if (player.inte < 100 && rand(3) == 0 && changes < changeLimit) {
 				outputText("\n\nYou groan softly as your head begins pounding something fierce.  Wincing in pain, you massage your temples as the throbbing continues, and soon, the pain begins to fade; in its place comes a strange sense of sureness and wit.", false);
@@ -7500,8 +7500,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			changeLimit = 1;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 
 			//possible use effects:
 			//- toughess up, sensitivity down
@@ -7670,8 +7670,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (enhanced) changeLimit += 2;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Used for dick and boob TFs
 			var counter:int = 0;
 
@@ -8144,8 +8144,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
 			if (mystic) changeLimit += 2;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			if (mystic) outputText("You examine the jewel for a bit, rolling it around in your hand as you ponder its mysteries.  You hold it up to the light with fascinated curiosity, watching the eerie purple flame dancing within.  Without warning, the gem splits down the center, dissolving into nothing in your hand.  As the pale lavender flames swirl around you, the air is filled with a sickly sweet scent that drips with the bitter aroma of licorice, filling you with a dire warmth.");
 			else outputText("You examine the jewel for a bit, rolling it around in your hand as you ponder its mysteries.  You hold it up to the light with fascinated curiosity, watching the eerie blue flame dancing within.  Without warning, the gem splits down the center, dissolving into nothing in your hand.  As the pale azure flames swirl around you, the air is filled with a sweet scent that drips with the aroma of wintergreen, sending chills down your spine.");
 
@@ -8444,8 +8444,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			outputText("You pour some of the oil onto your hands and ");
 			if (player.cor < 30) outputText("hesitantly ");
 			else if (player.cor > 70) outputText("eagerly ");
@@ -8749,8 +8749,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//stat gains:
 			//gain speed to ceiling of 80
 			if (player.spe < 80 && rand(3) == 0 && changes < changeLimit) {
@@ -8921,8 +8921,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//use:
 			outputText("You pop several of the beans in your mouth and suck; they immediately reward you by giving up an oily, chocolatey flavor with a hint of bitterness.  For several minutes you ");
 			if (!player.isTaur()) outputText("sit and ");
@@ -9319,8 +9319,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			//Ferret Fruit Effects
 			//- + Thin:
 			if (player.thickness > 15 && changes < changeLimit && rand(3) == 0)
@@ -9574,8 +9574,8 @@ public function wolfPepper(type: Number, player: Player): void {
 			if (rand(2) == 0) changeLimit++;
 			if (rand(3) == 0) changeLimit++;
 			if (boar) changeLimit++;
-			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) changeLimit++;
-			if (player.findPerk(PerkLib.TransformationResistance) >= 0) changeLimit--;
+			if (player.findPerk(PerkLib.HistoryAlchemist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit++;
+			if (player.findPerk(PerkLib.TransformationResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeLimit--;
 			outputText("You take a bite into the pigtail truffle. It oddly tastes like bacon. You eventually finish eating. ");
 			player.refillHunger(20);
 			//-----------------------

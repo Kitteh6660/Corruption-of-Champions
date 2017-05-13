@@ -49,13 +49,13 @@ package classes {
 				if (player.findPerk(PerkLib.FerasBoonAlpha) >= 0) player.hoursSinceCum += 2;
 			}
 			//Normal
-			if (player.findPerk(PerkLib.WellAdjusted) < 0) {
+			if (player.findPerk(PerkLib.WellAdjusted) < 0 || player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				dynStats("lus", player.lib * 0.04, "resisted", false); //Raise lust
-				if (player.findPerk(PerkLib.Lusty) >= 0) dynStats("lus", player.lib * 0.02, "resisted", false); //Double lust rise if lusty.
+				if (player.findPerk(PerkLib.Lusty) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) dynStats("lus", player.lib * 0.02, "resisted", false); //Double lust rise if lusty.
 			}
 			else { //Well adjusted perk
 				dynStats("lus", player.lib * 0.02, "resisted", false); //Raise lust
-				if (player.findPerk(PerkLib.Lusty) >= 0) dynStats("lus", player.lib * 0.01, "resisted", false); //Double lust rise if lusty.
+				if (player.findPerk(PerkLib.Lusty) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) dynStats("lus", player.lib * 0.01, "resisted", false); //Double lust rise if lusty.
 			}
 			//Feathery hairpin Effects
 			if (player.featheryHairPinEquipped() && mutations.lizardHairChange("PlayerEvents-benoitHairPin") != 0)
@@ -84,8 +84,8 @@ package classes {
 			//Hunger! No effect if hunger is disabled, even if your hunger is at 0/100.
 			if (flags[kFLAGS.HUNGER_ENABLED] > 0 || prison.inPrison) {
 				var multiplier:Number = 1.0
-				if (player.findPerk(PerkLib.Survivalist) >= 0) multiplier -= 0.2;
-				if (player.findPerk(PerkLib.Survivalist2) >= 0) multiplier -= 0.2;
+				if (player.findPerk(PerkLib.Survivalist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) multiplier -= 0.2;
+				if (player.findPerk(PerkLib.Survivalist2) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) multiplier -= 0.2;
 				if (flags[kFLAGS.GRIMDARK_MODE] > 0) multiplier *= 2;
 				//Hunger drain rate. If above 50, 1.5 per hour. Between 25 and 50, 1 per hour. Below 25, 0.5 per hour.
 				//So it takes 100 hours to fully starve from 100/100 to 0/100 hunger. Can be increased to 125 then 166 hours with Survivalist perks.
@@ -262,7 +262,7 @@ package classes {
 					player.cocks[0].cockLength = Math.max(player.cocks[0].cockLength, 25);
 					player.cocks[0].cockThickness = Math.max(player.cocks[0].cockThickness, 4);
 				}
-				if (player.findPerk(PerkLib.WellAdjusted) >= 0) dynStats("lust", 5); //Reduced to 5 with 'Well Adjusted' perk.
+				if (player.findPerk(PerkLib.WellAdjusted) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) dynStats("lust", 5); //Reduced to 5 with 'Well Adjusted' perk.
 				else dynStats("lust", 10); //Always gain 10 lust each hour
 				needNext = true;
 			}
@@ -278,14 +278,14 @@ package classes {
 					needNext = true;
 				}
 			}
-			if (player.findPerk(PerkLib.WetPussy) >= 0 && player.hasVagina()) {
+			if (player.findPerk(PerkLib.WetPussy) >= 0 && player.hasVagina() && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (player.vaginas[0].vaginalWetness < VAGINA_WETNESS_WET) {
 					outputText("\n<b>Your " + player.vaginaDescript(0) + " returns to its normal, wet state.</b>\n");
 					player.vaginas[0].vaginalWetness = VAGINA_WETNESS_WET;
 					needNext = true;
 				}
 			}
-			if (player.findPerk(PerkLib.MaraesGiftButtslut) >= 0 && player.ass.analWetness < 2) { //Prevent Buttsluts from getting dry backdoors
+			if (player.findPerk(PerkLib.MaraesGiftButtslut) >= 0 && player.ass.analWetness < 2 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) { //Prevent Buttsluts from getting dry backdoors
 				outputText("\n<b>Your " + player.assholeDescript() + " quickly re-moistens.  It looks like Marae's 'gift' can't be removed.</b>\n");
 				player.ass.analWetness = 2;
 				needNext = true;
@@ -298,7 +298,7 @@ package classes {
 				player.removeStatusEffect(StatusEffects.Uniball);
 				needNext = true;
 			}		
-			if (player.findPerk(PerkLib.Androgyny) < 0) { //Fix femininity ratings if out of whack!
+			if (player.findPerk(PerkLib.Androgyny) < 0 || player.hasStatusEffect(StatusEffects.PerksDisabled)) { //Fix femininity ratings if out of whack!
 				var textHolder:String = player.fixFemininity();
 				if (textHolder != "") {
 					outputText(textHolder, false);
@@ -486,7 +486,7 @@ package classes {
 			//Decrement mino withdrawal symptoms display cooldown
 			//flags[kFLAGS.MINOTAUR_SONS_CUM_REPEAT_COOLDOWN] prevents PC getting two of the same notices overnite
 			else if (flags[kFLAGS.MINOTAUR_SONS_CUM_REPEAT_COOLDOWN] > 0) flags[kFLAGS.MINOTAUR_SONS_CUM_REPEAT_COOLDOWN]--;
-			if (player.findPerk(PerkLib.FutaForm) >= 0) { //Futa checks
+			if (player.findPerk(PerkLib.FutaForm) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) { //Futa checks
 				if (!player.hasCock()) { //(Dick regrowth)
 					player.createCock();
 					player.cocks[0].cockLength = 10;
@@ -515,7 +515,7 @@ package classes {
 				}
 				if (player.breastRows[0].breastRating < 5) { //Tits!
 					player.breastRows[0].breastRating = 5;
-					if (player.findPerk(PerkLib.FutaFaculties) >= 0)
+					if (player.findPerk(PerkLib.FutaFaculties) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 						outputText("\n<b>Your tits get nice and full again.  You'll have lots of fun now that your breasts are back to being big, swollen knockers!</b>\n");
 					else outputText("\n<b>Your " + player.breastDescript(0) + " have regained their former bimbo-like size.  It looks like you'll be stuck with large, sensitive breasts forever, but at least it'll help you tease your enemies into submission!</b>\n");
 					getGame().dynStats("int", -1, "lus", 15);
@@ -523,17 +523,17 @@ package classes {
 				}
 				if (!player.hasVagina()) { //Vagoo
 					player.createVagina();
-					if (player.findPerk(PerkLib.FutaFaculties) >= 0)
+					if (player.findPerk(PerkLib.FutaFaculties) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 						outputText("\n<b>Your crotch is like, all itchy an' stuff.  Damn!  There's a wet little slit opening up, and it's all tingly!  It feels so good, why would you have ever gotten rid of it?</b>\n");
 					else outputText("\n<b>Your crotch tingles for a second, and when you reach down to feel, your " + player.legs() + " fold underneath you, limp.  You've got a vagina - the damned thing won't go away and it feels twice as sensitive this time.  Fucking bimbo liquer.</b>\n");
 					getGame().dynStats("int", -1, "sen", 10, "lus", 15);
 					needNext = true;
 				}
 			}
-			if (player.findPerk(PerkLib.BimboBody) >= 0 || player.hasStatusEffect(StatusEffects.BimboChampagne)) { //Bimbo checks
+			if (player.findPerk(PerkLib.BimboBody) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) || player.hasStatusEffect(StatusEffects.BimboChampagne)) { //Bimbo checks
 				if (player.breastRows[0].breastRating < 5) { //Tits!
 					player.breastRows[0].breastRating = 5;
-					if (player.findPerk(PerkLib.BimboBrains) >= 0 || player.hasStatusEffect(StatusEffects.BimboChampagne))
+					if (player.findPerk(PerkLib.BimboBrains) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) || player.hasStatusEffect(StatusEffects.BimboChampagne))
 						outputText("\n<b>Your boobies like, get all big an' wobbly again!  You'll have lots of fun now that your tits are back to being big, yummy knockers!</b>\n");
 					else outputText("\n<b>Your " + player.breastDescript(0) + " have regained their former bimbo-like size.  It looks like you'll be stuck with large, sensitive breasts forever, but at least it'll help you tease your enemies into submission!</b>\n");
 					getGame().dynStats("int", -1, "lus", 15);
@@ -541,13 +541,13 @@ package classes {
 				}
 				if (!player.hasVagina()) { //Vagoo
 					player.createVagina();
-					if (player.findPerk(PerkLib.BimboBrains) >= 0 || player.hasStatusEffect(StatusEffects.BimboChampagne))
+					if (player.findPerk(PerkLib.BimboBrains) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) || player.hasStatusEffect(StatusEffects.BimboChampagne))
 						outputText("\n<b>Your crotch is like, all itchy an' stuff.  Omigawsh!  There's a wet little slit opening up, and it's all tingly!  It feels so good, maybe like, someone could put something inside there!</b>\n");
 					else outputText("\n<b>Your crotch tingles for a second, and when you reach down to feel, your " + player.legs() + " fold underneath you, limp.  You've got a vagina - the damned thing won't go away and it feels twice as sensitive this time.  Fucking bimbo liquer.</b>\n");
 					needNext = true;
 				}
 				if (player.hipRating < 12) {
-					if (player.findPerk(PerkLib.BimboBrains) >= 0 || player.findPerk(PerkLib.FutaFaculties) >= 0)
+					if (player.findPerk(PerkLib.BimboBrains) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) || player.findPerk(PerkLib.FutaFaculties) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 						outputText("\nWhoah!  As you move, your [hips] sway farther and farther to each side, expanding with every step, soft new flesh filling in as your hips spread into something more appropriate on a tittering bimbo.  You giggle when you realize you can't walk any other way.  At least it makes you look, like, super sexy!\n");
 					else outputText("\nOh, no!  As you move, your [hips] sway farther and farther to each side, expanding with every step, soft new flesh filling in as your hips spread into something more appropriate for a bimbo.  Once you realize that you can't walk any other way, you sigh heavily, your only consolation the fact that your widened hips can be used to tease more effectively.\n");
 					getGame().dynStats("int", -1);
@@ -555,7 +555,7 @@ package classes {
 					needNext = true;
 				}
 				if (player.buttRating < 12) {
-					if (player.findPerk(PerkLib.BimboBrains) >= 0 || player.findPerk(PerkLib.FutaFaculties) >= 0)
+					if (player.findPerk(PerkLib.BimboBrains) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) || player.findPerk(PerkLib.FutaFaculties) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 						outputText("\nGradually warming, you find that your [butt] is practically sizzling with erotic energy.  You smile to yourself, imagining how much you wish you had a nice, plump, bimbo-butt again, your hands finding their way to the flesh on their own.  Like, how did they get down there?  You bite your lip when you realize how good your tush feels in your hands, particularly when it starts to get bigger.  Are butts supposed to do that?  Happy pink thoughts wash that concern away - it feels good, and you want a big, sexy butt!  The growth stops eventually, and you pout disconsolately when the lusty warmth's last lingering touches dissipate.  Still, you smile when you move and feel your new booty jiggling along behind you.  This will be fun!\n");
 					else outputText("\nGradually warming, you find that your [butt] is practically sizzling with erotic energy.  Oh, no!  You thought that having a big, bloated bimbo-butt was a thing of the past, but with how it's tingling under your groping fingertips, you have no doubt that you're about to see the second coming of your sexy ass.  Wait, how did your fingers get down there?  You pull your hands away somewhat guiltily as you feel your buttcheeks expanding.  Each time you bounce and shake your new derriere, you moan softly in enjoyment.  Damnit!  You force yourself to stop just as your ass does, but when you set off again, you can feel it bouncing behind you with every step.  At least it'll help you tease your foes a little more effectively...\n");
 					getGame().dynStats("int", -1, "lus", 10);
@@ -563,7 +563,7 @@ package classes {
 					needNext = true;
 				}
 			}
-			if (player.findPerk(PerkLib.BroBody) >= 0) { //Bro checks
+			if (player.findPerk(PerkLib.BroBody) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) { //Bro checks
 				player.removeStatusEffect(StatusEffects.Feeder);
 				player.removePerk(PerkLib.Feeder);
 				if (!player.hasCock()) { //(Dick regrowth) 
@@ -581,7 +581,7 @@ package classes {
 				}
 				if (player.cocks[0].cockLength < 8) { //(Dick rebiggening)
 					outputText("\n<b>As time passes, your cock engorges, flooding with blood and growing until it's at 8 inches long.  ");
-					if (player.findPerk(PerkLib.BroBrains) >= 0) outputText("Goddamn, that thing is almost as tough as you!  ");
+					if (player.findPerk(PerkLib.BroBrains) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) outputText("Goddamn, that thing is almost as tough as you!  ");
 					outputText("You really have no control over your dick.</b>\n");
 					player.cocks[0].cockLength = 8;
 					if (player.cocks[0].cockThickness < 2) player.cocks[0].cockThickness = 1.5;

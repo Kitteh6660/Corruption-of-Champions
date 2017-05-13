@@ -119,6 +119,7 @@ package classes
 		public static const NoJojo:StatusEffectType = mk("noJojo");
 		public static const NoMoreMarble:StatusEffectType = mk("No More Marble");
 		public static const Oswald:StatusEffectType = mk("Oswald");
+		public static const PerksDisabled:StatusEffectType = mk("Perks Disabled"); //Meant for dungeons! Would advise against using anywhere else!
 		public static const PlainOnaholeUsed:StatusEffectType = mk("plain onahole used");
 		public static const PhoukaWhiskeyAffect:StatusEffectType = mk("PhoukaWhiskeyAffect");
 		public static const PostAkbalSubmission:StatusEffectType = mk("Post Akbal Submission");
