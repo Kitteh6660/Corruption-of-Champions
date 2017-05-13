@@ -11,6 +11,9 @@ package classes.Perks
 
 		override public function desc(params:PerkClass = null):String
 		{
+			if (player.hasStatusEffect(StatusEffects.PerksDisabled)) {
+				return "DISABLED! Your perks are currently disabled and have no effect!";
+			}
 			return "Increases your spell effect modifier by " + params.value1 * 100 + "%.";
 		}
 
