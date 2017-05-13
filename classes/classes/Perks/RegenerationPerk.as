@@ -3,6 +3,7 @@ package classes.Perks
 	import classes.PerkClass;
 	import classes.PerkType;
 	import classes.GlobalFlags.*;
+	import classes.StatusEffects;
 
 	public class RegenerationPerk extends PerkType
 	{
