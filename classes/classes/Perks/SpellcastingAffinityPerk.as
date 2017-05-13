@@ -3,6 +3,7 @@
  */
 package classes.Perks
 {
+	import classes.StatusEffects;
 	import classes.PerkClass;
 	import classes.PerkType;
 
