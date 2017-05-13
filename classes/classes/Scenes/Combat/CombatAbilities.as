@@ -901,7 +901,7 @@ package classes.Scenes.Combat
 			}
 			//Special enemy avoidances
 			else if (monster.short == "Vala" && !monster.hasStatusEffect(StatusEffects.Stunned)) {
-				outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ");		
+				outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ");	
 				if (player.findPerk(PerkLib.Evade) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(2) == 0) {
 					outputText("You dive out of the way and evade it!");
 				}
@@ -1238,7 +1238,7 @@ package classes.Scenes.Combat
 		//Corrupted Fox Fire
 		public function corruptedFoxFire():void {
 			clearOutput();
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(35) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(35) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to use this ability.");
 				doNext(magicalSpecials);
