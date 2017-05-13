@@ -9,6 +9,9 @@ package classes.Perks
 		
 		override public function desc(params:PerkClass = null):String
 		{
+			if (player.hasStatusEffect(StatusEffects.PerksDisabled)) {
+				return "DISABLED! Your perks are currently disabled and have no effect!";
+			}
 			if (kGAMECLASS.flags[kFLAGS.HUNGER_ENABLED] > 0 && kGAMECLASS.player.hunger < 25) return "<b>DISABLED</b> - You are too hungry!";
 			else return super.desc(params);
 		}
