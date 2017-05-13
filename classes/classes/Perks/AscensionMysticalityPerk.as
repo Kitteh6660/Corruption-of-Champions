@@ -9,6 +9,9 @@ package classes.Perks
 		
 		override public function desc(params:PerkClass = null):String
 		{
+			if (player.hasStatusEffect(StatusEffects.PerksDisabled)) {
+				return "DISABLED! Your perks are currently disabled and have no effect!";
+			}
 			return "(Rank: " + params.value1 + "/" + kGAMECLASS.charCreation.MAX_MYSTICALITY_LEVEL + ") Increases spell effect multiplier by " + params.value1 * 5 + "% multiplicatively.";
 		}
 
