@@ -3,6 +3,7 @@ package classes.Perks
 	import classes.PerkClass;
 	import classes.PerkType;
 	import classes.GlobalFlags.kGAMECLASS;
+	import classes.StatusEffects;
 	
 	public class AscensionTolerancePerk extends PerkType
 	{
