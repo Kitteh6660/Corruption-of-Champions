@@ -439,24 +439,24 @@ package classes
 			//Marble Milk Addition
 			if (player.statusEffectv3(StatusEffects.Marble) > 0) {
 				addictStats += "<b>Marble Milk:</b> ";
-				if (player.findPerk(PerkLib.MarbleResistant) < 0 && player.findPerk(PerkLib.MarblesMilk) < 0)
+				if (player.findPerk(PerkLib.MarbleResistant) < 0 && player.findPerk(PerkLib.MarblesMilk) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 					addictStats += Math.round(player.statusEffectv2(StatusEffects.Marble)) + "%\n";
-				else if (player.findPerk(PerkLib.MarbleResistant) >= 0)
+				else if (player.findPerk(PerkLib.MarbleResistant) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 					addictStats += "0%\n";
 				else
 					addictStats += "100%\n";
 			}
 			
 			// Corrupted Minerva's Cum Addiction
-			if (flags[kFLAGS.MINERVA_CORRUPTION_PROGRESS] >= 10 && flags[kFLAGS.MINERVA_CORRUPTED_CUM_ADDICTION] > 0) {
+			if (flags[kFLAGS.MINERVA_CORRUPTION_PROGRESS] >= 10 && flags[kFLAGS.MINERVA_CORRUPTED_CUM_ADDICTION] > 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addictStats += "<b>Minerva's Cum:</b> " + (flags[kFLAGS.MINERVA_CORRUPTED_CUM_ADDICTION] * 20) + "%";
 			}
 			
 			// Mino Cum Addiction
-			if (flags[kFLAGS.MINOTAUR_CUM_INTAKE_COUNT] > 0 || flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] > 0 || player.findPerk(PerkLib.MinotaurCumAddict) >= 0 || player.findPerk(PerkLib.MinotaurCumResistance) >= 0) {
-				if (player.findPerk(PerkLib.MinotaurCumAddict) < 0)
+			if ((flags[kFLAGS.MINOTAUR_CUM_INTAKE_COUNT] > 0 || flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] > 0 || player.findPerk(PerkLib.MinotaurCumAddict) >= 0 || player.findPerk(PerkLib.MinotaurCumResistance) >= 0) && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
+				if (player.findPerk(PerkLib.MinotaurCumAddict) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 					addictStats += "<b>Minotaur Cum:</b> " + Math.round(flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] * 10)/10 + "%\n";
-				else if (player.findPerk(PerkLib.MinotaurCumResistance) >= 0)
+				else if (player.findPerk(PerkLib.MinotaurCumResistance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 					addictStats += "<b>Minotaur Cum:</b> 0% (Immune)\n";
 				else
 					addictStats += "<b>Minotaur Cum:</b> 100+%\n";
@@ -647,12 +647,12 @@ package classes
 				outputText(" to spend.</b>", false);
 				addButton(button++, "Perk Up", perkBuyMenu);
 			}
-			if (player.findPerk(PerkLib.DoubleAttack) >= 0) {
+			if (player.findPerk(PerkLib.DoubleAttack) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				outputText("\n<b>You can adjust your double attack settings.</b>");
 				addButton(button++,"Dbl Options",doubleAttackOptions);
 			}
 		
-			if (player.findPerk(PerkLib.AscensionTolerance) >= 0){
+			if (player.findPerk(PerkLib.AscensionTolerance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				outputText("\n<b>You can adjust your Corruption Tolerance threshold.</b>");
 				addButton(button++,"Tol. Options",ascToleranceOption,null,null,null,"Set whether or not Corruption Tolerance is applied.");
 			}
@@ -1104,6 +1104,7 @@ package classes
 						
 						if (player.findPerk(PerkLib.Archmage) >= 0 && player.findPerk(PerkLib.Channeling) >= 0  &&
 						(player.hasStatusEffect(StatusEffects.KnowsWhitefire)
+						|| player.hasStatusEffect(StatusEffects.KnowsBlackfire)
 						|| player.findPerk(PerkLib.FireLord) >= 0 
 						|| player.findPerk(PerkLib.Hellfire) >= 0 
 						|| player.findPerk(PerkLib.EnlightenedNinetails) >= 0

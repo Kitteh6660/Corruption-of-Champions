@@ -890,7 +890,7 @@ package classes
 				outputText("  Your " + num2Text(player.legCount)+ " legs, though covered in fur, are humanlike.  Long feet on the ends bear equally long toes, and the pads on the bottoms are quite sensitive to the touch.");
 			else if (player.lowerBody == LOWER_BODY_TYPE_CLOVEN_HOOFED) 
 				outputText("  " + Num2Text(player.legCount)+ " digitigrade legs form below your [hips], ending in cloven hooves.");
-			if (player.findPerk(PerkLib.Incorporeality) >= 0)
+			if (player.findPerk(PerkLib.Incorporeality) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 				outputText("  Of course, your " + player.legs() + " are partially transparent due to their ghostly nature."); // isn't goo transparent anyway?
 			outputText("\n");
 			if (player.hasStatusEffect(StatusEffects.GooStuffed))
