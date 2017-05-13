@@ -53,7 +53,7 @@ package classes.Scenes.Combat
 		}
 		
 		public function isExhausted(cost:int):Boolean {
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(cost) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(cost) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to cast this spell.");
 				doNext(magicMenu);
@@ -120,7 +120,7 @@ package classes.Scenes.Combat
 				return;
 			}
 			
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(15) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(15) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to cast this spell.");
 				doNext(magicMenu);
@@ -147,7 +147,7 @@ package classes.Scenes.Combat
 		//(20) Blind – reduces your opponent's accuracy, giving an additional 50% miss chance to physical attacks.
 		public function spellBlind():void {
 			clearOutput();
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(20) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(20) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to cast this spell.");
 				doNext(magicMenu);
@@ -261,7 +261,7 @@ package classes.Scenes.Combat
 
 		public function spellWhitefire():void {
 			clearOutput();
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(30) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(30) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to cast this spell.");
 				doNext(magicMenu);
@@ -315,7 +315,7 @@ package classes.Scenes.Combat
 		
 		//BLACK SPELLS
 		public function spellArouse():void {
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(15) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(15) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to cast this spell.");
 				doNext(magicMenu);
@@ -471,7 +471,7 @@ package classes.Scenes.Combat
 				return;
 			}
 			
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(25) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(25) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to cast this spell.");
 				doNext(magicMenu);
@@ -517,7 +517,7 @@ package classes.Scenes.Combat
 		//Blackfire. A stronger but more costly version of Whitefire.
 		public function spellBlackfire():void {
 			clearOutput();
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(40) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(40) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to cast this spell.");
 				doNext(magicMenu);
@@ -592,7 +592,7 @@ package classes.Scenes.Combat
 		public function spellCleansingPalm():void
 		{
 			clearOutput();
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(30) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(30) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to cast this spell.");
 				doNext(magicMenu);
@@ -1060,7 +1060,7 @@ package classes.Scenes.Combat
 		//lust damage to completely corrupt foes, and a mix for those in between.  Its power is based on the PC's corruption and level.  Appearance is slightly changed to mention that the PC's eyes and mouth occasionally show flicks of fire from within them, text could possibly vary based on corruption.
 		public function hellFire():void {
 			clearOutput();
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(20) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(20) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to breathe fire.\n");
 				doNext(combat.combatMenu);
@@ -1280,7 +1280,7 @@ package classes.Scenes.Combat
 		//Fox Fire
 		public function foxFire():void {
 			clearOutput();
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(35) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(35) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to use this ability.");
 				doNext(magicalSpecials);
@@ -1327,7 +1327,7 @@ package classes.Scenes.Combat
 		public function kitsuneTerror():void {
 			clearOutput();
 			//Fatigue Cost: 25
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(20) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(20) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to use this ability.");
 				doNext(magicalSpecials);
@@ -1377,7 +1377,7 @@ package classes.Scenes.Combat
 		public function kitsuneIllusion():void {
 			clearOutput();
 			//Fatigue Cost: 25
-			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(25) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(25) > player.maxFatigue()) {
 				clearOutput();
 				outputText("You are too tired to use this ability.");
 				doNext(magicalSpecials);

@@ -652,7 +652,7 @@ package classes
 				addButton(button++,"Dbl Options",doubleAttackOptions);
 			}
 		
-			if (player.findPerk(PerkLib.AscensionTolerance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)){
+			if (player.findPerk(PerkLib.AscensionTolerance) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				outputText("\n<b>You can adjust your Corruption Tolerance threshold.</b>");
 				addButton(button++,"Tol. Options",ascToleranceOption,null,null,null,"Set whether or not Corruption Tolerance is applied.");
 			}
