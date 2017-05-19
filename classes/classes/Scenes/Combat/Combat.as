@@ -389,7 +389,7 @@ package classes.Scenes.Combat
 					else if (temp <= 20)
 						outputText(monster.capitalA + monster.short + " stagger you with the force of " + monster.pronoun3 + " " + monster.weaponVerb + "s! ");
 					else outputText(monster.capitalA + monster.short + " <b>mutilates</b> you with powerful fists and " + monster.weaponVerb + "s! ");
-					takeDamage(temp, true);
+					takeDamage(temp);
 				}
 				statScreenRefresh();
 				outputText("\n");
@@ -445,7 +445,7 @@ package classes.Scenes.Combat
 				clearOutput();
 				outputText("The brood continues to hammer away at your defenseless self. ");
 				temp = 80 + rand(40);
-				temp = takeDamage(temp, true);
+				temp = takeDamage(temp);
 				combatRoundOver();
 			}
 			else if (monster.hasStatusEffect(StatusEffects.QueenBind)) {
@@ -454,7 +454,7 @@ package classes.Scenes.Combat
 			else if (player.hasStatusEffect(StatusEffects.GooBind)) {
 				clearOutput();
 				outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours.");
-				temp = takeDamage(.35 * player.maxHP(), true);
+				temp = takeDamage(.35 * player.maxHP());
 				combatRoundOver();
 			}
 			else if (player.hasStatusEffect(StatusEffects.GooArmorBind)) {
@@ -562,7 +562,7 @@ package classes.Scenes.Combat
 				//Failed struggle
 				else {
 					outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours. ");
-					temp = takeDamage(Math.min(.15 * player.maxHP(), 100 * (1 + (player.newGamePlusMod() * 0.2))), true);
+					temp = takeDamage(Math.min(.15 * player.maxHP(), 100 * (1 + (player.newGamePlusMod() * 0.2))));
 				}
 				combatRoundOver();
 			}
@@ -921,7 +921,7 @@ package classes.Scenes.Combat
 				{
 					if (damage > 0 && player.findPerk(PerkLib.HistoryFighter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= 1.1;
 					if (player.countCockSocks("red") > 0) damage *= (1 + player.countCockSocks("red") * 0.02);
-					if (damage > 0) damage = doDamage(damage, false);
+					if (damage > 0) damage = doDamage(damage);
 				
 					(monster as Doppleganger).mirrorAttack(damage);
 					return;
@@ -953,7 +953,7 @@ package classes.Scenes.Combat
 			else {
 				outputText("You hit " + monster.a + monster.short + "! ");
 				if (crit) outputText("<b>Critical hit! </b>");
-				outputText("<b>(<font color=\"#800000\">" + damage + "</font>)</b>")
+				outputText("<b>(<font color=\"#800000\">" + damage + "</font>)</b>", false)
 			}
 			if (player.findPerk(PerkLib.BrutalBlows) >= 0 && player.str > 75 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (monster.armorDef > 0) outputText("\nYour hits are so brutal that you damage " + monster.a + monster.short + "'s defenses!");
@@ -1185,7 +1185,6 @@ package classes.Scenes.Combat
 
 		public function finishCombat():void
 		{
-			clearOutput();
 			var hpVictory:Boolean = monster.HP < 1;
 			if (hpVictory) {
 				outputText("You defeat " + monster.a + monster.short + ".\n");
@@ -1724,7 +1723,7 @@ package classes.Scenes.Combat
 				if (player.armor == armors.GOOARMR) healingPercent += (getGame().valeria.valeriaFluidsEnabled() ? (flags[kFLAGS.VALERIA_FLUIDS] < 50 ? flags[kFLAGS.VALERIA_FLUIDS] / 25 : 2) : 2);
 				if (player.jewelry.effectId == JewelryLib.MODIFIER_REGENERATION) healingBonus += player.jewelry.effectMagnitude;
 				if (healingPercent > 5) healingPercent = 5;
-				HPChange(Math.round(player.maxHP() * healingPercent / 100) + healingBonus, false);
+				HPChange(Math.round(player.maxHP() * healingPercent / 100) + healingBonus);
 			}
 			else {
 				//Regeneration
@@ -1738,7 +1737,7 @@ package classes.Scenes.Combat
 				if (player.armorName == "goo armor") healingPercent += (getGame().valeria.valeriaFluidsEnabled() ? (flags[kFLAGS.VALERIA_FLUIDS] < 50 ? flags[kFLAGS.VALERIA_FLUIDS] / 16 : 3) : 3);
 				if (player.findPerk(PerkLib.LustyRegeneration) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) healingPercent += 2;
 				if (healingPercent > 10) healingPercent = 10;
-				HPChange(Math.round(player.maxHP() * healingPercent / 100), false);
+				HPChange(Math.round(player.maxHP() * healingPercent / 100));
 			}
 		}
 		
@@ -1866,7 +1865,7 @@ package classes.Scenes.Combat
 			}
 			if (debug){
 				outputText("\n----------------------------\n");
-				outputText(monster.generateDebugDescription());
+				outputText(monster.generateDebugDescription(),false);
 			}
 		}
 		public function showMonsterLust():void {
@@ -2072,7 +2071,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (monster.hasStatusEffect(StatusEffects.Level) && player.canFly()) {
@@ -2088,7 +2087,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (monster.hasStatusEffect(StatusEffects.Level) && monster.statusEffectv1(StatusEffects.Level) < 4) {
@@ -2096,7 +2095,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (monster.hasStatusEffect(StatusEffects.RunDisabled)) {
@@ -2104,7 +2103,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (flags[kFLAGS.MINOTAUR_SONS_WASTED_TURN] == 1 && (monster.short == "minotaur gang" || monster.short == "minotaur tribe")) {
@@ -2121,7 +2120,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (inDungeon || inRoomedDungeon) {
@@ -2130,7 +2129,7 @@ package classes.Scenes.Combat
 				return;
 			}
 			if (prison.inPrison && !prison.prisonCanEscapeRun()) {
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			//Attempt texts!
