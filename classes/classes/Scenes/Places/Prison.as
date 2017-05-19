@@ -164,7 +164,7 @@ package classes.Scenes.Places
 			}
 			if (player.esteem > oldEsteem) showStatUp("esteem");
 			if (player.esteem < oldEsteem) showStatDown("esteem");
-			dynStats("lus", 0, "resisted", false);
+			dynStats("lus", 0, "resisted");
 			statScreenRefresh();
 		}
 		/**
@@ -178,7 +178,7 @@ package classes.Scenes.Places
 			if (player.will < 0) player.will = 0;
 			if (player.will > oldWill) showStatUp("will");
 			if (player.will < oldWill) showStatDown("will");
-			dynStats("lus", 0, "resisted", false);
+			dynStats("lus", 0, "resisted");
 			statScreenRefresh();
 		}
 		/**
@@ -222,7 +222,7 @@ package classes.Scenes.Places
 			}
 			if (player.obey > oldObey) showStatUp("obey");
 			if (player.obey < oldObey) showStatDown("obey");
-			dynStats("lus", 0, "resisted", false);
+			dynStats("lus", 0, "resisted");
 			statScreenRefresh();
 		}
 		
@@ -981,7 +981,7 @@ package classes.Scenes.Places
 			outputText("\nSomething inside your mind tells you that you should return to the prison. Mistress Elly would probably get angry if you wander the realms and abandon her. ");
 			if (camp.companionsCount() > 0) outputText("You leave a note in the camp to let anyone know that you're making your departure. ");
 			menu();
-			addButton(0, "Next", prisonIntro, false);
+			addButton(0, "Next", prisonIntro);
 		}
 		
 		public function prisonIntro(involuntary:Boolean = true):Boolean
@@ -1132,7 +1132,7 @@ package classes.Scenes.Places
 			hideUpDown();
 			showStats();
 			clearOutput();
-			outputText(images.showImage("prison-cell"), false);
+			outputText(images.showImage("prison-cell"));
 			switch(flags[kFLAGS.PRISON_PUNISHMENT]) {
 				case 0: //Default cell
 					outputText("You are in a dimly lit but spacious cell. However, the size of the room is little comfort to you as it is filled with all manner of restraints and torture devices. Eyelets, metal rings, bars and hooks are scattered around the ceiling, floor and walls providing a near endless variety of ways to restrain a person. A wooden stockade is installed in the center of the room, a whipping post and a rack stand in one corner, and in another there is a large and ominous floor to ceiling stone box. \n\n");
@@ -1182,7 +1182,7 @@ package classes.Scenes.Places
 				/*if (!kGAMECLASS.campQ)
 				{
 					outputText("More time passes...\n");
-					goNext(kGAMECLASS.timeQ, false);
+					goNext(kGAMECLASS.timeQ);
 					return;
 				}*/
 				if (model.time.hours < 6 || model.time.hours > 20)
@@ -1407,8 +1407,8 @@ package classes.Scenes.Places
 			if (player.tou < 80) dynStats("tou", 0.2);
 			if (player.tou < 90) dynStats("tou", 0.1);			
 			//Increase muscles.
-			if (player.tone < 60) outputText(player.modTone(85, 5 + rand(5)), false);
-			else outputText(player.modTone(85, 1 + rand(4)), false);
+			if (player.tone < 60) outputText(player.modTone(85, 5 + rand(5)));
+			else outputText(player.modTone(85, 1 + rand(4)));
 			doNext(camp.returnToCampUseOneHour);
 		}
 		
@@ -1465,8 +1465,8 @@ package classes.Scenes.Places
 			if (player.spe < 80) dynStats("spe", 0.2);
 			if (player.spe < 90) dynStats("spe", 0.1);
 			//Decrease thickness.
-			if (player.thickness > 40) outputText(player.modThickness(1, 5 + rand(2)), false);
-			else outputText(player.modThickness(1, 2 + rand(2)), false);
+			if (player.thickness > 40) outputText(player.modThickness(1, 5 + rand(2)));
+			else outputText(player.modThickness(1, 2 + rand(2)));
 			doNext(camp.returnToCampUseOneHour);
 		}
 		
@@ -2452,7 +2452,7 @@ package classes.Scenes.Places
 				billieScene.prisonCaptorBillieEventChange(1);
 				trace("Elly");
 				outputText(prisonCaptor.captorTitle + " " + prisonCaptor.captorName + " enters the room to find you writhing on the floor with unmanageable lust and is clearly amused by your pathetic state of affairs. After a moment's thought " + prisonCaptor.captorPronoun1 + " comes to a decision and says, \"<i>Beg me to fuck you, and I might take pity on you.</i>\"\n\n");
-				outputText("Do you give in to your lust and beg your " + prisonCaptor.captorTitle + " to fuck you, or do you try to resist? " + prisonWillCostDescript(15), false);
+				outputText("Do you give in to your lust and beg your " + prisonCaptor.captorTitle + " to fuck you, or do you try to resist? " + prisonWillCostDescript(15));
 				menu();
 				addButton(0, "Beg", prisonCaptorBegSubmit);
 				addButton(1, "Resist", prisonCaptorBegResist);
