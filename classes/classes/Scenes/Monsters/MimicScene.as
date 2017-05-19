@@ -28,7 +28,7 @@ package classes.Scenes.Monsters
 			else if (mimicAppearance == 2) outputText("what can only be described as an enormous, disembodied… boob ");
 			else if (mimicAppearance == 3) outputText("what is unmistakably an enormous, flaccid penis, complete with gigantic balls, ");
 			else outputText("a large wooden box with a hinged lid and tarnished brass fittings ");
-			outputText("nestled in a shady alcove.\n\n",false);
+			outputText("nestled in a shady alcove.\n\n");
 			//Check if you're smart enough to even think about it
 			if (rand(18) + (player.inte / 2) < 15) {
 				outputText("You are entranced by the sight of ");
@@ -64,12 +64,12 @@ package classes.Scenes.Monsters
 					//find a cool item!
 					outputText("and begin to reach towards it. However, just as you begin to move your hand, the… thing gives a strange shudder and emits a bizarre, snorting sound. You quickly realize that not only is this some kind of creature, but you have somehow come upon it while it sleeps! As you begin to slowly back away, you notice a ");
 					var itemRoll:int = rand(4);
-					if (itemRoll == 0) outputText("glinting silver vial ",false);
+					if (itemRoll == 0) outputText("glinting silver vial ");
 					if (itemRoll == 1) outputText("small sack ");
 					if (itemRoll == 2) outputText("large glass bottle ");
 					if (itemRoll == 3) outputText("small clay jar ");
 					outputText("in a pile of rubbish off to one side of the alcove. Careful not to disturb the… whatever it is, you grab the ");
-					if (itemRoll == 0) outputText("vial ",false);
+					if (itemRoll == 0) outputText("vial ");
 					if (itemRoll == 1) outputText("sack ");
 					if (itemRoll == 2) outputText("bottle ");
 					if (itemRoll == 3) outputText("jar ");
@@ -239,7 +239,7 @@ package classes.Scenes.Monsters
 				}
 				outputText("to suck and massage your cock");
 				if (player.cockTotal() > 1 || player.breastRows[0].nippleCocks) outputText("s");
-				outputText(" with a sort of spinning motion. The combined sensations from that and the countless other tendrils quickly bring you to orgasm, causing you to spew unusually large amounts of cum deep into the creatures hungry mouth",false);
+				outputText(" with a sort of spinning motion. The combined sensations from that and the countless other tendrils quickly bring you to orgasm, causing you to spew unusually large amounts of cum deep into the creatures hungry mouth");
 				if (player.breastRows[0].nippleCocks) outputText("s");
 				outputText(". Unfortunately, the beast doesn’t seem satisfied with just one emission, and its ministrations become more forceful as you are made to cum again and again. Far beyond the limits of your endurance, you still manage to hold on to some last shred of consciousness. Even as dozens of small tendrils are forced down your urethra");
 				if (player.cockTotal() > 1 || player.breastRows[0].nippleCocks) outputText("s");
