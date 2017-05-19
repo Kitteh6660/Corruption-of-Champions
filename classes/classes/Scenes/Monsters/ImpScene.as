@@ -589,7 +589,7 @@ package classes.Scenes.Monsters
 			clearOutput();
 			outputText("With the imps defeated, you check their bodies for any gems before you go back to sleep.");
 			combat.cleanupAfterCombat();
-			goNext(timeQ);
+			goNext(timeQ, false);
 		}
 		
 		public function impGangabangaEXPLOSIONS(loss:Boolean = false):void {
@@ -1219,7 +1219,7 @@ package classes.Scenes.Monsters
 					}
 					outputText("The imp-cock in your throat spasms and its owner rams as deep into you as he can get. He floods your already swollen stomach with inhuman amounts of cum. Again you feel yourself about to black out as the demon pumps jism into you. He pulls out and again you orgasm as you wheeze for air. Another imp forces his cock down your throat as you moan and gasp. Your body shakes in pleasure on the big imp's " + Appearance.cockNoun(CockTypesEnum.DOG) + ".  Tightening his grip on your " + player.hipDescript() + " the master imp howls and slams his shaft into your ");
 					//(If the player has a vagina)
-					if (player.hasVagina()) outputText(player.vaginaDescript(0),false);
+					if (player.hasVagina()) outputText(player.vaginaDescript(0));
 					//If the player doesn't have a vagina)
 					else outputText(player.assholeDescript());
 					outputText(". His unnaturally huge knot stretches the entrance of your hole, and he hammers into you again. ");
