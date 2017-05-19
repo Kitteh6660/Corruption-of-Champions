@@ -291,7 +291,7 @@ package classes.Scenes.Monsters
 				{
 					outputText("the seemingly uncountable number of tongues and tendrils slurp, stroke, and suck at your " + player.vaginaDescript());
 					if (player.vaginas.length > 1) outputText("s"); 
-					outputText(" and " ,false);
+					outputText(" and ");
 					if (player.totalBreasts() > 2) outputText(player.totalBreasts() + " ");
 					outputText("breasts. ");
 				}
@@ -398,7 +398,7 @@ package classes.Scenes.Monsters
 					outputText("and up the entire front of your body, dragging its bumpy, slick surface over ");
 					if (player.vaginas.length == 1) outputText("your " + player.vaginaDescript()); 
 					else outputText("all of your " + player.vaginaDescript() + "s");
-					outputText(" and " ,false);
+					outputText(" and ");
 					if (player.totalBreasts() > 2) outputText(player.totalBreasts() + " ");
 					outputText("breasts in long strokes while the ");
 					if (player.breastRows[0].nippleCocks) outputText("mouth-tentacles begin ");
