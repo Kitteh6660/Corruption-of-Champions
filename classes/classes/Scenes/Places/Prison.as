@@ -1917,7 +1917,7 @@ package classes.Scenes.Places
 			{
 				bribeCost = 1000 + Math.round((player.gems - 1000) / 2);
 				player.gems = player.gems - bribeCost;
-				outputText("Overcome with greed, the " + prisonGuard.guardType + " communicates " + prisonGuard.guardPronoun3 + " agreement with a nod and leaves the room. When " + prisonGuard.guardPronoun1 + " returns " + prisonGuard.guardPronoun1 + " has a bag that contains somewhere around " + bribeCost + " of your gems. Keeping up " + prisonGuard.guardPronoun3 + " end of the bargain " + prisonGuard.guardPronoun1,false);
+				outputText("Overcome with greed, the " + prisonGuard.guardType + " communicates " + prisonGuard.guardPronoun3 + " agreement with a nod and leaves the room. When " + prisonGuard.guardPronoun1 + " returns " + prisonGuard.guardPronoun1 + " has a bag that contains somewhere around " + bribeCost + " of your gems. Keeping up " + prisonGuard.guardPronoun3 + " end of the bargain " + prisonGuard.guardPronoun1);
 				if (player.statusEffectv2(StatusEffects.PrisonRestraints) > 0 || player.statusEffectv3(StatusEffects.PrisonRestraints) > 0 || player.statusEffectv4(StatusEffects.PrisonRestraints) > 0)
 				{
 					outputText(" removes your restraints and ");
