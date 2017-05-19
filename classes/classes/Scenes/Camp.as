@@ -531,7 +531,7 @@ private function doCamp():void { //Only called by playerMenu
 	clearOutput();
 	updateAchievements();
 	
-	outputText(images.showImage("camping"), false);
+	outputText(images.showImage("camping"));
 	//Isabella upgrades camp level!
 
 
@@ -562,7 +562,7 @@ private function doCamp():void { //Only called by playerMenu
 	}
 	//Nursery
 	if (flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] == 100 && player.hasStatusEffect(StatusEffects.CampMarble)) {
-		outputText("Marble has built a fairly secure nursery amongst the rocks to house your ",false);
+		outputText("Marble has built a fairly secure nursery amongst the rocks to house your ");
 		if (flags[kFLAGS.MARBLE_KIDS] == 0) outputText("future children");
 		else {
 			outputText(num2Text(flags[kFLAGS.MARBLE_KIDS]) + " child");
