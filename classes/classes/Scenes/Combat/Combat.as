@@ -953,7 +953,7 @@ package classes.Scenes.Combat
 			else {
 				outputText("You hit " + monster.a + monster.short + "! ");
 				if (crit) outputText("<b>Critical hit! </b>");
-				outputText("<b>(<font color=\"#800000\">" + damage + "</font>)</b>", false)
+				outputText("<b>(<font color=\"#800000\">" + damage + "</font>)</b>")
 			}
 			if (player.findPerk(PerkLib.BrutalBlows) >= 0 && player.str > 75 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (monster.armorDef > 0) outputText("\nYour hits are so brutal that you damage " + monster.a + monster.short + "'s defenses!");

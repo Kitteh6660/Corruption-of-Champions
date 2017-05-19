@@ -684,7 +684,7 @@ private function applyHelspawnName():void {
 			|| mainView.nameBox.text == "Mini-doofus") 
 	{
 		clearOutput();
-		if (mainView.nameBox.text == "") outputText("<b>You must select a name.</b>", false);
+		if (mainView.nameBox.text == "") outputText("<b>You must select a name.</b>");
 		else if (mainView.nameBox.text == "Hellgirl") outputText("\"<i>Hey, that's copyright infringement.  Probably.</i>\"");
 		else if (mainView.nameBox.text == "Kid") outputText("\"<i>Wow, what are you, five?</i>\"");
 		else if (mainView.nameBox.text == "Phoenix") outputText("\"<i>Oh hell no.  You're not naming my little girl after one of those... things!  Sorry Kiri, but still!</i>\"");
@@ -925,7 +925,7 @@ private function snipermanders():void {
 	if (player.lowerBody == LOWER_BODY_TYPE_LIZARD) outputText(", even with your own lizard legs");
 	outputText(", and you find yourself having to correct her grip on the haft several times.  But, finally, you get her ready to shoot.");
 	
-	outputText("\n\nYou slip behind " + flags[kFLAGS.HELSPAWN_NAME] + ", putting your arms on hers as you guide her through nocking an arrow, head resting on her fist, a lone finger outstretched toward the dessicated dummy.");
+	outputText("\n\nYou slip behind " + flags[kFLAGS.HELSPAWN_NAME] + ", putting your arms on hers as you guide her through nocking an arrow, head resting on her fist, a lone finger outstretched toward the desiccated dummy.");
 	
 	outputText("\n\nBreathing hard, the young salamander draws back the bowstring, lining up on her target.  She chews on her lower lip, eyes squinting, deep in concentration, wanting to make this first shot count - to make you proud.  She looses the arrow, and gasps as it bolts away with lethal force... and sails across camp, well away from the target.");
 	//If Rath is @ camp:
@@ -1350,13 +1350,13 @@ private function umYum():void {
 	}
 	else
 	{
-		outputText("\n\nCringing, you are about to set the offered bowl back down but you are reminded by your growling stomach. You have no choice but to cover your nose and just gulp down the contents of the stew. ", false)
+		outputText("\n\nCringing, you are about to set the offered bowl back down but you are reminded by your growling stomach. You have no choice but to cover your nose and just gulp down the contents of the stew. ")
 		player.refillHunger(25);
-		outputText("\nYou feel a bit nauseous. That stew surely is strange.", false)
+		outputText("\nYou feel a bit nauseous. That stew surely is strange.")
 		if (rand(3) == 0)
 		{
 			//Player vomits. Poor player. Damages hunger by 15-25.
-			outputText("\n\nGasp! You feel like you're going to throw up. You get up and rush behind the bushes. You suddenly bend over and spew the contents of your stomach from your mouth onto the ground. It takes a while but you eventually recover and you get up. ", false)
+			outputText("\n\nGasp! You feel like you're going to throw up. You get up and rush behind the bushes. You suddenly bend over and spew the contents of your stomach from your mouth onto the ground. It takes a while but you eventually recover and you get up. ")
 			player.takeDamage(player.maxHP() / 4);
 			player.damageHunger(rand(10) + 15);
 			dynStats("lib", -10);
