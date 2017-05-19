@@ -468,7 +468,7 @@ package classes.Scenes.Places
 			{
 				if (verbose)
 				{
-					outputText("Because of the way you are restrained you are unable to masturbate.",true);
+					outputText("Because of the way you are restrained you are unable to masturbate.");
 				}
 				return false;
 			}
@@ -481,7 +481,7 @@ package classes.Scenes.Places
 			{
 				if (verbose)
 				{
-					outputText("Because of the way you are restrained you are unable to reach the door.",true);
+					outputText("Because of the way you are restrained you are unable to reach the door.");
 				}
 				return false;
 			}
@@ -494,7 +494,7 @@ package classes.Scenes.Places
 			{
 				if (verbose)
 				{
-					outputText("Because of the way you are restrained you would be unable to reach your gag.",true);
+					outputText("Because of the way you are restrained you would be unable to reach your gag.");
 				}
 				return false;
 			}
@@ -536,7 +536,7 @@ package classes.Scenes.Places
 				return;
 			}
 			nextNeeded = true;
-			outputText("You examine the door.\n\n",true);
+			outputText("You examine the door.\n\n");
 			if (player.will > prisonWillCost(10))
 			{
 				changeWill(-prisonWillCost(10));
@@ -557,7 +557,7 @@ package classes.Scenes.Places
 		{
 			var nextNeeded:* = false;
 			nextNeeded = true;
-			outputText("You inspect the restraints on your body.\n\n",true);
+			outputText("You inspect the restraints on your body.\n\n");
 			if (debug)
 			{
 				if (player.statusEffectv2(StatusEffects.PrisonRestraints) >= 2)
@@ -589,7 +589,7 @@ package classes.Scenes.Places
 		{
 			var nextNeeded:* = false;
 			nextNeeded = true;
-			outputText("You inspect the restraints on your arms.\n\n",true);
+			outputText("You inspect the restraints on your arms.\n\n");
 			if (debug)
 			{
 				if (player.statusEffectv3(StatusEffects.PrisonRestraints) >= 2)
@@ -626,7 +626,7 @@ package classes.Scenes.Places
 				doNext(playerMenu);
 				return;
 			}
-			outputText("You inspect the gag in your mouth.\n\n",true);
+			outputText("You inspect the gag in your mouth.\n\n");
 			if (debug)
 			{
 				if (player.statusEffectv4(StatusEffects.PrisonRestraints) >= 4)
@@ -857,7 +857,7 @@ package classes.Scenes.Places
 			{
 				if (verbose)
 				{
-					outputText("Because of the way you are restrained you would be unable to fight your guard.",true);
+					outputText("Because of the way you are restrained you would be unable to fight your guard.");
 				}
 				return false;
 			}
@@ -868,7 +868,7 @@ package classes.Scenes.Places
 		{
 			if (player.statusEffectv4(StatusEffects.PrisonRestraints) > 0)
 			{
-				outputText("You consider trying to seduce your guard, but you realize you wouldn't be able to communicate gagged as you are.",true);
+				outputText("You consider trying to seduce your guard, but you realize you wouldn't be able to communicate gagged as you are.");
 				return false;
 			}
 			return true;
@@ -878,7 +878,7 @@ package classes.Scenes.Places
 		{
 			if (player.statusEffectv4(StatusEffects.PrisonRestraints) > 0)
 			{
-				outputText("You consider trying to bribe your guard, but you realize you wouldn't be able to communicate gagged as you are.",true);
+				outputText("You consider trying to bribe your guard, but you realize you wouldn't be able to communicate gagged as you are.");
 				return false;
 			}
 			return true;
@@ -888,7 +888,7 @@ package classes.Scenes.Places
 		{
 			if (player.statusEffectv2(StatusEffects.PrisonRestraints) > 0)
 			{
-				outputText("Because of the way you are restrained you would be unable carry out a stealthy escape.",true);
+				outputText("Because of the way you are restrained you would be unable carry out a stealthy escape.");
 				return false;
 			}
 			return true;
@@ -898,12 +898,12 @@ package classes.Scenes.Places
 		{
 			if (player.statusEffectv1(StatusEffects.PrisonRestraints) > 0)
 			{
-				outputText("The door is locked, so simply running is not an option.",true);
+				outputText("The door is locked, so simply running is not an option.");
 				return false;
 			}
 			if (player.statusEffectv2(StatusEffects.PrisonRestraints) > 0)
 			{
-				outputText("Even though the door is unlocked, without the free use of your legs simply running away is not an option.",true);
+				outputText("Even though the door is unlocked, without the free use of your legs simply running away is not an option.");
 				return false;
 			}
 			return true;
@@ -913,7 +913,7 @@ package classes.Scenes.Places
 		{
 			if (player.statusEffectv3(StatusEffects.PrisonRestraints) > 0 || player.statusEffectv2(StatusEffects.PrisonRestraints) > 1)
 			{
-				outputText("Without the free use of your arms, you are unable to do strength training.",true);
+				outputText("Without the free use of your arms, you are unable to do strength training.");
 				return false;
 			}
 			return true;
@@ -923,7 +923,7 @@ package classes.Scenes.Places
 		{
 			if (player.statusEffectv2(StatusEffects.PrisonRestraints) > 0)
 			{
-				outputText("Without the free use of your [legs], you are unable to do cardio training.",true);
+				outputText("Without the free use of your [legs], you are unable to do cardio training.");
 				return false;
 			}
 			return true;
@@ -950,7 +950,7 @@ package classes.Scenes.Places
 		{
 			if (player.statusEffectv4(StatusEffects.PrisonRestraints) > 0 && !(player.statusEffectv4(StatusEffects.PrisonRestraints) == 4))
 			{
-				outputText("Because your mouth is gagged you are unable to eat at this time.",true);
+				outputText("Because your mouth is gagged you are unable to eat at this time.");
 				return false;
 			}
 			return true;
@@ -960,7 +960,7 @@ package classes.Scenes.Places
 		{
 			if (player.statusEffectv3(StatusEffects.PrisonRestraints) > 1 || player.statusEffectv2(StatusEffects.PrisonRestraints) > 1)
 			{
-				outputText("Because of the way your arms are bound you are unable to equip items at this time.",true);
+				outputText("Because of the way your arms are bound you are unable to equip items at this time.");
 				return false;
 			}
 			return true;
@@ -1712,7 +1712,7 @@ package classes.Scenes.Places
 				doNext(playerMenu);
 				return;
 			}
-			outputText("",true);
+			outputText("");
 			if (player.will < prisonWillCost(20))
 			{
 				outputText("You simply don't have the willpower to try to fight your way to freedom right now.");
@@ -1747,7 +1747,7 @@ package classes.Scenes.Places
 				doNext(playerMenu);
 				return;
 			}
-			outputText("",true);
+			outputText("");
 			if (player.will < prisonWillCost(10))
 			{
 				outputText("You simply don't have the willpower to try to seduce your guard right now.");
@@ -1765,7 +1765,7 @@ package classes.Scenes.Places
 				doNext(playerMenu);
 				return;
 			}
-			outputText("",true);
+			outputText("");
 			if (player.will < prisonWillCost(10))
 			{
 				outputText("You find that you don't have the willpower needed to try to bribe your way free.");
@@ -1783,7 +1783,7 @@ package classes.Scenes.Places
 				doNext(playerMenu);
 				return;
 			}
-			outputText("",true);
+			outputText("");
 			if (player.will < prisonWillCost(15))
 			{
 				outputText("The subterfuge needed to sneak past your guard requires more willpower to execute than you have right now.");
@@ -1801,7 +1801,7 @@ package classes.Scenes.Places
 				doNext(playerMenu);
 				return;
 			}
-			outputText("",true);
+			outputText("");
 			if (player.will < prisonWillCost(5))
 			{
 				outputText("You don't even have enough willpower at the moment to stand up and walk out the door.");
@@ -1819,7 +1819,7 @@ package classes.Scenes.Places
 				doNext(playerMenu);
 				return;
 			}
-			outputText("",true);
+			outputText("");
 			outputText("Knowing you have a task to complete, you work up the courage to take advantage of your completely unrestrained state and cautiously slip out the door when no one is watching.\n");
 			prisonEscapeSuccessText();
 			doNext(prisonEscapeFinalePart1);
