@@ -1409,9 +1409,9 @@ package classes.Scenes.Combat
 				if (monster.plural) damage *= 1.3;
 				damage = (damage + rand(bonusDamage)) * monster.lustVuln;
 				
-				if (monster is JeanClaude) (monster as JeanClaude).handleTease(damage);
+				if (monster is JeanClaude) (monster as JeanClaude).handleTease(damage, false);
 				else if (monster is Doppleganger && !monster.hasStatusEffect(StatusEffects.Stunned)) (monster as Doppleganger).mirrorTease(damage, false);
-				else if (!justText) monster.teased(damage, false);
+				else if (!justText) monster.teased(damage);
 				
 				if (flags[kFLAGS.PC_FETISH] >= 1 && !getGame().urtaQuest.isUrta()) 
 				{
