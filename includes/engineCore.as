@@ -1,6 +1,5 @@
 import classes.*;
 import flash.text.TextFormat;
-
 // at least one import or other usage of *class* so it won't be marked unused.
 import classes.internals.Profiling;
 import classes.internals.profiling.Begin;
@@ -27,7 +26,7 @@ public function HPChange(changeNum:Number, display:Boolean):Number
 	var before:Number = player.HP;
 	if (changeNum == 0) return 0;
 	if (changeNum > 0) {
-		if (player.findPerk(PerkLib.HistoryHealer) >= 0) changeNum *= 1.2; //Increase by 20%!
+		if (player.findPerk(PerkLib.HistoryHealer) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) changeNum *= 1.2; //Increase by 20%!
 		if (player.armor.name == "skimpy nurse's outfit") changeNum *= 1.1; //Increase by 10%!
 		if (player.HP + int(changeNum) > maxHP()) {
 			if (player.HP >= maxHP()) {
@@ -802,31 +801,31 @@ public function stats(stre:Number, toug:Number, spee:Number, intel:Number, libi:
 	//Bimbos learn slower
 	if (!noBimbo)
 	{
-		if (player.findPerk(PerkLib.FutaFaculties) >= 0 || player.findPerk(PerkLib.BimboBrains) >= 0  || player.findPerk(PerkLib.BroBrains) >= 0) {
+		if (player.findPerk(PerkLib.FutaFaculties) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) || player.findPerk(PerkLib.BimboBrains) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)  || player.findPerk(PerkLib.BroBrains) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 			if (intel > 0) intel /= 2;
 			if (intel < 0) intel *= 2;
 		}
-		if (player.findPerk(PerkLib.FutaForm) >= 0 || player.findPerk(PerkLib.BimboBody) >= 0  || player.findPerk(PerkLib.BroBody) >= 0) {
+		if (player.findPerk(PerkLib.FutaForm) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) || player.findPerk(PerkLib.BimboBody) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)  || player.findPerk(PerkLib.BroBody) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 			if (libi > 0) libi *= 2;
 			if (libi < 0) libi /= 2;
 		}
 	}
 	
 	// Uma's Perkshit
-	if (player.findPerk(PerkLib.ChiReflowSpeed)>=0 && spee < 0) spee *= UmasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
-	if (player.findPerk(PerkLib.ChiReflowLust)>=0 && libi > 0) libi *= UmasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
-	if (player.findPerk(PerkLib.ChiReflowLust)>=0 && sens > 0) sens *= UmasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
+	if (player.findPerk(PerkLib.ChiReflowSpeed)>=0 && spee < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) spee *= UmasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
+	if (player.findPerk(PerkLib.ChiReflowLust)>=0 && libi > 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) libi *= UmasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
+	if (player.findPerk(PerkLib.ChiReflowLust)>=0 && sens > 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) sens *= UmasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 	
 	//Apply lust changes in NG+.
 	if (resisted) lust2 *= 1 + (player.newGamePlusMod() * 0.2);
 	
 	//lust resistance
 	if (lust2 > 0 && resisted) lust2 *= player.lustPercent()/100;
-	if (libi > 0 && player.findPerk(PerkLib.PurityBlessing) >= 0) libi *= 0.75;
-	if (corr > 0 && player.findPerk(PerkLib.PurityBlessing) >= 0) corr *= 0.5;
-	if (corr > 0 && player.findPerk(PerkLib.PureAndLoving) >= 0) corr *= 0.75;
+	if (libi > 0 && player.findPerk(PerkLib.PurityBlessing) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) libi *= 0.75;
+	if (corr > 0 && player.findPerk(PerkLib.PurityBlessing) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) corr *= 0.5;
+	if (corr > 0 && player.findPerk(PerkLib.PureAndLoving) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) corr *= 0.75;
 	if (corr > 0 && player.weapon == weapons.HNTCANE) corr *= 0.5;
-	if (player.findPerk(PerkLib.AscensionMoralShifter) >= 0) corr *= 1 + (player.perkv1(PerkLib.AscensionMoralShifter) * 0.2);
+	if (player.findPerk(PerkLib.AscensionMoralShifter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) corr *= 1 + (player.perkv1(PerkLib.AscensionMoralShifter) * 0.2);
 	//Change original stats
 	player.str+=stre;
 	player.tou+=toug;
@@ -846,12 +845,12 @@ public function stats(stre:Number, toug:Number, spee:Number, intel:Number, libi:
 	player.cor += corr;
 	
 	//Bonus gain for perks!
-	if (player.findPerk(PerkLib.Strong) >= 0 && stre >= 0) player.str+=stre*player.perk(player.findPerk(PerkLib.Strong)).value1;
-	if (player.findPerk(PerkLib.Tough) >= 0 && toug >= 0) player.tou+=toug*player.perk(player.findPerk(PerkLib.Tough)).value1;
-	if (player.findPerk(PerkLib.Fast) >= 0 && spee >= 0) player.spe+=spee*player.perk(player.findPerk(PerkLib.Fast)).value1;
-	if (player.findPerk(PerkLib.Smart) >= 0 && intel >= 0) player.inte+=intel*player.perk(player.findPerk(PerkLib.Smart)).value1;
-	if (player.findPerk(PerkLib.Lusty) >= 0 && libi >= 0) player.lib+=libi*player.perk(player.findPerk(PerkLib.Lusty)).value1;
-	if (player.findPerk(PerkLib.Sensitive) >= 0 && sens >= 0) player.sens += sens * player.perk(player.findPerk(PerkLib.Sensitive)).value1;
+	if (player.findPerk(PerkLib.Strong) >= 0 && stre >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) player.str+=stre*player.perk(player.findPerk(PerkLib.Strong)).value1;
+	if (player.findPerk(PerkLib.Tough) >= 0 && toug >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) player.tou+=toug*player.perk(player.findPerk(PerkLib.Tough)).value1;
+	if (player.findPerk(PerkLib.Fast) >= 0 && spee >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) player.spe+=spee*player.perk(player.findPerk(PerkLib.Fast)).value1;
+	if (player.findPerk(PerkLib.Smart) >= 0 && intel >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) player.inte+=intel*player.perk(player.findPerk(PerkLib.Smart)).value1;
+	if (player.findPerk(PerkLib.Lusty) >= 0 && libi >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) player.lib+=libi*player.perk(player.findPerk(PerkLib.Lusty)).value1;
+	if (player.findPerk(PerkLib.Sensitive) >= 0 && sens >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) player.sens += sens * player.perk(player.findPerk(PerkLib.Sensitive)).value1;
 	
 	//Keep stats in bounds
 	if (player.cor < 0) player.cor = 0;
@@ -886,10 +885,10 @@ public function stats(stre:Number, toug:Number, spee:Number, intel:Number, libi:
 	{
 		minLib -= player.jewelryEffectMagnitude;
 	}
-	if (player.findPerk(PerkLib.PurityBlessing) >= 0) {
+	if (player.findPerk(PerkLib.PurityBlessing) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 		minLib -= 2;
 	}
-	if (player.findPerk(PerkLib.HistoryReligious) >= 0) {
+	if (player.findPerk(PerkLib.HistoryReligious) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 		minLib -= 2;
 	}
 	//Applies minimum libido.

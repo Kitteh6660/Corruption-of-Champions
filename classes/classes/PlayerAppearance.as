@@ -903,7 +903,7 @@ package classes
 				outputText("  " + Num2Text(player.legCount)+ " digitigrade legs form below your [hips], ending in cloven hooves.");
 			else if (player.lowerBody == LOWER_BODY_TYPE_IMP) 
 				outputText(" " + Num2Text(player.legCount)+ " digitigrade legs form below your [hips], ending in clawed feet. Three extend out the front, and one smaller one is in the back to keep your balance.");
-			if (player.findPerk(PerkLib.Incorporeality) >= 0)
+			if (player.findPerk(PerkLib.Incorporeality) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))
 				outputText("  Of course, your " + player.legs() + " are partially transparent due to their ghostly nature."); // isn't goo transparent anyway?
 			outputText("\n");
 			if (player.hasStatusEffect(StatusEffects.GooStuffed))

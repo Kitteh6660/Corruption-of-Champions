@@ -1,4 +1,4 @@
-﻿//CoC Creature.as
+//CoC Creature.as
 package classes
 {
 	import classes.BodyParts.Skin;
@@ -3569,20 +3569,20 @@ package classes
 			}
 			//Modify armor rating based on weapons.
 			if (applyModifiers) {
-				if (game.player.weapon == game.weapons.JRAPIER || game.player.weapon == game.weapons.SPEAR || game.player.weaponName.indexOf("staff") != -1 && game.player.hasPerk(PerkLib.StaffChanneling)) armorMod = 0;
+				if (game.player.weapon == game.weapons.JRAPIER || game.player.weapon == game.weapons.SPEAR || game.player.weaponName.indexOf("staff") != -1 && game.player.hasPerk(PerkLib.StaffChanneling) && !hasStatusEffect(StatusEffects.PerksDisabled)) armorMod = 0;
 				if (game.player.weapon == game.weapons.KATANA) armorMod -= 5;
-				if (game.player.hasPerk(PerkLib.LungingAttacks)) armorMod /= 2;
+				if (game.player.hasPerk(PerkLib.LungingAttacks) && !hasStatusEffect(StatusEffects.PerksDisabled)) armorMod /= 2;
 				if (armorMod < 0) armorMod = 0;
 			}
 			mult -= armorMod;
 			
 			//--PERKS--
 			//Take damage you masochist!
-			if (hasPerk(PerkLib.Masochist) && lib >= 60) {
+			if (hasPerk(PerkLib.Masochist) && lib >= 60 && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				mult *= 0.8;
 				if (short == game.player.short && !displayMode) game.dynStats("lus", 2);
 			}
-			if (hasPerk(PerkLib.ImmovableObject) && tou >= 75) {
+			if (hasPerk(PerkLib.ImmovableObject) && tou >= 75 && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				mult *= 0.9;
 			}
 			
@@ -3622,14 +3622,14 @@ package classes
 			//TOTAL IS LIMITED TO 75%!
 			//++++++++++++++++++++++++++++++++++++++++++++++++++
 			//Corrupted Libido reduces lust gain by 10%!
-			if (hasPerk(PerkLib.CorruptedLibido)) lust -= 10;
+			if (hasPerk(PerkLib.CorruptedLibido) && !hasStatusEffect(StatusEffects.PerksDisabled)) lust -= 10;
 			//Acclimation reduces by 15%
-			if (hasPerk(PerkLib.Acclimation)) lust -= 15;
+			if (hasPerk(PerkLib.Acclimation) && !hasStatusEffect(StatusEffects.PerksDisabled)) lust -= 15;
 			//Purity blessing reduces lust gain
-			if (hasPerk(PerkLib.PurityBlessing)) lust -= 5;
+			if (hasPerk(PerkLib.PurityBlessing) && !hasStatusEffect(StatusEffects.PerksDisabled)) lust -= 5;
 			//Resistance = 10%
-			if (hasPerk(PerkLib.Resistance)) lust -= 10;
-			if (hasPerk(PerkLib.ChiReflowLust)) lust -= UmasShop.NEEDLEWORK_LUST_LUST_RESIST;
+			if (hasPerk(PerkLib.Resistance) && !hasStatusEffect(StatusEffects.PerksDisabled)) lust -= 10;
+			if (hasPerk(PerkLib.ChiReflowLust) && !hasStatusEffect(StatusEffects.PerksDisabled)) lust -= UmasShop.NEEDLEWORK_LUST_LUST_RESIST;
 			
 			if (lust < minLustCap) lust = minLustCap;
 			if (statusEffectv1(StatusEffects.BlackCatBeer) > 0) {
@@ -3643,15 +3643,15 @@ package classes
 			//DRAWBACKS TO JUSTIFY IT.
 			//++++++++++++++++++++++++++++++++++++++++++++++++++
 			//Bimbo body slows lust gains!
-			if ((hasStatusEffect(StatusEffects.BimboChampagne) || hasPerk(PerkLib.BimboBody)) && lust > 0) lust *= .75;
-			if (hasPerk(PerkLib.BroBody) && lust > 0) lust *= .75;
-			if (hasPerk(PerkLib.FutaForm) && lust > 0) lust *= .75;
+			if ((hasStatusEffect(StatusEffects.BimboChampagne) || hasPerk(PerkLib.BimboBody) && !hasStatusEffect(StatusEffects.PerksDisabled)) && lust > 0) lust *= .75;
+			if (hasPerk(PerkLib.BroBody) && !hasStatusEffect(StatusEffects.PerksDisabled) && lust > 0) lust *= .75;
+			if (hasPerk(PerkLib.FutaForm) && !hasStatusEffect(StatusEffects.PerksDisabled) && lust > 0) lust *= .75;
 			//Omnibus' Gift reduces lust gain by 15%
-			if (hasPerk(PerkLib.OmnibusGift)) lust *= .85;
+			if (hasPerk(PerkLib.OmnibusGift) && !hasStatusEffect(StatusEffects.PerksDisabled)) lust *= .85;
 			//Luststick reduces lust gain by 10% to match increased min lust
-			if (hasPerk(PerkLib.LuststickAdapted)) lust *= 0.9;
+			if (hasPerk(PerkLib.LuststickAdapted) && !hasStatusEffect(StatusEffects.PerksDisabled)) lust *= 0.9;
 			if (hasStatusEffect(StatusEffects.Berzerking)) lust *= .6;
-			if (hasPerk(PerkLib.PureAndLoving)) lust *= 0.95;
+			if (hasPerk(PerkLib.PureAndLoving) && !hasStatusEffect(StatusEffects.PerksDisabled)) lust *= 0.95;
 			//Berserking removes half!
 			if (hasStatusEffect(StatusEffects.Lustzerking)) lust += ((100 - lust) / 2);
 			//Items
@@ -3679,9 +3679,9 @@ package classes
 		public function getEvasionChance():Number
 		{
 			var chance:Number = 0;
-			if (hasPerk(PerkLib.Evade)) chance += 10;
-			if (hasPerk(PerkLib.Flexibility)) chance += 6;
-			if (hasPerk(PerkLib.Misdirection) && armorName == "red, high-society bodysuit") chance += 10;
+			if (hasPerk(PerkLib.Evade) && !hasStatusEffect(StatusEffects.PerksDisabled)) chance += 10;
+			if (hasPerk(PerkLib.Flexibility) && !hasStatusEffect(StatusEffects.PerksDisabled)) chance += 6;
+			if (hasPerk(PerkLib.Misdirection) && !hasStatusEffect(StatusEffects.PerksDisabled) && armorName == "red, high-society bodysuit") chance += 10;
 			return chance;
 		}
 	   
@@ -3711,9 +3711,9 @@ package classes
 			evasionRoll = rand(100);
 
 			// perks
-			if (hasPerk(PerkLib.Evade) && ((evasionRoll = evasionRoll - 10) < 0)) return "Evade";
-			if (hasPerk(PerkLib.Flexibility) && ((evasionRoll = evasionRoll - 6) < 0)) return "Flexibility";
-			if (hasPerk(PerkLib.Misdirection) && armorName == "red, high-society bodysuit" && ((evasionRoll = evasionRoll - 10) < 0)) return "Misdirection";
+			if (hasPerk(PerkLib.Evade) && !hasStatusEffect(StatusEffects.PerksDisabled) && ((evasionRoll = evasionRoll - 10) < 0)) return "Evade";
+			if (hasPerk(PerkLib.Flexibility) && !hasStatusEffect(StatusEffects.PerksDisabled) && ((evasionRoll = evasionRoll - 6) < 0)) return "Flexibility";
+			if (hasPerk(PerkLib.Misdirection) && !hasStatusEffect(StatusEffects.PerksDisabled) && armorName == "red, high-society bodysuit" && ((evasionRoll = evasionRoll - 10) < 0)) return "Misdirection";
 			return null;
 		}
 	   

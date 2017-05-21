@@ -45,6 +45,9 @@ package classes
 		 */
 		public function desc(params:PerkClass=null):String
 		{
+			if (player.hasStatusEffect(StatusEffects.PerksDisabled)) {
+				return "DISABLED! Your perks are currently disabled and have no effect!";
+			}
 			return _desc;
 		}
 

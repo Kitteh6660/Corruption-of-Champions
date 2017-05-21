@@ -285,8 +285,8 @@ package classes.Scenes
 		
 		public function getMaxSlots():int {
 			var slots:int = 3;
-			if (player.findPerk(PerkLib.StrongBack) >= 0) slots++;
-			if (player.findPerk(PerkLib.StrongBack2) >= 0) slots++;
+			if (player.findPerk(PerkLib.StrongBack) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) slots++;
+			if (player.findPerk(PerkLib.StrongBack2) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) slots++;
 			slots += player.keyItemv1("Backpack");
 			//Constrain slots to between 3 and 10.
 			if (slots < 3) slots = 3;

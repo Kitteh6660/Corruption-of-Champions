@@ -257,12 +257,12 @@ use namespace kGAMECLASS;
 			armorDef += upperGarment.armorDef;
 			armorDef += lowerGarment.armorDef;
 			//Blacksmith history!
-			if (armorDef > 0 && hasPerk(PerkLib.HistorySmith)) {
+			if (armorDef > 0 && hasPerk(PerkLib.HistorySmith) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				armorDef = Math.round(armorDef * 1.1);
 				armorDef += 1;
 			}
 			//Skin armor perk
-			if (hasPerk(PerkLib.ThickSkin)) {
+			if (hasPerk(PerkLib.ThickSkin) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				armorDef += 2;
 			}
 			//Stacks on top of Thick Skin perk.
@@ -280,21 +280,21 @@ use namespace kGAMECLASS;
 			}
 			//Agility boosts armor ratings!
 			var speedBonus:int = 0;
-			if (hasPerk(PerkLib.Agility)) {
+			if (hasPerk(PerkLib.Agility) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (armorPerk == "Light" || armorPerk == "Adornment" || _armor.name == "nothing") speedBonus += Math.round(spe/8);
 				else if (armorPerk == "Medium") speedBonus += Math.round(spe/13);
 				if (speedBonus > 15) speedBonus = 15;
 			}
-			if (hasPerk(PerkLib.Juggernaut) && tou >= 75 && armorPerk == "Heavy") {
+			if (hasPerk(PerkLib.Juggernaut) && tou >= 75 && armorPerk == "Heavy" && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				speedBonus += 10;
 			}
 			armorDef += speedBonus
 			//Acupuncture effect
-			if (hasPerk(PerkLib.ChiReflowDefense)) armorDef *= UmasShop.NEEDLEWORK_DEFENSE_DEFENSE_MULTI;
-			if (hasPerk(PerkLib.ChiReflowAttack)) armorDef *= UmasShop.NEEDLEWORK_ATTACK_DEFENSE_MULTI;
+			if (hasPerk(PerkLib.ChiReflowDefense) && !hasStatusEffect(StatusEffects.PerksDisabled)) armorDef *= UmasShop.NEEDLEWORK_DEFENSE_DEFENSE_MULTI;
+			if (hasPerk(PerkLib.ChiReflowAttack) && !hasStatusEffect(StatusEffects.PerksDisabled)) armorDef *= UmasShop.NEEDLEWORK_ATTACK_DEFENSE_MULTI;
 			//Berzerking removes armor
 			if (hasStatusEffect(StatusEffects.Berzerking)) {
-				if (!hasPerk(PerkLib.ColdFury))
+				if (!hasPerk(PerkLib.ColdFury) || hasStatusEffect(StatusEffects.PerksDisabled))
 					armorDef = 0;
 				else
 					armorDef /= 2;
@@ -324,17 +324,17 @@ use namespace kGAMECLASS;
 		}
 		override public function get weaponAttack():Number {
 			var attack:Number = _weapon.attack;
-			if (hasPerk(PerkLib.WeaponMastery) && weaponPerk == "Large" && str > 60)
+			if (hasPerk(PerkLib.WeaponMastery) && weaponPerk == "Large" && str > 60 && !hasStatusEffect(StatusEffects.PerksDisabled))
 				attack *= 2;
-			if (hasPerk(PerkLib.LightningStrikes) && spe >= 60 && weaponPerk != "Large") {
+			if (hasPerk(PerkLib.LightningStrikes) && spe >= 60 && weaponPerk != "Large" && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				attack += Math.round((spe - 50) / 3);
 			}
 			//Iron fists bonus!
-			if (hasPerk(PerkLib.IronFists) && str >= 50 && weaponName == "fists")
+			if (hasPerk(PerkLib.IronFists) && str >= 50 && weaponName == "fists" && !hasStatusEffect(StatusEffects.PerksDisabled))
 				attack += 5;
-			if (hasPerk(PerkLib.IronFists2) && str >= 65 && weaponName == "fists")
+			if (hasPerk(PerkLib.IronFists2) && str >= 65 && weaponName == "fists" && !hasStatusEffect(StatusEffects.PerksDisabled))
 				attack += 3;
-			if (hasPerk(PerkLib.IronFists3) && str >= 80 && weaponName == "fists")
+			if (hasPerk(PerkLib.IronFists3) && str >= 80 && weaponName == "fists" && !hasStatusEffect(StatusEffects.PerksDisabled))
 				attack += 3;
 			//Bonus for being samurai!
 			if (armor == game.armors.SAMUARM && weapon == game.weapons.KATANA)
@@ -571,7 +571,7 @@ use namespace kGAMECLASS;
 			
 			//Opponents can critical too!
 			var crit:Boolean = false
-			if (rand(100) <= 4 || (kGAMECLASS.monster.hasPerk(PerkLib.Tactician) && kGAMECLASS.monster.inte >= 50 && (kGAMECLASS.monster.inte - 50)/5 > rand(100))) {
+			if (rand(100) <= 4 || (kGAMECLASS.monster.hasPerk(PerkLib.Tactician) && kGAMECLASS.monster.inte >= 50 && (kGAMECLASS.monster.inte - 50)/5 > rand(100) && !hasStatusEffect(StatusEffects.PerksDisabled))) {
 				crit = true;
 				damage *= 1.75;
 				flags[kFLAGS.ENEMY_CRITICAL] = 1;
@@ -625,7 +625,7 @@ use namespace kGAMECLASS;
 		override public function getEvasionChance():Number 
 		{
 			var chance:Number = super.getEvasionChance();
-			if (hasPerk(PerkLib.Unhindered) && (armor == ArmorLib.NOTHING || armor.perk == "Adornment")) chance += Math.max(10 - upperGarment.armorDef - lowerGarment.armorDef, 0);
+			if (hasPerk(PerkLib.Unhindered) && (armor == ArmorLib.NOTHING || armor.perk == "Adornment") && !hasStatusEffect(StatusEffects.PerksDisabled)) chance += Math.max(10 - upperGarment.armorDef - lowerGarment.armorDef, 0);
 			return chance;
 		}
 		
@@ -634,7 +634,7 @@ use namespace kGAMECLASS;
 			var inherented:String = super.getEvasionReason(useMonster, attackSpeed);
 			if (inherented != null) return inherented;
 			// evasionRoll is a field from Creature superclass
-			if (hasPerk(PerkLib.Unhindered) && InCollection(armorName, "nothing") && ((evasionRoll = evasionRoll - (10 - Math.max(10 - upperGarment.armorDef - lowerGarment.armorDef, 0))) < 0)) return "Unhindered";
+			if (hasPerk(PerkLib.Unhindered) && !hasStatusEffect(StatusEffects.PerksDisabled) && InCollection(armorName, "nothing") && ((evasionRoll = evasionRoll - (10 - Math.max(10 - upperGarment.armorDef - lowerGarment.armorDef, 0))) < 0)) return "Unhindered";
 			return null;
 		}
 
@@ -1017,7 +1017,6 @@ use namespace kGAMECLASS;
 			if (impScore() >= 4) {
 				race = "imp";
 			}
-			
 			return race;
 		}
 
@@ -1991,7 +1990,7 @@ use namespace kGAMECLASS;
 				total += 10 * breastRows[counter].breastRating * breastRows[counter].lactationMultiplier * breastRows[counter].breasts * statusEffectv1(StatusEffects.LactationEndurance);
 				
 			}
-			if (hasPerk(PerkLib.MilkMaid))
+			if (hasPerk(PerkLib.MilkMaid) && !hasStatusEffect(StatusEffects.PerksDisabled))
 				total += 200 + (perkv1(PerkLib.MilkMaid) * 100);
 			if (statusEffectv1(StatusEffects.LactationReduction) >= 48)
 				total = total * 1.5;
@@ -2126,7 +2125,7 @@ use namespace kGAMECLASS;
 					createStatusEffect(StatusEffects.SlimeCravingFeed,0,0,0,0);
 				}
 			}
-			if (hasPerk(PerkLib.Diapause)) {
+			if (hasPerk(PerkLib.Diapause) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				flags[kFLAGS.DIAPAUSE_FLUID_AMOUNT] += 3 + rand(3);
 				flags[kFLAGS.DIAPAUSE_NEEDS_DISPLAYING] = 1;
 			}
@@ -2149,7 +2148,7 @@ use namespace kGAMECLASS;
 			if (flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] >= 60) raw /= 2;
 			if (flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] >= 80) raw /= 2;
 			if (flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] >= 90) raw /= 2;
-			if (hasPerk(PerkLib.MinotaurCumResistance)) raw *= 0;
+			if (hasPerk(PerkLib.MinotaurCumResistance) && !hasStatusEffect(StatusEffects.PerksDisabled)) raw *= 0;
 			//If in withdrawl, readdiction is potent!
 			if (flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] == 3) raw += 10;
 			if (flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] == 2) raw += 5;
@@ -2159,7 +2158,7 @@ use namespace kGAMECLASS;
 			if (raw < -50) raw = -50;
 			flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] += raw;
 			//Recheck to make sure shit didn't break
-			if (hasPerk(PerkLib.MinotaurCumResistance)) flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] = 0; //Never get addicted!
+			if (hasPerk(PerkLib.MinotaurCumResistance) && !hasStatusEffect(StatusEffects.PerksDisabled)) flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] = 0; //Never get addicted!
 			if (flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] > 120) flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] = 120;
 			if (flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] < 0) flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] = 0;
 
@@ -2167,17 +2166,17 @@ use namespace kGAMECLASS;
 
 		public function spellMod():Number {
 			var mod:Number = 1;
-			if (hasPerk(PerkLib.Archmage) && inte >= 75) mod += .5;
-			if (hasPerk(PerkLib.Channeling) && inte >= 60) mod += .5;
-			if (hasPerk(PerkLib.Mage) && inte >= 50) mod += .5;
-			if (hasPerk(PerkLib.Spellpower) && inte >= 50) mod += .5;
-			if (hasPerk(PerkLib.WizardsFocus)) {
+			if (hasPerk(PerkLib.Archmage) && inte >= 75 && !hasStatusEffect(StatusEffects.PerksDisabled)) mod += .5;
+			if (hasPerk(PerkLib.Channeling) && inte >= 60 && !hasStatusEffect(StatusEffects.PerksDisabled)) mod += .5;
+			if (hasPerk(PerkLib.Mage) && inte >= 50 && !hasStatusEffect(StatusEffects.PerksDisabled)) mod += .5;
+			if (hasPerk(PerkLib.Spellpower) && inte >= 50 && !hasStatusEffect(StatusEffects.PerksDisabled)) mod += .5;
+			if (hasPerk(PerkLib.WizardsFocus) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				mod += perkv1(PerkLib.WizardsFocus);
 			}
-			if (hasPerk(PerkLib.ChiReflowMagic)) mod += UmasShop.NEEDLEWORK_MAGIC_SPELL_MULTI;
+			if (hasPerk(PerkLib.ChiReflowMagic) && !hasStatusEffect(StatusEffects.PerksDisabled)) mod += UmasShop.NEEDLEWORK_MAGIC_SPELL_MULTI;
 			if (jewelryEffectId == JewelryLib.MODIFIER_SPELL_POWER) mod += (jewelryEffectMagnitude / 100);
 			if (countCockSocks("blue") > 0) mod += (countCockSocks("blue") * .05);
-			if (hasPerk(PerkLib.AscensionMysticality)) mod *= 1 + (perkv1(PerkLib.AscensionMysticality) * 0.05);
+			if (hasPerk(PerkLib.AscensionMysticality) && !hasStatusEffect(StatusEffects.PerksDisabled)) mod *= 1 + (perkv1(PerkLib.AscensionMysticality) * 0.05);
 			return mod;
 		}
 		
@@ -2195,18 +2194,18 @@ use namespace kGAMECLASS;
 		public function spellCost(mod:Number):Number {
 			//Addiditive mods
 			var costPercent:Number = 100;
-			if (hasPerk(PerkLib.SpellcastingAffinity)) costPercent -= perkv1(PerkLib.SpellcastingAffinity);
-			if (hasPerk(PerkLib.WizardsEndurance)) costPercent -= perkv1(PerkLib.WizardsEndurance);
+			if (hasPerk(PerkLib.SpellcastingAffinity) && !hasStatusEffect(StatusEffects.PerksDisabled)) costPercent -= perkv1(PerkLib.SpellcastingAffinity);
+			if (hasPerk(PerkLib.WizardsEndurance) && !hasStatusEffect(StatusEffects.PerksDisabled)) costPercent -= perkv1(PerkLib.WizardsEndurance);
 			
 			//Limiting it and multiplicative mods
-			if (hasPerk(PerkLib.BloodMage) && costPercent < 50) costPercent = 50;
+			if (hasPerk(PerkLib.BloodMage) && costPercent < 50 && !hasStatusEffect(StatusEffects.PerksDisabled)) costPercent = 50;
 			
 			mod *= costPercent/100;
 			
-			if (hasPerk(PerkLib.HistoryScholar)) {
+			if (hasPerk(PerkLib.HistoryScholar) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (mod > 2) mod *= .8;
 			}
-			if (hasPerk(PerkLib.BloodMage) && mod < 5) mod = 5;
+			if (hasPerk(PerkLib.BloodMage) && mod < 5 && !hasStatusEffect(StatusEffects.PerksDisabled)) mod = 5;
 			else if (mod < 2) mod = 2;
 			
 			mod = Math.round(mod * 100)/100;
@@ -2215,7 +2214,7 @@ use namespace kGAMECLASS;
 		
 		public function physicalCost(mod:Number):Number {
 			var costPercent:Number = 100;
-			if (hasPerk(PerkLib.IronMan)) costPercent -= 50;
+			if (hasPerk(PerkLib.IronMan) && !hasStatusEffect(StatusEffects.PerksDisabled)) costPercent -= 50;
 			mod *= costPercent/100;
 			return mod;
 		}
@@ -2232,7 +2231,7 @@ use namespace kGAMECLASS;
 				mod = spellCost(mod);
 				
 				//Blood mages use HP for spells
-				if (hasPerk(PerkLib.BloodMage)) {
+				if (hasPerk(PerkLib.BloodMage) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 					takeDamage(mod);
 					return;
 				}                
@@ -2250,9 +2249,9 @@ use namespace kGAMECLASS;
 			if (mod < 0) {
 				var multi:Number = 1;
 				
-				if (hasPerk(PerkLib.HistorySlacker)) multi *= 1.2;
-				if (hasPerk(PerkLib.ControlledBreath) && cor < (30 + corruptionTolerance())) multi *= 1.1;
-				if (hasPerk(PerkLib.SpeedyRecovery)) multi *= 1.5;
+				if (hasPerk(PerkLib.HistorySlacker) && !hasStatusEffect(StatusEffects.PerksDisabled)) multi *= 1.2;
+				if (hasPerk(PerkLib.ControlledBreath) && cor < (30 + corruptionTolerance()) && !hasStatusEffect(StatusEffects.PerksDisabled)) multi *= 1.1;
+				if (hasPerk(PerkLib.SpeedyRecovery) && !hasStatusEffect(StatusEffects.PerksDisabled)) multi *= 1.5;
 				
 				mod *= multi;
 			}
@@ -2543,13 +2542,13 @@ use namespace kGAMECLASS;
 				else min += flags[kFLAGS.BIMBOSKIRT_MINIMUM_LUST];
 			}
 			//Omnibus' Gift
-			if (hasPerk(PerkLib.OmnibusGift)) {
+			if (hasPerk(PerkLib.OmnibusGift) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (min > 40) min += 10;
 				else if (min >= 20) min += 20;
 				else min += 35;
 			}
 			//Nymph perk raises to 30
-			if (hasPerk(PerkLib.Nymphomania)) {
+			if (hasPerk(PerkLib.Nymphomania) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (min >= 40) min += 10;
 				else if (min >= 20) min += 15;
 				else min += 30;
@@ -2561,11 +2560,11 @@ use namespace kGAMECLASS;
 				else min += 30;
 			}
 			//Hot blooded perk raises min lust!
-			if (hasPerk(PerkLib.HotBlooded)) {
+			if (hasPerk(PerkLib.HotBlooded) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (min > 0) min += perk(findPerk(PerkLib.HotBlooded)).value1 / 2;
 				else min += perk(findPerk(PerkLib.HotBlooded)).value1;
 			}
-			if (hasPerk(PerkLib.LuststickAdapted)) {
+			if (hasPerk(PerkLib.LuststickAdapted) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (min < 50) min += 10;
 				else min += 5;
 			}
@@ -2578,7 +2577,7 @@ use namespace kGAMECLASS;
 			min -= perkv1(PerkLib.PiercedIcestone);
 			min += perkv1(PerkLib.PentUp);
 			//Cold blooded perk reduces min lust, to a minimum of 20! Takes effect after piercings. This effectively caps minimum lust at 80.
-			if (hasPerk(PerkLib.ColdBlooded)) {
+			if (hasPerk(PerkLib.ColdBlooded) && !hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (min >= 20) {
 					if (min <= 40) min -= (min - 20);
 					else min -= 20;
@@ -2646,13 +2645,13 @@ use namespace kGAMECLASS;
 				if (maxSpe < 50) maxSpe = 50;
 			}
 			//Perks ahoy
-			if (hasPerk(PerkLib.BasiliskResistance) && !canUseStare())
+			if (hasPerk(PerkLib.BasiliskResistance) && !canUseStare() && !hasStatusEffect(StatusEffects.PerksDisabled))
 			{
 				maxSpe -= 5;
 			}
 			//Uma's Needlework affects max stats. Takes effect BEFORE racial modifiers and AFTER modifiers from body size.
 			//Caps strength from Uma's needlework. 
-			if (hasPerk(PerkLib.ChiReflowSpeed))
+			if (hasPerk(PerkLib.ChiReflowSpeed) && !hasStatusEffect(StatusEffects.PerksDisabled))
 			{
 				if (maxStr > UmasShop.NEEDLEWORK_SPEED_STRENGTH_CAP)
 				{
@@ -2660,7 +2659,7 @@ use namespace kGAMECLASS;
 				}
 			}
 			//Caps speed from Uma's needlework.
-			if (hasPerk(PerkLib.ChiReflowDefense))
+			if (hasPerk(PerkLib.ChiReflowDefense) && !hasStatusEffect(StatusEffects.PerksDisabled))
 			{
 				if (maxSpe > UmasShop.NEEDLEWORK_DEFENSE_SPEED_CAP)
 				{
@@ -2818,7 +2817,7 @@ use namespace kGAMECLASS;
 		}
 		
 		public function minotaurAddicted():Boolean {
-			return !hasPerk(PerkLib.MinotaurCumResistance) && (hasPerk(PerkLib.MinotaurCumAddict) || flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] >= 1);
+			return !hasPerk(PerkLib.MinotaurCumResistance) && (hasPerk(PerkLib.MinotaurCumAddict) && !hasStatusEffect(StatusEffects.PerksDisabled) || flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] >= 1);
 		}
 		public function minotaurNeed():Boolean {
 			return !hasPerk(PerkLib.MinotaurCumResistance) && flags[kFLAGS.MINOTAUR_CUM_ADDICTION_STATE] > 1;

@@ -32,21 +32,21 @@ package classes.Scenes.Combat
 		
 		public function getWhiteMagicLustCap():Number {
 			var whiteLustCap:Number = player.maxLust() * 0.75;
-			if (player.findPerk(PerkLib.Enlightened) >= 0 && player.cor < (10 + player.corruptionTolerance())) whiteLustCap += (player.maxLust() * 0.1);
-			if (player.findPerk(PerkLib.FocusedMind) >= 0) whiteLustCap += (player.maxLust() * 0.1);
+			if (player.findPerk(PerkLib.Enlightened) >= 0 && player.cor < (10 + player.corruptionTolerance()) && !player.hasStatusEffect(StatusEffects.PerksDisabled)) whiteLustCap += (player.maxLust() * 0.1);
+			if (player.findPerk(PerkLib.FocusedMind) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) whiteLustCap += (player.maxLust() * 0.1);
 			return whiteLustCap;
 		}
 		
 		public function spellPerkUnlock():void {
-			if (flags[kFLAGS.SPELLS_CAST] >= 5 && player.findPerk(PerkLib.SpellcastingAffinity) < 0) {
+			if (flags[kFLAGS.SPELLS_CAST] >= 5 && player.findPerk(PerkLib.SpellcastingAffinity) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				outputText("<b>You've become more comfortable with your spells, unlocking the Spellcasting Affinity perk and reducing fatigue cost of spells by 20%!</b>\n\n");
 				player.createPerk(PerkLib.SpellcastingAffinity,20,0,0,0);
 			}
-			if (flags[kFLAGS.SPELLS_CAST] >= 15 && player.perkv1(PerkLib.SpellcastingAffinity) < 35) {
+			if (flags[kFLAGS.SPELLS_CAST] >= 15 && player.perkv1(PerkLib.SpellcastingAffinity) < 35 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				outputText("<b>You've become more comfortable with your spells, further reducing your spell costs by an additional 15%!</b>\n\n");
 				player.setPerkValue(PerkLib.SpellcastingAffinity,1,35);
 			}
-			if (flags[kFLAGS.SPELLS_CAST] >= 45 && player.perkv1(PerkLib.SpellcastingAffinity) < 50) {
+			if (flags[kFLAGS.SPELLS_CAST] >= 45 && player.perkv1(PerkLib.SpellcastingAffinity) < 50 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				outputText("<b>You've become more comfortable with your spells, further reducing your spell costs by an additional 15%!</b>\n\n");
 				player.setPerkValue(PerkLib.SpellcastingAffinity,1,50);
 			}
@@ -105,7 +105,7 @@ package classes.Scenes.Combat
 				if (player.hasStatusEffect(StatusEffects.KnowsBlackfire)) addButton(8, "Blackfire", spellBlackfire, null, null, null, "Blackfire is the black magic variant of Whitefire. It is a potent fire based attack that will burn your foe with flickering black and purple flames, ignoring their physical toughness and most armors.\n\nFatigue Cost: " + player.spellCost(40) + "");
 			}
 			// JOJO ABILITIES -- kind makes sense to stuff it in here along side the white magic shit (also because it can't fit into M. Specials :|
-			if (player.findPerk(PerkLib.CleansingPalm) >= 0 && player.cor < (10 + player.corruptionTolerance())) {
+			if (player.findPerk(PerkLib.CleansingPalm) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.cor < (10 + player.corruptionTolerance())) {
 				addButton(3, "C.Palm", spellCleansingPalm, null, null, null, "Unleash the power of your cleansing aura! More effective against corrupted opponents. Doesn't work on the pure.  \n\nFatigue Cost: " + player.spellCost(30) + "", "Cleansing Palm");
 			}
 			addButton(14, "Back", combat.combatMenu, false);
@@ -225,7 +225,7 @@ package classes.Scenes.Combat
 		
 		//(30) Whitefire – burns the enemy for 10 + int/3 + rand(int/2) * player.spellMod.		
 		private function calcInfernoMod(damage:Number):int {
-			if (player.findPerk(PerkLib.RagingInferno) >= 0) {
+			if (player.findPerk(PerkLib.RagingInferno) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				var multiplier:Number = 1;
 				if (combat.combatRound - fireMagicLastTurn == 2) {
 					outputText("Traces of your previously used fire magic are still here, and you use them to empower another spell!\n\n");
@@ -417,7 +417,7 @@ package classes.Scenes.Combat
 			outputText("You focus on your body and its desire to end pain, trying to draw on your arousal without enhancing it.\n");
 			//25% backfire!
 			var backfire:int = 25;
-			if (player.findPerk(PerkLib.FocusedMind) >= 0) backfire = 15;
+			if (player.findPerk(PerkLib.FocusedMind) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) backfire = 15;
 			if (rand(100) < backfire) {
 				outputText("An errant sexual thought crosses your mind, and you lose control of the spell!  Your ");
 				if (player.gender == 0) outputText(player.assholeDescript() + " tingles with a desire to be filled as your libido spins out of control.");
@@ -490,7 +490,7 @@ package classes.Scenes.Combat
 			outputText("You flush, drawing on your body's desires to empower your muscles and toughen you up.\n\n");
 			//25% backfire!
 			var backfire:int = 25;
-			if (player.findPerk(PerkLib.FocusedMind) >= 0) backfire = 15;
+			if (player.findPerk(PerkLib.FocusedMind) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) backfire = 15;
 			if (rand(100) < backfire) {
 				outputText("An errant sexual thought crosses your mind, and you lose control of the spell!  Your ");
 				if (player.gender == 0) outputText(player.assholeDescript() + " tingles with a desire to be filled as your libido spins out of control.");
@@ -546,7 +546,7 @@ package classes.Scenes.Combat
 			}
 			//Backfire calculation
 			var backfire:int = 25;
-			if (player.findPerk(PerkLib.FocusedMind) >= 0) backfire = 15;
+			if (player.findPerk(PerkLib.FocusedMind) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) backfire = 15;
 			if (rand(100) < backfire) {
 				clearOutput();
 				outputText("You narrow your eyes, channeling your lust with deadly intent. An errant sexual thought crosses your mind, and you lose control of the spell! Your ");
@@ -770,41 +770,41 @@ package classes.Scenes.Combat
 			menu();
 			var button:int = 0;
 			//Berserk
-			if (player.findPerk(PerkLib.Berzerker) >= 0) {
+			if (player.findPerk(PerkLib.Berzerker) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "Berserk", berzerk, null, null, null, "Throw yourself into a rage!  Greatly increases the strength of your weapon and increases lust resistance, but your armor defense is reduced to zero!");
 			}
 			//Lustzerk
-			if (player.findPerk(PerkLib.Lustzerker) >= 0) {
+			if (player.findPerk(PerkLib.Lustzerker) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "Lustserk", lustzerk, null, null, null, "Throw yourself into a lust rage!  Greatly increases the strength of your weapon and increases armor defense, but your lust resistance is halved!");
 			}
 			//Fire Breath
-			if (player.findPerk(PerkLib.Dragonfire) >= 0) {
+			if (player.findPerk(PerkLib.Dragonfire) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "DragonFire", dragonBreath, null, null, null, "Unleash fire from your mouth. This can only be done once a day. \n\nFatigue Cost: " + player.spellCost(20), "Dragon Fire");
 			}
-			if (player.findPerk(PerkLib.FireLord) >= 0) {
+			if (player.findPerk(PerkLib.FireLord) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "Terra Fire", fireballuuuuu, null, null, null, "Unleash terrestrial fire from your mouth. \n\nFatigue Cost: 20", "Terra Fire");
 			}
-			if (player.findPerk(PerkLib.Hellfire) >= 0) {
+			if (player.findPerk(PerkLib.Hellfire) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "Hellfire", hellFire, null, null, null, "Unleash fire from your mouth. \n\nFatigue Cost: " + player.spellCost(20));
 			}
 			//Possess
-			if (player.findPerk(PerkLib.Incorporeality) >= 0) {
+			if (player.findPerk(PerkLib.Incorporeality) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "Possess", possess, null, null, null, "Attempt to temporarily possess a foe and force them to raise their own lusts.");
 			}
 			//Whisper
-			if (player.findPerk(PerkLib.Whispered) >= 0) {
+			if (player.findPerk(PerkLib.Whispered) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "Whisper", superWhisperAttack, null, null, null, "Whisper and induce fear in your opponent. \n\nFatigue Cost: " + player.spellCost(10) + "");
 			}
 			//Kitsune Spells
-			if (player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
+			if (player.findPerk(PerkLib.CorruptedNinetails) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "C.FoxFire", corruptedFoxFire, null, null, null, "Unleash a corrupted purple flame at your opponent for high damage. Less effective against corrupted enemies. \n\nFatigue Cost: " + player.spellCost(35), "Corrupted FoxFire");
 				addButton(button++, "Terror", kitsuneTerror, null, null, null, "Instill fear into your opponent with eldritch horrors. The more you cast this in a battle, the lesser effective it becomes. \n\nFatigue Cost: " + player.spellCost(20));
 			}
-			if (player.findPerk(PerkLib.EnlightenedNinetails) >= 0) {
+			if (player.findPerk(PerkLib.EnlightenedNinetails) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "FoxFire", foxFire, null, null, null, "Unleash an ethereal blue flame at your opponent for high damage. More effective against corrupted enemies. \n\nFatigue Cost: " + player.spellCost(35));
 				addButton(button++, "Illusion", kitsuneIllusion, null, null, null, "Warp the reality around your opponent, lowering their speed. The more you cast this in a battle, the lesser effective it becomes. \n\nFatigue Cost: " + player.spellCost(25));
 			}
-			if (player.canUseStare()) {
+			if (player.canUseStare() && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				addButton(button++, "Stare", paralyzingStare, null, null, null, "Focus your gaze at your opponent, lowering their speed. The more you use this in a battle, the lesser effective it becomes. \n\nFatigue Cost: " + player.spellCost(20));
 			}
 			if (player.hasKeyItem("Arian's Charged Talisman") >= 0) {
@@ -848,7 +848,7 @@ package classes.Scenes.Combat
 		//Effect of attack: Damages and stuns the enemy for the turn you used this attack on, plus 2 more turns. High chance of success.
 		public function dragonBreath():void {
 			clearOutput();
-			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(20) > player.maxFatigue())
+			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(20) > player.maxFatigue())
 			{
 				clearOutput();
 				outputText("You are too tired to breathe fire.");
@@ -901,11 +901,11 @@ package classes.Scenes.Combat
 			}
 			//Special enemy avoidances
 			else if (monster.short == "Vala" && !monster.hasStatusEffect(StatusEffects.Stunned)) {
-				outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ");		
-				if (player.findPerk(PerkLib.Evade) >= 0 && rand(2) == 0) {
+				outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ");	
+				if (player.findPerk(PerkLib.Evade) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(2) == 0) {
 					outputText("You dive out of the way and evade it!");
 				}
-				else if (player.findPerk(PerkLib.Flexibility) >= 0 && rand(4) == 0) {
+				else if (player.findPerk(PerkLib.Flexibility) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(4) == 0) {
 					outputText("You use your flexibility to barely fold your body out of the way!");
 				}
 				//Determine if blocked!
@@ -1016,10 +1016,10 @@ package classes.Scenes.Combat
 			}
 			else if (monster.short == "Vala" && !monster.hasStatusEffect(StatusEffects.Stunned)) {
 				outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ");		
-				if (player.findPerk(PerkLib.Evade) >= 0 && rand(2) == 0) {
+				if (player.findPerk(PerkLib.Evade) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(2) == 0) {
 					outputText("You dive out of the way and evade it!");
 				}
-				else if (player.findPerk(PerkLib.Flexibility) >= 0 && rand(4) == 0) {
+				else if (player.findPerk(PerkLib.Flexibility) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(4) == 0) {
 					outputText("You use your flexibility to barely fold your body out of the way!");
 				}
 				else {
@@ -1103,10 +1103,10 @@ package classes.Scenes.Combat
 			}
 			else if (monster.short == "Vala" && !monster.hasStatusEffect(StatusEffects.Stunned)) {
 				outputText("  Vala beats her wings with surprising strength, blowing the fireball back at you!  ");		
-				if (player.findPerk(PerkLib.Evade) >= 0 && rand(2) == 0) {
+				if (player.findPerk(PerkLib.Evade) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(2) == 0) {
 					outputText("You dive out of the way and evade it!");
 				}
-				else if (player.findPerk(PerkLib.Flexibility) >= 0 && rand(4) == 0) {
+				else if (player.findPerk(PerkLib.Flexibility) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(4) == 0) {
 					outputText("You use your flexibility to barely fold your body out of the way!");
 				}
 				else {
@@ -1178,7 +1178,7 @@ package classes.Scenes.Combat
 		//Whisper 
 		public function superWhisperAttack():void {
 			clearOutput();
-			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(10) > player.maxFatigue())
+			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(10) > player.maxFatigue())
 			{
 				clearOutput();
 				outputText("You are too tired to focus this ability.");
@@ -1433,7 +1433,7 @@ package classes.Scenes.Combat
 
 			output.clear();
 			//Fatigue Cost: 20
-			if (player.findPerk(PerkLib.BloodMage) < 0 && player.fatigue + player.spellCost(20) > player.maxFatigue()) {
+			if (player.findPerk(PerkLib.BloodMage) < 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.fatigue + player.spellCost(20) > player.maxFatigue()) {
 				output.text("You are too tired to use this ability.");
 				doNext(magicalSpecials);
 				return;
@@ -1672,7 +1672,7 @@ package classes.Scenes.Combat
 			
 			//Deal damage and update based on perks
 			if (damage > 0) {
-				if (player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
+				if (player.findPerk(PerkLib.HistoryFighter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= 1.1;
 				if (player.jewelryEffectId == JewelryLib.MODIFIER_ATTACK_POWER) damage *= 1 + (player.jewelryEffectMagnitude / 100);
 				if (player.countCockSocks("red") > 0) damage *= (1 + player.countCockSocks("red") * 0.02);
 				damage = combat.doDamage(damage);
@@ -1922,7 +1922,7 @@ package classes.Scenes.Combat
 			else if (monster.plural)
 				outputText(monster.capitalA + monster.short + " look down at the arrow that now protrudes from one of " + monster.pronoun3 + " bodies");
 			else outputText(monster.capitalA + monster.short + " looks down at the arrow that now protrudes from " + monster.pronoun3 + " body");
-			if (player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
+			if (player.findPerk(PerkLib.HistoryFighter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= 1.1;
 			if (player.hasKeyItem("Kelt's Bow") >= 0) damage *= 1.3;
 			damage = combat.doDamage(damage);
 			monster.lust -= 20;
@@ -2029,7 +2029,7 @@ package classes.Scenes.Combat
 			else if (player.lowerBody == LOWER_BODY_TYPE_KANGAROO) damage += 35;
 			if (player.isTaur()) damage += 10;
 			//Damage post processing!
-			if (player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
+			if (player.findPerk(PerkLib.HistoryFighter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= 1.1;
 			if (player.jewelryEffectId == JewelryLib.MODIFIER_ATTACK_POWER) damage *= 1 + (player.jewelryEffectMagnitude / 100);
 			if (player.countCockSocks("red") > 0) damage *= (1 + player.countCockSocks("red") * 0.02);
 			//Reduce damage
@@ -2137,7 +2137,7 @@ package classes.Scenes.Combat
 				//CAP 'DAT SHIT
 				if (damage > player.level * 10 + 100) damage = player.level * 10 + 100;
 				if (damage > 0) {
-					if (player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
+					if (player.findPerk(PerkLib.HistoryFighter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= 1.1;
 					if (player.jewelryEffectId == JewelryLib.MODIFIER_ATTACK_POWER) damage *= 1 + (player.jewelryEffectMagnitude / 100);
 					if (player.countCockSocks("red") > 0) damage *= (1 + player.countCockSocks("red") * 0.02);
 					damage = combat.doDamage(damage);
@@ -2228,7 +2228,7 @@ package classes.Scenes.Combat
 				//Capping damage
 				if (damage > player.level * 10 + 100) damage = player.level * 10 + 100;
 				if (damage > 0) {
-					if (player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
+					if (player.findPerk(PerkLib.HistoryFighter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= 1.1;
 					if (player.jewelryEffectId == JewelryLib.MODIFIER_ATTACK_POWER) damage *= 1 + (player.jewelryEffectMagnitude / 100);
 					if (player.countCockSocks("red") > 0) damage *= (1 + player.countCockSocks("red") * 0.02);
 					//Rounding to a whole numbr
@@ -2322,7 +2322,7 @@ package classes.Scenes.Combat
 				//CAP 'DAT SHIT
 				if (damage > player.level * 10 + 100) damage = player.level * 10 + 100;
 				if (damage > 0) {
-					if (player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
+					if (player.findPerk(PerkLib.HistoryFighter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= 1.1;
 					if (player.jewelryEffectId == JewelryLib.MODIFIER_ATTACK_POWER) damage *= 1 + (player.jewelryEffectMagnitude / 100);
 					if (player.countCockSocks("red") > 0) damage *= (1 + player.countCockSocks("red") * 0.02);
 					//Round it off

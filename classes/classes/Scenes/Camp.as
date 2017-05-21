@@ -800,7 +800,7 @@ private function doCamp():void { //Only called by playerMenu
 	var canFap:Boolean = !player.hasStatusEffect(StatusEffects.Dysfunction) && (flags[kFLAGS.UNABLE_TO_MASTURBATE_BECAUSE_CENTAUR] == 0 && !player.isTaur());
 	if (player.lust >= 30) {
 		addButton(8, "Masturbate", kGAMECLASS.masturbation.masturbateMenu);
-		if (((player.findPerk(PerkLib.HistoryReligious) >= 0 && player.cor <= (66 + player.corruptionTolerance())) || (player.findPerk(PerkLib.Enlightened) >= 0 && player.cor < 10)) && !(player.hasStatusEffect(StatusEffects.Exgartuan) && player.statusEffectv2(StatusEffects.Exgartuan) == 0) || flags[kFLAGS.SFW_MODE] >= 1) addButton(8, "Meditate", kGAMECLASS.masturbation.masturbateMenu);
+		if (((player.findPerk(PerkLib.HistoryReligious) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.cor <= (66 + player.corruptionTolerance())) || (player.findPerk(PerkLib.Enlightened) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.cor < (10 + player.corruptionTolerance()))) && !(player.hasStatusEffect(StatusEffects.Exgartuan) && player.statusEffectv2(StatusEffects.Exgartuan) == 0) || flags[kFLAGS.SFW_MODE] >= 1) addButton(8, "Meditate", kGAMECLASS.masturbation.masturbateMenu);
 	}
 	addButton(9, "Wait", doWait, null, null, null, "Wait for four hours.\n\nShift-click to wait until the night comes.");
 	if (player.fatigue > 40 || player.HP / player.maxHP() <= .9) addButton(9, "Rest", rest, null, null, null, "Rest for four hours.\n\nShift-click to rest until fully healed or night comes.");
@@ -1607,7 +1607,7 @@ public function rest():void {
 	var fatRecovery:Number = 4;
 	var hpRecovery:Number = 10;
 	
-	if (player.findPerk(PerkLib.Medicine) >= 0) hpRecovery *= 1.5;
+	if (player.findPerk(PerkLib.Medicine) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) hpRecovery *= 1.5;
 	
 	if (flags[kFLAGS.CAMP_BUILT_CABIN] > 0 && flags[kFLAGS.CAMP_CABIN_FURNITURE_BED] > 0 && !prison.inPrison && !ingnam.inIngnam)
 		multiplier += 0.5;
@@ -1684,8 +1684,8 @@ public function doWait():void {
 	clearOutput();
 	//Fatigue recovery
 	var fatRecovery:Number = 2;
-	if (player.findPerk(PerkLib.SpeedyRecovery) >= 0) fatRecovery *= 1.5;
-	if (player.findPerk(PerkLib.ControlledBreath) >= 0) fatRecovery *= 1.1;
+	if (player.findPerk(PerkLib.SpeedyRecovery) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) fatRecovery *= 1.5;
+	if (player.findPerk(PerkLib.ControlledBreath) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) fatRecovery *= 1.1;
 	if (timeQ == 0) {
 		timeQ = 4;
 		if (flags[kFLAGS.SHIFT_KEY_DOWN] > 0) timeQ = 21 - model.time.hours;
@@ -2274,7 +2274,7 @@ private function buildCampWall():void {
 	fatigueAmount -= player.str / 5;
 	fatigueAmount -= player.tou / 10;
 	fatigueAmount -= player.spe / 10;
-	if (player.findPerk(PerkLib.IronMan) >= 0) fatigueAmount -= 20;
+	if (player.findPerk(PerkLib.IronMan) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) fatigueAmount -= 20;
 	fatigueAmount /= (helpers + 1);
 	if (fatigueAmount < 15) fatigueAmount = 15;
 	player.changeFatigue(fatigueAmount);
@@ -2348,7 +2348,7 @@ private function buildCampGate():void {
 	fatigueAmount -= player.str / 5;
 	fatigueAmount -= player.tou / 10;
 	fatigueAmount -= player.spe / 10;
-	if (player.findPerk(PerkLib.IronMan) >= 0) fatigueAmount -= 20;
+	if (player.findPerk(PerkLib.IronMan) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) fatigueAmount -= 20;
 	fatigueAmount /= (helpers + 1);
 	if (fatigueAmount < 15) fatigueAmount = 15;
 	player.changeFatigue(fatigueAmount);
@@ -2448,7 +2448,7 @@ private function ascendForReal():void {
 	if (flags[kFLAGS.MARBLE_PURIFIED] > 0) performancePoints += 2;
 	if (flags[kFLAGS.MINERVA_PURIFICATION_PROGRESS] >= 10) performancePoints += 2;
 	if (flags[kFLAGS.URTA_QUEST_STATUS] > 0) performancePoints += 2;
-	if (player.findPerk(PerkLib.Enlightened) >= 0) performancePoints += 1;
+	if (player.findPerk(PerkLib.Enlightened) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) performancePoints += 1;
 	if (flags[kFLAGS.CORRUPTED_MARAE_KILLED] > 0 || flags[kFLAGS.PURE_MARAE_ENDGAME] >= 2) performancePoints += 1;
 	//Children
 	performancePoints += Math.sqrt(totalChildrenForAscension());

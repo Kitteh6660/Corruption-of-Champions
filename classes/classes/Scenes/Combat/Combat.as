@@ -362,15 +362,15 @@ package classes.Scenes.Combat
 				outputText("You duck, weave, and dodge.  Despite their best efforts, the throng of demons only hit the air and each other.");
 			}
 			//Determine if evaded
-			else if (player.findPerk(PerkLib.Evade) >= 0 && rand(100) < 10) {
+			else if (player.findPerk(PerkLib.Evade) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) < 10) {
 				outputText("Using your skills at evading attacks, you anticipate and sidestep " + monster.a + monster.short + "' attacks.");
 			}
 			//("Misdirection"
-			else if (player.findPerk(PerkLib.Misdirection) >= 0 && rand(100) < 15 && player.armorName == "red, high-society bodysuit") {
+			else if (player.findPerk(PerkLib.Misdirection) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) < 15 && player.armorName == "red, high-society bodysuit") {
 				outputText("Using Raphael's teachings, you anticipate and sidestep " + monster.a + monster.short + "' attacks.");
 			}
 			//Determine if cat'ed
-			else if (player.findPerk(PerkLib.Flexibility) >= 0 && rand(100) < 6) {
+			else if (player.findPerk(PerkLib.Flexibility) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) < 6) {
 				outputText("With your incredible flexibility, you squeeze out of the way of " + monster.a + monster.short + "' attacks.");
 			}
 			else {
@@ -389,7 +389,7 @@ package classes.Scenes.Combat
 					else if (temp <= 20)
 						outputText(monster.capitalA + monster.short + " stagger you with the force of " + monster.pronoun3 + " " + monster.weaponVerb + "s! ");
 					else outputText(monster.capitalA + monster.short + " <b>mutilates</b> you with powerful fists and " + monster.weaponVerb + "s! ");
-					takeDamage(temp, true);
+					takeDamage(temp);
 				}
 				statScreenRefresh();
 				outputText("\n");
@@ -432,7 +432,7 @@ package classes.Scenes.Combat
 			else if (monster.hasStatusEffect(StatusEffects.MinotaurEntangled)) {
 				clearOutput();
 				outputText("You sigh and relax in the chains, eying the well-endowed minotaur as you await whatever rough treatment he desires to give.  His musky, utterly male scent wafts your way on the wind, and you feel droplets of your lust dripping down your thighs.  You lick your lips as you watch the pre-cum drip from his balls, eager to get down there and worship them.  Why did you ever try to struggle against this fate?\n\n");
-				dynStats("lus", 30 + rand(5), "resisted", false);
+				dynStats("lus", 30 + rand(5), "resisted");
 				monster.doAI();
 			}
 			else if (player.hasStatusEffect(StatusEffects.Whispered)) {
@@ -445,7 +445,7 @@ package classes.Scenes.Combat
 				clearOutput();
 				outputText("The brood continues to hammer away at your defenseless self. ");
 				temp = 80 + rand(40);
-				temp = takeDamage(temp, true);
+				temp = takeDamage(temp);
 				combatRoundOver();
 			}
 			else if (monster.hasStatusEffect(StatusEffects.QueenBind)) {
@@ -454,7 +454,7 @@ package classes.Scenes.Combat
 			else if (player.hasStatusEffect(StatusEffects.GooBind)) {
 				clearOutput();
 				outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours.");
-				temp = takeDamage(.35 * player.maxHP(), true);
+				temp = takeDamage(.35 * player.maxHP());
 				combatRoundOver();
 			}
 			else if (player.hasStatusEffect(StatusEffects.GooArmorBind)) {
@@ -562,7 +562,7 @@ package classes.Scenes.Combat
 				//Failed struggle
 				else {
 					outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours. ");
-					temp = takeDamage(Math.min(.15 * player.maxHP(), 100 * (1 + (player.newGamePlusMod() * 0.2))), true);
+					temp = takeDamage(Math.min(.15 * player.maxHP(), 100 * (1 + (player.newGamePlusMod() * 0.2))));
 				}
 				combatRoundOver();
 			}
@@ -631,7 +631,7 @@ package classes.Scenes.Combat
 			clearOutput();
 			if (monster.short == "frost giant" && (player.hasStatusEffect(StatusEffects.GiantBoulder))) {
 				temp2 = 10 + rand(player.lib / 5 + player.cor / 8);
-				dynStats("lus", temp2, "resisted", false);
+				dynStats("lus", temp2, "resisted");
 				(monster as FrostGiant).giantBoulderFantasize();
 				monster.doAI();
 				return;
@@ -662,7 +662,7 @@ package classes.Scenes.Combat
 			}
 			if (temp2 >= 20) outputText("The fantasy is so vivid and pleasurable you wish it was happening now.  You wonder if " + monster.a + monster.short + " can tell what you were thinking.\n\n");
 			else outputText("\n");
-			dynStats("lus", temp2, "resisted", false);
+			dynStats("lus", temp2, "resisted");
 			if (player.lust >= player.maxLust()) {
 				if (monster.short == "pod") {
 					outputText("<b>You nearly orgasm, but the terror of the situation reasserts itself, muting your body's need for release.  If you don't escape soon, you have no doubt you'll be too fucked up to ever try again!</b>\n\n");
@@ -680,7 +680,7 @@ package classes.Scenes.Combat
 
 		public function fatigueRecovery():void {
 			player.changeFatigue(-1);
-			if (player.findPerk(PerkLib.EnlightenedNinetails) >= 0 || player.findPerk(PerkLib.CorruptedNinetails) >= 0) player.changeFatigue(-(1+rand(3)));
+			if (player.findPerk(PerkLib.EnlightenedNinetails) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) || player.findPerk(PerkLib.CorruptedNinetails) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) player.changeFatigue(-(1+rand(3)));
 		}
 
 		//ATTACK
@@ -725,7 +725,7 @@ package classes.Scenes.Combat
 				outputText("It's all or nothing!  With a bellowing cry you charge down the treacherous slope and smite the sandtrap as hard as you can!  ");
 				(monster as SandTrap).trapLevel(-4);
 			}
-			if (player.findPerk(PerkLib.DoubleAttack) >= 0 && player.spe >= 50 && flags[kFLAGS.DOUBLE_ATTACK_STYLE] < 2) {
+			if (player.findPerk(PerkLib.DoubleAttack) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.spe >= 50 && flags[kFLAGS.DOUBLE_ATTACK_STYLE] < 2) {
 				if (player.hasStatusEffect(StatusEffects.FirstAttack)) player.removeStatusEffect(StatusEffects.FirstAttack);
 				else {
 					//Always!
@@ -749,7 +749,7 @@ package classes.Scenes.Combat
 			if (player.hasStatusEffect(StatusEffects.Blind)) {
 				outputText("You attempt to attack, but as blinded as you are right now, you doubt you'll have much luck!  ");
 			}
-			if (monster is Basilisk && !(player.hasPerk(PerkLib.BasiliskResistance) || player.canUseStare() || player.hasKeyItem("Laybans") >= 0 || isWieldingRangedWeapon())) {
+			if (monster is Basilisk && !((player.hasPerk(PerkLib.BasiliskResistance) && !player.hasStatusEffect(StatusEffects.PerksDisabled)) || player.canUseStare() || player.hasKeyItem("Laybans") >= 0 || isWieldingRangedWeapon())) {
 				if (monster.hasStatusEffect(StatusEffects.Blind))
 					outputText("Blind basilisk can't use his eyes, so you can actually aim your strikes!  ");
 				//basilisk counter attack (block attack, significant speed loss): 
@@ -843,7 +843,7 @@ package classes.Scenes.Combat
 			
 			//Double Attack Hybrid Reductions
 			var getBase:Function = function(init:Number):Number {
-				if (player.findPerk(PerkLib.DoubleAttack) >= 0 && player.spe >= 50 && init > 61 + (player.newGamePlusMod() * 15) && flags[kFLAGS.DOUBLE_ATTACK_STYLE] == 0) {
+				if (player.findPerk(PerkLib.DoubleAttack) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.spe >= 50 && init > 61 + (player.newGamePlusMod() * 15) && flags[kFLAGS.DOUBLE_ATTACK_STYLE] == 0) {
 					return 60.5 + (player.newGamePlusMod() * 15);
 				} else return init;
 			};
@@ -856,7 +856,7 @@ package classes.Scenes.Combat
 			else
 				damage = getBase.call(null, player.str);
 				
-			if (player.findPerk(PerkLib.HoldWithBothHands) >= 0 && player.weapon != WeaponLib.FISTS && player.shield == ShieldLib.NOTHING && !isWieldingRangedWeapon()) damage += (player.str * 0.2);
+			if (player.findPerk(PerkLib.HoldWithBothHands) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.weapon != WeaponLib.FISTS && player.shield == ShieldLib.NOTHING && !isWieldingRangedWeapon()) damage += (player.str * 0.2);
 			//Weapon addition!
 			damage += player.weaponAttack;
 			if (damage < 10) damage = 10;
@@ -870,11 +870,11 @@ package classes.Scenes.Combat
 			damage *= (monster.damagePercent(false, true) / 100);
 			//Damage post processing!
 			//Thunderous Strikes
-			if (player.findPerk(PerkLib.ThunderousStrikes) >= 0 && player.str >= 80)
+			if (player.findPerk(PerkLib.ThunderousStrikes) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.str >= 80)
 				damage *= 1.2;
 				
-			if (player.findPerk(PerkLib.ChiReflowMagic) >= 0) damage *= UmasShop.NEEDLEWORK_MAGIC_REGULAR_MULTI;
-			if (player.findPerk(PerkLib.ChiReflowAttack) >= 0) damage *= UmasShop.NEEDLEWORK_ATTACK_REGULAR_MULTI;
+			if (player.findPerk(PerkLib.ChiReflowMagic) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= UmasShop.NEEDLEWORK_MAGIC_REGULAR_MULTI;
+			if (player.findPerk(PerkLib.ChiReflowAttack) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= UmasShop.NEEDLEWORK_ATTACK_REGULAR_MULTI;
 			if (player.jewelryEffectId == JewelryLib.MODIFIER_ATTACK_POWER) damage *= 1 + (player.jewelryEffectMagnitude / 100);
 			if (player.countCockSocks("red") > 0) damage *= (1 + player.countCockSocks("red") * 0.02);
 			//One final round
@@ -919,9 +919,9 @@ package classes.Scenes.Combat
 			{
 				if (!monster.hasStatusEffect(StatusEffects.Stunned))
 				{
-					if (damage > 0 && player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
+					if (damage > 0 && player.findPerk(PerkLib.HistoryFighter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= 1.1;
 					if (player.countCockSocks("red") > 0) damage *= (1 + player.countCockSocks("red") * 0.02);
-					if (damage > 0) damage = doDamage(damage, false);
+					if (damage > 0) damage = doDamage(damage);
 				
 					(monster as Doppleganger).mirrorAttack(damage);
 					return;
@@ -943,7 +943,7 @@ package classes.Scenes.Combat
 				}
 			}
 			if (damage > 0) {
-				if (player.findPerk(PerkLib.HistoryFighter) >= 0) damage *= 1.1;
+				if (player.findPerk(PerkLib.HistoryFighter) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) damage *= 1.1;
 				damage = doDamage(damage);
 			}
 			if (damage <= 0) {
@@ -955,7 +955,7 @@ package classes.Scenes.Combat
 				if (crit) outputText("<b>Critical hit! </b>");
 				outputText("<b>(<font color=\"#800000\">" + damage + "</font>)</b>")
 			}
-			if (player.findPerk(PerkLib.BrutalBlows) >= 0 && player.str > 75) {
+			if (player.findPerk(PerkLib.BrutalBlows) >= 0 && player.str > 75 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				if (monster.armorDef > 0) outputText("\nYour hits are so brutal that you damage " + monster.a + monster.short + "'s defenses!");
 				if (monster.armorDef - 10 > 0) monster.armorDef -= 10;
 				else monster.armorDef = 0;
@@ -1090,7 +1090,7 @@ package classes.Scenes.Combat
 			return player.spe - monster.spe > 0 && int(Math.random() * (((player.spe - monster.spe) / 4) + 80)) > 80;
 		}
 		public function combatParry():Boolean {
-			return player.findPerk(PerkLib.Parry) >= 0 && player.spe >= 50 && player.str >= 50 && rand(100) < ((player.spe - 50) / 5) && player.weapon != WeaponLib.FISTS;
+			return player.findPerk(PerkLib.Parry) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.spe >= 50 && player.str >= 50 && rand(100) < ((player.spe - 50) / 5) && player.weapon != WeaponLib.FISTS;
 			trace("Parried!");
 		}
 		
@@ -1100,8 +1100,8 @@ package classes.Scenes.Combat
 		
 		public function getCritChance():Number {
 			var critChance:Number = 5;
-			if (player.findPerk(PerkLib.Tactician) >= 0 && player.inte >= 50) critChance += (player.inte - 50) / 5;
-			if (player.findPerk(PerkLib.Blademaster) >= 0 && (player.weaponVerb == "slash" || player.weaponVerb == "cleave" || player.weaponVerb == "keen cut") && player.shield == ShieldLib.NOTHING) critChance += 5;
+			if (player.findPerk(PerkLib.Tactician) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.inte >= 50) critChance += (player.inte - 50) / 5;
+			if (player.findPerk(PerkLib.Blademaster) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && (player.weaponVerb == "slash" || player.weaponVerb == "cleave" || player.weaponVerb == "keen cut") && player.shield == ShieldLib.NOTHING) critChance += 5;
 			if (player.jewelry.effectId == JewelryLib.MODIFIER_CRITICAL) critChance += player.jewelry.effectMagnitude;
 			return critChance;
 		}
@@ -1109,7 +1109,7 @@ package classes.Scenes.Combat
 		public function combatBlock(doFatigue:Boolean = false):Boolean {
 			//Set chance
 			var blockChance:int = 20 + player.shieldBlock + Math.floor((player.str - monster.str) / 5);
-			if (player.findPerk(PerkLib.ShieldMastery) >= 0 && player.tou >= 50) blockChance += (player.tou - 50) / 5;
+			if (player.findPerk(PerkLib.ShieldMastery) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.tou >= 50) blockChance += (player.tou - 50) / 5;
 			if (blockChance < 10) blockChance = 10;
 			//Fatigue limit
 			var fatigueLimit:int = player.maxFatigue() - player.physicalCost(10);;
@@ -1120,7 +1120,7 @@ package classes.Scenes.Combat
 			else return false;
 		}
 		public function isWieldingRangedWeapon():Boolean {
-			if (player.weaponName == "flintlock pistol" || player.weaponName == "crossbow" || player.weaponName == "blunderbuss rifle" || (player.weaponName.indexOf("staff") != -1 && player.findPerk(PerkLib.StaffChanneling) >= 0)) return true;
+			if (player.weaponName == "flintlock pistol" || player.weaponName == "crossbow" || player.weaponName == "blunderbuss rifle" || (player.weaponName.indexOf("staff") != -1 && player.findPerk(PerkLib.StaffChanneling) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled))) return true;
 			else return false;
 		}
 
@@ -1132,7 +1132,7 @@ package classes.Scenes.Combat
 		 * @return	damage	The amount of damage.
 		 */
 		public function doDamage(damage:Number, apply:Boolean = true, display:Boolean = false):Number {
-			if (player.findPerk(PerkLib.Sadist) >= 0) {
+			if (player.findPerk(PerkLib.Sadist) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				damage *= 1.2;
 				dynStats("lus", 3);
 			}
@@ -1238,7 +1238,7 @@ package classes.Scenes.Combat
 			}
 			if (monster is Harpy || monster is Sophie) {
 				if (rand(10) == 0) itype = armors.W_ROBES;
-				else if (rand(3) == 0 && player.findPerk(PerkLib.LuststickAdapted) >= 0) itype = consumables.LUSTSTK;
+				else if (rand(3) == 0 && player.findPerk(PerkLib.LuststickAdapted) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) itype = consumables.LUSTSTK;
 				else itype = consumables.GLDSEED;
 			}
 			//Chance of armor if at level 1 pierce fetish
@@ -1334,15 +1334,15 @@ package classes.Scenes.Combat
 				monster.gems += bonusGems;
 				//trace( "to: " + monster.gems )
 			}
-			if (player.findPerk(PerkLib.HistoryFortune) >= 0) {
+			if (player.findPerk(PerkLib.HistoryFortune) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				var bonusGems2:int = monster.gems * 0.15;
 				monster.gems += bonusGems2;
 			}
-			if (player.findPerk(PerkLib.HistoryWhore) >= 0) {
+			if (player.findPerk(PerkLib.HistoryWhore) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				var bonusGems3:int = (monster.gems * 0.04) * player.teaseLevel;
 				if (monster.lust >= monster.eMaxLust()) monster.gems += bonusGems3;
 			}
-			if (player.findPerk(PerkLib.AscensionFortune) >= 0) {
+			if (player.findPerk(PerkLib.AscensionFortune) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 				monster.gems *= 1 + (player.perkv1(PerkLib.AscensionFortune) * 0.1);
 				monster.gems = Math.round(monster.gems);
 			}
@@ -1360,7 +1360,7 @@ package classes.Scenes.Combat
 			player.gems += monster.gems;
 			player.XP += monster.XP;
 			mainView.statsView.showStatUp('xp');
-			dynStats("lust", 0, "resisted", false); //Forces up arrow.
+			dynStats("lust", 0, "resisted"); //Forces up arrow.
 		}
 
 		//Clear statuses
@@ -1487,7 +1487,7 @@ package classes.Scenes.Combat
 				var slap:Number = 3 + (player.maxHP() * 0.02);
 				outputText("<b>Your muscles twitch in agony as the acid keeps burning you. <b>(<font color=\"#800000\">" + slap + "</font>)</b></b>\n\n");
 			}
-			if (player.findPerk(PerkLib.ArousingAura) >= 0 && monster.lustVuln > 0 && player.cor >= (70 - player.corruptionTolerance())) {
+			if (player.findPerk(PerkLib.ArousingAura) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && monster.lustVuln > 0 && player.cor >= (70 - player.corruptionTolerance())) {
 				if (monster.lust < 50) outputText("Your aura seeps into " + monster.a + monster.short + " but does not have any visible effects just yet.\n\n");
 				else if (monster.lust < 60) {
 					if (!monster.plural) outputText(monster.capitalA + monster.short + " starts to squirm a little from your unholy presence.\n\n");
@@ -1556,7 +1556,7 @@ package classes.Scenes.Combat
 			//Harpy lip gloss
 			if (player.hasCock() && player.hasStatusEffect(StatusEffects.Luststick) && (monster.short == "harpy" || monster.short == "Sophie")) {
 				//Chance to cleanse!
-				if (player.findPerk(PerkLib.Medicine) >= 0 && rand(100) <= 14) {
+				if (player.findPerk(PerkLib.Medicine) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) <= 14) {
 					outputText("You manage to cleanse the harpy lip-gloss from your system with your knowledge of medicine!\n\n");
 					player.removeStatusEffect(StatusEffects.Luststick);
 				}		
@@ -1602,7 +1602,7 @@ package classes.Scenes.Combat
 			}
 			if (player.hasStatusEffect(StatusEffects.NagaVenom)) {
 				//Chance to cleanse!
-				if (player.findPerk(PerkLib.Medicine) >= 0 && rand(100) <= 14) {
+				if (player.findPerk(PerkLib.Medicine) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) <= 14) {
 					outputText("You manage to cleanse the naga venom from your system with your knowledge of medicine!\n\n");
 					player.spe += player.statusEffectv1(StatusEffects.NagaVenom);
 					mainView.statsView.showStatUp( 'spe' );
@@ -1621,7 +1621,7 @@ package classes.Scenes.Combat
 			}
 			else if (player.hasStatusEffect(StatusEffects.TemporaryHeat)) {
 				//Chance to cleanse!
-				if (player.findPerk(PerkLib.Medicine) >= 0 && rand(100) <= 14) {
+				if (player.findPerk(PerkLib.Medicine) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) <= 14) {
 					outputText("You manage to cleanse the heat and rut drug from your system with your knowledge of medicine!\n\n");
 					player.removeStatusEffect(StatusEffects.TemporaryHeat);
 				}
@@ -1642,7 +1642,7 @@ package classes.Scenes.Combat
 			//Poison
 			if (player.hasStatusEffect(StatusEffects.Poison)) {
 				//Chance to cleanse!
-				if (player.findPerk(PerkLib.Medicine) >= 0 && rand(100) <= 14) {
+				if (player.findPerk(PerkLib.Medicine) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) <= 14) {
 					outputText("You manage to cleanse the poison from your system with your knowledge of medicine!\n\n");
 					player.removeStatusEffect(StatusEffects.Poison);
 				}
@@ -1662,7 +1662,7 @@ package classes.Scenes.Combat
 			}
 			if (player.hasStatusEffect(StatusEffects.DriderIncubusVenom)) {
 				//Chance to cleanse!
-				if (player.findPerk(PerkLib.Medicine) >= 0 && rand(100) <= 14) {
+				if (player.findPerk(PerkLib.Medicine) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) <= 14) {
 					outputText("You manage to cleanse the drider incubus venom from your system with your knowledge of medicine!\n\n");
 					player.str += player.statusEffectv1(StatusEffects.DriderIncubusVenom);
 					mainView.statsView.showStatUp('str');
@@ -1692,7 +1692,7 @@ package classes.Scenes.Combat
 			if (player.hasStatusEffect(StatusEffects.WhipSilence)) {
 				if (player.statusEffectv1(StatusEffects.WhipSilence) > 0) {
 					outputText("<b>You are silenced by the burning cord wrapped around your neck. It's painful... and arousing too.</b> ");
-					player.takeDamage(10 + rand(8), true);
+					player.takeDamage(10 + rand(8));
 					dynStats("lus", 4);
 					player.addStatusValue(StatusEffects.WhipSilence, 1, -1);
 					outputText("\n\n");
@@ -1715,10 +1715,10 @@ package classes.Scenes.Combat
 				healingPercent = 0;
 				if (player.hunger >= 25 || flags[kFLAGS.HUNGER_ENABLED] <= 0)
 				{
-					if (player.findPerk(PerkLib.Regeneration) >= 0) healingPercent += 1;
-					if (player.findPerk(PerkLib.Regeneration2) >= 0) healingPercent += 1;
+					if (player.findPerk(PerkLib.Regeneration) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) healingPercent += 1;
+					if (player.findPerk(PerkLib.Regeneration2) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) healingPercent += 1;
 				}
-				if (player.findPerk(PerkLib.LustyRegeneration) >= 0) healingPercent += 1;
+				if (player.findPerk(PerkLib.LustyRegeneration) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) healingPercent += 1;
 				if (player.armor == armors.NURSECL) healingPercent += 1;
 				if (player.armor == armors.GOOARMR) healingPercent += (getGame().valeria.valeriaFluidsEnabled() ? (flags[kFLAGS.VALERIA_FLUIDS] < 50 ? flags[kFLAGS.VALERIA_FLUIDS] / 25 : 2) : 2);
 				if (player.jewelry.effectId == JewelryLib.MODIFIER_REGENERATION) healingBonus += player.jewelry.effectMagnitude;
@@ -1730,12 +1730,12 @@ package classes.Scenes.Combat
 				healingPercent = 0;
 				if (player.hunger >= 25 || flags[kFLAGS.HUNGER_ENABLED] <= 0)
 				{
-					if (player.findPerk(PerkLib.Regeneration) >= 0) healingPercent += 2;
-					if (player.findPerk(PerkLib.Regeneration2) >= 0) healingPercent += 2;
+					if (player.findPerk(PerkLib.Regeneration) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) healingPercent += 2;
+					if (player.findPerk(PerkLib.Regeneration2) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) healingPercent += 2;
 				}
 				if (player.armorName == "skimpy nurse's outfit") healingPercent += 2;
 				if (player.armorName == "goo armor") healingPercent += (getGame().valeria.valeriaFluidsEnabled() ? (flags[kFLAGS.VALERIA_FLUIDS] < 50 ? flags[kFLAGS.VALERIA_FLUIDS] / 16 : 3) : 3);
-				if (player.findPerk(PerkLib.LustyRegeneration) >= 0) healingPercent += 2;
+				if (player.findPerk(PerkLib.LustyRegeneration) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) healingPercent += 2;
 				if (healingPercent > 10) healingPercent = 10;
 				HPChange(Math.round(player.maxHP() * healingPercent / 100), false);
 			}
@@ -1762,14 +1762,14 @@ package classes.Scenes.Combat
 			} else imageText = "";
 			
 			//Reduce enemy def if player has precision!
-			if (player.findPerk(PerkLib.Precision) >= 0 && player.inte >= 25) {
+			if (player.findPerk(PerkLib.Precision) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.inte >= 25) {
 				if (monster.armorDef <= 10) monster.armorDef = 0;
 				else monster.armorDef -= 10;
 			}
-			if (player.findPerk(PerkLib.Battlemage) >= 0 && player.lust >= 50) {
+			if (player.findPerk(PerkLib.Battlemage) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.lust >= 50) {
 				combatAbilities.spellMight(true); // XXX: message?
 			}
-			if (player.findPerk(PerkLib.Spellsword) >= 0 && player.lust < combatAbilities.getWhiteMagicLustCap()) {
+			if (player.findPerk(PerkLib.Spellsword) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && player.lust < combatAbilities.getWhiteMagicLustCap()) {
 				combatAbilities.spellChargeWeapon(true); // XXX: message?
 			}
 			//Raises lust~ Not disabled because it's an item perk :3
@@ -1794,7 +1794,7 @@ package classes.Scenes.Combat
 			if (player.weaponName == "flintlock pistol") flags[kFLAGS.FLINTLOCK_PISTOL_AMMO] = 4;
 			if (player.weaponName == "blunderbuss") flags[kFLAGS.FLINTLOCK_PISTOL_AMMO] = 12;
 			if (prison.inPrison && prison.prisonCombatAutoLose) {
-				dynStats("lus", player.maxLust(), "resisted", false);
+				dynStats("lus", player.maxLust(), "resisted");
 				doNext(endLustLoss);
 				return;
 			}
@@ -2071,7 +2071,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (monster.hasStatusEffect(StatusEffects.Level) && player.canFly()) {
@@ -2087,7 +2087,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (monster.hasStatusEffect(StatusEffects.Level) && monster.statusEffectv1(StatusEffects.Level) < 4) {
@@ -2095,7 +2095,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (monster.hasStatusEffect(StatusEffects.RunDisabled)) {
@@ -2103,7 +2103,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (flags[kFLAGS.MINOTAUR_SONS_WASTED_TURN] == 1 && (monster.short == "minotaur gang" || monster.short == "minotaur tribe")) {
@@ -2120,7 +2120,7 @@ package classes.Scenes.Combat
 		//Pass false to combatMenu instead:		menuLoc = 3;
 		//		doNext(combatMenu);
 				menu();
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			if (inDungeon || inRoomedDungeon) {
@@ -2129,7 +2129,7 @@ package classes.Scenes.Combat
 				return;
 			}
 			if (prison.inPrison && !prison.prisonCanEscapeRun()) {
-				addButton(0, "Next", combatMenu, false);
+				addButton(0, "Next", combatMenu);
 				return;
 			}
 			//Attempt texts!
@@ -2175,7 +2175,7 @@ package classes.Scenes.Combat
 			//Calculations
 			var escapeMod:Number = 20 + monster.level * 3;
 			if (debug) escapeMod -= 300;
-			if (player.tailType == TAIL_TYPE_RACCOON && player.earType == EARS_RACCOON && player.findPerk(PerkLib.Runner) >= 0) escapeMod -= 25;
+			if (player.tailType == TAIL_TYPE_RACCOON && player.earType == EARS_RACCOON && player.findPerk(PerkLib.Runner) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) escapeMod -= 25;
 			if (monster.hasStatusEffect(StatusEffects.Blind)) escapeMod -= 35;
 			if (monster.hasStatusEffect(StatusEffects.Illusion)) escapeMod -= 20; // Not as much as blindness, but it also affects speed by itself.
 			if (player.hasStatusEffect(StatusEffects.Blind) && (!player.canFly() || monster.canFly())) escapeMod += 35; // If you can fly you don't have to see where the sky is. But if your foe can fly too, it won't give you much.
@@ -2244,8 +2244,8 @@ package classes.Scenes.Combat
 			//Ember is SPUCIAL
 			if (monster.short == "Ember") {
 				//GET AWAY
-				if (player.spe > rand(monster.spe + escapeMod) || (player.findPerk(PerkLib.Runner) >= 0 && rand(100) < 50)) {
-					if (player.findPerk(PerkLib.Runner) >= 0) outputText("Using your skill at running, y");
+				if (player.spe > rand(monster.spe + escapeMod) || (player.findPerk(PerkLib.Runner) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) < 50)) {
+					if (player.findPerk(PerkLib.Runner) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) outputText("Using your skill at running, y");
 					else outputText("Y");
 					outputText("You easily outpace the dragon, who begins hurling imprecations at you.  \"What the hell, [name], you weenie; are you so scared that you can't even stick out your punishment?\"");
 					outputText("\n\nNot to be outdone, you call back, \"Sucks to you!  If even the mighty Last Ember of Hope can't catch me, why do I need to train?  Later, little bird!\"");
@@ -2274,7 +2274,7 @@ package classes.Scenes.Combat
 				//Fliers flee!
 				else if (player.canFly()) outputText(monster.capitalA + monster.short + " can't catch you.");
 				//sekrit benefit: if you have coon ears, coon tail, and Runner perk, change normal Runner escape to flight-type escape
-				else if (player.tailType == TAIL_TYPE_RACCOON && player.earType == EARS_RACCOON && player.findPerk(PerkLib.Runner) >= 0) {
+				else if (player.tailType == TAIL_TYPE_RACCOON && player.earType == EARS_RACCOON && player.findPerk(PerkLib.Runner) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) {
 					outputText("Using your running skill, you build up a head of steam and jump, then spread your arms and flail your tail wildly; your opponent dogs you as best " + monster.pronoun1 + " can, but stops and stares dumbly as your spastic tail slowly propels you several meters into the air!  You leave " + monster.pronoun2 + " behind with your clumsy, jerky, short-range flight.");
 				}
 				//Non-fliers flee
@@ -2288,7 +2288,7 @@ package classes.Scenes.Combat
 				return;
 			}
 			//Runner perk chance
-			else if (player.findPerk(PerkLib.Runner) >= 0 && rand(100) < 50) {
+			else if (player.findPerk(PerkLib.Runner) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled) && rand(100) < 50) {
 				inCombat = false;
 				outputText("Thanks to your talent for running, you manage to escape.");
 				if (monster.short == "Izma") {
@@ -2310,7 +2310,7 @@ package classes.Scenes.Combat
 					else outputText(monster.capitalA + monster.short + " manages to grab your " + player.legs() + " and drag you back to the ground before you can fly away!");
 				}
 				//fail
-				else if (player.tailType == TAIL_TYPE_RACCOON && player.earType == EARS_RACCOON && player.findPerk(PerkLib.Runner) >= 0) outputText("Using your running skill, you build up a head of steam and jump, but before you can clear the ground more than a foot, your opponent latches onto you and drags you back down with a thud!");
+				else if (player.tailType == TAIL_TYPE_RACCOON && player.earType == EARS_RACCOON && player.findPerk(PerkLib.Runner) >= 0 && !player.hasStatusEffect(StatusEffects.PerksDisabled)) outputText("Using your running skill, you build up a head of steam and jump, but before you can clear the ground more than a foot, your opponent latches onto you and drags you back down with a thud!");
 				//Nonflyer messages
 				else {
 					//Huge balls messages

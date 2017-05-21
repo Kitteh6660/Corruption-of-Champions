@@ -3,6 +3,7 @@
  */
 package classes.Perks
 {
+	import classes.StatusEffects;
 	import classes.PerkClass;
 	import classes.PerkType;
 
@@ -11,6 +12,9 @@ package classes.Perks
 
 		override public function desc(params:PerkClass = null):String
 		{
+			if (player.hasStatusEffect(StatusEffects.PerksDisabled)) {
+				return "DISABLED! Your perks are currently disabled and have no effect!";
+			}
 			return "Reduces spell costs by " + params.value1 + "%.";
 		}
 
