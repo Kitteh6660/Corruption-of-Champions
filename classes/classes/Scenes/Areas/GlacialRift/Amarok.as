@@ -89,7 +89,7 @@ package classes.Scenes.Areas.GlacialRift
 			this.a = "the ";
 			this.short = "Amarok";
 			this.imageName = "amarok";
-			this.long = "You are fighting an Amarok, a massive wolf that seems set on hunting you. The buffeting snow does nothing to hide its thick, black fur, and hardly manages to even ruffle it. It has golden, hungry eyes that watch your every move and sharp teeth capable of crushing bones. It looms over you in both height and width, with well-defined muscles, long legs, and bulky paws with deadly claws only adding to its intimidating stature. Even its tail looks capable of knocking you down. It's the most normal animal-like creature you've seen here yet, a normal wolf despite its size, but is no less terrifying. You get the feeling this won't be an easy fight, especially considering it's not about to let you run away.";
+			this.long = "You are fighting the Amarok, a massive wolf that seems set on hunting you. The buffeting snow does nothing to hide its thick, black fur-- it hardly manages to even ruffle it. It has golden, hungry eyes that watch your every move and sharp teeth capable of crushing bones. It looms over you in both height and width, with well-defined muscles, long legs, and bulky paws with deadly claws that only add to its intimidating stature. Even its tail looks capable of knocking you down. It's the most normal animal-like creature you've seen here yet, a normal wolf despite its size, but is no less terrifying. You get the feeling this won't be an easy fight, especially considering it's not about to let you run away.";
 			this.plural = false;
 			this.createVagina(false, 1, 1);
 			this.createCock(8, 1.5, CockTypesEnum.WOLF);
