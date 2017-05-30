@@ -149,13 +149,14 @@ package classes.Items.Consumables
 				player.removeBreastRow(player.breastRows.length - 1, 1);
 			}
 			//Antennae
-			if (changes < changeLimit && player.antennae == CoC.ANTENNAE_NONE && player.horns == 0 && Utils.rand(3) == 0) {
+			if (changes < changeLimit && player.hornType !== HORNS_ANTENNAE && Utils.rand(3) == 0) {
 				outputText("\n\nYour head itches momentarily as two floppy antennae sprout from your " + getGame().player.hairDescript() + ".");
-				player.antennae = CoC.ANTENNAE_BEE;
+				player.hornType = HORNS_ANTENNAE;
+				player.horns = 2;
 				changes++;
 			}
 			//Horns
-			if (changes < changeLimit && player.horns > 0 && Utils.rand(3) == 0) {
+			if (changes < changeLimit && player.hornType !== HORNS_ANTENNAE && player.hornType > 0 && Utils.rand(3) == 0) {
 				player.horns = 0;
 				player.hornType = CoC.HORNS_NONE;
 				outputText("\n\nYour horns crumble, falling apart in large chunks until they flake away to nothing.");

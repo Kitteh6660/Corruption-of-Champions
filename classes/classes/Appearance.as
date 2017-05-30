@@ -2282,6 +2282,7 @@ package classes
 					[HORNS_SHEEP, "sheep"],
 					[HORNS_RAM, "ram"],
 					[HORNS_IMP, "imp"],
+					[HORNS_ANTENNAE, "antennae"],
 				]
 		);
 		public static const DEFAULT_ANTENNAE_NAMES:Object = createMapFromPairs(

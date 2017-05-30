@@ -959,6 +959,10 @@ import classes.Items.*
 			[HORNS_GOAT, "(6) GOAT"],
 			[HORNS_UNICORN, "(7) UNICORN"],
 			[HORNS_RHINO, "(8) RHINO"],
+			[HORNS_SHEEP, "(9) SHEEP"],
+			[HORNS_RAM, "(10) RAM"],
+			[HORNS_IMP, "(11) IMP"],
+			[HORNS_ANTENNAE, "(12) ANTENNAE"],
 			/* [INTERMOD: xianxia]
 			[HORNS_OAK, "(9) OAK"],
 			[HORNS_GARGOYLE, "(10) GARGOYLE"],

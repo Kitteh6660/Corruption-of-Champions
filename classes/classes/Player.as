@@ -1186,7 +1186,7 @@ use namespace kGAMECLASS;
 				beeCounter++;
 			if (hairColor == "black and yellow")
 				beeCounter += 2;
-			if (antennae > 0)
+			if (hornType == 12)
 			{
 				beeCounter++;
 				if (faceType == 0)
@@ -1569,7 +1569,7 @@ use namespace kGAMECLASS;
 				nagaCounter++;
 			if (tongueType == 1)
 				nagaCounter++;
-			if (nagaCounter > 0 && antennae == 0)
+			if (nagaCounter > 0 && horns == 0)
 				nagaCounter++;
 			if (nagaCounter > 0 && wingType == 0)
 				nagaCounter++;
@@ -1595,7 +1595,7 @@ use namespace kGAMECLASS;
 			if (hasPlainSkin() && bunnyCounter > 1)
 				bunnyCounter++;
 			//No wings and antennae a plus
-			if (bunnyCounter > 0 && antennae == 0)
+			if (bunnyCounter > 0 && horns == 0)
 				bunnyCounter++;
 			if (bunnyCounter > 0 && wingType == 0)
 				bunnyCounter++;
