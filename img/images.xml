@@ -1073,6 +1073,14 @@
 				<ImageFile>./img/impoverlord-loss-male</ImageFile>
 				<ImageFile>./img/impoverlord-loss-male_1</ImageFile>
 			</ImageSet>
+			<ImageSet id="ivorysuccubus-female">
++				<ImageFile>./img/ivorysuccubus-male</ImageFile>
++				<ImageFile>./img/ivorysuccubus-male_1</ImageFile>
++			</ImageSet>
++			<ImageSet id="ivorysuccubus-female">
++				<ImageFile>./img/ivorysuccubus-male</ImageFile>
++				<ImageFile>./img/ivorysuccubus-male_1</ImageFile>
++			</ImageSet>
 			<ImageSet id="jojo-appearance">
 				<ImageFile>./img/jojo-appearance</ImageFile>
 				<ImageFile>./img/jojo-appearance_1</ImageFile>
@@ -1969,6 +1977,22 @@
 				<ImageFile>./img/monster-yeti</ImageFile>
 				<ImageFile>./img/monster-yeti_1</ImageFile>
 			</ImageSet>
+			<ImageSet id="naga-loss-female">
+++				<ImageFile>./img/naga-loss-female</ImageFile>
+++				<ImageFile>./img/naga-loss-female_1</ImageFile>
+++			</ImageSet>
+++			<ImageSet id="naga-win-female">
+++				<ImageFile>./img/naga-win-female</ImageFile>
+++				<ImageFile>./img/naga-win-female_1</ImageFile>
+++			</ImageSet>
+++			<ImageSet id="naga-loss-male">
+++				<ImageFile>./img/naga-loss-male</ImageFile>
+++				<ImageFile>./img/naga-loss-male_1</ImageFile>
+++			</ImageSet>
+++			<ImageSet id="naga-win-male">
+++				<ImageFile>./img/naga-win-male</ImageFile>
+++				<ImageFile>./img/naga-win-male_1</ImageFile>
+++			</ImageSet>
 			<ImageSet id="monster-zetaz">
 				<ImageFile>./img/monster-zetaz</ImageFile>
 				<ImageFile>./img/monster-zetaz_1</ImageFile>
@@ -2325,6 +2349,22 @@
 				<ImageFile>./img/scylla-share-tentacle-addiction-two</ImageFile>
 				<ImageFile>./img/scylla-share-tentacle-addiction-two_1</ImageFile>
 			</ImageSet>
+			<ImageSet id="tentaclebeast-loss-female">
+++				<ImageFile>./img/tentaclebeast-loss-female</ImageFile>
+++				<ImageFile>./img/tentaclebeast-loss-female_1</ImageFile>
+++			</ImageSet>
+++			<ImageSet id="tentaclebeast-win-female">
+++				<ImageFile>./img/tentaclebeast-win-female</ImageFile>
+++				<ImageFile>./img/tentaclebeast-win-female_1</ImageFile>
+++			</ImageSet>
+++			<ImageSet id="tentaclebeast-loss-male">
+++				<ImageFile>./img/tentaclebeast-loss-male</ImageFile>
+++				<ImageFile>./img/tentaclebeast-loss-male_1</ImageFile>
+++			</ImageSet>
+++			<ImageSet id="tentaclebeast-win-male">
+++				<ImageFile>./img/tentaclebeast-win-male</ImageFile>
+++				<ImageFile>./img/tentaclebeast-win-male_1</ImageFile>
+++			</ImageSet>
 			<ImageSet id="urta-bar">
 				<ImageFile>./img/urta-bar</ImageFile>
 				<ImageFile>./img/urta-bar_1</ImageFile>
