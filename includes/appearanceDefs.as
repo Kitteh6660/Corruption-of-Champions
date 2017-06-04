@@ -118,6 +118,7 @@ public static const HORNS_RHINO:int                                             
 public static const HORNS_SHEEP:int                                                 =   9;
 public static const HORNS_RAM:int                                                   =  10;
 public static const HORNS_IMP:int                                                   =  11;
+public static const HORNS_ANTENNAE:int                                              =  12;
 
 // antennae -- ALL ANTENNAE DEPRICATED, USE HORNS_ANTENNAE
 public static const ANTENNAE_NONE:int                                               =   0;

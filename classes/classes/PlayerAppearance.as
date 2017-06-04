@@ -424,6 +424,7 @@ package classes
 			if (player.hornType == HORNS_IMP) {
 				outputText(" A set of pointed imp horns rest atop your head.");
 			}
+			if (player.hornType == HORNS_ANTENNAE) outputText("  Floppy antennae also appear on your skull, bouncing and swaying in the breeze.");
 			//Demonic horns
 			if (player.hornType == HORNS_DEMON) 
 			{

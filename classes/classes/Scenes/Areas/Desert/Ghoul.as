@@ -187,8 +187,7 @@ package classes.Scenes.Areas.Desert {
 			["harpy"],
 			["spider"],
 			["predator"],
-			["salamander"],
-			["wolf"]
+			["salamander"]
 		];
 		
 		private const SKINCOLOUR_VARIATIONS:Array = [
@@ -234,7 +233,8 @@ package classes.Scenes.Areas.Desert {
 			["fur"],
 			["lizard scales"],
 			["goo"],
-			["dragon scales"]
+			["dragon scales"],
+			["wool"]
 		];
 		
 		private const HAIRCOLOUR_VARIATIONS:Array = [
@@ -282,7 +282,8 @@ package classes.Scenes.Areas.Desert {
 			["anemone"],
 			["quill"],
 			["basilisk spine"],
-			["basilisk plume"]
+			["basilisk plume"],
+			["wool"]
 		];
 		
 		private const FACE_VARIATIONS:Array = [
@@ -439,7 +440,11 @@ package classes.Scenes.Areas.Desert {
 			["antlers"],
 			["goat"],
 			["unicorn"],
-			["rhino"]
+			["rhino"],
+			["sheep"],
+			["ram"],
+			["imp"],
+			["bee antennae"]
 		];
 		
 		private const WING_VARIATIONS:Array = [
@@ -545,17 +550,11 @@ package classes.Scenes.Areas.Desert {
 			this.tailType = rand(26);
 			this.horns = rand(4);
 			if (this.horns > 0) {
-				this.hornType = rand(7) + 1;
+				this.hornType = rand(12) + 1;
 			} else {
 				this.hornType = HORNS_NONE;
 			}
 			this.wingType = rand(13);
-			this.antennae = rand(2);
-			if (this.antennae == 2) {
-				this.antennae = ANTENNAE_BEE;
-			} else {
-				this.antennae = ANTENNAE_NONE;
-			}
 			
 			checkMonster();
 		}

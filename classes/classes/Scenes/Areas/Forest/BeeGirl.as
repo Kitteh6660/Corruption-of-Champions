@@ -113,7 +113,8 @@
 					.add(consumables.W__BOOK, 1 / 10)
 					.add(consumables.BEEHONY, 1 / 2)
 					.elseDrop(useables.B_CHITN);
-			this.antennae = ANTENNAE_BEE;
+			this.hornType = HORNS_ANTENNAE;
+			this.horns = 2;
 			this.wingType = WING_TYPE_BEE_LIKE_SMALL;
 			this.tailType = TAIL_TYPE_BEE_ABDOMEN;
 			this.tailVenom = 100;
