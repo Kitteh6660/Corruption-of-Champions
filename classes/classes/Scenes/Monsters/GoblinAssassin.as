@@ -69,7 +69,10 @@ package classes.Scenes.Monsters
 			else 
 			{
 				outputText("\nYou’re far too distracted to notice the needle injected into the back of your neck, but by the time she flips back into her original position you already feel the contents of the syringe beginning to take effect.");
+				var lust:int = player.lust;
 				game.dynStats("lus", rand(player.lib/4) +20);
+				lust = player.lust - lust;
+				outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b>\n\n");
 			}
 			combatRoundOver();
 		}
