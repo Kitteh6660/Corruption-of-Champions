@@ -98,7 +98,7 @@ package classes.Scenes.Areas.Forest
 				var lust:int = player.lust;
 				game.dynStats("lus", 12 + (100 - player.inte) / 10);
 				lust = player.lust - lust;
-				outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b>\n\n");
+				outputText(" <b>(<font color=\"#ff00ff\">" + lust + "</font>)</b>\n\n");
 			}
 			game.combat.combatRoundOver();
 		}
