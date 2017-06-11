@@ -19,7 +19,7 @@ package classes.Scenes.Areas.Forest
 			var lust:int = player.lust;
 			game.dynStats("lus", 10 + player.sens / 8);
 			lust = player.lust - lust;
-			outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b>\n\n");
+			outputText(" <b>(<font color=\"#ff00ff\">" + lust + "</font>)</b>\n\n");
 			combatRoundOver();
 		}
 
@@ -54,7 +54,7 @@ package classes.Scenes.Areas.Forest
 			var lust:int = player.lust;
 			game.dynStats("lus", 5 + player.sens / 10);
 			lust = player.lust - lust;
-			outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b>\n\n");
+			outputText(" <b>(<font color=\"#ff00ff\">" + lust + "</font>)</b>\n\n");
 			combatRoundOver();
 		}
 
@@ -68,7 +68,7 @@ package classes.Scenes.Areas.Forest
 			var lust:int = player.lust;
 			game.dynStats("lus", 15 + player.sens / 10);
 			lust = player.lust - lust;
-			outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b>\n\n");
+			outputText(" <b>(<font color=\"#ff00ff\">" + lust + "</font>)</b>\n\n");
 			combatRoundOver();
 		}
 
@@ -166,7 +166,7 @@ package classes.Scenes.Areas.Forest
 			var lust:int = player.lust;
 			game.dynStats("lus", 5 + player.sens / 7);
 			lust = player.lust - lust;
-			outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b>\n\n");
+			outputText(" <b>(<font color=\"#ff00ff\">" + lust + "</font>)</b>\n\n");
 			combatRoundOver();
 		}
 
