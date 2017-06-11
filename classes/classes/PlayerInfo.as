@@ -585,6 +585,18 @@ import flash.events.Event;
 					interpersonStats += "<b>Urta's Status:</b> Ready To Confess Love\n";
 			}
 			
+			if (player.hasStatusEffect(StatusEffects.Xhad)) {
+				if (player.statusEffectv2(StatusEffects.Xhad) >= 100) {
+					while (player.statusEffectv2(StatusEffects.Xhad) > 100) {
+					player.addStatusValue(StatusEffects.Xhad,0,-1);
+					}
+					interpersonStats += "<b>Xhad´s corruption:</b> " + 100 + "%\n";
+				}
+				else
+					interpersonStats += "<b>Xhad´s corruption:</b> " + Math.round(player.statusEffectv2(StatusEffects.Xhad) / 100 * 100) + "%\n";
+					
+			}
+			
 			if (interpersonStats != "")
 				outputText("\n<b><u>Interpersonal Stats</u></b>\n" + interpersonStats);
 			// End Interpersonal Stats
