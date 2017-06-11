@@ -29,7 +29,7 @@ package classes.Scenes.Areas.Forest
 			var lust:int = player.lust;
 			game.dynStats("lus", 1 + player.lib/15+rand(player.cor/30));
 			lust = player.lust - lust;
-			outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b>\n\n");
+			outputText(" <b>(<font color=\"#ff00ff\">" + lust + "</font>)</b>\n\n");
 		}
 
 		private function tamaniShowsUp():void {
