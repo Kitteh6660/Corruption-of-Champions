@@ -95,7 +95,10 @@ package classes.Scenes.Areas.Forest
 			{
 				outputText("The whispering in your head grows, many voices of undetermined sex telling you all the things the demon wishes to do to you. You can only blush.");
 				//(Lust increase)
+				var lust:int = player.lust;
 				game.dynStats("lus", 12 + (100 - player.inte) / 10);
+				lust = player.lust - lust;
+				outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b>\n\n");
 			}
 			game.combat.combatRoundOver();
 		}
