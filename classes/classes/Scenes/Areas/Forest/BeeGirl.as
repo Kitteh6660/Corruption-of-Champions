@@ -50,7 +50,10 @@
 				if (player.gender == 1) outputText("or dripping honey-slicked cunts beckoning you. ");
 				if (player.gender == 2) outputText("planting your aching sex over her face while you lick her sweet honeypot. ");
 				if (player.gender == 3) outputText("or cocks, tits, and puffy nipples. ");
+				var lust:int = player.lust;
 				game.dynStats("lus", 25);
+				lust = player.lust - lust;
+				outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b> ");
 				if (player.lust > 60) {
 					outputText(" You shake your head and struggle to stay focused,");
 					if (player.gender == 1 || player.gender == 3) outputText(" but it's difficult with the sensitive bulge in your groin.");
