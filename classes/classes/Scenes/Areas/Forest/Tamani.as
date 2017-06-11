@@ -76,7 +76,7 @@ package classes.Scenes.Areas.Forest
 			var lust:int = player.lust;
 			game.dynStats("lus", (rand(player.lib/5) +3+(flags[kFLAGS.TAMANI_TIMES_HYPNOTISED])));
 			lust = player.lust - lust;
-			outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b>\n\n");
+			outputText(" <b>(<font color=\"#ff00ff\">" + lust + "</font>)</b>\n\n");
 			combatRoundOver();
 		}
 
