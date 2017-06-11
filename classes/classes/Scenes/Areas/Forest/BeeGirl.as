@@ -53,7 +53,7 @@
 				var lust:int = player.lust;
 				game.dynStats("lus", 25);
 				lust = player.lust - lust;
-				outputText(" <b>(<font color=\"#ff00ff\">" + lust + " </font>)</b> ");
+				outputText(" <b>(<font color=\"#ff00ff\">" + lust + "</font>)</b> ");
 				if (player.lust > 60) {
 					outputText(" You shake your head and struggle to stay focused,");
 					if (player.gender == 1 || player.gender == 3) outputText(" but it's difficult with the sensitive bulge in your groin.");
