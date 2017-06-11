@@ -48,13 +48,13 @@ import flash.utils.setTimeout;
 		 * @param   text    The text to be added
 		 * @return  The instance of the class to support the 'Fluent interface' aka method-chaining
 		 */
-		protected function _addText(text:String):Output
+		protected function _addText(text:String,parse:Boolean):Output
 		{
 			// This is cleaup in case someone hits the Data or new-game button when the event-test window is shown. 
 			// It's needed since those buttons are available even when in the event-tester
 			mainView.hideTestInputPanel();
 
-			text = kGAMECLASS.parser.recursiveParser(text);
+			if(parse)text = kGAMECLASS.parser.recursiveParser(text);
 			record(text);
 			_currentText += text;
 			if (debug) mainView.setOutputText(_currentText);
@@ -70,10 +70,11 @@ import flash.utils.setTimeout;
 		 * @param   text    The text to be added
 		 * @return  The instance of the class to support the 'Fluent interface' aka method-chaining
 		 */
-		public function text(text:String):Output
+		public function text(text:String, parse:Boolean = true):Output
 		{
-			return _addText(text);
+			return _addText(text,parse);
 		}
+
 
 		/**
 		 * Flushes the buffered output to the GUI aka displaying it
