@@ -108,7 +108,10 @@ package classes.Scenes.Areas.Lake
 	//higher, but he can use it at any time (like the cultist).
 	private function zealotSpecial2():void {
 		outputText("The zealot suddenly cries out and extends his arms towards you; your mind is suddenly overwhelmed with a massive wave of arousal as images of every kind of fetish you can imagine wash over you, all blended together.  After a moment you are able to recover, but you notice that the Zealot doesn't seem to be as aroused as before.");
+		var lustv:int = player.lust;
 		game.dynStats("lus", lust/2);
+		lustv = player.lust - lustv;
+		outputText(" <b>(<font color=\"#ff00ff\">" + lustv + "</font>)</b>");
 		lust /= 2;
 		combatRoundOver();
 	}

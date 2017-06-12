@@ -60,6 +60,7 @@ package classes.Scenes.Monsters
 			var lust:int = player.lust;
 			outputText("With a swift step, the assassin vanishes, her movements too quick for you to follow. You take a sharp breath as you feel her ample thighs clench your head in between them, her slick cunt in full view as you take in her scent.");
 			//Miss
+			var lust:int = player.lust;
 			if (player.getEvasionRoll()) 
 			{
 				//Miss: 

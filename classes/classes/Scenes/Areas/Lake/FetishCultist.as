@@ -80,7 +80,10 @@ package classes.Scenes.Areas.Lake
 			else {
 				outputText("She suddenly starts mauling her shapely breasts, her fingers nearly disappearing briefly in the soft, full flesh, while fingering herself eagerly, emitting a variety of lewd noises.  You are entranced by the scene, the sexual excitement she's experiencing penetrating your body in warm waves coming from your groin.");
 			}
+			var lust:int = player.lust;
 			game.dynStats("lus", (player.lib/10 + player.cor/20) +4);
+			lust = player.lust - lust;
+			outputText(" <b>(<font color=\"#ff00ff\">" + lust + "</font>)</b> ");
 			if (player.lust >= player.maxLust())
 				doNext(game.combat.endLustLoss);
 			else doNext(game.combat.combatMenu);
@@ -103,7 +106,10 @@ package classes.Scenes.Areas.Lake
 				else if (player.cockTotal() > 0) outputText("  A sudden influx of pre-cum blurts out and streams down your " + player.multiCockDescriptLight() + ", painfully hardened by a vast amount of blood rushing to your groin.");
 				if (player.gender == 0) outputText("  Your genderless body is suddenly filled by a perverted warmth.");
 				outputText("\n\nYou notice that the young woman seems to have calmed down some.");
+				var lustv:int = player.lust;
 				game.dynStats("lus", (lust/3 * (1 + player.cor/300)));
+				lustv = player.lust - lustv;
+				outputText(" <b>(<font color=\"#ff00ff\">" + lustv + "</font>)</b>\n\n");
 				lust -= 50;
 				if (lust < 0) lust = 10;
 			}

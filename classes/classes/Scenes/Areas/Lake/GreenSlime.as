@@ -22,7 +22,10 @@
 		
 		private function lustAttack():void {
 			outputText("The creature surges forward slowly with a swing that you easily manage to avoid.  You notice traces of green liquid spurt from the creature as it does, forming a thin mist that makes your skin tingle with excitement when you inhale it.");
+			var lustv:int = player.lust;
 			game.dynStats("lus", player.lib / 10 + 8);
+			lustv = player.lust - lustv;
+			outputText(" <b>(<font color=\"#ff00ff\">" + lustv + "</font>)</b>");
 			doNext(game.playerMenu);
 		}
 		
