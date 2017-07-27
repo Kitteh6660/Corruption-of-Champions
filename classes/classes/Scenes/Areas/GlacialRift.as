@@ -153,7 +153,7 @@ package classes.Scenes.Areas
 			spriteSelect(SpriteDb.s_valeria);
 			flags[kFLAGS.VALERIA_FOUND_IN_GLACIAL_RIFT] = 1;
 			clearOutput();
-			outputText(images.showImage("monster-valeria"));
+			outputText(images.showImage("monster-gooarmor"));
 			outputText("As you make your way across the Rift's icy extremities, you hear a metallic CLANK CLANK approaching through the snow flurries. You turn in time to see a suit of plated mail charging toward you, its helm and limbs filled with bright blue goo. It skids to a stop a few yards away, a greatsword forming from the goo of its hand. A beautiful, feminine face appears beneath the armor’s visor grinning at you. You suddenly recognize her face!\n\n");
 			outputText("\"<i>This is my territory!</i>\" she shouts, bringing her two-handed sword to bare. \"<i>You’ll give me your fluids, or I’ll take them.</i>\"");
 			addButton(0, "Fight", fightValeria);
