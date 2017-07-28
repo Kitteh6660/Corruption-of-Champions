@@ -74,6 +74,7 @@ package classes.Scenes.Areas.GlacialRift
 			else if (player.tallness >= 36 && player.tallness < 48) outputText("matches your height.");
 			else outputText("is only slightly shorter than you are tall.");
 			outputText("\n\n");
+			outputText(images.showImage("fGiant-vag-ride"));
 			if (player.cocks.length <= 0) outputText("Seeing no other option");
 			else outputText("Deciding to give your vagina the attention it so craves");
 			outputText(", you carefully remove and replace pieces of your " + player.armorName + " so you can rub your [chest] while you ready to slide your slit over the giant's cock without freezing the rest of your body.");
@@ -96,6 +97,7 @@ package classes.Scenes.Areas.GlacialRift
 			else if (player.tallness >= 36 && player.tallness < 48) outputText("matches your height.");
 			else outputText("is only slightly shorter than you are tall.");
 			outputText("\n\n");
+			outputText(images.showImage("fGiant-anal-ride"));
 			outputText("You carefully remove and replace pieces of your " + player.armorName + " so you can slide your " + player.assholeDescript() + " over the giant's cock without freezing the rest of your body.  Climbing to the giant's crotch, you straddle his dick and feel it before crouching. The giant's body heat makes up for the cold, warm enough to stuff your body. You get into position and slide yourself to release.");
 			player.buttChange(144, true, true, false);
 			outputText("\n\nWith a bracing breath, you finally make contact. The giant's heat is more intense than your hand registered, and you find yourself easily able to slip back and forth. As you slide over the huge cock, it slowly grows erect, until it towers over you and you can do little more than gyrate your hips to pleasure yourself. You struggle to keep sliding, but it's futile. Fortunately, you reach orgasm.  ")
