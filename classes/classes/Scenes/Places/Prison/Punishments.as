@@ -51,10 +51,10 @@ package classes.Scenes.Places.Prison
 		
 		public function prisonCaptorPunishmentStockadesVisitor():void
 		{
+			outputText(images.showImage("prison-guard-fuck"));
 			var selector:int = 0;
 			selector = rand(4);
 			switch(selector)
-			outputText(images.showImage("prison-guard-fuck"));
 			{
 				case 0:
 					outputText("(Placeholder) A passing guard sees your predicament, and decides to \"help\" by feeding you his cock. With your head securely clamped in the stocks and the ring gag holding your mouth wide open, all you can do is drool and look up plaintively as he stuffs your throat, and leaves you with a stomach full of sperm.");
