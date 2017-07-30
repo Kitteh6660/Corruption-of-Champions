@@ -219,7 +219,7 @@ package classes.Scenes.Areas.GlacialRift
 		{
 			this.a = "the ";
 			this.short = "frost giant";
-			this.imageName = "frost-giant";
+			this.imageName = "fGiant";
 			this.long = "The giant reminds you of the stories you heard as a child in Ingnam, at least twenty feet tall and wider than your height. The giant's skin is a deep, icy blue with patches of frost and ice covering his body in place of armor. Fortunately for you, he's unarmed. Unfortunately for you, being as large as a house has the added benefit of boulders, trees, and handfuls of frozen dirt being ready weapons, all of which is abundant in the area. Plus those hands could probably crush you like a bug. Your battle instincts are definitely going to be tested.";
 			// this.plural = false;
 			this.createCock(36, 4, CockTypesEnum.HUMAN);
