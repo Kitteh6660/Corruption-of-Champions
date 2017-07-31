@@ -358,7 +358,11 @@ package classes.Scenes {
 						outputText(" languidly, reveling at their near-constant hardness.  ");
 					else outputText(" teasingly, pre-cum running down your cocks from your constant state of arousal, pooling around you.  ");
 				}
-			}			
+			}
+				if (player.gender == 3) outputText(images.showImage("masturbation-herm"));
+				else if (player.gender == 2) outputText(images.showImage("masturbation-female"));
+				else outputText(images.showImage("masturbation-male"));
+
 			if (player.vaginas.length > 0) {
 				if (player.vaginas.length == 1) {
 					//0 = dry, 1 = wet, 2 = extra wet, 3 = always slick, 4 = drools constantly, 5 = female ejaculator
