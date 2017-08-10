@@ -164,8 +164,7 @@ public class ErlKingScene extends BaseContent implements Encounter
 		{
 			clearOutput();
 			
-			outputText("As you explore between the tall, ancient trees, you notice a thick fog beginning to spill out from between the trees and over the mossy ground. As the haze pours forth and flows past your [feet], you notice the forest around you growing distinctly darker and colder. \n\n");
-			//Picture is here
+			outputText("As you explore between the tall, ancient trees, you notice a thick fog beginning to spill out from between the trees and over the mossy ground. As the haze pours forth and flows past your [feet], you notice the forest around you growing distinctly darker and colder.\n\n");
 			outputText(images.showImage("wildhunt-encounter"));
 			outputText("A shiver of unnatural fear runs up your spine, just as a hunting horn sounds from the distance.  You gasp, your breath materializing as a puff of fine, white mist.  Just as the echoes of the horn fade, a chorus of canine howls breaks through the");
 			if (model.time.hours >= 0 && model.time.hours <= 10) outputText(" chill morning");
@@ -224,7 +223,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 			}
 
 			outputText("But before the dogs move, the curtain of fog parts, and a figure on horseback rides into view.  The hounds go silent, as the tall figure pulls back his hood to look at you.\n\n");
-			//Picture is here
 			outputText(images.showImage("wildhunt-huntsman"));
 			outputText("He is tall, easily seven feet, and made more imposing by the massive, golden antlers arching upward from either side of his head.  He is clearly not human, and more closely resembles a black stag, sitting upright, watching you with the same piercing red eyes as the hounds.  His short, black fur rustles in a wind that is not there, his ears twitching in time to the beating of your heart.\n\n");
 
@@ -259,9 +257,7 @@ public class ErlKingScene extends BaseContent implements Encounter
 		public function repeatWildHuntEncounter():void
 		{
 			clearOutput();
-
 			outputText("As you wander through the Deepwoods, a familiar chilly fog begins to gather around your [feet], and in the distance, you hear the sound of a hunting horn and the baying of Hounds.\n\n");
-			//Picture is here
 			outputText(images.showImage("wildhunt-encounter"));
 			outputText("The Erlking is coming for you!\n\n");
 
@@ -283,7 +279,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 		protected function repeatWildHuntWait():void
 		{
 			clearOutput();
-			//Picture is here
 			outputText(images.showImage("wildhunt-encounter"));
 			outputText("The fog pours in like a wave, surrounding you and blurring the forest around you.  You hear the thunder of hooves approaching, followed by the baying of hounds.\n\n");
 
@@ -317,7 +312,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 		protected function repeatWildHuntEscaped():void
 		{
 			clearOutput();
-			//Picture is here
 			outputText(images.showImage("wildhunt-escaped"));
 			outputText("The Erlking might be the Master of the Hunt, but you are no one’s prey.  You immediately begin running, moving like the wind through the Deepwoods, your heart beating hard in your chest.");
 			if (player.isGoo())  outputText(  "You move like quicksilver over the forest floor, your slimy bottom half flowing over all obstacles, oozing you faster and faster, ever onward.");
@@ -421,7 +415,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 			if (player.tailType != TAIL_TYPE_NONE) outputText("  The Hound behind grabs you by [onetail], using it as a handhold as he thrusts over and over into your [asshole].");
 			else outputText("  The Hound behind grabs you by your [ass], thrusting into you again and again.");
 			outputText("  You tremble, completely dominated by the two powerful males as they make you their prey-bitch.\n\n");
-			//Picture is here
 			outputText(images.showImage("wildhunt-hounds-catched"));
 			outputText("They cum within moments of each other, the one in front driving his huge knot into your mouth, leaving your jaw aching.  You groan in protest as his cock shoots hot seed down your throat.  Nearly gagging on the canine dick already, there’s little you can do but swallow the Hound’s cum.  As you gurgle it down, you feel the Hound behind you painfully shove his thick knot into your ass.  You try to scream, but with a mouth full of cock and cum, there’s little you can do but take it like prey.  Your body quakes, belly swelling as you’re filled with cum at both ends leaving you warm, bloated, and strangely satisfied.\n\n");
 
@@ -443,7 +436,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 
 		protected function repeatWildHuntAWinnerIsYou():void
 		{
-			//Picture is here
 			outputText(images.showImage("wildhunt-hounds"));
 			outputText("Spirited clapping fills the woods.  The Hounds fall silent, sitting obediently on their haunches as the Erlking walks into the clearing, dismounting and looking up at you.\n\n");
 			
@@ -615,7 +607,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 			outputText("The Master stands up, and as you wobble to your feet, the two other Hounds move forwards, their broad tongue licking your chest, stomach, and dick, cleaning the cum from your fur.\n\n");
 
 			outputText("<b>The Master sounds his horn, and your ears perk up.  Astride his horse, he gallops off into the fog-haunted woods, and, like the rest of the Hounds, you follow.</b>\n\n");
-			//Picture is here
 			outputText(images.showImage("badend-wildhunt"));
 			getGame().gameOver();
 
@@ -648,7 +639,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 					
 					player.cuntChange(12 * 3, true, true, false);
 					outputText("\n\n");
-					//Picture is here
 					outputText(images.showImage("wildhunt-prey-female"));
 					outputText("You gasp, shuddering in delight as he begins to push in and out of you.  His hands shift, holding you under the arms, fucking you against the tree.  The rough bark scratches your back as he thrusts deep inside you.  You feel the triple rings of his prepuce rubbing against your inner walls.\n\n");
 					
@@ -671,7 +661,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 					
 					player.buttChange(12 * 3, true, true, false);
 					outputText("\n\n");
-					//Picture is here
 					outputText(images.showImage("wildhunt-prey-male"));
 					outputText("You gasp, shuddering in delight as he begins to push in and out of you.  His hands shift, one at the small of your back, steadying you, fucking you against the tree.  The other squeezes tight around your dick, jacking you off, gloved hand stroking you roughly in time to his thrusts.  The coarse bark of the tree scratches at your back as you feel the triple rings of his prepuce rubbing against the inner walls of your [asshole].  \n\n");
 					
@@ -686,7 +675,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 			}
 			else
 			{
-				//Picture is here
 				outputText(images.showImage("wildhunt-prey-taur"));
 				outputText("The Erlking smiles at you, caressing your cheek.  “<i>I pride myself in keeping a proper stable,</i>” he says, delicately moving behind you.  With his strong hands on your flanks, he guides you to face up against a tree.\n\n");
 
@@ -753,7 +741,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 			outputText("“<i>You taunt me, you hunt me, and now you ask for favors?</i>”  you snort.  “<i>No, no, you’re about to be taught a very lasting lesson,</i>” you snarl.\n\n");
 
 			outputText("“<i>What do yo-</i>” begins the Erlking, looking up at you.  You slap his face, cutting off the end of the question.\n\n");
-			//Picture is here
 			outputText(images.showImage("wildhunt-revenge"));
 			if (player.hasVagina() && !player.hasCock())
 			{
@@ -821,7 +808,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 		protected function takeGoldenAntlers():void
 		{
 			clearOutput();
-			//Picture is here
 			outputText(images.showImage("item-gAntlers"));
 			player.createKeyItem("Golden Antlers", 0, 0, 0, 0);
 			if (flags[kFLAGS.ERLKING_CANE_OBTAINED] == 0) {
@@ -837,7 +823,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 			clearOutput();
 
 			outputText("As you wander through the Deepwoods, you hear a rustling in the bushes.  You turn to see a flash of pink between the trees.  A slim, graceful figure steps out from behind a tree, wearing a dark green cloak and a small, leather shoulder bag.  It takes you a moment to recognize the Princess, the once-Erlking.  Her deer-like face and large, doe eyes peer timidly at you.\n\n");
-			//Picture is here
 			outputText(images.showImage("wildhunt-princess"));
 			outputText("“<i>Muh-M’lord?</i>” she asks softly.  Her lithe arms push through the low branches and trees as she steps closer to you.  She’s timid and twitchy, quite different from the ominous and powerful huntsman she’d once been.  In a moment, you see why.\n\n");
 
@@ -896,8 +881,7 @@ public class ErlKingScene extends BaseContent implements Encounter
 
 			outputText("Her slim tongue rubs against the underside of your shaft, massaging it in time to the bobbing of her head.  Her index finger and thumb form a slim O at the base of your dick, pumping it counter to her head bobs, giving you continuous stimulation as she hums.\n\n");
 
-			outputText("She hums as she works, sounding like the happiest little slut in the world.  She expertly works your cock, stroking and pumping your meat with her wet, hungry mouth and you feel yourself breathing heavily as her slurping grows louder and more eager.  \n\n");
-			//Picture is here
+			outputText("She hums as she works, sounding like the happiest little slut in the world.  She expertly works your cock, stroking and pumping your meat with her wet, hungry mouth and you feel yourself breathing heavily as her slurping grows louder and more eager.\n\n");
 			outputText(images.showImage("wildhunt-princess-orally"));
 			outputText("The vibration of her chirpy voice and pressure of her lips around your cock soon push you over the edge, and with a relaxed shudder, you cum in her mouth.  She takes the first jet down her throat, then pulls her mouth from your dick with a satisfied gasp, taking the next jet across her face.\n\n");
 
@@ -922,7 +906,6 @@ public class ErlKingScene extends BaseContent implements Encounter
 			outputText("“<i>At once, M’Lord!</i>” she says, clapping her hands excitedly.  She bounces up in the air, then bounds low to the ground, pulling a small bottle from her purse, and dumping a liberal amount of raspberry-scented lube on your cock.  She works it in, her slim fingers massaging your cock to full attention before she hops around.\n\n");
 				
 			outputText("“<i>Princess Gwynn is always prepared!</i>” she chirps happily.\n\n");
-			//Picture is here
 			outputText(images.showImage("wildhunt-princess-anally"));
 			outputText("She drops her shoulders to the ground and raises her white rump in the air, her pink, tufted tail twitching excitedly.  “<i>Your Princess is ready for you, m’Lord!</i>”\n\n");
 
@@ -946,8 +929,7 @@ public class ErlKingScene extends BaseContent implements Encounter
 		{
 			clearOutput();
 
-			outputText("“<i>Yes Ma’am,</i>” she says, licking her lips.  She points to a nearby stump, gesturing for you to have a seat on the soft moss.  As you do, she wastes no time in dropping her pink muzzle to your pussy.  \n\n");
-			//Picture is here
+			outputText("“<i>Yes Ma’am,</i>” she says, licking her lips.  She points to a nearby stump, gesturing for you to have a seat on the soft moss.  As you do, she wastes no time in dropping her pink muzzle to your pussy.\n\n");
 			outputText(images.showImage("wildhunt-princess-lickgina"));
 			outputText("Her tongue eagerly plunges between your folds, running up and down the length of your pussy. Each time her muzzle bobs up, her candy-pink nose rubs against your clit, and she purrs, closing her eyes and nuzzling it.  She slowly laps at your slit, gradually building speed.\n\n");
 
@@ -987,8 +969,7 @@ public class ErlKingScene extends BaseContent implements Encounter
 
 			outputText("“<i>Oh, nuh-nooo...</i>” she gasps, her knees now planted on either side of her head.\n\n");
 
-			outputText("“<i>Oh, yes,</i>” you coo wickedly, shoving the lithe doe’s cock into her own mouth.  She blathers a muffled protest before you give her tufted tail another sharp tug, drawing out her orgasm..\n\n");
-			//Picture is here
+			outputText("“<i>Oh, yes,</i>” you coo wickedly, shoving the lithe doe’s cock into her own mouth.  She blathers a muffled protest before you give her tufted tail another sharp tug, drawing out her orgasm.\n\n");
 			outputText(images.showImage("wildhunt-princess-milking"));
 			outputText("Her cock spurts into her own mouth, immediately ballooning out her cheeks.  Her eyes roll back in her head as she gurgles around her cock.  Slightly-pink, raspberry-scented cum spills out from her pouty lips, as she coughs and nearly chokes on her own cum.  \n\n");
 
