@@ -51,6 +51,7 @@ package classes.Scenes.Places.Prison
 		
 		public function prisonCaptorPunishmentStockadesVisitor():void
 		{
+			outputText(images.showImage("prison-guard-fuck"));
 			var selector:int = 0;
 			selector = rand(4);
 			switch(selector)
@@ -720,3 +721,4 @@ package classes.Scenes.Places.Prison
 	}
 
 }
+
