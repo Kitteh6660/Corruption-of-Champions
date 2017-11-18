@@ -165,7 +165,7 @@ package classes.Scenes.Areas.HighMountains {
 			outputText("\"So did I. Let’s do this again sometime.\" he says with a smile before giving himself one last smooth over before "
 			          +"[if (monster.canFly)spreading his wings and taking off|running off deeper into the mountains with a bouncy stride].");
 			player.orgasm('Vaginal');
-			player.knockUpForce(PregnancyStore.PREGNANCY_COCKATRICE, PregnancyStore.INCUBATION_COCKATRICE - 125);
+			player.knockUpForce(PregnancyStore.PREGNANCY_COCKATRICE, PregnancyStore.INCUBATION_COCKATRICE);
 			player.cuntChange(monster.cockArea(0), true);
 			dynStats("lib-", 1);
 			combat.cleanupAfterCombat();
@@ -499,7 +499,6 @@ package classes.Scenes.Areas.HighMountains {
 			outputText(" The moment you tell him to start he smiles, scaled hands slowly sliding up the back of your [if (isNaga)serpentine lower body|calves]."
 			          +" Surprisingly smooth and warm, his powerful grip massages up your [if (isNaga)tail|legs], palms coming to rest on your [butt] as he leans forward."
 			          +" The heat of his breath on your [if (hasCock)[cocks]|[if (hasVagina)[vagina]|crotch]] makes you shudder.\n\n");
-			outputText(images.showImage("cockatrice-foreplay"));
 			if (player.hasVagina() && player.hasCock()) chooser = rand(2) == 0 ? FOREPLAY_VAGINAL : FOREPLAY_BLOWJOB;
 			else if (player.hasVagina()) chooser = FOREPLAY_VAGINAL;
 			else if (player.hasCock()) chooser = FOREPLAY_BLOWJOB;
@@ -638,7 +637,7 @@ package classes.Scenes.Areas.HighMountains {
 			          +"He straightens up as his cock begins to retreat into his genital slit, wiping himself  clean before leaving you there on the ground. "
 			          +"As your mind grows fuzzy with post orgasmic contentment and you long for sleep, the last thing you see is the cockatrices swaying hips and tail as he continues on his way with a spring his step.");
 			player.cuntChange(monster.cockArea(0), true);
-			player.knockUpForce(PregnancyStore.PREGNANCY_COCKATRICE, PregnancyStore.INCUBATION_COCKATRICE - 125);
+			player.knockUpForce(PregnancyStore.PREGNANCY_COCKATRICE, PregnancyStore.INCUBATION_COCKATRICE);
 			player.orgasm('Vaginal');
 		}
 
@@ -674,7 +673,7 @@ package classes.Scenes.Areas.HighMountains {
 			if (player.cor < 33) outputText("You find yourself shaken by the experience, and deeply disquieted by the thought of the clutch of monsters you have unleashed on this world. You pick yourself up, rub yourself down and leave, promising yourself fervently you'll be more careful around cockatrices in the future.");
 			else if (player.cor < 66) outputText("You pick yourself up, rub yourself down and leave. You feel conflicted about what just happened; on the one hand you feel disquieted about the dozen monsters you just unleashed on this world, on the other you cannot help feel oddly proud of them and yourself.");
 			else outputText("With a soft smile, you get up and leave, enjoying the sensation of pink slime trickling down your legs. You cannot wait to get pregnant again, for your stomach to bulge with eggs, to release more delightful creatures into this world which can grow up to fuck you and everyone else in turn, so everyone can enjoy life as much as you do.");
-				if (player.hipRating < 35) {
+				if (player.hipRating < 25) {
 					player.hipRating++;
 			outputText("There's an extra thickness to your [hips] as well.");
 			}
