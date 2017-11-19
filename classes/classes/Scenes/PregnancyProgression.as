@@ -1011,6 +1011,64 @@ package classes.Scenes
 						}
 					}
 				}
+				//COCKATRICE Pregnancy!
+				if (player.pregnancyType == PregnancyStore.PREGNANCY_COCKATRICE) {	
+					if (player.pregnancyIncubation == 185) {
+						outputText("\n<b>Your belly grumbles as if empty, even though you ate not long ago.  Perhaps with all the exercise you're getting you just need to eat a little bit more.</b>\n");
+						displayedUpdate = true;
+					}
+					if (player.pregnancyIncubation == 160) {
+						outputText("\n<b>Your belly looks a little pudgy");
+						if (player.thickness > 60 && player.tone < 40) outputText(" even for you");
+						outputText(", maybe you should cut back on all the food you've been consuming lately?</b>\n");
+						displayedUpdate = true;	
+					}
+					if (player.pregnancyIncubation == 140) {
+						outputText("\n<b>Your belly is definitely getting bigger, and no matter what you do, you can't seem to stop yourself from eating at the merest twinge of hunger.  The only explanation you can come up with is that you've gotten pregnant during your travels.  Hopefully it won't inconvenience your adventuring.</b>\n");
+						displayedUpdate = true;				
+					}
+					if (player.pregnancyIncubation == 110) {
+						outputText("\n<b>Your belly has gotten nice and big, perhaps as big as you remember the bellies of the pregnant women back home being.  The elders always did insist on everyone doing their part to keep the population high enough to sustain the loss of a champion every year.  You give yourself a little hug, getting a surge of happiness from your hormone-addled body.  Pregnancy sure is great!</b>\n");
+						displayedUpdate = true;
+					}
+					if (player.pregnancyIncubation == 72) {
+						outputText("\n<b>The huge size of your pregnant belly constantly impedes your movement, but the constant squirming and shaking of your unborn offspring makes you pretty sure you won't have to carry them much longer.  A sense of motherly pride wells up in your breast - you just know you'll have such wonderful babies.");
+						if (player.cor < 50) outputText("  You shudder and shake your head, wondering why you're thinking such unusual things.");
+						outputText("</b>\n");
+						displayedUpdate = true;
+					}
+					if (player.pregnancyIncubation == 32 || player.pregnancyIncubation == 64 || player.pregnancyIncubation == 85 || player.pregnancyIncubation == 150) {
+						//Increase lactation!
+						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() >= 1 && player.biggestLactation() < 2) {
+							outputText("\nYour breasts feel swollen with all the extra milk they're accumulating.\n");
+							player.boostLactation(.5);
+							displayedUpdate = true;
+						}
+						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() > 0 && player.biggestLactation() < 1) {
+							outputText("\nDrops of breastmilk escape your nipples as your body prepares for the coming birth.\n");
+							player.boostLactation(.5);
+							displayedUpdate = true;
+						}				
+						//Lactate if large && not lactating
+						if (player.biggestTitSize() >= 3 && player.mostBreastsPerRow() > 1 && player.biggestLactation() == 0) {
+							outputText("\n<b>You realize your breasts feel full, and occasionally lactate</b>.  It must be due to the pregnancy.\n");
+							player.boostLactation(1);
+							displayedUpdate = true;
+						}
+						//Enlarge if too small for lactation
+						if (player.biggestTitSize() == 2 && player.mostBreastsPerRow() > 1) {
+							outputText("\n<b>Your breasts have swollen to C-cups,</b> in light of your coming pregnancy.\n");
+							player.growTits(1, 1, false, 3);
+							displayedUpdate = true;
+						}
+						//Enlarge if really small!
+						if (player.biggestTitSize() == 1 && player.mostBreastsPerRow() > 1) {
+							outputText("\n<b>Your breasts have grown to B-cups,</b> likely due to the hormonal changes of your pregnancy.\n");
+							player.growTits(1, 1, false, 3);
+							displayedUpdate = true;
+						}
+					}
+				}
 				//Anemone Pregnancy
 				if (player.pregnancyType == PregnancyStore.PREGNANCY_ANEMONE) {			
 					if (player.pregnancyIncubation == 240) {
@@ -1510,6 +1568,11 @@ package classes.Scenes
 				displayedUpdate = true;
 				getGame().highMountains.basiliskScene.basiliskBirth();
 			}
+			if (player.pregnancyType == PregnancyStore.PREGNANCY_COCKATRICE && player.pregnancyIncubation == 1) {
+				player.knockUpForce(); //Clear Pregnancy
+				displayedUpdate = true;
+				getGame().highMountains.cockatriceScene.cockatriceBirth();
+			}
 			//Satyr vag preg
 			if (player.pregnancyType == PregnancyStore.PREGNANCY_SATYR && player.pregnancyIncubation == 1) {
 				player.knockUpForce(); //Clear Pregnancy
@@ -1632,7 +1695,7 @@ package classes.Scenes
 					if (player.cockTotal() > 1) outputText(", followed in short order by white squirts from " + player.sMultiCockDesc() + " remaining");
 					outputText(".  Your " + player.vaginaDescript(0) + " quivers and pulses as well, adding ");
 					if (player.vaginas[0].vaginalWetness < VaginaClass.WETNESS_SLICK) outputText("a trickle");
-					else if (player.vaginas[0].vaginalWetness < VaginaClass.WETNESS_SLAVERING) outputText("a squirt");
+ 					else if (player.vaginas[0].vaginalWetness < VaginaClass.WETNESS_SLAVERING) outputText("a squirt");
 					else outputText("nearly a cupful of fluid");
 					outputText(" from your female orgasm to the puddle on the ground below your ass.\n\n");
 					//(gain 1 nemo-dick, reduce lust to min)]
@@ -2050,8 +2113,8 @@ package classes.Scenes
 					else {
 						outputText("A sudden shift in the weight of your pregnant belly staggers you, dropping you to your knees.  You realize something is about to be birthed, and you shed your " + player.armorName + " before it can be ruined by what's coming.  A contraction pushes violently through your midsection, ");
 						if (player.vaginas[0].vaginalLooseness < VaginaClass.LOOSENESS_LOOSE) outputText("stretching your tight cunt painfully, the lips opening wide ");
-						if (player.vaginas[0].vaginalLooseness >= VaginaClass.LOOSENESS_LOOSE && player.vaginas[0].vaginalLooseness <= VaginaClass.LOOSENESS_GAPING_WIDE) outputText("temporarily stretching your cunt-lips wide-open ");
-						if (player.vaginas[0].vaginalLooseness > VaginaClass.LOOSENESS_GAPING_WIDE) outputText("parting your already gaping lips wide ");
+ 						if (player.vaginas[0].vaginalLooseness >= VaginaClass.LOOSENESS_LOOSE && player.vaginas[0].vaginalLooseness <= VaginaClass.LOOSENESS_GAPING_WIDE) outputText("temporarily stretching your cunt-lips wide-open ");
+ 						if (player.vaginas[0].vaginalLooseness > VaginaClass.LOOSENESS_GAPING_WIDE) outputText("parting your already gaping lips wide ");
 						outputText("as something begins sliding down your passage.  A burst of green slime soaks the ground below as the birthing begins in earnest, and the rounded surface of a strangely colored egg peaks between your lips.  You push hard and the large egg pops free at last, making you sigh with relief as it drops into the pool of slime.  The experience definitely turns you on, and you feel your clit growing free of its hood as another big egg starts working its way down your birth canal, rubbing your sensitive vaginal walls pleasurably.   You pant and moan as the contractions stretch you tightly around the next, slowly forcing it out between your nether-lips.  The sound of a gasp startles you as it pops free, until you realize it was your own voice responding to the sudden pressure and pleasure.  Aroused beyond reasonable measure, you begin to masturbate ");
 						if (player.getClitLength() > 5) outputText("your massive cock-like clit, jacking it off with the slimy birthing fluids as lube.   It pulses and twitches in time with your heartbeats, its sensitive surface overloading your fragile mind with pleasure.  ");
 						if (player.getClitLength() > 2 && player.getClitLength() <= 5) outputText("your large clit like a tiny cock, stroking it up and down between your slime-lubed thumb and fore-finger.  It twitches and pulses with your heartbeats, the incredible sensitivity of it overloading your fragile mind with waves of pleasure.  ");
