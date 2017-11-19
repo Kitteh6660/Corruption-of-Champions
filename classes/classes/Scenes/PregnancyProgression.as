@@ -730,7 +730,6 @@ package classes.Scenes
 						displayedUpdate = true;				
 					}
 					if (player.pregnancyIncubation == 180) {
-						outputText(images.showImage("spidermorph-male-loss-vag"));
 						outputText("\n<b>A hot flush works its way through you, and visions of aroused ");
 						if (player.pregnancyType == PregnancyStore.PREGNANCY_SPIDER) outputText("spider-morphs ");
 						else outputText("driders ");
@@ -1364,7 +1363,6 @@ package classes.Scenes
 						displayedUpdate = true;
 					}
 					if (player.buttPregnancyIncubation == 180) {
-						outputText(images.showImage("cDrider-loss-butt"));
 						outputText("\n<b>A hot flush works its way through you, and visions of aroused driders quickly come to dominate your thoughts.  You start playing with a nipple while you lose yourself in the fantasy, imagining being tied up in webs and packed completely full of eggs, stuffing your belly completely with burgeoning spheres of love.  You shake free of the fantasy and notice your hands rubbing over your slightly bloated belly.  Perhaps it wouldn't be so bad?</b>\n");
 						dynStats("lib", 1, "sen", 1, "lus", 20);
 						displayedUpdate = true;				
