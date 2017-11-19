@@ -42,6 +42,7 @@ package classes.Scenes.Places
 		//[Exploring the Lake]
 		public function discoverAmilyVillage():void {
 			clearOutput();
+			outputText(images.showImage("location-townruins-path"));
 			outputText("As you roam the shores of the lake, you find your footsteps echoing as though you were stepping on wood rather than squishing in the sandy mud of the shore. Curious, you squat down and brush the soil away, revealing the rotting form of a wooden plank. Looking carefully at the ground underfoot, you realize that it is part of a pathway - the kind that villages make to provide easier access to and from muddy rivers, lakes and beaches. You believe you can make out the rest of the path clearly enough to follow it to its end.\n\n");
 			outputText("Do you follow the pathway?");
 			//Yes / No
@@ -51,6 +52,7 @@ package classes.Scenes.Places
 		//[No]
 		private function dontExploreAmilyVillage():void {
 			clearOutput();
+			outputText(images.showImage("location-townruins-path"));
 			outputText("Standing up, you turn and walk away. You presume from the state of the pathway that the village at the other end must either be in dire straits, abandoned, or overwhelmed by demons. In other words, it's no safe place for a traveler like you.\n\n");
 			doNext(camp.returnToCampUseOneHour);
 		}
@@ -58,7 +60,9 @@ package classes.Scenes.Places
 		//[Yes]
 		private function exploreAmilyVillage():void {
 			clearOutput();
-			outputText("You follow the overgrown path inland, away from the shore of the lake. You pass through thick trees, struggling not to lose the path, before finally reaching what is clearly the end.  In front of you lie crumbling walls, broken and scattered by the wind and rain... and by other forces entirely. Beyond them are houses that have been torn apart, burned or collapsed. This was clearly once a village, but it was devastated at some point in the past. Demon attack is the first possibility that leaps into your mind. You examine the ruins for a time, and then decide to head back to camp. You don't think it would be wise to investigate here without preparing first.\n\n");
+			outputText(images.showImage("location-townruins"));
+			outputText("You follow the overgrown path inland, away from the shore of the lake. You pass through thick trees, struggling not to lose the path, before finally reaching what is clearly the end.  In front of you lie crumbling walls, broken and scattered by the wind and rain... and by other forces entirely. Beyond them are houses that have been torn apart, burned or collapsed. This was clearly once a village, but it was devastated at some point in the past. Demon attack is the first possibility that leaps into your mind. You examine the ruins for a time, and then decide to head back to camp.\n\n");
+			outputText("You don't think it would be wise to investigate here without preparing first.\n\n");
 			outputText("(<b>\"TownRuins\" added to Places menu.</b>)");
 			//set village unlock flag
 			flags[kFLAGS.AMILY_VILLAGE_ACCESSIBLE] = 1;
@@ -112,6 +116,7 @@ package classes.Scenes.Places
 			if (player.hasKeyItem("Equipment Rack - Weapons") < 0) rackArray[rackArray.length] = 1;
 			if (player.hasKeyItem("Equipment Rack - Shields") < 0) rackArray[rackArray.length] = 2;
 			rack = rackArray[rand(rackArray.length)];
+			outputText(images.showImage("item-rack"));
 			outputText("While picking through the ruined houses and abandoned structures of this dilapidated village, you manage to find something useful!  There's an intact but empty ");
 			switch(rack) {
 				case 0:
@@ -161,6 +166,7 @@ package classes.Scenes.Places
 		// SCAVENGING
 		//------------
 		private function scavengeTownRuinsOption():void {
+			clearOutput();
 			outputText(images.showImage("location-townruins"));
 			if (flags[kFLAGS.TOWN_RUINS_SCAVENGE_CONSIDERED] == 0) {
 				outputText("Even though the village is in ruins, there are plenty of resources to salvage; wood, stones, and nails are all there for you to haul. You contemplate which structure you should focus on salvaging for resources to bring to your camp.");
@@ -195,6 +201,7 @@ package classes.Scenes.Places
 		
 		private function dismantleHouse():void {
 			clearOutput();
+			outputText(images.showImage("location-townruins-house"));
 			outputText("A house seems like a good start. You walk over to one of the ruined houses and enter to check for any furniture to be removed.");
 			if (flags[kFLAGS.TOWN_RUINS_HOUSE_FURNITURE_FOUND] == 0 && flags[kFLAGS.TOWN_RUINS_HOUSE_SCAVENGE_PROGRESS] == 0 && rand(100) < 80) findFurniture("house");
 			dismantleMainText(kFLAGS.TOWN_RUINS_HOUSE_SCAVENGE_PROGRESS, "house");
@@ -202,6 +209,7 @@ package classes.Scenes.Places
 		
 		private function dismantleTownHall():void {
 			clearOutput();
+			outputText(images.showImage("location-townruins-hall"));
 			outputText("Your eyes land on the remains of the town hall.  Of all the broken down structures, this is the largest and it definitely might yield something of use. You enter the town hall and check for any furniture to be removed.");
 			if (flags[kFLAGS.TOWN_RUINS_TOWNHALL_FURNITURE_FOUND] == 0 && flags[kFLAGS.TOWN_RUINS_TOWNHALL_SCAVENGE_PROGRESS] == 0) findFurniture("town hall");
 			dismantleMainText(kFLAGS.TOWN_RUINS_TOWNHALL_SCAVENGE_PROGRESS, "town hall");
@@ -209,6 +217,7 @@ package classes.Scenes.Places
 		
 		private function dismantleShop():void {
 			clearOutput();
+			outputText(images.showImage("location-townruins-shop"));
 			outputText("Your eyes are drawn to what was once a shop from the look of its vandalized sign. Who knows what might be inside? You enter the ruined shop and check for anything to be removed.");
 			if (flags[kFLAGS.TOWN_RUINS_TOWNHALL_FURNITURE_FOUND] == 0 && flags[kFLAGS.TOWN_RUINS_TOWNHALL_SCAVENGE_PROGRESS] == 0) findFurniture("shop");
 			dismantleMainText(kFLAGS.TOWN_RUINS_SHOP_SCAVENGE_PROGRESS, "shop");
