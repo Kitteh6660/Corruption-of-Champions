@@ -2030,9 +2030,9 @@ private function ascendForReal():void {
 	//Scene GO!
 	clearOutput();
 	if (marbleFollower() && flags[kFLAGS.MARBLE_KIDS] > 7) outputText(images.showImage("camp-ascending-marble"));
+	else if (flags[kFLAGS.SOPHIE_ADULT_KID_COUNT] > 7) outputText(images.showImage("camp-ascending-sophie"));
 	else if (urtaPregs.urtaKids() > 7) outputText(images.showImage("camp-ascending-urta"));
 	else if (player.cor >= 75) outputText(images.showImage("camp-ascending-corrupt"));
-	else if (flags[kFLAGS.SOPHIE_ADULT_KID_COUNT] > 7) outputText(images.showImage("camp-ascending-sophie"));
 	else if (flags[kFLAGS.MET_OTTERGIRL] >= 12 && player.hasCock()) outputText(images.showImage("camp-ascending-callu"));
 	else outputText(images.showImage("camp-watch-stars"));
 	outputText("It's time for you to ascend. You walk to the center of the camp, announce that you're going to ascend to a higher plane of existence, and lay down. ");
