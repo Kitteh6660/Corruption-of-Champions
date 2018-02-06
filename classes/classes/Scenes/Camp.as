@@ -12,24 +12,13 @@ package classes.Scenes {
 	import classes.lists.Gender;
 	import coc.view.MainView;
 
-
 	public class Camp extends NPCAwareContent {
 
-		protected function set timeQ(value:Number):void {
-			kGAMECLASS.timeQ = value;
-		}
-		private function get campQ():Boolean {
-			return kGAMECLASS.campQ;
-		}
-		private function set campQ(value:Boolean):void {
-			kGAMECLASS.campQ = value;
-		}
-		protected function hasItemInStorage(itype:ItemType):Boolean {
-			return kGAMECLASS.inventory.hasItemInStorage(itype);
-		}
-		public function Camp(campInitialize:Function) {
-			campInitialize(doCamp); //Pass the doCamp function up to CoC. This way doCamp is private but the CoC class itself can call it.
-		}
+		protected function set timeQ(value:Number):void { kGAMECLASS.timeQ = value; }
+		private function get campQ():Boolean { return kGAMECLASS.campQ; }
+		private function set campQ(value:Boolean):void { kGAMECLASS.campQ = value; }
+		protected function hasItemInStorage(itype:ItemType):Boolean { return kGAMECLASS.inventory.hasItemInStorage(itype); }
+		public function Camp(campInitialize:Function) { campInitialize(doCamp); } //Pass the doCamp function up to CoC. This way doCamp is private but the CoC class itself can call it
 
 		public var cabinProgress:CabinProgress = new CabinProgress();
 		public var codex:Codex = new Codex();
@@ -493,7 +482,6 @@ private function doCamp():void { //Only called by playerMenu
 	updateAchievements();
 	if (flags[kFLAGS.CAMP_BUILT_CABIN] > 0) outputText(images.showImage("camp-cabin"));
 	else outputText(images.showImage("camp-tent"));
-
 	//Isabella upgrades camp level!
 	if (isabellaFollower()) outputText("Your campsite got a lot more comfortable once Isabella moved in.  Carpets cover up much of the barren ground, simple awnings tied to the rocks provide shade, and hand-made wooden furniture provides comfortable places to sit and sleep.  ");
 	else { //Live in-ness
@@ -507,7 +495,6 @@ private function doCamp():void { //Only called by playerMenu
 			outputText("set up perfectly, and in good repair.  ");
 		}
 	}
-
 	if (getGame().time.days >= 20) outputText("You've even managed to carve some artwork into the rocks around the camp's perimeter.\n\n");
 	if (flags[kFLAGS.CAMP_CABIN_PROGRESS] == 7) outputText("There's an unfinished wooden structure. As of right now, it's just frames nailed together.\n\n")
 	if (flags[kFLAGS.CAMP_CABIN_PROGRESS] == 8) outputText("There's an unfinished cabin. It's currently missing windows and door.\n\n")
@@ -569,8 +556,7 @@ private function doCamp():void { //Only called by playerMenu
 	else outputText("You have a number of traps surrounding your makeshift home, but they are fairly simple and may not do much to deter a demon.  ");
 	outputText("The portal shimmers in the background as it always does, looking menacing and reminding you of why you came.");
 	if (flags[kFLAGS.ANT_KIDS] > 1000) outputText(" Really close to it there is a small entrance to the underground maze created by your ant children. And due to Phylla wish from time to time one of your children coming out this entrance to check on the situation near portal. You feel a little more safe now knowing that it will be harder for anyone to go near the portal without been noticed or...if someone came out of the portal.");
-	outputText("\n\n");
-
+	outputText("\n");
 	//Ember's anti-minotaur crusade!
 	if (flags[kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM] == 1) {
 		//Modified Camp Description
@@ -578,17 +564,13 @@ private function doCamp():void { //Only called by playerMenu
 	}
 	//Dat tree!
 	if (flags[kFLAGS.FUCK_FLOWER_LEVEL] >= 4 && flags[kFLAGS.FUCK_FLOWER_KILLED] == 0) outputText("On the outer edges, half-hidden behind a rock, is a large, very healthy tree.  It grew fairly fast, but seems to be fully developed now.  Holli, Marae's corrupt spawn, lives within.\n\n");
-
 	campFollowers(true); //Display NPCs
-
 	if (amilyScene.amilyFollower() && flags[kFLAGS.AMILY_FOLLOWER] == 1) { //MOUSEBITCH
 		if (flags[kFLAGS.FUCK_FLOWER_LEVEL] >= 4 && flags[kFLAGS.FUCK_FLOWER_KILLED] == 0) outputText("Amily has relocated her grass bedding to the opposite side of the camp from the strange tree; every now and then, she gives it a suspicious glance, as if deciding whether to move even further.\n\n");
 		else outputText("A surprisingly tidy nest of soft grasses and sweet-smelling herbs has been built close to your " + (flags[kFLAGS.CAMP_BUILT_CABIN] > 0 ? "cabin": "bedroll") + ". A much-patched blanket draped neatly over the top is further proof that Amily sleeps here. She changes the bedding every few days, to ensure it stays as nice as possible.\n\n");
 	}
-
 	campLoversMenu(true);
 	campSlavesMenu(true);
-
 	if (flags[kFLAGS.HUNGER_ENABLED] > 0 && player.hunger < 25) { //Hunger check!
 		outputText("<b>You have to eat something; your stomach is growling " + (player.hunger < 1 ? "painfully": "loudly") + ". </b>");
 		if (player.hunger < 10) outputText("<b>You are getting thinner and you're losing muscles. </b>");
@@ -643,7 +625,7 @@ private function doCamp():void { //Only called by playerMenu
 	}
 	//Weather!
 
-	//Unlock cabin.
+	//Unlock cabin
 	if (flags[kFLAGS.CAMP_CABIN_PROGRESS] <= 0 && getGame().time.days >= 14) {
 		flags[kFLAGS.CAMP_CABIN_PROGRESS] = 1;
 		clearOutput();
