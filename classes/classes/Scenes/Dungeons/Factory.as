@@ -27,7 +27,7 @@ package classes.Scenes.Dungeons {
 		public function Factory() {}
 
 		public var secretarialSuccubus:SecretarialSuccubusScene = new SecretarialSuccubusScene();
-		//Incubus Mechanic would be in this line but this is in D3.
+		//Incubus Mechanic would be in this line but this is in Lethice Dungeon
 		public var omnibusOverseer:OmnibusOverseerScene = new OmnibusOverseerScene();
 		//EVENTS
 		public function enterDungeon():void {
@@ -243,7 +243,7 @@ package classes.Scenes.Dungeons {
 					player.addStatusValue(StatusEffects.TensionReleased,1,1);
 					player.slimeFeed();
 				}
-				else {
+				else { //3rd time, move on to bad end!
 					doBadEndTension();
 					return
 				}
