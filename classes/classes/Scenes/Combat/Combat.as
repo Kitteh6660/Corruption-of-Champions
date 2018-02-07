@@ -1747,7 +1747,7 @@ public class Combat extends BaseContent
 			//Flag the game as being "in combat"
 			inCombat = true;
 			monster = monster_;
-			mainView.monsterStatsView.show();
+			mainView.monsterStatsView.show(monster.generateTooltip(),"Details");
 			mainView.updateCombatView();
 			//Set image once, at the beginning of combat
 			if (monster.imageName != "")
