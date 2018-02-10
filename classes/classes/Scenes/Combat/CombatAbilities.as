@@ -2011,8 +2011,9 @@ package classes.Scenes.Combat
 			else {
 				if(!monster.plural) outputText(" Twirling like a top, you bat your opponent with your tail.");
 				else outputText(" Twirling like a top, you bat your opponents with your tail.");
-				var damage:Number = int((player.str) - rand(monster.tou) - monster.armorDef);
+				var damage:Number = int(10 + (player.inte / 3 + rand(player.inte / 2)) * 0.6 * player.spellMod());
 				damage = calcInfernoMod(damage);
+				damage += int((player.str) - rand(monster.tou) - monster.armorDef);
 				damage = combat.doDamage(damage);
 				outputText("  Your tail slams against " + monster.a + monster.short + ", dealing <b><font color=\"#800000\">" + damage + "</font></b> damage! ");
 				combat.checkAchievementDamage(damage);
