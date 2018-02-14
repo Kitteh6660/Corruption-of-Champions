@@ -1,6 +1,6 @@
 #!/bin/sh
 FLEX_VERSION='4.16.1'
-PLAYER_VERSION_MAJOR='27'
+PLAYER_VERSION_MAJOR='28'
 PLAYER_VERSION_MINOR='0'
 PLAYER_VERSION="$PLAYER_VERSION_MAJOR.$PLAYER_VERSION_MINOR"
 
@@ -21,12 +21,12 @@ ant -f installer.xml -Dflash.donot.ask=true -Dair.donot.ask=true -Dfontswf.donot
 
 FLEX_MIN_VERSION=$(grep -Po "(?<=<target-player>)(\d*\.\d*)(?=</target-player>)" frameworks/flex-config.xml)
 
-if [ "$FLEX_MIN_VERSION" != "$PLAYER_VERSION" ]
-then
-	echo "Player version mismatch! Flex SDK min version: $FLEX_MIN_VERSION, script player version: $PLAYER_VERSION"
-	echo "Update the PLAYER_VERSION_* variables in devTools/ci/setup-flex.sh to match $FLEX_MIN_VERSION"
-	exit 1
-fi
+#if [ "$FLEX_MIN_VERSION" != "$PLAYER_VERSION" ]
+#then
+#	echo "Player version mismatch! Flex SDK min version: $FLEX_MIN_VERSION, script player version: $PLAYER_VERSION"
+#	echo "Update the PLAYER_VERSION_* variables in devTools/ci/setup-flex.sh to match $FLEX_MIN_VERSION"
+#	exit 1
+#fi
 
 echo "Creating $GLOBAL_PLAYER_DIR"
 mkdir -vp $GLOBAL_PLAYER_DIR
