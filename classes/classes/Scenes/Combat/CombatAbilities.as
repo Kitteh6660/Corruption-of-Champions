@@ -2055,14 +2055,17 @@ package classes.Scenes.Combat
 		public var physicalAbilities:Vector.<CombatAbility> = new Vector.<CombatAbility>;
 		public var magicAbilities:Vector.<CombatAbility> = new Vector.<CombatAbility>;
 		
-		public function updateCooldowns():void{
-			for each(var ability:CombatAbility in magicSpells){
+		public function updateCooldowns():void
+		{
+			var ability:CombatAbility;
+
+			for each (ability in magicSpells) {
 				if ((ability.currCooldown < ability.cooldown) && ability.cooldown != 0) ability.currCooldown += 1;
 			}
-			for each(var ability:CombatAbility in physicalAbilities){
+			for each (ability in physicalAbilities) {
 				if ((ability.currCooldown < ability.cooldown) && ability.cooldown != 0) ability.currCooldown += 1;
 			}
-			for each(var ability:CombatAbility in magicAbilities){
+			for each (ability in magicAbilities) {
 				if ((ability.currCooldown < ability.cooldown) && ability.cooldown != 0) ability.currCooldown += 1;
 			}
 		}
