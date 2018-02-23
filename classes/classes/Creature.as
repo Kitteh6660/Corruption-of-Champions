@@ -31,7 +31,7 @@ package classes
 	import classes.StatusEffects.Combat.CombatStrBuff;
 	import classes.StatusEffects.Combat.CombatTouBuff;
 	import classes.VaginaClass;
-	import classes.internals.IRandomNumber;
+	import classes.internals.RandomNumberGenerator;
 	import classes.internals.LoggerFactory;
 	import classes.internals.Utils;
 	import classes.internals.profiling.Begin;
@@ -66,14 +66,14 @@ package classes
 		 * Normally creatures do not need a unique RNG,
 		 * so to avoid unnecessary memory usage they use the default instance.
 		 */
-		private var _rng:IRandomNumber = Utils.DEFAULT_RNG;
+		private var _rng:RandomNumberGenerator = Utils.DEFAULT_RNG;
 		
 		/**
 		 * Set the RNG this class uses. Intended for testing.
 		 * @param	rng to use for random numbers
 		 * @return the RNG that was set
 		 */
-		public function set rng(rng:IRandomNumber):void {
+		public function set rng(rng:RandomNumberGenerator):void {
 			if (rng === null) {
 				throw new ArgumentError("RNG cannot be null");
 			}
@@ -85,7 +85,7 @@ package classes
 		 * Get the RNG this class uses. Intended for testing.
 		 * @return the RNG used
 		 */
-		public function get rng():IRandomNumber {
+		public function get rng():RandomNumberGenerator {
 			return this._rng;
 		}
 		
@@ -2576,6 +2576,37 @@ package classes
 					breastRows.splice(arraySpot, totalRemoved);
 					//trace("Attempted to remove " + totalRemoved + " breastRows.");
 				}
+			}
+		}
+		
+		/**
+		 * Removes all gender releated parts: cocks, vaginas, breasts and balls.
+		 */
+		public function clearGender(): void {
+			LOGGER.info("Clearing gender...");
+			
+			LOGGER.debug("Removing balls");
+			balls = 0;
+			
+			while (hasCock()) {
+				LOGGER.debug("Removing cock {0}", cocks[0]);
+				removeCock(0, 1);
+			}
+			
+			while (hasVagina()) {
+				LOGGER.debug("Removing vagina {0}", vaginas[0]);
+				removeVagina(0, 1);
+			}
+			
+			// hasBreasts can currently not be used, as creatures must have at least one breast row
+			while (breastRows.length > 1) {
+				LOGGER.debug("Removing breast {0}", breastRows[0]);
+				removeBreastRow(0, 1);
+			}
+			
+			if (hasBreasts()) {
+				LOGGER.debug("Setting breast row {0}, size to flat (size 0)", breastRows[0]);
+				breastRows[0].breastRating = 0;
 			}
 		}
 		
