@@ -240,6 +240,7 @@ public class Combat extends BaseContent
 			mainView.hideMenuButton(MainView.MENU_PERKS);
 			hideUpDown();
 			if (newRound) combatStatusesUpdate(); //Update Combat Statuses
+			if (newRound) combatAbilities.updateCooldowns();
 			display();
 			statScreenRefresh();
 		//This is now automatic - newRound arg defaults to true:	menuLoc = 0;
@@ -1755,8 +1756,9 @@ public class Combat extends BaseContent
 			//Flag the game as being "in combat"
 			inCombat = true;
 			monster = monster_;
-			mainView.monsterStatsView.show();
+			mainView.monsterStatsView.show(monster.generateTooltip(),"Details");
 			mainView.updateCombatView();
+			combatAbilities.setSpells();
 			//Set image once, at the beginning of combat
 			if (monster.imageName != "")
 			{
