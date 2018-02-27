@@ -779,8 +779,8 @@
 			}
 			return desc;
 		}
-
-		public function race():String
+		
+		override public function get race():String
 		{
 			//Determine race type:
 			var race:String = "human";
@@ -3356,6 +3356,19 @@
 
 			if (underBodyProps != null)
 				underBody.setProps(underBodyProps);
+		}
+		
+		override public function set HP(value:Number):void {
+			super.HP = value;
+			game.mainView.statsView.refreshStats(game);
+		}
+		override public function set lust(value:Number):void {
+			super.lust = value;
+			game.mainView.statsView.refreshStats(game);
+		}
+		override public function set fatigue(value:Number):void {
+			super.fatigue = value;
+			game.mainView.statsView.refreshStats(game);
 		}
 	}
 }
