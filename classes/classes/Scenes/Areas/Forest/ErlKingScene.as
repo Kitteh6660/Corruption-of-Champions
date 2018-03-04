@@ -24,11 +24,12 @@ public class ErlKingScene extends BaseContent implements Encounter {
 		}
 
 		public function playerHuntScore():int {
-			//trace("Calculating Wild Hunt score.");
-			//trace("Int + Spd = " + String(player.inte + player.spe));
+		//	trace("Calculating Wild Hunt score.");
+		//	trace("Int + Spd = " + String(player.inte + player.spe));
 			var baseVal:int = (player.inte + player.spe) - (player.fatigue - player.maxFatigue() + 100) * 2;
-			//trace("Base = " + baseVal);
-			/*Conditional modifiers: +20 for Evade
+		//	trace("Base = " + baseVal);
+			/*
+			Conditional modifiers: +20 for Evade
                     +20 for Runner
 					+20 for Drider Half
 					+30 Enlightened/Corrupted Ninetails
@@ -40,75 +41,76 @@ public class ErlKingScene extends BaseContent implements Encounter {
 					-20 for Rabbit traits
 					-20 for Harpy traits
 					-10 for Goo Half
-					-10 for Centaur Half*/
+					-10 for Centaur Half
+			*/
 			if (player.findPerk(PerkLib.Evade) >= 0) {
 				baseVal += 20;
-				//trace("+20 for Evade");
+			//	trace("+20 for Evade");
 			}
 			if (player.findPerk(PerkLib.Runner) >= 0) {
 				baseVal += 20;
-				//trace("+20 for Runner");
+			//	trace("+20 for Runner");
 			}
 			if (player.hasPerk(PerkLib.Unhindered) && (player.armor == classes.Items.ArmorLib.NOTHING || player.armor.perk == "Adornment")) {
 				baseVal += 20;
-				//trace("+20 for Unhindered");
+			//	trace("+20 for Unhindered");
 			}
 			if (player.isDrider()) {
 				baseVal += 20;
-				//trace("+20 for Drider");
+			//	trace("+20 for Drider");
 			}
 			if (player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
 				baseVal += 30;
-				//trace("+30 For Ninetails");
+			//	trace("+30 For Ninetails");
 			}
 			if (player.findPerk(PerkLib.EnlightenedNinetails) >= 0) {
 				baseVal += 30;
-				//trace("+30 for Ninetails");
+			//	trace("+30 for Ninetails");
 			}
 			//Akbal Blessings
 			if (player.findPerk(PerkLib.FireLord) >= 0) {
 				baseVal += 10;
-				//trace("+10 for Firelord");
+			//	trace("+10 for Firelord");
 			}
 			if (player.findPerk(PerkLib.Whispered) >= 0) {
 				baseVal += 10;
-				//trace("+10 for Whispered");
+			//	trace("+10 for Whispered");
 			}
 			if (player.findPerk(PerkLib.Fast) >= 0) {
 				baseVal += 10;
-				//trace("+10 for Fast");
+			//	trace("+10 for Fast");
 			}
 			if (player.findPerk(PerkLib.Incorporeality) >= 0) {
 				baseVal += 10;
-				//trace("+10 for Incorporeal");
+			//	trace("+10 for Incorporeal");
 			}
 			if (player.canFly()) {
 				baseVal += 10;
-				//trace("+10 for Flight");
+			//	trace("+10 for Flight");
 			}
 			//Heavy penalty for prey features. The penalty is applied PER FEATURE
 			if (player.kitsuneScore() > 0) {
 				baseVal -= (player.kitsuneScore() * 20);
-				//trace("-20 for each Kitsune part (-" + String(player.kitsuneScore() * 20) + ")");
+			//	trace("-20 for each Kitsune part (-" + String(player.kitsuneScore() * 20) + ")");
 			}
 			if (player.bunnyScore() > 0) {
 				baseVal -= (player.bunnyScore() * 20);
-				//trace("-20 for each Bunny part (-" + String(player.bunnyScore() * 20) + ")");
+			//	trace("-20 for each Bunny part (-" + String(player.bunnyScore() * 20) + ")");
 			}
 			if (player.harpyScore() > 0) {
 				baseVal -= (player.harpyScore() * 20);
-				//trace("-20 for each Harpy part (-" + String(player.harpyScore() * 20) + ")");
+			//	trace("-20 for each Harpy part (-" + String(player.harpyScore() * 20) + ")");
 			}
 			if (player.gooScore() > 0) {
 				baseVal -= (player.gooScore() * 10);
-				//trace("-10 for each Goo part (-" + String(player.gooScore() * 10) + ")");
+			//	trace("-10 for each Goo part (-" + String(player.gooScore() * 10) + ")");
 			}
 			if (player.isTaur()) {
 				baseVal -= 10
-				//trace("-10 for Taur");
+			//	trace("-10 for Taur");
 			}
 			if (baseVal < 0) baseVal = 0;
-			//if (debug) outputText("DEBUG: Wild Hunt Points = " + baseVal);
+		//	if (debug) outputText("DEBUG: Wild Hunt Points = " + baseVal);
 			return baseVal;
 		}
 
@@ -670,7 +672,11 @@ public class ErlKingScene extends BaseContent implements Encounter {
 			else if (player.cocks[x].cockType == CockTypesEnum.HUMAN) outputText(images.showImage("wildhunt-princess-anally-human"));
 			else if (player.cocks[x].cockType == CockTypesEnum.RHINO) outputText(images.showImage("wildhunt-princess-anally-rhino"));
 			else if (player.cocks[x].cockType == CockTypesEnum.CAT) outputText(images.showImage("wildhunt-princess-anally-feline"));
-			else if (player.cocks[x].cockType == CockTypesEnum.WOLF || player.cocks[x].cockType == CockTypesEnum.DOG || player.cocks[x].cockType == CockTypesEnum.FOX) outputText(images.showImage("wildhunt-princess-anally-canine"));
+			else if (player.cocks[x].cockType == CockTypesEnum.DOG) outputText(images.showImage("wildhunt-princess-anally-canine"));
+			else if (player.cocks[x].cockType == CockTypesEnum.WOLF) {
+				if (player.hasVagina()) outputText(images.showImage("wildhunt-princess-anally-wolf-herm"));
+				else outputText(images.showImage("wildhunt-princess-anally-wolf-male"));
+			}
 			else outputText(images.showImage("wildhunt-princess-anally"));
 			outputText("“<i>Oh Master, yes!  Fuck my lovely cunt!</i>” she moans as you bury yourself inside her.  Her hole twitches and tightens, and you realize you needn’t have worried.  As you begin thrusting in and out of her, her hole begins squeezing tighter and tighter around your cock.  Her ass milks your dick as you plunge deep inside her and draw out.\n\n");
 			outputText("She moans and purrs, eyes rolled back and tongue hanging out as you have your way with her.  When you finally cum, her pink-and-white cock spills out her own load, strangely raspberry-scented, onto the forest floor.  Her hole doesn’t stop squeezing you, and continues to milk you until you’re completely spent.\n\n");
