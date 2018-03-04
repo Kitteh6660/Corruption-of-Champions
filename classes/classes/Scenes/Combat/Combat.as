@@ -1,25 +1,25 @@
 ﻿//Combat 2.0
 package classes.Scenes.Combat 
 {
-import classes.*;
-import classes.BodyParts.*;
-import classes.GlobalFlags.*;
-import classes.Items.*;
-import classes.Scenes.Areas.Desert.*;
-import classes.Scenes.Areas.Forest.*;
-import classes.Scenes.Areas.GlacialRift.*;
-import classes.Scenes.Areas.HighMountains.*;
-import classes.Scenes.Areas.Mountain.*;
-import classes.Scenes.Dungeons.HelDungeon.*;
-import classes.Scenes.Dungeons.LethicesKeep.*;
-import classes.Scenes.Monsters.*;
-import classes.Scenes.NPCs.*;
-import classes.Scenes.Places.TelAdre.UmasShop;
-import classes.display.SpriteDb;
+	import classes.*;
+	import classes.BodyParts.*;
+	import classes.GlobalFlags.*;
+	import classes.Items.*;
+	import classes.Scenes.Areas.Desert.*;
+	import classes.Scenes.Areas.Forest.*;
+	import classes.Scenes.Areas.GlacialRift.*;
+	import classes.Scenes.Areas.HighMountains.*;
+	import classes.Scenes.Areas.Mountain.*;
+	import classes.Scenes.Dungeons.HelDungeon.*;
+	import classes.Scenes.Dungeons.LethicesKeep.*;
+	import classes.Scenes.Monsters.*;
+	import classes.Scenes.NPCs.*;
+	import classes.Scenes.Places.TelAdre.UmasShop;
+	import classes.display.SpriteDb;
 
-import coc.view.MainView;
+	import coc.view.MainView;
 
-public class Combat extends BaseContent
+	public class Combat extends BaseContent
 	{
 		public function Combat() {}
 		
@@ -748,7 +748,7 @@ public class Combat extends BaseContent
 				//basilisk counter attack (block attack, significant speed loss): 
 				else if (player.inte / 5 + rand(20) < 25) {
 					outputText("Holding the basilisk in your peripheral vision, you charge forward to strike it.  Before the moment of impact, the reptile shifts its posture, dodging and flowing backward skillfully with your movements, trying to make eye contact with you. You find yourself staring directly into the basilisk's face!  Quickly you snap your eyes shut and recoil backwards, swinging madly at the lizard to force it back, but the damage has been done; you can see the terrible grey eyes behind your closed lids, and you feel a great weight settle on your bones as it becomes harder to move.");
-					Basilisk.speedReduce(player,20);
+					StareMonster.speedReduce(player,20);
 					player.removeStatusEffect(StatusEffects.FirstAttack);
 					combatRoundOver();
 					flags[kFLAGS.BASILISK_RESISTANCE_TRACKER] += 2;
@@ -1474,7 +1474,7 @@ public class Combat extends BaseContent
 			}
 			//Basilisk compulsion
 			if (player.hasStatusEffect(StatusEffects.BasiliskCompulsion)) {
-				Basilisk.speedReduce(player,15);
+				StareMonster.speedReduce(player,15);
 				//Continuing effect text: 
 				outputText("<b>You still feel the spell of those grey eyes, making your movements slow and difficult, the remembered words tempting you to look into its eyes again. You need to finish this fight as fast as your heavy limbs will allow.</b>\n\n");
 				flags[kFLAGS.BASILISK_RESISTANCE_TRACKER]++;
@@ -1726,7 +1726,7 @@ public class Combat extends BaseContent
 				if (player.armor == armors.GOOARMR) healingPercent += (getGame().valeria.valeriaFluidsEnabled() ? (flags[kFLAGS.VALERIA_FLUIDS] < 50 ? flags[kFLAGS.VALERIA_FLUIDS] / 25 : 2) : 2);
 				if (player.jewelry.effectId == JewelryLib.MODIFIER_REGENERATION) healingBonus += player.jewelry.effectMagnitude;
 				if (healingPercent > 5) healingPercent = 5;
-				HPChange(Math.round(player.maxHP() * healingPercent / 100) + healingBonus, false);
+				player.HPChange(Math.round(player.maxHP() * healingPercent / 100) + healingBonus, false);
 			}
 			else {
 				//Regeneration
@@ -1740,7 +1740,7 @@ public class Combat extends BaseContent
 				if (player.armorName == "goo armor") healingPercent += (getGame().valeria.valeriaFluidsEnabled() ? (flags[kFLAGS.VALERIA_FLUIDS] < 50 ? flags[kFLAGS.VALERIA_FLUIDS] / 16 : 3) : 3);
 				if (player.findPerk(PerkLib.LustyRegeneration) >= 0) healingPercent += 2;
 				if (healingPercent > 10) healingPercent = 10;
-				HPChange(Math.round(player.maxHP() * healingPercent / 100), false);
+				player.HPChange(Math.round(player.maxHP() * healingPercent / 100), false);
 			}
 		}
 		
@@ -2040,7 +2040,7 @@ public class Combat extends BaseContent
 					return true;
 				}
 			}
-			if (monster.short == "basilisk" && player.spe <= 1) {
+			if (monster is StareMonster && player.spe <= 1) {
 				doNext(endHpLoss);
 				return true;
 			}
