@@ -24,12 +24,11 @@ public class ErlKingScene extends BaseContent implements Encounter {
 		}
 
 		public function playerHuntScore():int {
-		//	trace("Calculating Wild Hunt score.");
-		//	trace("Int + Spd = " + String(player.inte + player.spe));
+			//trace("Calculating Wild Hunt score.");
+			//trace("Int + Spd = " + String(player.inte + player.spe));
 			var baseVal:int = (player.inte + player.spe) - (player.fatigue - player.maxFatigue() + 100) * 2;
-		//	trace("Base = " + baseVal);
-			/*
-			Conditional modifiers: +20 for Evade
+			//trace("Base = " + baseVal);
+			/*Conditional modifiers: +20 for Evade
                     +20 for Runner
 					+20 for Drider Half
 					+30 Enlightened/Corrupted Ninetails
@@ -41,76 +40,75 @@ public class ErlKingScene extends BaseContent implements Encounter {
 					-20 for Rabbit traits
 					-20 for Harpy traits
 					-10 for Goo Half
-					-10 for Centaur Half
-			*/
+					-10 for Centaur Half*/
 			if (player.findPerk(PerkLib.Evade) >= 0) {
 				baseVal += 20;
-			//	trace("+20 for Evade");
+				//trace("+20 for Evade");
 			}
 			if (player.findPerk(PerkLib.Runner) >= 0) {
 				baseVal += 20;
-			//	trace("+20 for Runner");
+				//trace("+20 for Runner");
 			}
 			if (player.hasPerk(PerkLib.Unhindered) && (player.armor == classes.Items.ArmorLib.NOTHING || player.armor.perk == "Adornment")) {
 				baseVal += 20;
-			//	trace("+20 for Unhindered");
+				//trace("+20 for Unhindered");
 			}
 			if (player.isDrider()) {
 				baseVal += 20;
-			//	trace("+20 for Drider");
+				//trace("+20 for Drider");
 			}
 			if (player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
 				baseVal += 30;
-			//	trace("+30 For Ninetails");
+				//trace("+30 For Ninetails");
 			}
 			if (player.findPerk(PerkLib.EnlightenedNinetails) >= 0) {
 				baseVal += 30;
-			//	trace("+30 for Ninetails");
+				//trace("+30 for Ninetails");
 			}
 			//Akbal Blessings
 			if (player.findPerk(PerkLib.FireLord) >= 0) {
 				baseVal += 10;
-			//	trace("+10 for Firelord");
+				//trace("+10 for Firelord");
 			}
 			if (player.findPerk(PerkLib.Whispered) >= 0) {
 				baseVal += 10;
-			//	trace("+10 for Whispered");
+				//trace("+10 for Whispered");
 			}
 			if (player.findPerk(PerkLib.Fast) >= 0) {
 				baseVal += 10;
-			//	trace("+10 for Fast");
+				//trace("+10 for Fast");
 			}
 			if (player.findPerk(PerkLib.Incorporeality) >= 0) {
 				baseVal += 10;
-			//	trace("+10 for Incorporeal");
+				//trace("+10 for Incorporeal");
 			}
 			if (player.canFly()) {
 				baseVal += 10;
-			//	trace("+10 for Flight");
+				//trace("+10 for Flight");
 			}
 			//Heavy penalty for prey features. The penalty is applied PER FEATURE
 			if (player.kitsuneScore() > 0) {
 				baseVal -= (player.kitsuneScore() * 20);
-			//	trace("-20 for each Kitsune part (-" + String(player.kitsuneScore() * 20) + ")");
+				//trace("-20 for each Kitsune part (-" + String(player.kitsuneScore() * 20) + ")");
 			}
 			if (player.bunnyScore() > 0) {
 				baseVal -= (player.bunnyScore() * 20);
-			//	trace("-20 for each Bunny part (-" + String(player.bunnyScore() * 20) + ")");
+				//trace("-20 for each Bunny part (-" + String(player.bunnyScore() * 20) + ")");
 			}
 			if (player.harpyScore() > 0) {
 				baseVal -= (player.harpyScore() * 20);
-			//	trace("-20 for each Harpy part (-" + String(player.harpyScore() * 20) + ")");
+				//trace("-20 for each Harpy part (-" + String(player.harpyScore() * 20) + ")");
 			}
 			if (player.gooScore() > 0) {
 				baseVal -= (player.gooScore() * 10);
-			//	trace("-10 for each Goo part (-" + String(player.gooScore() * 10) + ")");
+				//trace("-10 for each Goo part (-" + String(player.gooScore() * 10) + ")");
 			}
 			if (player.isTaur()) {
 				baseVal -= 10
-			//	trace("-10 for Taur");
+				//trace("-10 for Taur");
 			}
 			if (baseVal < 0) baseVal = 0;
-		//	if (debug) outputText("DEBUG: Wild Hunt Points = " + baseVal);
+			//if (debug) outputText("DEBUG: Wild Hunt Points = " + baseVal);
 			return baseVal;
 		}
 
@@ -280,20 +278,20 @@ public class ErlKingScene extends BaseContent implements Encounter {
 			else outputText(" chin");
 			outputText(", turning it toward his massive, slimy dog cock.  You get a brief glimpse of a crystal-clear bead of pre before the tip is forced between your lips.\n\n");
 			if (player.hasVagina()) {
-				if (player.tail.type == Tail.WOLF || player.tail.type == Tail.DOG || player.tail.type == Tail.FOX) outputText(images.showImage("wildhunt-catched-female-canine"));
+				if (player.dogScore() > 4 || player.wolfScore() > 4 || player.foxScore() > 4) outputText(images.showImage("wildhunt-catched-female-canine"));
 				else if (player.isGoo()) outputText(images.showImage("wildhunt-catched-female-goo"));
-				else if (player.tail.type == Tail.DRACONIC) outputText(images.showImage("wildhunt-catched-female-dragon"));
-				else if (player.tail.type == Tail.SHARK) outputText(images.showImage("wildhunt-catched-female-shark"));
-				else if (player.tail.type == Tail.HORSE) outputText(images.showImage("wildhunt-catched-female-horse"));
-				else if (player.tail.type == Tail.CAT) outputText(images.showImage("wildhunt-catched-female-feline"));
+				else if (player.dragonScore() > 4 || player.dragonneScore() > 4) outputText(images.showImage("wildhunt-catched-female-dragon"));
+				else if (player.sharkScore() > 4) outputText(images.showImage("wildhunt-catched-female-shark"));
+				else if (player.horseScore() > 4) outputText(images.showImage("wildhunt-catched-female-horse"));
+				else if (player.catScore() > 4) outputText(images.showImage("wildhunt-catched-female-feline"));
 				else outputText(images.showImage("wildhunt-catched-female"));
 			}
 			else {
-				if (player.tail.type == Tail.WOLF || player.tail.type == Tail.DOG || player.tail.type == Tail.FOX) outputText(images.showImage("wildhunt-catched-male-canine"));
-				else if (player.tail.type == Tail.DRACONIC) outputText(images.showImage("wildhunt-catched-male-dragon"));
-				else if (player.tail.type == Tail.SHARK) outputText(images.showImage("wildhunt-catched-male-shark"));
-				else if (player.tail.type == Tail.HORSE) outputText(images.showImage("wildhunt-catched-male-horse"));
-				else if (player.tail.type == Tail.CAT) outputText(images.showImage("wildhunt-catched-male-feline"));
+				if (player.dogScore() > 4 || player.wolfScore() > 4 || player.foxScore() > 4) outputText(images.showImage("wildhunt-catched-male-canine"));
+				else if (player.dragonScore() > 4 || player.dragonneScore() > 4) outputText(images.showImage("wildhunt-catched-male-dragon"));
+				else if (player.sharkScore() > 4) outputText(images.showImage("wildhunt-catched-male-shark"));
+				else if (player.horseScore() > 4) outputText(images.showImage("wildhunt-catched-male-horse"));
+				else if (player.catScore() > 4) outputText(images.showImage("wildhunt-catched-male-feline"));
 				else outputText(images.showImage("wildhunt-catched-male"));
 			}
 			outputText("The Hound begins fucking your face roughly, leaving salty precum on your tongue, his cock throbbing between your lips.  You feel grateful that the Hound has chosen to simply fuck you, and you want nothing more than to do the best job possible for the Hound.\n\n");
@@ -470,9 +468,9 @@ public class ErlKingScene extends BaseContent implements Encounter {
 					else if (player.isNaga()) outputText(" tail up, letting your coils wrap around his back.");
 					outputText("  One hand grasps firmly under your [ass], holding you up, while the other plays softly across your chest, squeezing and caressing each of your [chest] in turn.  He tweaks your nipples, one by one, sending shockwaves of pleasure through your body.\n\n");
 					outputText("“<i>Take me, Huntsman,</i>” you moan.  His shaft is already poised, his equine dick sliding up into your [vagina], pushing deep inside you.");
-					if (player.tail.type == Tail.DOG || player.tail.type == Tail.WOLF || player.tail.type == Tail.FOX) outputText(images.showImage("wildhunt-prey-female-canine"));
-					else if (player.tail.type == Tail.DEER) outputText(images.showImage("wildhunt-prey-female-cervine"));
-					else if (player.tail.type == Tail.CAT) outputText(images.showImage("wildhunt-prey-female-feline"));
+					if (player.dogScore() > 4 || player.wolfScore() > 4 || player.foxScore() > 4) outputText(images.showImage("wildhunt-prey-female-canine"));
+					else if (player.deerScore() > 4) outputText(images.showImage("wildhunt-prey-female-cervine"));
+					else if (player.catScore() > 4) outputText(images.showImage("wildhunt-prey-female-feline"));
 					else outputText(images.showImage("wildhunt-prey-female"));
 					player.cuntChange(12 * 3, true, true, false);
 					outputText("\n\nYou gasp, shuddering in delight as he begins to push in and out of you.  His hands shift, holding you under the arms, fucking you against the tree.  The rough bark scratches your back as he thrusts deep inside you.  You feel the triple rings of his prepuce rubbing against your inner walls.\n\n");
@@ -487,10 +485,10 @@ public class ErlKingScene extends BaseContent implements Encounter {
 					else if (player.isNaga()) outputText(" tail up, letting your coils wrap around his back.");
 					outputText("  One hand grasps firmly under your [ass], holding you up, while the other plays softly across your chest, tweaking each nipple before trailing down your stomach, grasping [oneCock]\n\n");
 					outputText("“<i>Take me, Huntsman,</i>” you groan.  His shaft is already at your [ass].  His equine dick pushing up into your [asshole], pushing deep inside you.");
-					if (player.tail.type == Tail.DOG || player.tail.type == Tail.WOLF || player.tail.type == Tail.FOX) outputText(images.showImage("wildhunt-prey-male-canine"));
-					else if (player.tail.type == Tail.DEER) outputText(images.showImage("wildhunt-prey-male-cervine"));
-					else if (player.tail.type == Tail.RABBIT) outputText(images.showImage("wildhunt-prey-male-bunny"));
-					else if (player.tail.type == Tail.CAT) outputText(images.showImage("wildhunt-prey-male-feline"));
+					if (player.dogScore() > 4 || player.wolfScore() > 4 || player.foxScore() > 4) outputText(images.showImage("wildhunt-prey-male-canine"));
+					else if (player.deerScore() > 4) outputText(images.showImage("wildhunt-prey-male-cervine"));
+					else if (player.bunnyScore() > 4) outputText(images.showImage("wildhunt-prey-male-bunny"));
+					else if (player.catScore() > 4) outputText(images.showImage("wildhunt-prey-male-feline"));
 					else outputText(images.showImage("wildhunt-prey-male"));
 					player.buttChange(12 * 3, true, true, false);
 					outputText("\n\nYou gasp, shuddering in delight as he begins to push in and out of you.  His hands shift, one at the small of your back, steadying you, fucking you against the tree.  The other squeezes tight around your dick, jacking you off, gloved hand stroking you roughly in time to his thrusts.  The coarse bark of the tree scratches at your back as you feel the triple rings of his prepuce rubbing against the inner walls of your [asshole].\n\n");
@@ -637,12 +635,11 @@ public class ErlKingScene extends BaseContent implements Encounter {
 
 		protected function gwynnSucksDicks():void {
 			clearOutput();
-			var x:int = 0;
-			if (player.cocks[x].cockType == CockTypesEnum.HORSE) outputText(images.showImage("wildhunt-princess-orally-horse"));
-			else if (player.cocks[x].cockType == CockTypesEnum.WOLF || player.cocks[x].cockType == CockTypesEnum.DOG || player.cocks[x].cockType == CockTypesEnum.FOX) outputText(images.showImage("wildhunt-princess-orally-canine"));
-			else if (player.cocks[x].cockType == CockTypesEnum.DRAGON) outputText(images.showImage("wildhunt-princess-orally-dragon"));
-			else if (player.lowerBody.type == LowerBody.CLOVEN_HOOFED) outputText(images.showImage("wildhunt-princess-orally-deer"));
-			else if (player.lowerBody.type == LowerBody.HOOFED) outputText(images.showImage("wildhunt-princess-orally-bovine"));
+			if (player.horseScore() > 4) outputText(images.showImage("wildhunt-princess-orally-horse"));
+			else if (player.dogScore() > 4 || player.wolfScore() > 4 || player.foxScore() > 4) outputText(images.showImage("wildhunt-princess-orally-canine"));
+			else if (player.dragonScore() > 4 || player.dragonneScore() > 4) outputText(images.showImage("wildhunt-princess-orally-dragon"));
+			else if (player.deerScore() > 4) outputText(images.showImage("wildhunt-princess-orally-deer"));
+			else if (player.cowScore() > 4) outputText(images.showImage("wildhunt-princess-orally-bovine"));
 			else outputText(images.showImage("wildhunt-princess-orally"));
 			outputText("“<i>Yes, of course, M’Lord!</i>” Gwynn burbles, happily, dropping down to her knees.  In an instant, your [cock] is in her wet mouth.  Her time in the woods has developed her skill as she moans around your [cock], slurping wetly at it.\n\n");
 			outputText("Her slim tongue rubs against the underside of your shaft, massaging it in time to the bobbing of her head.  Her index finger and thumb form a slim O at the base of your dick, pumping it counter to her head bobs, giving you continuous stimulation as she hums.\n\n");
@@ -659,24 +656,19 @@ public class ErlKingScene extends BaseContent implements Encounter {
 
 		protected function gwynnGetsButtfuxed():void {
 			clearOutput();
-			var x:int = 0;
 			outputText("“<i>At once, M’Lord!</i>” she says, clapping her hands excitedly.  She bounces up in the air, then bounds low to the ground, pulling a small bottle from her purse, and dumping a liberal amount of raspberry-scented lube on your cock.  She works it in, her slim fingers massaging your cock to full attention before she hops around.\n\n");
 			outputText("“<i>Princess Gwynn is always prepared!</i>” she chirps happily.\n\n");
 			outputText("She drops her shoulders to the ground and raises her white rump in the air, her pink, tufted tail twitching excitedly.  “<i>Your Princess is ready for you, m’Lord!</i>”\n\n");
 			outputText("You grin and grip her ass, pushing your slippery cock into her pink bud.  She’s a lot looser than she was before, and you slide easily into her.  She purrs as you sink in, inch after inch, your hands gripping her small, plush ass.  It seems like her time spent with the monsters in the woods has stretched her out immensely.  You just hope she won’t be too loose.\n\n");
-			if (player.cocks[x].cockType == CockTypesEnum.TENTACLE) outputText(images.showImage("wildhunt-princess-anally-tentacle"));
-			else if (player.cocks[x].cockType == CockTypesEnum.LIZARD) outputText(images.showImage("wildhunt-princess-anally-lizard"));
-			else if (player.cocks[x].cockType == CockTypesEnum.DRAGON) outputText(images.showImage("wildhunt-princess-anally-dragon"));
-			else if (player.tail.type == Tail.DEER) outputText(images.showImage("wildhunt-princess-anally-cervine"));
-			else if (player.cocks[x].cockType == CockTypesEnum.HORSE) outputText(images.showImage("wildhunt-princess-anally-horse"));
-			else if (player.cocks[x].cockType == CockTypesEnum.HUMAN) outputText(images.showImage("wildhunt-princess-anally-human"));
-			else if (player.cocks[x].cockType == CockTypesEnum.RHINO) outputText(images.showImage("wildhunt-princess-anally-rhino"));
-			else if (player.cocks[x].cockType == CockTypesEnum.CAT) outputText(images.showImage("wildhunt-princess-anally-feline"));
-			else if (player.cocks[x].cockType == CockTypesEnum.DOG) outputText(images.showImage("wildhunt-princess-anally-canine"));
-			else if (player.cocks[x].cockType == CockTypesEnum.WOLF) {
-				if (player.hasVagina()) outputText(images.showImage("wildhunt-princess-anally-wolf-herm"));
-				else outputText(images.showImage("wildhunt-princess-anally-wolf-male"));
-			}
+			if (player.mutantScore() > 4) outputText(images.showImage("wildhunt-princess-anally-tentacle"));
+			else if (player.lizardScore() > 4 || player.salamanderScore() > 4) outputText(images.showImage("wildhunt-princess-anally-lizard"));
+			else if (player.dragonScore() > 4 || player.dragonneScore() > 4) outputText(images.showImage("wildhunt-princess-anally-dragon"));
+			else if (player.deerScore() > 4) outputText(images.showImage("wildhunt-princess-anally-cervine"));
+			else if (player.horseScore() > 4) outputText(images.showImage("wildhunt-princess-anally-horse"));
+			else if (player.humanScore() > 4) outputText(images.showImage("wildhunt-princess-anally-human"));
+			else if (player.rhinoScore() > 4) outputText(images.showImage("wildhunt-princess-anally-rhino"));
+			else if (player.catScore() > 4) outputText(images.showImage("wildhunt-princess-anally-feline"));
+			else if (player.dogScore() > 4 || player.wolfScore() > 4 || player.foxScore() > 4) outputText(images.showImage("wildhunt-princess-anally-canine"));
 			else outputText(images.showImage("wildhunt-princess-anally"));
 			outputText("“<i>Oh Master, yes!  Fuck my lovely cunt!</i>” she moans as you bury yourself inside her.  Her hole twitches and tightens, and you realize you needn’t have worried.  As you begin thrusting in and out of her, her hole begins squeezing tighter and tighter around your cock.  Her ass milks your dick as you plunge deep inside her and draw out.\n\n");
 			outputText("She moans and purrs, eyes rolled back and tongue hanging out as you have your way with her.  When you finally cum, her pink-and-white cock spills out her own load, strangely raspberry-scented, onto the forest floor.  Her hole doesn’t stop squeezing you, and continues to milk you until you’re completely spent.\n\n");
@@ -689,8 +681,8 @@ public class ErlKingScene extends BaseContent implements Encounter {
 
 		protected function gwynnNomsDaCunts():void {
 			clearOutput();
-			if (player.vaginas[0].vaginalLooseness == VaginaClass.LOOSENESS_LEVEL_CLOWN_CAR && player.tail.type == Tail.DRACONIC) outputText(images.showImage("wildhunt-princess-lickgina-dragon"));
-			else if (player.vaginas[0].type == VaginaClass.EQUINE) outputText(images.showImage("wildhunt-princess-lickgina-equine"));
+			if (player.vaginas[0].vaginalLooseness == VaginaClass.LOOSENESS_LEVEL_CLOWN_CAR && player.dragonScore() > 4) outputText(images.showImage("wildhunt-princess-lickgina-dragon"));
+			else if (player.horseScore() > 4) outputText(images.showImage("wildhunt-princess-lickgina-equine"));
 			else outputText(images.showImage("wildhunt-princess-lickgina"));
 			outputText("“<i>Yes Ma’am,</i>” she says, licking her lips.  She points to a nearby stump, gesturing for you to have a seat on the soft moss.  As you do, she wastes no time in dropping her pink muzzle to your pussy.\n\n");
 			outputText("Her tongue eagerly plunges between your folds, running up and down the length of your pussy. Each time her muzzle bobs up, her candy-pink nose rubs against your clit, and she purrs, closing her eyes and nuzzling it.  She slowly laps at your slit, gradually building speed.\n\n");

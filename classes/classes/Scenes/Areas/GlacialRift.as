@@ -145,7 +145,7 @@ package classes.Scenes.Areas {
 
 		private function frostGiantEncounter():void {
 			clearOutput();
-			outputText(images.showImage("area-glacialrift"));
+			outputText(images.showImage("encounter-fGiant"));
 			outputText("You wander the frozen landscape of the Rift, frozen rocks, frosted hills and forested mountains your only landmarks. As you cross the peak of a rather large, lightly forested hill, you come face to gigantic face with a Frost Giant! He belches fiercely at you and you tumble back down the hill. He mostly steps over it as you come to your senses. You quickly draw your " + player.weaponName + " and withdraw from the hill to prepare for battle.\n\n");
 			startCombat(new FrostGiant());
 		}

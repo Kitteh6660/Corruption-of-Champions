@@ -14,10 +14,7 @@ package classes.Scenes.Dungeons.LethicesKeep {
 	import classes.internals.LoggerFactory;
 	import mx.logging.ILogger;
 
-	/**
-	 * ...
-	 * @author Gedan
-	 */
+	/* @author Gedan */
 	public class LethicesKeep extends BaseContent {
 		private static const LOGGER:ILogger = LoggerFactory.getLogger(LethicesKeep);
 
@@ -227,8 +224,8 @@ package classes.Scenes.Dungeons.LethicesKeep {
 		}
 
 		public function enterD3():void {
-			kGAMECLASS.dungeons.setDungeonButtons(); //Ensures the top buttons are visible.
-			menu(); //Clear bottom buttons
+			kGAMECLASS.dungeons.setDungeonButtons(); //ensures the top buttons are visible
+			menu(); //clear bottom buttons
 			inRoomedDungeon = true;
 			inRoomedDungeonResume = getGame().dungeons.resumeFromFight;
 			inRoomedDungeonName = "BasiliskCave";
@@ -358,21 +355,33 @@ package classes.Scenes.Dungeons.LethicesKeep {
 
 		public function takeEgg(eggMask:int):void {
 			var item:SimpleConsumable;
-			if (eggMask == BLACK) item = consumables.L_BLKEG;
-			if (eggMask == BLUE) item = consumables.L_BLUEG;
-			if (eggMask == WHITE) item = consumables.L_WHTEG;
-			if (eggMask == PINK) item = consumables.L_PNKEG;
-			if (eggMask == BROWN) item = consumables.L_BRNEG;
-			if (eggMask == PURPLE) item = consumables.L_PRPEG;
 			//menuLoc = 9999;
 			//Should actually be handled by the fallthrough of doNext(1) in the takeItem shit
 			clearOutput();
-			if (eggMask == BLACK) outputText(images.showImage("item-egg-black"));
-			if (eggMask == BLUE) outputText(images.showImage("item-egg-blue"));
-			if (eggMask == WHITE) outputText(images.showImage("item-egg-white"));
-			if (eggMask == PINK) outputText(images.showImage("item-egg-pink"));
-			if (eggMask == BROWN) outputText(images.showImage("item-egg-brown"));
-			if (eggMask == PURPLE) outputText(images.showImage("item-egg-purple"));
+			if (eggMask == BLACK) {
+				item = consumables.L_BLKEG;
+				outputText(images.showImage("item-egg-black"));
+			}
+			if (eggMask == BLUE) {
+				item = consumables.L_BLUEG;
+				outputText(images.showImage("item-egg-blue"));
+			}
+			if (eggMask == WHITE) {
+				item = consumables.L_WHTEG;
+				outputText(images.showImage("item-egg-white"));
+			}
+			if (eggMask == PINK) {
+				item = consumables.L_PNKEG;
+				outputText(images.showImage("item-egg-pink"));
+			}
+			if (eggMask == BROWN) {
+				item = consumables.L_BRNEG;
+				outputText(images.showImage("item-egg-brown"));
+			}
+			if (eggMask == PURPLE) {
+				item = consumables.L_PRPEG;
+				outputText(images.showImage("item-egg-purple"));
+			}
 			outputText("You pluck out " + item.longName + " ");
 			flags[kFLAGS.D3_EGGS_AVAILABLE] += eggMask;
 			inventory.takeItem(item, playerMenu); //playerMenu is equivalent to doNext(1)
