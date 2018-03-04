@@ -364,7 +364,7 @@ private function girlRapeAMinotaur():void {
 	minoCumAddiction(5);
 	if (player.cowScore() >=4) outputText(images.showImage("minotaur-won-female-cow"));
 	else if (player.catScore() >= 4) outputText(images.showImage("minotaur-won-female-cat"));
-	else if (player.dogScore() >= 4 || player.wolfScore() >=4 || player.foxScore() >=4) outputText(images.showImage("minotaur-won-female-canine"));
+	else if (player.dogScore >= 4 || player.wolfScore >=4 || player.foxScore >=4) outputText(images.showImage("minotaur-won-female-canine"));
 	else outputText(images.showImage("minotaur-won-female"));
 	outputText("With a quick shove, you roll the panting minotaur onto his back, exposing his pulsing " + monster.cockDescriptShort(0) + " to the open air.  A simple flourish later, you peel back your " + player.armorName + " to expose your " + player.vaginaDescript(0) + ", already wetter than usual from the scent in the air.   You walk forward, straddling the oblivious minotaur as he masturbates furiously, muscles bulging with exertion and covered in sweat.  Your eyes zero in as a dollop of pre escapes his ribbed horse-like member, locating the source of the scent.\n\n");
 	if (player.vaginalCapacity() < monster.cockArea(0))
