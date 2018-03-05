@@ -288,6 +288,7 @@ public class ErlKingScene extends BaseContent implements Encounter {
 			}
 			else {
 				if (player.dogScore() > 4 || player.wolfScore() > 4 || player.foxScore() > 4) outputText(images.showImage("wildhunt-catched-male-canine"));
+				else if (player.bunnyScore() > 4) outputText(images.showImage("wildhunt-catched-male-bunny"));
 				else if (player.dragonScore() > 4 || player.dragonneScore() > 4) outputText(images.showImage("wildhunt-catched-male-dragon"));
 				else if (player.sharkScore() > 4) outputText(images.showImage("wildhunt-catched-male-shark"));
 				else if (player.horseScore() > 4) outputText(images.showImage("wildhunt-catched-male-horse"));
