@@ -56,10 +56,10 @@ public class SwordInStone extends AbstractLakeContent implements Encounter {
 				player.createStatusEffect(StatusEffects.TookBlessedSword,0,0,0,0);
 			}
 		}
-		
+
 		private function takeBrokenSword():void {
 			clearOutput();
-			outputText(images.showImage("item-brokenSword"));
+			outputText(images.showImage("item-bSword-broken"));
 			outputText("You decide to look over the pieces of the broken sword. Interestingly enough, it's broken into only two pieces and covered in rust as you've expected but as you look closer, you notice the pommel and guard look intricately designed as if the sword is expertfully crafted by a master craftsman.\n\n");
 			outputText("While the sword might still have some uses, it won't be a very effective weapon. Maybe someone can restore the sword to its full glory or even twist it into a useful yet corrupt weapon?");
 			inventory.takeItem(weapons.BBSWORD, camp.returnToCampUseOneHour);
