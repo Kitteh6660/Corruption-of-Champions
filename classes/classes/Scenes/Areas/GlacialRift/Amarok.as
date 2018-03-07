@@ -12,18 +12,17 @@ package classes.Scenes.Areas.GlacialRift {
 	public class Amarok extends Monster {
 
 		protected function amarokClaw():void {
-			//Blind
-			if(hasStatusEffect(StatusEffects.Blind)) {
+			clearOutput();
+			outputText(images.showImage("amarok-attack"));
+			if (hasStatusEffect(StatusEffects.Blind)) { //blind
 				outputText("The Amarok lunges for you, attempting to slash you with one of its paws, but misses completely due to its blindness.");
 				combatRoundOver();
 			}
-			//Dodge that shit yo
-			if (player.getEvasionRoll()) {
+			if (player.getEvasionRoll()) { //dodge that shit yo
 				outputText("The Amarok throws itself at you, attempting to slash you with its claws. Luckily, you manage to move out of the way.");
 				combatRoundOver();
 			}
-			else {
-				//Damage roll
+			else { //damage roll
 				outputText("The Amarok throws itself at you and rakes one of its hefty paws across you. Its claws slice you open and draw blood.");
 				var damage:int = ((str + 50) + rand(100));
 				damage = player.reduceDamage(damage);
@@ -33,6 +32,8 @@ package classes.Scenes.Areas.GlacialRift {
 		}
 		//AMAROK used TAIL SLAP!
 		protected function amarokTail():void {
+			clearOutput();
+			outputText(images.showImage("amarok-attack"));
 			outputText("The Amarok rushes up to you and immediately turns heel, attempting to crash its tail into you. ");
 			//Blind check...
 			if (hasStatusEffect(StatusEffects.Blind)) {
