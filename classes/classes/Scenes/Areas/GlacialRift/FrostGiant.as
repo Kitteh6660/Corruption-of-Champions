@@ -1,26 +1,22 @@
-package classes.Scenes.Areas.GlacialRift 
-{
+package classes.Scenes.Areas.GlacialRift {
 	import classes.*;
 	import classes.BodyParts.*;
-import classes.BodyParts.Butt;
-import classes.BodyParts.Hips;
-import classes.StatusEffects.Combat.GiantStrLossDebuff;
-import classes.internals.WeightedDrop;
+	import classes.BodyParts.Butt;
+	import classes.BodyParts.Hips;
+	import classes.StatusEffects.Combat.GiantStrLossDebuff;
+	import classes.internals.WeightedDrop;
 	import classes.GlobalFlags.kFLAGS;
-	
-	public class FrostGiant extends Monster
-	{
+
+	public class FrostGiant extends Monster {
 		private function giantStrengthLoss(magnitude:int = 0):void {
 			var gsl:GiantStrLossDebuff = player.createOrFindStatusEffect(StatusEffects.GiantStrLoss) as GiantStrLossDebuff;
 			gsl.applyEffect(magnitude);
 		}
-		
 		public function giantAttackPunch():void {
 			var damage:int = 0;
 			outputText("The giant strides toward you, closing the distance faster than you can run. He rears back and strikes at you!  ");
-			if (player.getEvasionRoll()) {
+			if (player.getEvasionRoll())
 				outputText("You deftly dodge the jumbo Jotun's paltry punch, spinning swiftly to charge your " + player.weaponName + " at his hand, leaving what looks like a crack. The giant roars in outrage, shaking snow from trees and making your " + player.armorName + " vibrate. He appears angrier than before.");
-			}
 			else {
 				if (rand(player.spe + 40) < spe) {
 					outputText("You take the full force of his grand slam, sending you flying a good 40 feet, plunging through a snowdrift. As you right yourself, his laugh shakes the ground, \"<i>Puny! Haaaa!</i>\" ");
@@ -38,7 +34,7 @@ import classes.internals.WeightedDrop;
 			}
 			combatRoundOver();
 		}
-		
+
 		public function giantGrab():void {
 			outputText("The giant yells something you don't understand and charges at you, hands outstretched!  ");
 			if (player.getEvasionRoll()) {
@@ -66,9 +62,8 @@ import classes.internals.WeightedDrop;
 			var damage:int = 0
 			if (struggle) {
 				clearOutput();
-				if (player.str >= 80) {
+				if (player.str >= 80)
 					outputText("You push and pull and squeeze and worm with all your might, but all that does is make the giant's grip harder. ");
-				}
 				else if (player.str >= 60 && player.str < 80) {
 					outputText("Your strength fails to help you escape this frosty situation, though the heat from the struggle is nice enough in this wasteland to nearly doze in it. The giant makes sure that doesn't happen, though. ");
 					giantStrengthLoss(1);
@@ -79,25 +74,27 @@ import classes.internals.WeightedDrop;
 				}
 				else if (player.str >= 20 && player.str < 40) {
 					outputText("The giant's grip nearly crushes you to bits right there; sheer force of will allows you to struggle and resist, though it proves futile. ");
-					if (player.findPerk(PerkLib.Juggernaut) < 0 && armorPerk != "Heavy") {damage = 10 + rand(str * 0.5);
-					player.takeDamage(damage, true);
+					if (player.findPerk(PerkLib.Juggernaut) < 0 && armorPerk != "Heavy") {
+						damage = 10 + rand(str * 0.5);
+						player.takeDamage(damage, true);
 					}
 				}
 				else if (player.str < 20) {
 					outputText("The giant squeezes you mercilessly, the pressure on your body reaching critical levels. The giant doesn't seem to want to murder you, fortunately, so he lessens his grip slightly. No dice escaping it though. ");
-					if (player.findPerk(PerkLib.Juggernaut) < 0 && armorPerk != "Heavy") {damage = 20 + rand(str * 0.75);
-					player.takeDamage(damage, true);
+					if (player.findPerk(PerkLib.Juggernaut) < 0 && armorPerk != "Heavy") {
+						damage = 20 + rand(str * 0.75);
+						player.takeDamage(damage, true);
 					}
 				}
 				if (flags[kFLAGS.PC_FETISH] >= 2) {
-					outputText("The thought of being constricted turns you on a bit. ")
+					outputText("The thought of being constricted turns you on a bit. ");
 					game.dynStats("lust", 5);
 				}
 				outputText("\n\n");
 			}
 			else {
 				if (flags[kFLAGS.PC_FETISH] >= 2) {
-					outputText("The thought of being constricted turns you on a bit. ")
+					outputText("The thought of being constricted turns you on a bit. ");
 					game.dynStats("lust", 5);
 				}
 				outputText("\n\n");
@@ -106,7 +103,7 @@ import classes.internals.WeightedDrop;
 				case 0:
 				case 1:
 				case 2: //Taunt
-					outputText("\"<i>Ha, ha, ha! Puny little " + player.race + "! You cannot escape my grasp!</i>\" He flicks your head, nearly snapping your neck, and you see stars for a moment. ")
+					outputText("\"<i>Ha, ha, ha! Puny little " + player.race + "! You cannot escape my grasp!</i>\" He flicks your head, nearly snapping your neck, and you see stars for a moment. ");
 					player.removeStatusEffect(StatusEffects.GiantGrabbed);
 					damage = 10 + rand(str * 0.5);
 					damage = player.reduceDamage(damage);
@@ -141,19 +138,17 @@ import classes.internals.WeightedDrop;
 			clearOutput();
 			if (player.str >= 100) outputText("You roar and force the giant's hand open. He gasps in surprise, using his other hand to close you in, but it's too late by then. You jump to the ground and roll away, readying for your next attack. ");
 			if (player.str >= 80 && player.str < 100) outputText("You push, pull, squeeze, squirm and finally you escape the giant's grasp. You drop and roll and make distance before readying your weapon. ");
-			if (player.str >= 60 && player.str < 80) outputText("With no small effort, you  pop out from the giant's clench. You run up his arm and jump down his back, making distance. ")
+			if (player.str >= 60 && player.str < 80) outputText("With no small effort, you  pop out from the giant's clench. You run up his arm and jump down his back, making distance. ");
 			if (player.str >= 40 && player.str < 60) outputText("Despite the cold, hard confines of the giant's hand, you manage to slip out of his hand and fall to the ground before scrambling up and running from the angry giant. ");
 			if (player.str >= 20 && player.str < 40) outputText("Body aching, you exploit a light grip for a moment and drop to the ground with a hard thud. Forcing yourself to get up and MOVE, you run as quickly as your throbbing [ass] can handle. ");
-			if (player.str < 20) {
-				outputText("Struggling with every fiber of your being, you manage to tickle the giant into dropping you. Slightly embarrassed, you get as far away from the giant without running away as you can, and ready your weapon. You think it wise to try to escape. ");
-			}
+			if (player.str < 20) outputText("Struggling with every fiber of your being, you manage to tickle the giant into dropping you. Slightly embarrassed, you get as far away from the giant without running away as you can, and ready your weapon. You think it wise to try to escape. ");
 			player.removeStatusEffect(StatusEffects.GiantGrabbed);
 			combatRoundOver();
 		}
-		
+
 		public function giantBoulderThrow():void {
 			outputText("The giant walks over to a boulder much larger than you and hefts it up. You had better wait and be ready to dodge, or this could be very bad. ");
-			outputText("<b>With a grunt and a shove, the giant throws the boulder directly at you!</b>")
+			outputText("<b>With a grunt and a shove, the giant throws the boulder directly at you!</b>");
 			if (!player.hasStatusEffect(StatusEffects.GiantBoulder)) player.createStatusEffect(StatusEffects.GiantBoulder, 0, 0, 0, 0);
 			combatRoundOver();
 		}
@@ -163,16 +158,12 @@ import classes.internals.WeightedDrop;
 				if (player.biggestCockArea() >= 24) {
 					outputText("Oh wait, you could just fuck his ass with your ");
 					if (player.cocks.length > 1) outputText("collection of dicks. ");
-					else outputText(" one really big cock. "); 
+					else outputText(" one really big cock. ");
 					outputText("He might have a nice nose... You try to get a size of his nose. He’s too far away to gauge it");
 				}
-				else if (player.biggestCockArea() < 24) {
-					outputText("You suppose you could try to fuck a smaller hole that's not usually used for sex... Maybe his nose? You can't quite make out the size of his nostrils from here")
-				}
+				else if (player.biggestCockArea() < 24) outputText("You suppose you could try to fuck a smaller hole that's not usually used for sex... Maybe his nose? You can't quite make out the size of his nostrils from here");
 			}
-			else {
-				outputText("You could just crawl onto some part of him and rub, though he looks very cold to be doing something like that. You wonder if there's not a way to fuck something else... Maybe his nose? You can't tell if it has a prominent tip from here");
-			}
+			else outputText("You could just crawl onto some part of him and rub, though he looks very cold to be doing something like that. You wonder if there's not a way to fuck something else... Maybe his nose? You can't tell if it has a prominent tip from here");
 			giantBoulderHit(1);
 		}
 		public function giantBoulderHit(mode:int = 0):void {
@@ -198,34 +189,25 @@ import classes.internals.WeightedDrop;
 			outputText("\n\n");
 			combatRoundOver();
 		}
-		
-		override protected function performCombatAction():void
-		{
+
+		override protected function performCombatAction():void {
 			var chooser:Number = 0;
 			chooser = rand(10);
 			if (chooser < 6) giantAttackPunch(); //60% chance
 			if (chooser >= 6 && chooser < 9) giantGrab(); //30% chance
 			if (chooser >= 9) giantBoulderThrow(); //10% chance
 		}
+
+		override public function defeated(hpVictory:Boolean):void { game.glacialRift.giantScene.winAgainstGiant(); }
+		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void { game.combat.cleanupAfterCombat(); }
 		
-		override public function defeated(hpVictory:Boolean):void
-		{
-			game.glacialRift.giantScene.winAgainstGiant();
-		}
-		
-		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void
-		{
-			game.combat.cleanupAfterCombat();
-		}
-		
-		public function FrostGiant() 
-		{
+		public function FrostGiant() {
 			this.a = "the ";
 			this.short = "frost giant";
-			this.imageName = "frost-giant";
+			this.imageName = "fGiant";
 			this.long = "The giant reminds you of the stories you heard as a child in Ingnam, at least twenty feet tall and wider than your height. The giant's skin is a deep, icy blue with patches of frost and ice covering his body in place of armor. Fortunately for you, he's unarmed. Unfortunately for you, being as large as a house has the added benefit of boulders, trees, and handfuls of frozen dirt being ready weapons, all of which is abundant in the area. Plus those hands could probably crush you like a bug. Your battle instincts are definitely going to be tested.";
 			this.race = "Giant";
-			// this.plural = false;
+			//this.plural = false;
 			this.createCock(36, 4, CockTypesEnum.HUMAN);
 			this.balls = 2;
 			this.ballSize = 2;
@@ -260,7 +242,5 @@ import classes.internals.WeightedDrop;
 			this.createPerk(PerkLib.Tank2, 0, 0, 0, 0);
 			checkMonster();
 		}
-		
 	}
-
 }
