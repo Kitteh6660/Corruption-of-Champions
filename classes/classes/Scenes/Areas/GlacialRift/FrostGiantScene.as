@@ -1,63 +1,50 @@
-package classes.Scenes.Areas.GlacialRift 
-{
+package classes.Scenes.Areas.GlacialRift {
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
 	import classes.GlobalFlags.kACHIEVEMENTS;
-	
-	public class FrostGiantScene extends BaseContent
-	{
-		
-		public function FrostGiantScene() 
-		{
-			
-		}
-		
-		public function loseToGiant():void {
-			combat.cleanupAfterCombat();
-		}
-		
+
+	public class FrostGiantScene extends BaseContent {
+
+		public function FrostGiantScene() {}
+
+		public function loseToGiant():void { combat.cleanupAfterCombat(); }
 		public function winAgainstGiant():void {
 			clearOutput();
+			outputText(images.showImage("fGiant-victory"));
 			outputText("The giant staggers and falls down on his knees. You wonder what you should do next.");
 			if (player.weaponName == "fists" && player.armor.name == "nothing" && player.shieldName == "nothing") awardAchievement("Like Chuck Norris", kACHIEVEMENTS.GENERAL_LIKE_CHUCK_NORRIS);
-	
 			if (flags[kFLAGS.SFW_MODE] > 0) {
 				combat.cleanupAfterCombat();
 				return;
 			}
-			
 			menu();
 			addDisabledButton(0, "Nosefuck", "This scene requires you to have cock and sufficient arousal.");
 			addDisabledButton(1, "RideVaginally", "This scene requires you to have vagina and sufficient arousal.");
 			addDisabledButton(2, "Ride Anally", "This scene requires you to have sufficient arousal.");
-			
 			if (player.lust >= 33) {
 				if (player.hasCock()) addButton(0, "Nosefuck", noseJob);
 				if (player.hasVagina()) addButton(1, "RideVaginally", rideVaginally);
 				addButton(2, "Ride Anally", rideAnally);
-				//addButton(3, "Suck Him Off", suckHimOff);
+				addButton(3, "Suck Him Off", suckHimOff);
 			}
-			
 			addButton(14, "Leave", combat.cleanupAfterCombat);
 		}
-		
 		//Males and hermaphrodites
 		private function noseJob():void {
 			clearOutput();
+			outputText(images.showImage("area-glacialrift"));
 			outputText("Looking at the fallen giant, only one option immediately springs to mind: Nosejob. You toy with the thought until you approach the giant's nose, which does in fact have nostrils of the proper size to shove your " + player.multiCockDescript() + " into. \n\n");
 			outputText("You test a nostril with your hand warily, this dangerous proximity being close enough to the giant's mouth he could just as easily swallow you in an instant. The giant's breath, surprisingly, comes out warm enough that this could maybe work... \n\n");
 			outputText("You reach into your " + player.armorName + " and whip out your cock");
 			if (player.cocks.length > 1) outputText("s");
 			outputText(". The cold air nearly instantly makes them soft, but the giant's breath eases them back to erection. You contemplate what you're about to do one more time, allowing your " + player.multiCockDescriptLight() + " to surge to full hardness. Taking a breath, you plunge into the depths. While not quite like a vagina, the giant is breathing hard to make up for the blockage you’re providing. ");
-			//Multi-cock check
-			if (player.cocks.length == 1) outputText("His contracting nostril massages your prick enough to get you going.");
+			if (player.cocks.length == 1) //multi-cock check
+				 outputText("His contracting nostril massages your prick enough to get you going.");
 			else outputText("His contracting nostrils massage your pricks enough to get you going.");
 			outputText("After some awkward moments of fighting with the giant's sufficiently giant beard, you manage to slip into a rhythm, breathe in, cock out, breathe out, cock in. The alternating currents of cold air in and warm air out from the giant's nose is a strange feeling, but not unpleasant - the contrasts complement each other quite well, and as your balls tighten with anticipation, precum finally begins to dribble into the giant's throat. You hear the giant begin to gurgle and sputter, and you realize you better hurry this up. \n\n");
-			//Balls check
-			if (player.balls > 0) {
-				outputText("To help speed your orgasm, you pull your balls out and let them slap against the giant's upper lip, the bristles of his mustache tickling your scrotum in ways you hadn't imagined even after all your time in this world. \n\n"); 
-			}
+			if (player.balls > 0) //balls check
+				outputText("To help speed your orgasm, you pull your balls out and let them slap against the giant's upper lip, the bristles of his mustache tickling your scrotum in ways you hadn't imagined even after all your time in this world. \n\n");
 			outputText("As more pre dribbles into his septum, the giant begins to sputter and cough. Knowing it's now or never, you give a few final, determined thrusts before blowing your entire load up his nose. \n\n");
 			outputText("When you feel that first spurt, you hurry the rest along. The giant is now obviously irritated with the cum filling up his nasal cavities. \"<i>EEEAAAHHHH! WHAT! WHAT IS IN MY NOSE? AAAAHHH!</i>\" he screams, just coming back to consciousness. \n\n");
 			outputText("Your spurts continue, producing more spunk as the second pass. You keep shooting ropes of jizz until finally he opens his bloodshot eyes and looks directly at you; knowing this is your cue to take your leave, you remove your " + player.multiCockDescriptLight() + " from the giant's nose and shoot your final rope into his eye. Jumping down before he can swat you off his face, the giant, now quite infuriated, looses another roar as he gets up and tries to hack out the copious gobs of cum in areas where it should not normally go.\n\n");
@@ -65,7 +52,6 @@ package classes.Scenes.Areas.GlacialRift
 			player.orgasm('Dick');
 			combat.cleanupAfterCombat();
 		}
-		
 		//Females and hermaphrodites
 		private function rideVaginally():void {
 			clearOutput();
@@ -77,6 +63,7 @@ package classes.Scenes.Areas.GlacialRift
 			if (player.cocks.length <= 0) outputText("Seeing no other option");
 			else outputText("Deciding to give your vagina the attention it so craves");
 			outputText(", you carefully remove and replace pieces of your " + player.armorName + " so you can rub your [chest] while you ready to slide your slit over the giant's cock without freezing the rest of your body.");
+			outputText(images.showImage("fGiant-ride-vaginally"));
 			outputText("Climbing to the giant's crotch, you straddle his dick and feel it before crouching. The giant's body heat makes up for the cold, warm enough to feed your hungry twat and dissuade your fears of getting stuck to the giant. You gather some juices from your " + player.vaginaDescript() + " and slather it on the cock, ready to slide yourself to release.");
 			player.cuntChange(144, true, true, false);
 			outputText("\n\nWith a bracing breath, you finally make contact. The giant's heat is more intense than your hand registered, and you find yourself easily able to slip back and forth. As you slide over the huge cock, it slowly grows erect, until it towers over you and you can do little more than gyrate your hips to pleasure yourself. You struggle to keep sliding, but it's futile. As you stop and ready to dismount the giant, he groans, \"<i>No...</i>\" and grabs a leg in each hand. You try to shout out, but before you have a chance he is quickly sliding you back and forth over his entire length, basically masturbating and taking you for the ride. Feeling every ridge and bump in his dick slide past you, it takes only a few moments for you to reach your limit.\n\n");
@@ -87,7 +74,6 @@ package classes.Scenes.Areas.GlacialRift
 			player.orgasm('Vaginal');
 			combat.cleanupAfterCombat();
 		}
-		
 		//All genders!
 		private function rideAnally():void {
 			clearOutput();
@@ -95,7 +81,8 @@ package classes.Scenes.Areas.GlacialRift
 			if (player.tallness < 36) outputText("dwarves your height.")
 			else if (player.tallness >= 36 && player.tallness < 48) outputText("matches your height.");
 			else outputText("is only slightly shorter than you are tall.");
-			outputText("\n\n");
+			outputText("\n");
+			outputText(images.showImage("fGiant-ride-anally"));
 			outputText("You carefully remove and replace pieces of your " + player.armorName + " so you can slide your " + player.assholeDescript() + " over the giant's cock without freezing the rest of your body.  Climbing to the giant's crotch, you straddle his dick and feel it before crouching. The giant's body heat makes up for the cold, warm enough to stuff your body. You get into position and slide yourself to release.");
 			player.buttChange(144, true, true, false);
 			outputText("\n\nWith a bracing breath, you finally make contact. The giant's heat is more intense than your hand registered, and you find yourself easily able to slip back and forth. As you slide over the huge cock, it slowly grows erect, until it towers over you and you can do little more than gyrate your hips to pleasure yourself. You struggle to keep sliding, but it's futile. Fortunately, you reach orgasm.  ")
@@ -108,18 +95,19 @@ package classes.Scenes.Areas.GlacialRift
 			player.orgasm('Anal');
 			combat.cleanupAfterCombat();			
 		}
-		
+
 		private function suckHimOff():void {
 			clearOutput();
+			if (player.gender > 1) outputText(images.showImage("fGiant-suck-him-female"));
+			else outputText(images.showImage("fGiant-suck-him-male"));
 			outputText("PLACEHOLDER");
 			player.refillHunger(100);
 			combat.cleanupAfterCombat();
 		}
-		
+
 		private function exitGiant():void {
 			menu();
 			combat.cleanupAfterCombat();
 		}
 	}
-
 }
