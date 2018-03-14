@@ -1,13 +1,13 @@
-package classes.Scenes.Areas.GlacialRift 
-{
+package classes.Scenes.Areas.GlacialRift {
 	import classes.*;
 	import classes.BodyParts.*;
 	import classes.BodyParts.Hips;
 	import classes.internals.WeightedDrop;
-	
-	public class Valkyrie extends Monster
-	{
+
+	public class Valkyrie extends Monster {
 		public function spearAttack():void {
+			clearOutput();
+			outputText(images.showImage("valkyrie-attack"));
 			outputText("The valkyrie lunges at you, jabbing with her longspear.  You dodge the first attack easily, ")
 			var evade:String = player.getEvasionReason();
 			if (evade == EVASION_EVADE) {
@@ -34,9 +34,8 @@ package classes.Scenes.Areas.GlacialRift
 					outputText("and step away as you watch the valkyrie's blind attacks strike only air. ");
 					combatRoundOver();
 					return;
-				}
-			else
-			{
+			}
+			else {
 				outputText("but she follows through with a rapid flurry of spear strikes, tearing into your " + (player.armor.name == "nothing" ? "" : "[armorName] and the underlying") + " flesh. ");
 				var attacks:int = 1 + rand(3);
 				var damage:int = 0
@@ -49,8 +48,10 @@ package classes.Scenes.Areas.GlacialRift
 			}
 			combatRoundOver();
 		}
-		
+
 		public function shieldBash():void {
+			clearOutput();
+			outputText(images.showImage("valkyrie-attack"));
 			outputText("The valkyrie feints at you with her longspear; you dodge the blow, ")
 			var evade:String = player.getEvasionReason();
 			if (evade == EVASION_EVADE) {
@@ -77,12 +78,10 @@ package classes.Scenes.Areas.GlacialRift
 					outputText("and step away as you watch the valkyrie's blind bash strikes only air. ");
 					combatRoundOver();
 					return;
-				}
-			else
-			{
+			}
+			else {
 				outputText("but you leave yourself vulnerable as she spins around and slams her heavy shield into you, knocking you ");
-				if (player.findPerk(PerkLib.Resolute) < 0 && rand(2) == 0) 
-				{
+				if (player.findPerk(PerkLib.Resolute) < 0 && rand(2) == 0) {
 					outputText("off balance. ")
 					player.createStatusEffect(StatusEffects.Stunned, 0, 0, 0, 0);
 				}
@@ -93,12 +92,14 @@ package classes.Scenes.Areas.GlacialRift
 			}
 			combatRoundOver();
 		}
-		
+
 		public function aerialRave():void {
-			if (rand(2) == 0 || player.canFly() /* it would be stupid to do this with someone winged */) {
+			if (rand(2) == 0 || player.canFly()) { //it would be stupid to do this with someone winged
 				spearAttack()
 				return;
 			}
+			clearOutput();
+			outputText(images.showImage("valkyrie-attack"));
 			outputText("The valkyrie charges right at you!  You manage to dodge her spear-thrust, but she spins gracefully out of the attack and grabs you by the waist.  ")
 			var evade:String = player.getEvasionReason();
 			if (evade == EVASION_EVADE) {
@@ -121,8 +122,7 @@ package classes.Scenes.Areas.GlacialRift
 				combatRoundOver();
 				return;
 			}
-			else
-			{
+			else {
 				outputText("Before you can react, she launches into the air, propelling the two of you upwards with her powerful wings.  You struggle, but it’s no use -- until she lets go.  You cry out in terror as you fall back to the earth, crashing painfully into a convenient snowbank, while your opponent lands gracefully a few feet away. ");
 				var damage:int = ((str + 200) + rand(100))
 				damage = player.reduceDamage(damage);
@@ -130,25 +130,17 @@ package classes.Scenes.Areas.GlacialRift
 			}
 			combatRoundOver();
 		}
-		
-		override public function defeated(hpVictory:Boolean):void
-		{
-			game.glacialRift.valkyrieScene.winAgainstValkyrie();
-		}
-		
-		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void
-		{
-			game.glacialRift.valkyrieScene.loseToValkyrie();
-		}
-		
-		public function Valkyrie() 
-		{
+
+		override public function defeated(hpVictory:Boolean):void { game.glacialRift.valkyrieScene.winAgainstValkyrie(); }
+		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void { game.glacialRift.valkyrieScene.loseToValkyrie(); }
+
+		public function Valkyrie() {
 			this.a = "a ";
 			this.short = "valkyrie";
 			this.imageName = "valkyrie";
 			this.long = "She is a tall, pale-skinned woman with long golden locks spilling out from beneath her bronze helm.  She would look almost human, if not for the massive, powerful wings sprouting from her back, stretching perhaps a dozen feet across.  She is wearing a heavy bronze cuirass which curves perfectly around her perky C-cups, and is wielding a spear and shield as her weapons.  She has assumed the stance of a well-trained and experienced combatant, leaving few openings for you to exploit.";
 			this.race = "Valkyrie";
-			// this.plural = false;
+			//this.plural = false;
 			this.createVagina(false, 1, 1);
 			createBreastRow(Appearance.breastCupInverse("C"));
 			this.ass.analLooseness = AssClass.LOOSENESS_TIGHT;
@@ -182,9 +174,7 @@ package classes.Scenes.Areas.GlacialRift
 			this.special1 = spearAttack;
 			this.special2 = shieldBash;
 			this.special3 = aerialRave;
-			checkMonster();			
+			checkMonster();
 		}
-		
 	}
-
 }
