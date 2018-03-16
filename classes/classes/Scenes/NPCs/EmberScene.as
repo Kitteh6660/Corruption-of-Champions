@@ -1,17 +1,14 @@
-﻿/**
- * Created by aimozg on 04.01.14.
- */
-package classes.Scenes.NPCs
-{
+﻿/** Created by @aimozg on 04.01.14 */
+package classes.Scenes.NPCs {
 	import classes.*;
 	import classes.BodyParts.*;
 	import classes.GlobalFlags.*;
+	import classes.GlobalFlags.kACHIEVEMENTS;
     import classes.Scenes.Places.TelAdre.YvonneArmorShop;
 	import classes.Scenes.PregnancyProgression;
 	import classes.Scenes.VaginalPregnancy;
 
-	public class EmberScene extends NPCAwareContent implements TimeAwareInterface, VaginalPregnancy
-	{
+	public class EmberScene extends NPCAwareContent implements TimeAwareInterface, VaginalPregnancy {
 
 //import flash.media.Video;
 
@@ -59,22 +56,17 @@ package classes.Scenes.NPCs
 // EMBER_PREGNANT_TALK:int = 560;
 
 // TIMES_EMBER_LUSTY_FUCKED:int = 824;
-
 		public var pregnancy:PregnancyStore;
 
-		public function EmberScene(pregnancyProgression:PregnancyProgression)
-		{
+		public function EmberScene(pregnancyProgression:PregnancyProgression) {
 			pregnancy = new PregnancyStore(kFLAGS.EMBER_PREGNANCY_TYPE, kFLAGS.EMBER_INCUBATION, 0, 0);
 			pregnancy.addPregnancyEventSet(PregnancyStore.PREGNANCY_PLAYER, 330, 270, 200, 180, 100, 75, 48, 15);
 												//Event: 0 (= not pregnant),  1,   2,   3,   4,   5,  6,  7,  8 (< 15)
 			CoC.timeAwareClassAdd(this);
-			
 			pregnancyProgression.registerVaginalPregnancyScene(PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.PREGNANCY_EMBER, this);
 		}
-		
 		//Implementation of TimeAwareInterface
-		public function timeChange():Boolean
-		{
+		public function timeChange():Boolean {
 			var needNext:Boolean = false;
 			pregnancy.pregnancyAdvance();
 			//trace("\nEmber time change: Time is " + getGame().time.hours + ", incubation: " + pregnancy.incubation + ", event: " + pregnancy.event);
@@ -124,7 +116,7 @@ package classes.Scenes.NPCs
 			}
 			return needNext;
 		}
-	
+
 		public function timeChangeLarge():Boolean {
 			if (!player.hasStatusEffect(StatusEffects.EmberNapping) && followerEmber() && !player.hasStatusEffect(StatusEffects.EmberFuckCooldown)) {
 				//Ember get's a whiff of fuckscent and knocks up PC!
@@ -140,25 +132,22 @@ package classes.Scenes.NPCs
 			return false;
 		}
 		//End of Interface Implementation
-		
-		public function emberAffection(changes:Number = 0):Number
-		{
+
+		public function emberAffection(changes:Number = 0):Number {
 			flags[kFLAGS.EMBER_AFFECTION] += changes;
 			if (flags[kFLAGS.EMBER_AFFECTION] > 100) flags[kFLAGS.EMBER_AFFECTION] = 100;
 			else if (flags[kFLAGS.EMBER_AFFECTION] < 0) flags[kFLAGS.EMBER_AFFECTION] = 0;
 			return flags[kFLAGS.EMBER_AFFECTION];
 		}
 
-		public function emberCorruption(changes:Number = 0):Number
-		{
+		public function emberCorruption(changes:Number = 0):Number {
 			flags[kFLAGS.EMBER_COR] += changes;
 			if (flags[kFLAGS.EMBER_COR] > 100) flags[kFLAGS.EMBER_COR] = 100;
 			else if (flags[kFLAGS.EMBER_COR] < 0) flags[kFLAGS.EMBER_COR] = 0;
 			return flags[kFLAGS.EMBER_COR];
 		}
 
-		public function emberSparIntensity():int
-		{
+		public function emberSparIntensity():int {
 			var amount:int = 0;
 			amount += Math.floor(flags[kFLAGS.EMBER_AFFECTION] / 5);
 			amount += flags[kFLAGS.EMBER_SPAR_VICTORIES];
@@ -166,20 +155,14 @@ package classes.Scenes.NPCs
 			return amount;
 		}
 
-		override public function followerEmber():Boolean
-		{
-			return flags[kFLAGS.EMBER_HATCHED] > 0;
+		override public function followerEmber():Boolean { return flags[kFLAGS.EMBER_HATCHED] > 0; }
 
-		}
-
-		override public function emberMF(man:String, woman:String):String
-		{
+		override public function emberMF(man:String, woman:String):String {
 			if (flags[kFLAGS.EMBER_GENDER] == 1) return man;
 			else return woman;
 		}
 
-		public function emberGroinDesc(cock:String, pussy:String, herm:String = " and "):String
-		{
+		public function emberGroinDesc(cock:String, pussy:String, herm:String = " and "):String {
 			var strText:String = ""
 			if (flags[kFLAGS.EMBER_GENDER] == 1 || flags[kFLAGS.EMBER_GENDER] == 3) strText += cock;
 			if (flags[kFLAGS.EMBER_GENDER] == 3) strText += herm;
@@ -187,49 +170,19 @@ package classes.Scenes.NPCs
 			return strText;
 		}
 		
-		private function emberVaginalCapacity():int
-		{
-			return 60;
-		}
-
-		private function emberAnalCapacity():int
-		{
-			return 60;
-		}
-
-		public function emberHasCock():Boolean
-		{
-			return (flags[kFLAGS.EMBER_GENDER] == 1 || flags[kFLAGS.EMBER_GENDER] == 3);
-		}
-
-		public function emberHasVagina():Boolean
-		{
-			return (flags[kFLAGS.EMBER_GENDER] == 2 || flags[kFLAGS.EMBER_GENDER] == 3);
-		}
-
-		public function emberIsHerm():Boolean
-		{
-			return flags[kFLAGS.EMBER_GENDER] == 3;
-		}
-
-		public function emberChildren():int
-		{
-			return (flags[kFLAGS.EMBER_CHILDREN_MALES] + flags[kFLAGS.EMBER_CHILDREN_FEMALES] + flags[kFLAGS.EMBER_CHILDREN_HERMS]);
-		}
-
-		private function emberInternalDick():Boolean
-		{
-			return (flags[kFLAGS.EMBER_ROUNDFACE] == 0 || flags[kFLAGS.EMBER_INTERNAL_DICK] > 0);
-		}
-
+		private function emberVaginalCapacity():int { return 60; }
+		private function emberAnalCapacity():int { return 60; }
+		public function emberHasCock():Boolean { return (flags[kFLAGS.EMBER_GENDER] == 1 || flags[kFLAGS.EMBER_GENDER] == 3); }
+		public function emberHasVagina():Boolean { return (flags[kFLAGS.EMBER_GENDER] == 2 || flags[kFLAGS.EMBER_GENDER] == 3); }
+		public function emberIsHerm():Boolean { return flags[kFLAGS.EMBER_GENDER] == 3; }
+		public function emberChildren():int { return (flags[kFLAGS.EMBER_CHILDREN_MALES] + flags[kFLAGS.EMBER_CHILDREN_FEMALES] + flags[kFLAGS.EMBER_CHILDREN_HERMS]); }
+		private function emberInternalDick():Boolean { return (flags[kFLAGS.EMBER_ROUNDFACE] == 0 || flags[kFLAGS.EMBER_INTERNAL_DICK] > 0); }
 		public function emberSprite():void {
 			spriteSelect(null);
-			// placeholder for now
+			//placeholder for now
 		}
-
-//Approaching Ember (Z)
-		public function emberCampMenu():void
-		{
+		//Approaching Ember (Z)
+		public function emberCampMenu():void {
 			clearOutput();
 			outputText(images.showImage("ember-visit-at-camp"));
 			//Low Affection:
@@ -253,10 +206,8 @@ package classes.Scenes.NPCs
 			}
 			addButton(14, "Back", camp.campFollowers);
 		}
-
-//Approach for sex - initial output when selecting [Sex] menu (Z)
-		private function emberSexMenu(output:Boolean = true):void
-		{
+		//Approach for sex - initial output when selecting [Sex] menu (Z)
+		private function emberSexMenu(output:Boolean = true):void {
 			if (output) {
 				clearOutput();
 				outputText("You ogle Ember, checking out the nuances of " + emberMF("his", "her") + " body.");
@@ -267,14 +218,12 @@ package classes.Scenes.NPCs
 				//(High Affection)
 				else outputText("\n\n\"<i>D-don't stare at me like that!</i>\" Ember protests, biting " + emberMF("his", "her") + " lip.");
 				outputText("\n\nYou smile at Ember, admiring the shape of the dragon, and casually mention as much.");
-
 				//Low Affection)
 				if (emberAffection() <= 25) outputText("\n\n\"<i>Flattery won't get you any points with me!</i>\" Ember declares.");
 				//(Medium Affection)
 				else if (emberAffection() < 75) outputText("\n\n\"<i>I don't buy it... you're up to something; I can tell,</i>\" Ember replies.");
 				//(High Affection)
 				else outputText("\n\n\"<i>Well, stop it!  You're making me...</i>\"  Ember never finishes " + emberMF("his", "her") + " sentence, flustered with a mixture of arousal and embarrassment.");
-
 				outputText("  ");
 				if (flags[kFLAGS.EMBER_GENDER] == 1 || flags[kFLAGS.EMBER_GENDER] == 3) {
 					outputText(emberMF("His", "Her") + " cock ");
@@ -303,7 +252,6 @@ package classes.Scenes.NPCs
 			addDisabledButton(6, "Penetrate " + emberMF("Him", "Her"), "This scene requires you to have cock and sufficient arousal. Ember should have vagina.");
 			addDisabledButton(7, "Get Penetrated", "This scene requires you to have vagina and sufficient arousal. Ember should have cock.");
 			addDisabledButton(8, "LustyFuck", "This scene requires you to have cock and insatiable libido or bottle of lust draft. Ember affection should be really high.");
-
 			if (flags[kFLAGS.EMBER_GENDER] == 1 || flags[kFLAGS.EMBER_GENDER] == 3) addButton(0, "Catch Anal", catchAnal).hint("Ask Ember if " + emberMF("he", "she") + "'s willing to penetrate your " + player.assDescript() + " with that cock of " + emberMF("his", "hers") + ".");
 			if (player.hasCock() && player.lust >= 33) addButton(1, "Pitch Anal", stickItInEmbersButt).hint("Penetrate Ember anally with your cock.");
 			if (flags[kFLAGS.EMBER_GENDER] == 1 || flags[kFLAGS.EMBER_GENDER] == 3) addButton(2, "Blow Ember", suckEmberCock).hint("Suck Ember's cock and get a taste of " + emberMF("his", "her") + " cum. " + (flags[kFLAGS.HUNGER_ENABLED] > 0 ? "\n\nAnd get your belly stuffed, of course!" : "") + "");
@@ -312,16 +260,11 @@ package classes.Scenes.NPCs
 			if (player.hasVagina() && player.lust >= 33) addButton(5, "Get Eaten Out", getEatenOutByEmbra).hint("Ask Ember if " + emberMF("he", "she") + "'s willing to get a taste of your vagina.");
 			if (flags[kFLAGS.EMBER_GENDER] >= 2 && player.hasCock() && player.lust >= 33) addButton(6, "Penetrate " + emberMF("Him", "Her"), penetrateEmbrah, null, null, null, "Penetrate Ember vaginally!");
 			if ((flags[kFLAGS.EMBER_GENDER] == 1 || flags[kFLAGS.EMBER_GENDER] == 3) && player.lust >= 33 && player.hasVagina()) addButton(7, "Get Penetrated", getPenetratedByEmberLastSexSceneWoooo).hint("Ask Ember if " + emberMF("he", "she") + "'s willing to penetrate you vaginally with that cock of " + emberMF("his", "hers") + ".");
-			if (emberAffection() >= 95 && player.hasCock() && player.cockThatFits(emberVaginalCapacity()) >= 0 && (player.hasItem(consumables.L_DRAFT) || player.lib >= 50 || player.minLust() >= 40))
-				addButton(8, "LustyFuck", highAffectionEmberLustFuck);
+			if (emberAffection() >= 95 && player.hasCock() && player.cockThatFits(emberVaginalCapacity()) >= 0 && (player.hasItem(consumables.L_DRAFT) || player.lib >= 50 || player.minLust() >= 40)) addButton(8, "LustyFuck", highAffectionEmberLustFuck);
 			addButton(14, "Leave", emberCampMenu);
-
 		}
-
-//Finding the Egg (Z)
-//Triggers randomly on exploration in Swamp
-		public function findEmbersEgg():void
-		{
+		//Finding the Egg (Z). Triggers randomly on exploration in Swamp
+		public function findEmbersEgg():void {
 			clearOutput();
 			if (flags[kFLAGS.TIMES_FOUND_EMBERS_EGG] == 0) {
 				outputText("You spot a cave entrance partially hidden behind mossy vegetation and decide to investigate.");
@@ -346,33 +289,26 @@ package classes.Scenes.NPCs
 			addButton(1, "Destroy It", destroyBabyEmberYouMonster).hint("Destroy the egg. (And optionally eat the egg) \n\nWhy would you do that?");
 			addButton(4, "Leave", leaveEmbersAssOutToDry);
 		}
-
-//[=Leave=] (Z)
-		private function leaveEmbersAssOutToDry():void
-		{
+		//Leave (Z)
+		private function leaveEmbersAssOutToDry():void {
 			clearOutput();
 			outputText("You can't decide what to do right now, so you leave the egg where it is and return to your camp.");
 			//(You can restart this quest by randomly encountering this chamber again. It continues to reappear until you either Destroy or Take the egg.)
 			doNext(camp.returnToCampUseOneHour);
 		}
-
-//[=Destroy it=] (Z)
-		private function destroyBabyEmberYouMonster():void
-		{
+		//Destroy it (Z)
+		private function destroyBabyEmberYouMonster():void {
 			clearOutput();
 			outputText("Raising your [weapon], you rain down blow after blow upon the egg.  The shell is freakishly tough, taking a lot of punishment before it shatters apart to spill a wave of egg white onto your " + player.feet() + "; a great pulpy mass of weirdly bluish-red yolk remains in the broken shell.");
 			outputText("\n\nYou have sealed the fate of an entire species... you feel guilty, but this was for the best.  There was no way of knowing what this dragon could do once it hatched.");
 			outputText("\n\nWith nothing else in the cave, you prepare to leave, but find yourself stopped by a sudden thought.  The egg yolk, though raw, looks strangely appetizing...");
 			flags[kFLAGS.EGG_BROKEN] = 1;
-			//[Eat][Leave]
 			menu();
 			addButton(0, "Eat It", eatEmbersYolkLikeAnEvenBiggerDick);
 			addButton(14, "Leave", camp.returnToCampUseOneHour);
 		}
-
-//[=Eat=]
-		private function eatEmbersYolkLikeAnEvenBiggerDick():void
-		{
+		//Eat
+		private function eatEmbersYolkLikeAnEvenBiggerDick():void {
 			clearOutput();
 			outputText("Unsure of where the impulse comes from, but uncaring, you crouch over the ruined shell of your 'kill' and begin messily scooping handfuls of yolk into your mouth.");
 			outputText("\n\nThe taste is incredible; a tinge of bitterness, but rich and velvety, sliding down your throat like the most savory of delicacies.  Each scoop you eat fills you with energy and power, you can almost feel yourself growing stronger.");
@@ -381,18 +317,13 @@ package classes.Scenes.NPCs
 			outputText("\n\nFeeling sated, you get up and prepare to return to your camp, but on a whim, you take the shell with you as a souvenir.");
 			outputText("\n\n(<b>Gained Key Item: Dragon Eggshell</b>)");
 			player.createKeyItem("Dragon Eggshell", 0, 0, 0, 0);
-			//(+5-10 to strength, toughness, and speed.)
-			//(+20 Corruption)
-			//(also slimefeed!)
-			dynStats("str", 5 + rand(5), "tou", 5 + rand(5), "int", 5 + rand(5), "cor", 20);
-			player.slimeFeed();
+			awardAchievement("Dragon Slayer", kACHIEVEMENTS.GENERAL_DRAGON_SLAYER);
+			dynStats("str", 5 + rand(5), "tou", 5 + rand(5), "int", 5 + rand(5), "cor", 20); //+5-10 to strength, toughness, and speed, +20 Corruption
+			player.slimeFeed(); //also slimefeed!
 			doNext(camp.returnToCampUseOneHour);
 		}
-
-
-//[Yes]
-		public function getSomeStuff():void
-		{
+		//Yes
+		public function getSomeStuff():void {
 			clearOutput();
 			outputText("Your mouth tightens in consternation, and you pull out the shell of the so-called 'dragon egg', passing it over and asking if she can use it.");
 			outputText("\n\n\"<i>What is this?  An egg?  Eggs aren't much good for armor, cutie, no matter how big.  One good blow and POW!</i>\"  To demonstrate, she raises her hand, then strikes the shell with the blade of her palm - and pulls it away, smarting.  \"<i>My gods!  It's so hard!  Ok... maybe we can do this.</i>\"");
@@ -405,31 +336,26 @@ package classes.Scenes.NPCs
 			player.removeKeyItem("Dragon Eggshell");
 			inventory.takeItem(shields.DRGNSHL, new YvonneArmorShop().enter);
 		}
-
-//Suggested Reward:
-//Dragonshell Shield: a 'weapon' that cannot be disarmed and has 0 attack, but boosts defense.  Has a chance to stun when attacking and has a high chance to block the effects of any 'fluid' attack (Such as Minotaur Cum, Potions, Sticky Web, Valeria Silence Goo, etc.) due to the shell's innate fluid absorption abilities.
-//sells for 100G
+		//Suggested Reward:
+//Dragonshell Shield: a 'weapon' that cannot be disarmed and has 0 attack, but boosts defense. Has a chance to stun when attacking and has a high chance to block the effects of any 'fluid' attack (Such as Minotaur Cum, Potions, Sticky Web, Valeria Silence Goo, etc.) due to the shell's innate fluid absorption abilities
+//Sells for 100G
 //Block Effect Description: (Z)
-//You raise your shield and block the onrushing liquid.  The porous shell quickly absorbs the fluid, wicking it away to who-knows-where and rendering the attack completely useless.
-
-//[=Take=] (Z)
-		private function takeEmbersEggHomeInADoggieBag():void
-		{
+//You raise your shield and block the onrushing liquid. The porous shell quickly absorbs the fluid, wicking it away to who-knows-where and rendering the attack completely useless.
+		//Take (Z)
+		private function takeEmbersEggHomeInADoggieBag():void {
 			clearOutput();
 			outputText("You decide to take the egg, figuring that perhaps this dragon could aid you in your quest.");
 			//(If player is shorter than 7 feet)
-			if (player.tallness < 84) outputText("  Lifting it isn't as much of a problem as you thought; it's surprisingly light.  It is, however, very big and very awkward to carry.");
+			if (player.tallness < 84)
+				 outputText("  Lifting it isn't as much of a problem as you thought; it's surprisingly light.  It is, however, very big and very awkward to carry.");
 			else outputText("  Between the egg's surprising lightness, and your own size and wide arms, you can easily carry the egg.");
 			outputText("\n\nYou make it back to the strange corridor entrance... but when you attempt to cross over into the cave's opening, you feel the egg bump into something.  Alarmed, you quickly scan its surface.");
 			outputText("\n\nThankfully, it seems to be intact; you put the egg down and try to roll it gently past the open cave mouth.  It bumps something again, something invisible. Then you recall the books' mention of some sort of ward protecting the egg; when you try to touch and feel the invisible ward however, your hand goes right through.  In fact you can cross this 'ward' easily, as if it weren't even there...  However, if you attempt to carry the egg, there is a solid barrier preventing it from passing through.");
 			outputText("\n\nVexed, you decide to look around the egg chamber for another way out.");
-
-			//(if PC has >= 50 int)
 			if (player.inte >= 50) {
 				outputText("\n\nYou feel electricity run down your spine as you pass by a far wall in the back of the cave; inspecting the wall, you quickly locate an odd rock.  When you pick it up, you realize it has some sort of inscription drawn all over the underside; figuring it's probably the source of the ward, you fling the rock at the far wall, shattering it into many pieces.");
 				outputText("\n\nYou feel a small pulse of energy run through the chamber and into the corridor.  Running towards the entrance; you discover that you can easily remove the egg.  It begins to glow softly as you remove it from the cave; at first you take it for a trick of the light, but remember there isn't any in this damned dark swamp!");
 			}
-			//(else if PC has >= 90 str)
 			else if (player.str >= 90) {
 				outputText("\n\nou look around over and over and over... but no matter how much you look, you don't see anything at all that could even resemble some kind of magic rune, or activation button, or anything that could disable the ward.  You groan in frustration.");
 				outputText("\n\nWell, if there is no way out all you have to do is make one, right?  Using your immense strength, you break off a sturdy-looking stalagmite and begin striking the walls in hopes of breaking through or disabling the barrier.");
@@ -449,11 +375,8 @@ package classes.Scenes.NPCs
 			flags[kFLAGS.EMBER_COR] = 50;
 			doNext(camp.returnToCampUseOneHour);
 		}
-
-
-//Modified Camp Description (Z)
-		public function emberCampDesc():void
-		{
+		//Modified Camp Description (Z)
+		public function emberCampDesc():void {
 			//Iz Ember an egg?
 			if (flags[kFLAGS.EMBER_HATCHED] == 0) outputText("\nThat mysterious egg that you brought back to the camp is sitting in the crude nest you made.\n");
 			//NOT AN EGG! HAHA!
@@ -464,19 +387,16 @@ package classes.Scenes.NPCs
 				else outputText("Ember appears to be fighting to stay awake; sometimes " + emberMF("he", "she") + " falls into a doze, but quickly snaps back to consciousness.\n\n");
 			}
 		}
-
-//Followers Descriptor (Z)
-		private function emberFollowerDesc():void
-		{
+		//Followers Descriptor (Z)
+		private function emberFollowerDesc():void {
 			outputText("The mysterious egg you found in the cave sits in the grass nest you assembled for it; it is three feet tall and nearly two feet in circumference.  The nest itself isn't very pretty, but at least it's sturdy enough to keep the egg from rolling around.\n\n");
 		}
-
 //How Ember should hatch
 //General Hatching Rules
-//Can only be hatched by using in masturbation.
-//Must use in masturbation or use items on egg at least five times before it can be hatched.
-//This means that even if 5 items are used on the egg, it won't hatch until the PC masturbates on it at least once.
-//Egg starts at 50 Corruption.
+//Can only be hatched by using in masturbation
+//Must use in masturbation or use items on egg at least five times before it can be hatched
+//This means that even if 5 items are used on the egg, it won't hatch until the PC masturbates on it at least once
+//Egg starts at 50 Corruption
 
 //Items that change traits
 		//Lactaid sets EmberMilk to 1.
@@ -518,8 +438,7 @@ package classes.Scenes.NPCs
 //if EmberType has been altered, forget corruption. Hybrid forms have no corruption variants.
 
 //General Egg Interaction (Z)
-		public function emberEggInteraction():void
-		{
+		public function emberEggInteraction():void {
 			clearOutput();
 			outputText("You approach the egg you found in that illusion-concealed cave. Though the light continues to pulse with its heartbeat overtones, it still just sits there, doing nothing.");
 			//(If the egg Corruption level is 0-25, aka \"<i>Pure</i>\")
