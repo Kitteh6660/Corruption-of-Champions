@@ -1,21 +1,14 @@
-package classes.Scenes.Areas.Mountain
-{
+package classes.Scenes.Areas.Mountain {
 	import classes.*;
 	import classes.BodyParts.*;
 	import classes.internals.*;
 	import classes.GlobalFlags.kGAMECLASS;
-
-	/**
-	 * ...
-	 * @author Fake-Name
-	 */
-
-
-	public class InfestedHellhound extends HellHound
-	{
-		//[Extra special attack]
-		private function hellHoundWormCannon():void
-		{
+	/* author Fake-Name */
+	public class InfestedHellhound extends HellHound {
+		//Extra special attack
+		private function hellHoundWormCannon():void {
+			clearOutput();
+			outputText(images.showImage("hellhound-cumshot"));
 			outputText("The thing rears up onto its hind legs, revealing its more humanoid stature, and allowing it to use its flexible paws to caress its twinned-penises.  It lurches forwards powerfully, its thickness twitching and flaring as it launches a wave of worm-filled canine cum at you.");
 			outputText("\n");
 			if (rand(2) == 0) {
@@ -34,11 +27,10 @@ package classes.Scenes.Areas.Mountain
 				}
 				else if (player.hasVagina()) outputText("  Thankfully, the worms don't seem to want anything to do with you, and rapidly drop down to the ground.");
 			}
-			//Sidestep
 			else {
+				//Sidestep
 				outputText("You sidestep the gush of wormy fluid, letting it splatter against the rocks behind you.");
-				//(If infested +10 lust:  
-				if (player.hasStatusEffect(StatusEffects.Infested)  && player.hasCock()) {
+				if (player.hasStatusEffect(StatusEffects.Infested) && player.hasCock()) {
 					if (player.hasCock()) {
 						outputText("  Despite avoiding the torrent of infected seed, your own wormy ");
 						if (player.balls > 0) outputText(player.ballsDescriptLight());
@@ -46,16 +38,16 @@ package classes.Scenes.Areas.Mountain
 						outputText(" wriggle");
 						if (player.balls == 0 && player.cockTotal() == 1) outputText("s");
 						outputText(" hotly, expelling a few of your own worms in response along with a dribble of thick pre-cum.   You wonder what it would feel like to let his worms crawl inside you...");
-						player.takeLustDamage(10, true);
-					} else {
+						player.takeLustDamage(10, true); //if has cock & infested (+10 lust)
+					}
+					else {
 						CoC_Settings.error("Infested but no cock!");
-						player.takeLustDamage(5, true);
+						player.takeLustDamage(5, true); //else infested (+5 lust)
 						outputText("  The idea of being covered in the beast's infested seed arouses you slightly, but you shake your head violently and clear away the unwelcome thought.");
 					}
 				}
-				//if aroused by worms +5 lust:
 				else if (player.hasStatusEffect(StatusEffects.WormsOn) && !player.hasStatusEffect(StatusEffects.WormsHalf)) {
-					player.takeLustDamage(5, true);
+					player.takeLustDamage(5, true); //if aroused by worms (+5 lust)
 					outputText("  The idea of being covered in the beast's infested seed arouses you slightly, but you shake your head violently and clear away the unwelcome thought.");
 				}
 			}
@@ -64,50 +56,44 @@ package classes.Scenes.Areas.Mountain
 			combatRoundOver();
 		}
 
-		override public function defeated(hpVictory:Boolean):void
-		{
+		override public function defeated(hpVictory:Boolean):void {
 			clearOutput();
 			if (hpVictory) {
+				outputText(images.showImage("hellhound-victory-hp"));
 				outputText("The hellhound's flames dim and the heads let out a whine before the creature slumps down, defeated, unconscious, and yet still drooling worms.");
-			} else {
+			}
+			else {
+				outputText(images.showImage("hellhound-victory-lust"));
 				outputText("Unable to bear its unnatural arousal, the infested hellhound's flames dim as he stops his attack. The two heads look at you, whining plaintively.  The hellhound slowly pads over to you and nudges its noses at your crotch.  It seems he wishes to pleasure you.\n\n");
 			}
-			
 			kGAMECLASS.output.menu();
-			
 			kGAMECLASS.output.addButtonDisabled(0, "Lick", "Make him use his tongues. This scene requires you to have genitals and sufficient arousal. This scene requires lust victory.");
-			
 			if (player.lust >= 33 && !player.isGenderless()) {
-				if (!hpVictory) {
+				if (!hpVictory)
 					kGAMECLASS.output.addButton(0, "Lick", game.mountain.hellHoundScene.hellHoundGetsRaped, undefined, undefined, undefined, "Make him use his tongues.");
-				}
 			}
-			
 			kGAMECLASS.output.addButton(14, "Leave", game.combat.cleanupAfterCombat);
 		}
 
-		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void
-		{
+		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void {
 			if (pcCameWorms) {
 				outputText("\n\nThe infested hellhound's heads both grin happily as it advances towards you...");
 				doNext(game.mountain.infestedHellhoundScene.infestedHellhoundLossRape);
-			} else if (hpVictory) {
-				game.mountain.infestedHellhoundScene.infestedHellhoundLossRape();
-			} else {
-				game.mountain.infestedHellhoundScene.infestedHellhoundLossRape();
 			}
+			else if (hpVictory)
+				 game.mountain.infestedHellhoundScene.infestedHellhoundLossRape();
+			else game.mountain.infestedHellhoundScene.infestedHellhoundLossRape();
 		}
 
-		public function InfestedHellhound()
-		{
+		public function InfestedHellhound() {
 			super(true);
 			//trace("InfestedHellhound Constructor!");
 			this.a = "the ";
 			this.short = "infested hellhound";
-			this.imageName = "infestedhellhound";
+			this.imageName = "hellhoundinfested";
 			this.long = "It looks like a large four-legged demon with two heads placed side-by-side. Its eyes and mouth are filled with flames, and covering each of its paws are large and menacing claws. A thick layer of dark fur covers his entire body like armor.  Both heads are looking at you hungrily as the hellhound circles around you.  A pair of black, slightly pointed cocks hang exposed, dripping with cum and worms.  You get the feeling reasoning with this beast will be impossible.";
 			this.race = "Hellhound";
-			// this.plural = false;
+			//this.plural = false;
 			this.createCock(9, 2);
 			this.createCock(9, 2);
 			this.balls = 2;
@@ -151,7 +137,5 @@ package classes.Scenes.Areas.Mountain
 			this.tail.type = Tail.DOG;
 			checkMonster();
 		}
-
 	}
-
 }

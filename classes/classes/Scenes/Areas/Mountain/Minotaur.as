@@ -2,7 +2,7 @@ package classes.Scenes.Areas.Mountain {
 	import classes.*;
 	import classes.BodyParts.*;
 	import classes.internals.*;
-	/* @author Fake-Name */
+	/** @author Fake-Name */
 	public class Minotaur extends Monster {
 		public var hasAxe:Boolean;
 
@@ -29,9 +29,9 @@ package classes.Scenes.Areas.Mountain {
 		}
 
 		override public function get long():String {
-			return "An angry-looking minotaur looms over you.  Covered in shaggy " + hair.color + " fur, the beast is an imposing sight.  Wearing little but an obviously distended loincloth, he is clearly already plotting his method of punishment.  Like most minotaurs he has hooves, a cow-like tail and face, prominent horns, and impressive musculature. "+
-					(ballSize > 4?("  Barely visible below the tattered shreds of loincloth are " + Appearance.ballsDescription(true, true, this) + ", swollen with the minotaur's long pent-up need."):"") +
-					(hasAxe?"<b>This minotaur seems to have found a deadly looking axe somewhere!</b>":"");
+			return "An angry-looking minotaur looms over you.  Covered in shaggy " + hair.color + " fur, the beast is an imposing sight.  Wearing little but an obviously distended loincloth, he is clearly already plotting his method of punishment.  Like most minotaurs he has hooves, a cow-like tail and face, prominent horns, and impressive musculature. "
+					+(ballSize > 4?("  Barely visible below the tattered shreds of loincloth are " + Appearance.ballsDescription(true, true, this) + ", swollen with the minotaur's long pent-up need."):"")
+					+(hasAxe?"\n<b>This minotaur seems to have found a deadly looking axe somewhere!</b>":"");
 		}
 
 		public function Minotaur(axe:Boolean=false) {
@@ -40,7 +40,6 @@ package classes.Scenes.Areas.Mountain {
 			//trace("Minotaur Constructor!");
 			this.a = "the ";
 			this.short = "minotaur";
-			this.imageName = hasAxe?"minoaxe":"minotaur";
 			this.long = "";
 			this.race = "Minotaur";
 			//this.plural = false;
