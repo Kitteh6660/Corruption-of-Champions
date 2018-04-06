@@ -1,21 +1,16 @@
-package classes.Scenes.NPCs
-{
+package classes.Scenes.NPCs {
 	import classes.*;
 	import classes.BodyParts.*;
 	import classes.BodyParts.Butt;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.internals.ChainedDrop;
 
-	public class Ember extends Monster
-	{
-		private function emberMF(male:String,female:String):String{
-			return game.emberScene.emberMF(male,female);
-		}
+	public class Ember extends Monster {
 		//The Actual Ember Fight (Z)
-		//PC can't use any sexual moves in this battle. This means anything that deals or affects Ember's lust in any way.
-		//It doesn't make sense to affect Ember's lust due to the nature of the combat, however it IS possible and encouraged to use lust moves when fighting Bimbo or Corrupt Ember.
-
-		//PC shouldn't lose their turn for doing this, unless you want to penalize them Fen.
+		//PC can't use any sexual moves in this battle. This means anything that deals or affects Ember's lust in any way
+		//It doesn't make sense to affect Ember's lust due to the nature of the combat, however it IS possible and encouraged to use lust moves when fighting Bimbo or Corrupt Ember
+		private function emberMF(male:String,female:String):String { return game.emberScene.emberMF(male,female); }
+		//PC shouldn't lose their turn for doing this, unless you want to penalize them Fen
 		private function emberReactsToLustiness():void {
 			//(if PC uses any attack designed to increase Ember's lust)
 			outputText("The dragon moans, weaving softly from side to side, eyes glazed and tongue lolling at the intimate prospect of sex... but then, to your surprise, " + emberMF("he","she") + " visibly shakes it off and recomposes " + emberMF("him","her") + "self, frowning at you.");
@@ -27,14 +22,13 @@ package classes.Scenes.NPCs
 			HP = 0;
 			game.combat.cleanupAfterCombat();
 		}
-		//Ember Attacks:
+		//Ember Attacks
 		private function emberAttack():void {
 			//Basic attack, average damage, average accuracy
 			outputText("With a growl, the dragon lashes out in a ferocious splay-fingered slash, "+ emberMF("his","her") + " claws poised to rip into your flesh.  ");
 			//Blind dodge change
-			if (hasStatusEffect(StatusEffects.Blind) && rand(2) == 0) {
+			if (hasStatusEffect(StatusEffects.Blind) && rand(2) == 0)
 				outputText(capitalA + short + " completely misses you with a blind attack!");
-			}
 			//Miss/dodge
 			else if (player.getEvasionRoll()) outputText("You dodge aside at the last second and Ember's claws whistle past you.");
 			else {
@@ -47,14 +41,12 @@ package classes.Scenes.NPCs
 			}
 			combatRoundOver();
 		}
-		
 		//Dragon Breath: Very rare attack, very high damage
 		private function embersSupahSpecialDragonBreath():void {
 			if (hasStatusEffect(StatusEffects.Blind) && rand(2) == 0) {
 				//Blind Ember: 
 				outputText("The blinded dragon tracks you with difficulty as you sprint around the landscape; seeing an opportunity, you strafe around " + emberMF("his","her") + " side, planting yourself behind a large flat boulder near " + emberMF("him","her") + " and pelting " + emberMF("him","her") + " with a small rock.  The scream as the dragon turns the magical conflagration toward you, only to have it hit the rock and blow up in " + emberMF("his","her") + " face, is quite satisfying. ");
-				//(Ember HP damage)
-				game.combat.doDamage(50, true, true);
+				game.combat.doDamage(50, true, true); //Ember HP damage
 			}
 			else {
 				outputText("Ember inhales deeply, then "+ emberMF("his","her") + " jaws open up, releasing streams of fire, ice and lightning; magical rather than physical, the gaudy displays lose cohesion and amalgamate into a column of raw energy as they fly at you.");
@@ -68,7 +60,6 @@ package classes.Scenes.NPCs
 			}
 			combatRoundOver();
 		}
-		
 		//Tailslap: Rare attack, high damage, low accuracy
 		private function emberTailSlap():void {
 			//Blind dodge change
@@ -92,15 +83,12 @@ package classes.Scenes.NPCs
 			}
 			combatRoundOver();
 		}
-				
 		//Dragon Force: Tainted Ember only
 		private function dragonFarce():void {
-			//Effect: Stuns the PC for one turn and deals some damage, not much though. (Note: PC's version of this does something different and Ember has no cooldown to use this again. Obviously do not spam or peeps will rage.)
-			//Description:
+			//Effect: Stuns the PC for one turn and deals some damage, not much though (Note: PC's version of this does something different and Ember has no cooldown to use this again. Obviously do not spam or peeps will rage)
 			outputText("Ember bares "+ emberMF("his","her") + " teeth and releases a deafening roar; a concussive blast of force heads straight for you!  ");
-			if (player.getEvasionRoll()) {
+			if (player.getEvasionRoll())
 				outputText("You quickly manage to jump out of the way and watch in awe as the blast gouges into the ground you were standing on mere moments ago.");
-			}
 			else {
 				outputText("Try as you might, you can't seem to protect yourself; and the blast hits you like a stone, throwing you to the ground. ");
 				if (player.findPerk(PerkLib.Resolute) < 0 || (game.emberScene.emberSparIntensity() >= 30 && rand(2) == 0)) {
@@ -116,9 +104,8 @@ package classes.Scenes.NPCs
 			}
 			combatRoundOver();
 		}
-		
-		override protected function performCombatAction():void
-		{
+
+		override protected function performCombatAction():void {
 			if (lust >= maxLust() * 0.6) {
 				emberReactsToLustiness();
 				return;
@@ -135,28 +122,20 @@ package classes.Scenes.NPCs
 			else if (rand(3) == 0) emberTailSlap();
 			else emberAttack();
 		}
-
-		override public function defeated(hpVictory:Boolean):void
-		{
-			//Hackers gonna hate. Tested and working as intended.
+		//Hackers gonna hate. Tested and working as intended
+		override public function defeated(hpVictory:Boolean):void {
 			if (hpVictory) game.emberScene.beatEmberSpar();
 			else emberReactsToLustiness();
 		}
+		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void { game.emberScene.loseToEmberSpar(); }
 
-
-		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void
-		{
-			game.emberScene.loseToEmberSpar();
-		}
-
-		public function Ember()
-		{
+		public function Ember() {
 			this.a = " ";
 			this.short = "Ember";
 			this.imageName = "ember";
 			this.long = "You are currently 'battling' Ember, the dragon, in a playfight.  At least, that was the intention.  The way " + emberMF("he", "she") + " lashes " + emberMF("his", "her") + " tail along the ground, with claws spread and teeth bared ferociously, makes you wonder.";
 			this.race = "Dragon";
-			// this.plural = false;
+			//this.plural = false;
 			this.pronoun1 = game.emberScene.emberMF("he", "she");
 			this.pronoun2 = game.emberScene.emberMF("him", "her");
 			this.pronoun3 = game.emberScene.emberMF("his", "her");
@@ -166,14 +145,13 @@ package classes.Scenes.NPCs
 				this.balls = 2;
 				this.ballSize = 4;
 				this.cumMultiplier = 3;
-				// this.hoursSinceCum = 0;
+				//this.hoursSinceCum = 0;
 			}
 			if (gender >= 2) {
 				this.createVagina(game.flags[kFLAGS.EMBER_PUSSY_FUCK_COUNT] == 0, VaginaClass.WETNESS_SLAVERING, VaginaClass.LOOSENESS_LOOSE);
 				createBreastRow(Appearance.breastCupInverse("F"));
-			} else {
-				createBreastRow(Appearance.breastCupInverse("flat"));
 			}
+			else createBreastRow(Appearance.breastCupInverse("flat"));
 
 			this.ass.analLooseness = AssClass.LOOSENESS_NORMAL;
 			this.ass.analWetness = AssClass.WETNESS_DRY;
@@ -202,15 +180,14 @@ package classes.Scenes.NPCs
 			this.level = 15;
 			this.gems = 0;
 			this.drop = new ChainedDrop().add(useables.D_SCALE, 0.2);
-			//Increase the intensity of battle the more victories you have.
+			//Increase the intensity of battle the more victories you have
 			if (game.emberScene.emberSparIntensity() < 100) {
 				bonusHP += game.emberScene.emberSparIntensity() * 20;
 				bonusLust += game.emberScene.emberSparIntensity();
 				weaponAttack += game.emberScene.emberSparIntensity() * 2;
 				if (game.emberScene.emberSparIntensity() < 50)
-					level += Math.floor(game.emberScene.emberSparIntensity() / 5);
-				else
-					level += 10 + Math.floor((game.emberScene.emberSparIntensity()-50) / 10);
+					 level += Math.floor(game.emberScene.emberSparIntensity() / 5);
+				else level += 10 + Math.floor((game.emberScene.emberSparIntensity()-50) / 10);
 			}
 			else {
 				bonusHP += 2000;

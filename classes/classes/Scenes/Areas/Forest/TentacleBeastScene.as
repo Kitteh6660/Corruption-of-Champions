@@ -1,21 +1,15 @@
-package classes.Scenes.Areas.Forest{
+package classes.Scenes.Areas.Forest {
 	import classes.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
 	import classes.display.SpriteDb;
 	import classes.internals.*;
 
-	public class TentacleBeastScene extends BaseContent{
+	public class TentacleBeastScene extends BaseContent {
 
-
-	public function TentacleBeastScene()
-	{
-	}
-
+		public function TentacleBeastScene() {}
 //Tentacle Encounter - beware legalese!
-/*
- LICENSE 
- 
+/* LICENSE
 This license grants Fenoxo, creator of this game usage of the works of
 Dxasmodeus in this product. Dxasmodeus grants Fenoxo and the coders assigned by him
 to this project permission to alter the text to conform with current and new game
@@ -29,7 +23,6 @@ by a third party. This license is also retroactive to include all versions of th
 including events created by dxasmodeus.
 
 DECLARATION OF OWNERSHIP
-
 The following events are the creative works of dxasmodeus and are covered under this license.
 
 Tentacle Plant Event
@@ -41,7 +34,6 @@ Tentacle Plant Event and Giacomo sub-events are copyright 2010 by Dxasmodeus.
 Worm Colony Events are copyright 2011 by dxasmodeus.
 
 THIRD PARTY USAGE
-
 As Fenoxo has made his game code open source, this license DOES NOT transfer to a 
 third party developer. The events created by Dxasmodeus may not be used in whole or in part
 without permission and license from Dxasmodeus. Dxasmodeus reserves the sole and exclusive right to
@@ -51,9 +43,7 @@ For further information and license requests, dxasmodeus may be contacted throug
 message at the Futanari Palace. http://www.futanaripalace.com/forum.php. 
 
 ENFORCEMENT
-
-This license supercedes all previous licenses and remains in force.
-*/
+This license supercedes all previous licenses and remains in force.*/
 
 public function encounter():void {
 	//trace("Tentacle event here");

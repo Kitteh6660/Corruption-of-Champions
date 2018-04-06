@@ -1,8 +1,8 @@
 //const EVER_INFESTED:int = 787;	
 //const CAME_WORMS_AFTER_COMBAT:int = 788;
 /*
- LICENSE 
- 
+LICENSE 
+
 This license grants Fenoxo, creator of this game usage of the works of
 Dxasmodeus in this product. Dxasmodeus grants Fenoxo and the coders assigned by him to this project permission to alter the text to conform with current and new game functions, only. Dxasmodeus retains exclusive rights to alter or change the core contents of the events and no other developer may alter, change or use the events without permission from dxasmodeus. Fenoxo agrees to include Dxasmodeus' name in the credits with indications to the specific contribution made to the licensor. This license must appear
 either at the beginning or the end of the primary file in the source code and cannot be deleted by a third party. This license is also retroactive to include all versions of the game code including events created by dxasmodeus.
@@ -24,25 +24,21 @@ THIRD PARTY USAGE
 As Fenoxo has made his game code open source, this license DOES NOT transfer to a third party developer. The events created by Dxasmodeus may not be used in whole or in part without permission and license from Dxasmodeus. Dxasmodeus reserves the sole and exclusive right to grant third party licenses of copyrighted scenarios.
 
 For further information and license requests, Dxasmodeus may be contacted through private message at the Futanari Palace. http://www.futanaripalace.com/forum.php. */
-
-package classes.Scenes.Areas.Mountain 
-{
+package classes.Scenes.Areas.Mountain {
 	import classes.*;
 	import classes.GlobalFlags.*;
 	import classes.display.SpriteDb;
 	import classes.internals.*;
-	
-	public class WormsScene extends BaseContent
-	{
-		
-		public function WormsScene() 
-		{
-		}
-		
+
+	public class WormsScene extends BaseContent {
+
+		public function WormsScene() {}
+
 		public function wormEncounter():void {
-			spriteSelect(SpriteDb.s_dickworms);
 			clearOutput();
-			if (!player.hasStatusEffect(StatusEffects.MetWorms)) { //First encounter
+			spriteSelect(SpriteDb.s_dickworms);
+			outputText(images.showImage("encounter-wormmass"));
+			if (!player.hasStatusEffect(StatusEffects.MetWorms)) { //first encounter
 				outputText("As you are exploring, a rather pungent, peaty smell assails your nostrils. You hear a strange rustling and an off-kilter squishing noise in the distance. As you explore the area you come upon a most grotesque sight. Before you is a cohesive mass of writhing, wriggling worms! While normally solitary creatures, these appear to have coalesced into a monstrous living colony!\n\n");
 				outputText("You have never before seen such a bizarre freak of nature. You see the mass of annelids creep about across your path. It stops and spreads slightly in your direction before halting. The stench of the mass is indescribable and a thick, viscous slime covers each of the countless worms forming the collective.\n\n");
 				outputText("You stop dead in your tracks, wondering what this swarm will do. After a few tense moments, the mass crawls away in a direction opposite of both you and your current path. You breathe a sigh of relief as you are confident that no good could have come from confronting such a zoological travesty.");
@@ -65,8 +61,9 @@ package classes.Scenes.Areas.Mountain
 		}
 
 		public function wormToggle():void {
-			spriteSelect(SpriteDb.s_dickworms);
 			clearOutput();
+			spriteSelect(SpriteDb.s_dickworms);
+			outputText(images.showImage("event-sign-imp"));
 			outputText("While wandering, you come across a crudely illustrated sign.  It depicts an imp in obvious discomfort, covered in white little worms.  It looks as if one of them is even crawling into the imp's penis!\n\nHow do you feel about that?");
 			menu();
 			addButton(0, "Aroused", wormsOn);
@@ -98,17 +95,17 @@ package classes.Scenes.Areas.Mountain
 			player.createStatusEffect(StatusEffects.WormsOff, 0, 0, 0, 0);
 			doNext(camp.returnToCampUseOneHour);
 		}
-			
+
 		private function wormsConfront():void {
-			spriteSelect(SpriteDb.s_dickworms);
 			clearOutput();
+			spriteSelect(SpriteDb.s_dickworms);
 			outputText("You turn to confront the worms and combat begins!");
 			startCombat(new WormMass());
 		}
 
 		private function wormsDoNothing():void {
-			spriteSelect(SpriteDb.s_dickworms);
 			clearOutput();
+			spriteSelect(SpriteDb.s_dickworms);
 			outputText("You do nothing, allowing the worms to enter combat range!");
 			startCombat(new WormMass());
 		}
@@ -142,55 +139,46 @@ package classes.Scenes.Areas.Mountain
 			}
 			combat.cleanupAfterCombat();
 		}
-
-		//spontaneous orgasm - chance to avoid being raped by monsters who would care.
+		//Spontaneous orgasm - chance to avoid being raped by monsters who would care
 		public function infestOrgasm():void {
 			clearOutput();
 			spriteSelect(SpriteDb.s_dickworms);
 			outputText("The ceaseless squirming of your uninvited guests send your body into paroxysms. Collapsing to your knees, you immediately begin pushing gouts of dick milk out of your body. You feel tremendous pressure in your pelvis and in your cock as you realize that you are pushing worms out with each torrent of cum! Stream upon stream of cum breaks free from the prison of your body, carrying some of the worms inside you with it. Once the orgasm passes, you collapse to the ground, totally spent. Before you pass out, you feel the unfortunate presence of the fat worm still in your body.");
 			player.orgasm('Dick');
-			//Check infestation and update it
-			if (player.hasStatusEffect(StatusEffects.Infested)) {
-				//Increment infestation number
-				if (player.statusEffectv1(StatusEffects.Infested) < 5) {
+			if (player.hasStatusEffect(StatusEffects.Infested)) { //check infestation and update it
+				if (player.statusEffectv1(StatusEffects.Infested) < 5) { //increment infestation number
 					player.addStatusValue(StatusEffects.Infested,1,1);
-					player.cumMultiplier+=0.5;
-					//fifth time is the charm!
-					if (player.statusEffectv1(StatusEffects.Infested) == 5) {
+					player.cumMultiplier += 0.5;
+					if (player.statusEffectv1(StatusEffects.Infested) == 5) { //fifth time is the charm!
 						//Futaz
-						if (player.balls == 0) {
+						if (player.balls == 0)
 							outputText("\n\nAfter you empty yourself, you feel your body shift. The presence of the large worm is no longer discomforting. It is as if your seminal bladder has enlarged to accommodate the new thing inside you. Likewise, your ejaculations have become truly monstrous and the amount of worms you expel has also increased. You realize that the large worm has become a part of you and you can now <b>infest</b> your enemies much in the same manner as you have been infested, yourself. All you need now is some poor fool to overwhelm with your new 'pets'.");
-						}
-						//non-ball-less
-						else {
+						else { //non-ball-less
 							outputText("\n\nYou feel an awkward sensation in your prostate.  You sense the fat worm squirming wildly triggering multiple, sloppy orgasms, leaving you spraying semen everywhere.  After a moment, the orgasms and the worm's twitching stop.  You feel " + num2Text(player.balls) + " separate sensations in your prostate and feel the sensation of pressure pushing on both sides of your body.  The reality hits you.  The fat worm has divided into " + num2Text(player.balls) + " smaller worms!  Each worm has found its way into your vesicles and is pushing down the vas deferens on each side.  You feel each worm push its way into your testicles and they immediately begin to swell to an impressive size.  Your pelvic muscles begin their familiar rhythmic squeezes and you see your sac bob in its tell-tale fashion of an impending orgasm.  Your muscles seize up and your now-massive scrotum tightens up in a vice-like grip around your fat, infested nuts as a huge solid stream of cum rockets from your cock.  You are utterly speechless as you literally shoot cum for five minutes straight!  When the orgasm subsides, you see a small colony of worms in the massive puddle of spunk you made, which quickly creeps off.  You realize that the creature is now a part of you and that you can use this to your advantage in a fight if you learn to control your ejaculations.");
-							player.ballSize+=2;
+							player.ballSize += 2;
 							player.cumMultiplier++;
 						}
 					}
 				}
 			}
 			doNext(camp.returnToCampUseTwoHours);
-			
 		}
-		
+		//Keep logic sane if this attack brings victory
 		public function playerInfest():void {
 			clearOutput();
 			spriteSelect(SpriteDb.s_dickworms);
-			//Keep logic sane if this attack brings victory
-		//Gone	menuLoc = 0;
+			//Gone	menuLoc = 0;
 			if (player.fatigue + player.physicalCost(40) > player.maxFatigue()) {
 				outputText("You try to summon up an orgasm, but you're too tired and waste your time trying!");
 				player.changeFatigue(100-player.fatigue);
 				monster.doAI();
 				return;
 			}
-			
-			//(if PC uses Infest)
+			//If PC uses Infest
 			if (monster.short == "Izma") {
 				player.changeFatigue(40,2);
 				outputText("With a great squeeze, you will your body to push out a load of semen filled with worms.  Izma's eyes widen in shock as she dives and rolls away from the torrent.  \"<i>What the fuck!</i>\" she yells. \"<i>Is that what that smell was?  That's disgusting!  Get away from me " + player.short + ", I DON'T want what you've got.  Don't talk to me again while you've got those nasty things!</i>\"  Izma grabs her locker between her hands and wades into the lake, swimming away by means of her tail while holding the books out of the water.");
-				//(set Izmacounter to 0)
+				//set Izmacounter to 0
 				flags[kFLAGS.IZMA_ENCOUNTER_COUNTER] = 0;
 				flags[kFLAGS.IZMA_WORMS_SCARED] = 1;
 				//clear status
@@ -208,7 +196,7 @@ package classes.Scenes.Areas.Mountain
 			}
 			player.changeFatigue(40,2);
 			outputText("With a great squeeze, you will your body to push out a load of semen filled with worms. You moan in pleasure and release as your fluids launch at your enemy. Worms and cum fly through the air in an attempt to coat your opponent with your new pets.  ");
-			//Viable target?
+			//Viable target:
 			if (monster.short == "minotaur" || monster.short == "imp") {
 				if (monster.lust100 > 70) {
 					outputText("Your load washes over the " + monster.short + " and " + monster.pronoun1 + " stops dead in " + monster.pronoun3 + " tracks as " + monster.pronoun1 + " chokes and sputters to clear the cum from " + monster.pronoun3 + " face and nose to breathe. The " + monster.short + " stumbles, attempting to stand in your fresh cum puddle and quickly busts its ass on the ground. The worms quickly take over and swarm around the " + monster.short + "' s " + monster.cockDescriptShort(0) + ". With wild hunger, the worms easily push into the " + monster.short + "'s urethra and begin venturing into your victim's body. The " + monster.short + " begins to convulse wildly as " + monster.pronoun3 + " body begins to react to the squirming invaders. The " + monster.short + " quickly peaks and cum flies in all directions, along with some worms. You laugh hysterically as the " + monster.short + " must now endure the endless orgasms your new pets provide. You choose to unload one last batch on your fallen foe to ensure a good infestation and walk away to leave the " + monster.short + " in the hell of endless pleasure.\n");
@@ -218,22 +206,20 @@ package classes.Scenes.Areas.Mountain
 				}
 				else {
 					outputText("The monster watches your display as they step out of the way, a little grossed out by your actions.\n");
-					monster.lust+=5;
+					monster.lust += 5;
 				}
 			}
-			else if (monster.short == "lizan rogue") {
+			//Lizards:
+			else if (monster.short == "lizan rogue")
 				outputText("The lizan makes no attempt to dodge your worm-infused attack. The worms hit him with a fierce clash and slide down his body, disappearing into the ground without even attempting to infect the lizan. Maybe they prefer mammals...");
-			}
+			//Infest vs. anemone:
 			else if (monster.short == "anemone") {
-				//Infest vs. anemone:
 				outputText("The white mess takes the anemone square in the torso, and the worms nearest her blue shaft waste no time in heading for it.  You both watch curiously as the lead worms ascend her dick, only to run headlong into the tentacles and slip off, stunned.  Eyes twinkling, the girl scoops up a handful of the squirming load still on her stomach and slurps it down greedily.  She smacks her lips and says, \"<i>Chewy!</i>\"\n");
 				monster.HP += 20;
-				//(minus PC lust, of course)
+				//minus PC lust, of course
 			}
-			//nonviable
-			else {
-				outputText("While your fluids bathe the " + monster.short + " in your salty lust, the worms take no interest in your foe and scurry off.\n");
-			}
+			//Nonviable:
+			else outputText("While your fluids bathe the " + monster.short + " in your salty lust, the worms take no interest in your foe and scurry off.\n");
 			awardAchievement("Cum Cannon", kACHIEVEMENTS.COMBAT_CUM_CANNON);
 			dynStats("lus", -20);
 			monster.doAI();
@@ -241,7 +227,7 @@ package classes.Scenes.Areas.Mountain
 
 		public function eligibleForWormInfestation():Boolean {
 			var isEligible:Boolean = true;
-			//Those conditions would invalidate worms.
+			//Those conditions would invalidate worm
 			if (!player.hasCock()) isEligible = false;
 			if (flags[kFLAGS.CAMP_CABIN_FURNITURE_BED] > 0 && flags[kFLAGS.SLEEP_WITH] == "") isEligible = false;
 			if (flags[kFLAGS.ARIAN_MORNING] > 0 || flags[kFLAGS.EMBER_MORNING] > 0) isEligible = false;
@@ -261,7 +247,6 @@ package classes.Scenes.Areas.Mountain
 			outputText(" open and vulnerable to the piles of spunk-hungry parasites, and as you look on in shock, you see four of them slide into your worm-packed tunnel");
 			if (player.cockTotal() > 1) outputText("s");
 			outputText(", one after another!  No!  You reach for your [cock biggest] to somehow try and stop the infestation, but it's a futile gesture.  The worm pile on your [legs] is as big as the rest of you.  Worse still, you doubt you can pull out the ones that have already crawled inside.");
-			
 			outputText("\n\nGrabbing hold of [oneCock] with both hands, you pinch your fingers around ");
 			if (player.cocks[player.biggestCockIndex()].cockThickness >= 6) outputText("as tight around the girth as you can");
 			else outputText("tightly around your girth");
@@ -283,21 +268,15 @@ package classes.Scenes.Areas.Mountain
 				outputText(" filled to the brim with moist wigglers.");
 			}
 			outputText("  You can feel narrow, tapered heads pushing at where you've pressed your urethra closed, and they try to force their way under again and again while more of their brethren pile in behind.  You stay resolute in your efforts to prevent the coming infection, pinching so hard it's painful and crying out as a result.  The pressure on your [cock biggest] wars with the way your body is reacting to the other sensations assaulting it.  Your [cock biggest] spasms powerfully when a big, fat worm perches on your [cockHead biggest], slithering all around it, leaving behind a trail of slimy gunk and sending accompanying tingles of delight through your rigid pole.");
-			
 			outputText("\n\nThe surge of blood into your erection shifts your grip just enough that one - no, two worms slip through.  Oh nooo!  They wriggle deeper inside you, little tails lashing at the side of your sensitive, innermost flesh, massaging your concentration away with each motion they make.  Your grip fails completely, and the torrent of parasites flows unimpeded past your pleasure-weakened digits.  They move through your urethra, getting deeper by the second.  At the same time, the big, heavy worm, arguably the king of this little colony, pushes its thick, white head into your piss-hole.  Your flagging resolve shatters as you're stretched wide by the insectile invasion, utterly penetrated.   The littler worms have already started to move into your prostate, and once there, they start to convulse, each slapping its head and tail against the sensitive organ again and again.");
-			
 			outputText("\n\nMoaning, you look on as the distended bulge makes its way down your [cock biggest], thrashing slightly when it disappears into your crotch, the sensations far stronger once it passes beyond your sight.  This is it... you're definitely infested now.  The worms are inside of you, and they're going to make you cum.  Lying back while your [hips] fruitlessly twitch upward, you let your eyes close and give in to the knowledge that soon, you'll be another horny worm-factory, roaming around and spraying them out at every opportunity.  That big, slithering blob joins the rest in your prostate, stretching it dangerously, and it starts to shake, thumping at the sides of your innermost organ.");
-			
 			outputText("\n\nThe painful pressure and erotic horror rise with the onslaught of spasming ecstasy in your reproductive organs, peaking when that huge intruder nestles itself completely inside you, squeezing your organ until you're wailing and bucking your hips, slapping [eachCock] on your belly while you cum.  The torrent of cum that you loose is unexpectedly voluminous, splattering off your [chest] and chin, dripping onto the ground in gooey streams.  Reacting quickly, the rest of the colony smushes over your spurting boner");
 			if (player.cockTotal() > 1) outputText("s");
 			outputText(" to absorb the sensual nutrition.  Some of them even slop off the sides after the dripping whiteness, to get to it before it absorbs into the brittle, wasted earth.  You cum and cum, almost without end, yet each thick jet is slurped into the writhing mass immediately, leaving behind just the parasitic, clear slime.");
-			
 			outputText("\n\nThe big one bathes in your jism, moving faster and faster to spur you to release even more.  Glittering spunk drains out of your tip mixed with a few white creatures until [eachCock] is twitching against you, convulsing with pleasure but unable to leak a single drop.  Only after you've given everything does the internal prostate massage subside, the uncomfortable weight settling into a steady throb.  They feel so good, and a hot wave of contentment slowly rolls through you.  Maternal pride wells up unbidden - these things are a part of you now, and keeping them fed feels so good.");
-			
 			outputText("\n\nYou relax in the afterglow, pondering just how you'll handle living with the constant desire, barely noticing the colony slinking off, freshly lubricated by your sexual fluids.  You drink into a lusty slumber, absently fingering [oneCock].");
 			outputText("\n\n<b>You are infested, again!</b>");
-			//Reinfest
-			if (!player.hasStatusEffect(StatusEffects.Infested)) {
+			if (!player.hasStatusEffect(StatusEffects.Infested)) { //reinfest
 				player.createStatusEffect(StatusEffects.Infested,0,0,0,0);
 				dynStats("cor", 0);
 			}
@@ -307,7 +286,5 @@ package classes.Scenes.Areas.Mountain
 			}
 			doNext(playerMenu);
 		}
-		
 	}
-
 }

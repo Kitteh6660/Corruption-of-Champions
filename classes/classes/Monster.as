@@ -1,5 +1,4 @@
-﻿package classes
-{
+﻿package classes {
 	import classes.BodyParts.*;
 	import classes.GlobalFlags.kFLAGS;
 	import classes.GlobalFlags.kGAMECLASS;
@@ -20,167 +19,95 @@
 	import classes.internals.WeightedDrop;
 
 	import flash.utils.getQualifiedClassName;
+	/** @author Yoffy, Fake-Name, aimozg */
+	public class Monster extends Creature {
 
-	/**
-	 * ...
-	 * @author Yoffy, Fake-Name, aimozg
-	 */
-	public class Monster extends Creature
-	{
-
-		protected final function get player():Player
-		{
-			return game.player;
-		}
-		protected final function outputText(text:String):void{
-			game.outputText(text);
-		}
-		protected final function combatRoundOver():void{
-			game.combat.combatRoundOver();
-		}
-		/*protected final function combat.cleanupAfterCombat():void
-		{
-			game.combat.cleanupAfterCombat();
-		}*/
-		protected static function showStatDown(a:String):void{
-			kGAMECLASS.mainView.statsView.showStatDown(a);
-		}
-		protected final function statScreenRefresh():void {
-			kGAMECLASS.output.statScreenRefresh();
-		}
-		protected final function doNext(eventNo:Function):void { //Now typesafe
-			kGAMECLASS.output.doNext(eventNo);
-		}
-		protected final function combatMiss():Boolean {
-			return game.combat.combatMiss();
-		}
-		protected final function combatParry():Boolean {
-			return game.combat.combatParry();
-		}
-		protected final function combatBlock(doFatigue:Boolean = false):Boolean {
-			return game.combat.combatBlock(doFatigue);
-		}
-		protected function get consumables():ConsumableLib{
-			return game.consumables;
-		}
-		protected function get useables():UseableLib{
-			return game.useables;
-		}
-		protected function get weapons():WeaponLib{
-			return game.weapons;
-		}
-		protected function get shields():ShieldLib{
-			return game.shields;
-		}
-		protected function get armors():ArmorLib{
-			return game.armors;
-		}
-		protected function get jewelries():JewelryLib{
-			return game.jewelries;
-		}
-		protected function get undergarments():UndergarmentLib{
-			return game.undergarments;
-		}
-
-		protected function get images():ImageManager
-		{
-			return kGAMECLASS.images;
-		}
-
-		protected function set images(val:ImageManager):void
-		{
-			kGAMECLASS.images = val;
-		}
+		/*protected final function combat.cleanupAfterCombat():void { game.combat.cleanupAfterCombat(); }*/
+		protected final function outputText(text:String):void  { game.outputText(text); }
+		protected final function combatRoundOver():void 	   { game.combat.combatRoundOver(); }
+		protected final function statScreenRefresh():void 	   { kGAMECLASS.output.statScreenRefresh(); }
+		protected final function doNext(eventNo:Function):void { kGAMECLASS.output.doNext(eventNo); } //now typesafe
+		protected final function get player():Player							{ return game.player; }
+		protected final function combatMiss():Boolean							{ return game.combat.combatMiss(); }
+		protected final function combatParry():Boolean							{ return game.combat.combatParry(); }
+		protected final function combatBlock(doFatigue:Boolean = false):Boolean { return game.combat.combatBlock(doFatigue); }
+		protected function get consumables():ConsumableLib 						{ return game.consumables; }
+		protected function get useables():UseableLib							{ return game.useables; }
+		protected function get weapons():WeaponLib								{ return game.weapons; }
+		protected function get shields():ShieldLib								{ return game.shields; }
+		protected function get armors():ArmorLib								{ return game.armors; }
+		protected function get jewelries():JewelryLib							{ return game.jewelries; }
+		protected function get undergarments():UndergarmentLib					{ return game.undergarments; }
+		protected static function showStatDown(a:String):void{ kGAMECLASS.mainView.statsView.showStatDown(a); }
+		protected function get images():ImageManager  { return kGAMECLASS.images; }
+		protected function set images(val:ImageManager):void { kGAMECLASS.images = val; }
 		//For enemies
 		public var bonusHP:Number = 0;
 		public var bonusLust:Number = 0;
-		private var _long:String = "<b>You have encountered an uninitialized  Please report this as a bug</b>.";
-		public function get long():String
-		{
-			return _long;
-		}
-		public function set long(value:String):void
-		{
+		private var _long:String = "<b>You have encountered an uninitialized. Please report this as a bug</b>.";
+		public function get long():String { return _long; }
+		public function set long(value:String):void {
 			initsCalled.long = true;
 			_long = value;
 		}
-
-
-		//Is a creature a 'plural' encounter - mob, etc.
-		public var plural:Boolean = false;
+		public var plural:Boolean = false; //is a creature a 'plural' encounter - mob, etc
 		public var imageName:String = "";
-
-		//Lust vulnerability
-		public var lustVuln:Number = 1;
+		public var lustVuln:Number = 1; //lust vulnerability
 
 		public static const TEMPERMENT_AVOID_GRAPPLES:int = 0;
 		public static const TEMPERMENT_LUSTY_GRAPPLES:int = 1;
 		public static const TEMPERMENT_RANDOM_GRAPPLES:int = 2;
 		public static const TEMPERMENT_LOVE_GRAPPLES:int = 3;
-		/**
-		 * temperment - used for determining grapple behaviors
-		 * 0 - avoid grapples/break grapple
-		 * 1 - lust determines > 50 grapple
-		 * 2 - random
-		 * 3 - love grapples
-		*/
+		/** [temperment] - used for determining grapple behaviors
+		 0 - avoid grapples/break grapple
+		 1 - lust determines > 50 grapple
+		 2 - random
+		 3 - love grapples */
 		public var temperment:Number = TEMPERMENT_AVOID_GRAPPLES;
-
-		//Used for special attacks.
+		//Used for special attacks
 		public var special1:Function = null;
 		public var special2:Function = null;
 		public var special3:Function = null;
-
 		//he
 		public var pronoun1:String = "";
-		public function get Pronoun1():String{
+		public function get Pronoun1():String {
 			if (pronoun1=="") return "";
 			return pronoun1.substr(0,1).toUpperCase()+pronoun1.substr(1);
 		}
 		//him
 		public var pronoun2:String = "";
-		public function get Pronoun2():String{
+		public function get Pronoun2():String {
 			if (pronoun2=="") return "";
 			return pronoun2.substr(0,1).toUpperCase()+pronoun2.substr(1);
 		}
 		//3: Possessive his
 		public var pronoun3:String = "";
-		public function get Pronoun3():String{
+		public function get Pronoun3():String {
 			if (pronoun3=="") return "";
 			return pronoun3.substr(0,1).toUpperCase()+pronoun3.substr(1);
 		}
-
 		private var _drop:RandomDrop = new ChainedDrop();
 		public function get drop():RandomDrop { return _drop; }
-		public function set drop(value:RandomDrop):void
-		{
+		public function set drop(value:RandomDrop):void {
 			_drop = value;
 			initedDrop = true;
 		}
-		public override function maxHP():Number
-		{
+		public override function maxHP():Number {
 			//Base HP
 			var temp:Number = 50 + this.bonusHP;
-			if (flags[kFLAGS.GRIMDARK_MODE] > 0) {
-				temp = (15 * level) + this.bonusHP;
-			}
+			if (flags[kFLAGS.GRIMDARK_MODE] > 0) temp = (15 * level) + this.bonusHP;
 			temp += (this.tou * 2);
 			//Apply perks
 			if (findPerk(PerkLib.Tank) >= 0) temp += 50;
 			if (findPerk(PerkLib.Tank2) >= 0) temp += this.tou;
-			//Apply NG+, NG++, NG+++, etc.
-			if (short === "doppleganger" || short === "pod" || short === "sand trap" || short === "sand tarp") {
-				temp += 200 * player.newGamePlusMod();
-			}
-			else if (short === "Lethice") {
-				temp += 1200 * player.newGamePlusMod();
-			}
-			else if (short === "Marae") {
-				temp += 2500 * player.newGamePlusMod();
-			}
-			else {
-				temp += 1000 * player.newGamePlusMod();
-			}
+			//Apply NG+, NG++, NG+++, etc
+			if (short === "doppleganger" || short === "pod" || short === "sand trap" || short === "sand tarp")
+				 temp += 200 * player.newGamePlusMod();
+			else if (short === "Lethice")
+				 temp += 1200 * player.newGamePlusMod();
+			else if (short === "Marae")
+				 temp += 2500 * player.newGamePlusMod();
+			else temp += 1000 * player.newGamePlusMod();
 			//Apply difficulty
 			if (flags[kFLAGS.GAME_DIFFICULTY] <= 0) temp *= 1.0;
 			else if (flags[kFLAGS.GAME_DIFFICULTY] === 1) temp *= 1.25;
@@ -201,30 +128,18 @@
 			if (this.HP<0) this.HP = 0;
 			else if (this.HP > maxHP()) this.HP = maxHP();
 		}
+		//Return damage not reduced by player stats
+		public function eBaseDamage():Number { return str + weaponAttack; }
+		//Return randomized damage reduced by player stats
+		public function calcDamage():int { return player.reduceDamage(eBaseDamage()); }
 
-		/**
-		 * @return damage not reduced by player stats
-		 */
-		public function eBaseDamage():Number {
-			return str + weaponAttack;
-		}
-
-		/**
-		 * @return randomized damage reduced by player stats
-		 */
-		public function calcDamage():int{
-			return player.reduceDamage(eBaseDamage());
-		}
-
-		public function totalXP(playerLevel:Number=-1):Number
-		{
+		public function totalXP(playerLevel:Number=-1):Number {
 			var multiplier:Number = 1;
 			multiplier += game.player.perkv1(PerkLib.AscensionWisdom) * 0.1;
 			if (playerLevel === -1) playerLevel = game.player.level;
-			//
-			// 1) Nerf xp gains by 20% per level after first two level difference
-			// 2) No bonuses for underlevel!
-			// 3) Super high level folks (over 10 levels) only get 1 xp!
+			//1) Nerf xp gains by 20% per level after first two level difference
+			//2) No bonuses for underlevel!
+			//3) Super high level folks (over 10 levels) only get 1 xp!
 			var difference:Number = playerLevel - this.level;
 			if (difference <= 2) difference = 0;
 			else difference -= 2;
@@ -233,21 +148,18 @@
 			if (playerLevel - this.level > 10) return 1;
 			return Math.round(this.additionalXP + (this.baseXP() + this.bonusXP()) * difference * multiplier);
 		}
-		protected function baseXP():Number
-		{
+		protected function baseXP():Number {
 			return[200, 10, 20, 30, 40, 50, 55, 60, 66, 75,//0-9
 				83, 85, 92, 100, 107, 115, 118, 121, 128, 135,//10-19
 				145][Math.round(level)] || 200;
 		}
-		protected function bonusXP():Number
-		{
+		protected function bonusXP():Number {
 			return rand([200,10,20,30,40,50,55,58,66,75,
 					83,85,85,86,92,94,96,98,99,101,
 					107][Math.round(this.level)] || 130);
 		}
 
-		public function Monster()
-		{
+		public function Monster() {
 			// trace("Generic Monster Constructor!");
 
 			//// INSTRUCTIONS
@@ -438,34 +350,23 @@
 			lib_sens_cor:false,
 			drop:false
 		};
-		// MONSTER INITIALIZATION HELPER FUNCTIONS
-		protected function set initedGenitals(value:Boolean):void{
-			initsCalled.genitals = value;
-		}
-		protected function set initedBreasts(value:Boolean):void{
-			initsCalled.breasts = value;
-		}
-		protected function set initedDrop(value:Boolean):void{
-			initsCalled.drop = value;
-		}
-		protected function set initedStrTouSpeInte(value:Boolean):void{
-			initsCalled.str_tou_spe_inte = value;
-		}
-		protected function set initedLibSensCor(value:Boolean):void{
-			initsCalled.lib_sens_cor = value;
-		}
+		//MONSTER INITIALIZATION HELPER FUNCTIONS
+		protected function set initedGenitals(value:Boolean):void 	   { initsCalled.genitals = value; }
+		protected function set initedBreasts(value:Boolean):void	   { initsCalled.breasts = value; }
+		protected function set initedDrop(value:Boolean):void		   { initsCalled.drop = value; }
+		protected function set initedStrTouSpeInte(value:Boolean):void { initsCalled.str_tou_spe_inte = value; }
+		protected function set initedLibSensCor(value:Boolean):void	   { initsCalled.lib_sens_cor = value; }
 		protected const NO_DROP:WeightedDrop = new WeightedDrop();
 
 		public function isFullyInit():Boolean {
-			for each (var phase:Object in initsCalled) {
+			for each (var phase:Object in initsCalled)
 				if (phase is Boolean && phase === false) return false;
-			}
 			return true;
 		}
 		public function missingInits():String{
 			var result:String = "";
 			for (var phase:String in initsCalled){
-				if (initsCalled[phase] is Boolean && initsCalled[phase] === false){
+				if (initsCalled[phase] is Boolean && initsCalled[phase] === false) {
 					if (result === "") result = phase;
 					else result+=", "+phase;
 				}
@@ -483,15 +384,15 @@
 			super.short = value;
 		}
 
-		override public function createCock(clength:Number = 5.5, cthickness:Number = 1, ctype:CockTypesEnum = null):Boolean
-		{
+		override public function createCock(clength:Number = 5.5, cthickness:Number = 1, ctype:CockTypesEnum = null):Boolean {
 			initedGenitals = true;
 			if (!_checkCalled) {
 				if (plural) {
 					this.pronoun1 = "they";
 					this.pronoun2 = "them";
 					this.pronoun3 = "their";
-				} else {
+				}
+				else {
 					this.pronoun1 = "he";
 					this.pronoun2 = "him";
 					this.pronoun3 = "his";
@@ -501,15 +402,15 @@
 			return result;
 		}
 
-		override public function createVagina(virgin:Boolean = true, vaginalWetness:Number = 1, vaginalLooseness:Number = 0):Boolean
-		{
+		override public function createVagina(virgin:Boolean = true, vaginalWetness:Number = 1, vaginalLooseness:Number = 0):Boolean {
 			initedGenitals = true;
 			if (!_checkCalled) {
 				if (plural) {
 					this.pronoun1 = "they";
 					this.pronoun2 = "them";
 					this.pronoun3 = "their";
-				} else {
+				}
+				else {
 					this.pronoun1 = "she";
 					this.pronoun2 = "her";
 					this.pronoun3 = "her";
@@ -519,8 +420,7 @@
 			return result;
 		}
 
-		protected function initGenderless():void
-		{
+		protected function initGenderless():void {
 			this.cocks = new Vector.<Cock>();
 			this.vaginas = new Vector.<VaginaClass>();
 			initedGenitals = true;
@@ -528,27 +428,25 @@
 				this.pronoun1 = "they";
 				this.pronoun2 = "them";
 				this.pronoun3 = "their";
-			} else {
+			}
+			else {
 				this.pronoun1 = "it";
 				this.pronoun2 = "it";
 				this.pronoun3 = "its";
 			}
 		}
 
-		override public function createBreastRow(size:Number = 0, nipplesPerBreast:Number = 1):Boolean
-		{
+		override public function createBreastRow(size:Number = 0, nipplesPerBreast:Number = 1):Boolean {
 			initedBreasts = true;
 			return super.createBreastRow(size, nipplesPerBreast);
 		}
 
-		override public function set tallness(value:Number):void
-		{
+		override public function set tallness(value:Number):void {
 			initsCalled.tallness = true;
 			super.tallness = value;
 		}
 
-		protected function initStrTouSpeInte(str:Number, tou:Number, spe:Number, inte:Number):void
-		{
+		protected function initStrTouSpeInte(str:Number, tou:Number, spe:Number, inte:Number):void {
 			this.str = str;
 			this.tou = tou;
 			this.spe = spe;
@@ -556,91 +454,67 @@
 			initedStrTouSpeInte = true;
 		}
 
-		protected function initLibSensCor(lib:Number, sens:Number, cor:Number):void
-		{
+		protected function initLibSensCor(lib:Number, sens:Number, cor:Number):void {
 			this.lib = lib;
 			this.sens = sens;
 			this.cor = cor;
 			initedLibSensCor = true;
 		}
 
-		override public function validate():String
-		{
+		override public function validate():String {
 			var error:String = "";
-			// 1. Required fields must be set
-			if (!isFullyInit()) {
+			//1. Required fields must be set
+			if (!isFullyInit())
 				error += "Missing phases: "+missingInits()+". ";
-			}
 			this.HP = maxHP();
 			this.XP = totalXP();
 			error += super.validate();
-			error += Utils.validateNonNegativeNumberFields(this, "Monster.validate",[
-					"lustVuln", "temperment"
-			]);
+			error += Utils.validateNonNegativeNumberFields(this, "Monster.validate", ["lustVuln", "temperment"]);
 			return error;
 		}
 
-		public function checkMonster():Boolean
-		{
+		public function checkMonster():Boolean {
 			_checkCalled = true;
 			checkError = validate();
 			if (checkError.length>0) CoC_Settings.error("Monster not initialized:"+checkError);
 			return checkError.length === 0;
 		}
-
-		/**
-		 * try to hit, apply damage
-		 * @return damage
-		 */
-		public function eOneAttack():int
-		{
+		//Try to hit, apply damage. Return damage
+		public function eOneAttack():int {
 			//Determine damage - str modified by enemy toughness!
 			var damage:int = calcDamage();
 			if (damage > 0) damage = player.takeDamage(damage);
 			return damage;
 		}
-
-		/**
-		 * return true if we land a hit
-		 */
-		protected function attackSucceeded():Boolean
-		{
+		//Return true if we land a hit
+		protected function attackSucceeded():Boolean {
 			var attack:Boolean = true;
-			//Blind dodge change
-			if (hasStatusEffect(StatusEffects.Blind)) {
+			if (hasStatusEffect(StatusEffects.Blind)) //Blind dodge change
 				attack &&= handleBlind();
-			}
 			attack &&= !playerDodged();
-			
 			return attack;
 		}
 
 		public function eAttack():void {
 			var attacks:int = statusEffectv1(StatusEffects.Attacks);
 			if (attacks === 0) attacks = 1;
-			while (attacks>0){
-				if (attackSucceeded()){
+			while (attacks > 0) {
+				if (attackSucceeded()) {
 				    var damage:int = eOneAttack();
 					outputAttack(damage);
 					postAttack(damage);
 					kGAMECLASS.output.statScreenRefresh();
 					outputText("\n");
 				}
-				if (statusEffectv1(StatusEffects.Attacks) >= 0) {
+				if (statusEffectv1(StatusEffects.Attacks) >= 0)
 					addStatusValue(StatusEffects.Attacks, 1, -1);
-				}
 				attacks--;
 			}
 			removeStatusEffect(StatusEffects.Attacks);
-			combatRoundOver(); //The doNext here was not required
+			combatRoundOver(); //the doNext here was not required
 		}
-
-		/**
-		 * Called no matter of success of the attack
-		 * @param damage damage received by player
-		 */
-		protected function postAttack(damage:int):void
-		{
+		//Called no matter of success of the attack. Param (damage): damage received by player
+		protected function postAttack(damage:int):void {
 			if (damage > 0) {
 				if (lustVuln > 0 && player.armorName === "barely-decent bondage straps") {
 					if (!plural) outputText("\n" + capitalA + short + " brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.");
@@ -650,11 +524,10 @@
 			}
 		}
 
-		public function outputAttack(damage:int):void
-		{
+		public function outputAttack(damage:int):void {
 			if (damage <= 0) {
-				//Due to toughness or amor...
-				if (rand(player.armorDef + player.tou) < player.armorDef) outputText("You absorb and deflect every " + weaponVerb + " with your " + (player.armor !== ArmorLib.NOTHING ? player.armor.name : player.armorName) + ".");
+				if (rand(player.armorDef + player.tou) < player.armorDef) //due to toughness or armor...
+					outputText("You absorb and deflect every " + weaponVerb + " with your " + (player.armor !== ArmorLib.NOTHING ? player.armor.name : player.armorName) + ".");
 				else {
 					if (plural) outputText("You deflect and block every " + weaponVerb + " " + a + short + " throw at you. ");
 					else outputText("You deflect and block every " + weaponVerb + " " + a + short + " throws at you. ");
@@ -682,12 +555,8 @@
 			}
 			else outputText("<b>(<font color=\"#000080\">" + damage + "</font>)</b>");
 		}
-
-		/**
-		 * @return true if continue with attack
-		 */
-		protected function handleBlind():Boolean
-		{
+		//Return true if continue with attack
+		protected function handleBlind():Boolean {
 			if (rand(3) < 2) {
 				if (weaponVerb === "tongue-slap") outputText(capitalA + short + " completely misses you with a thrust from "+pronoun3+" tongue!\n");
 				else outputText(capitalA + short + " completely misses you with a blind attack!\n");
@@ -695,12 +564,8 @@
 			}
 			return true;
 		}
-
-		/**
-		 * print something about how we miss the player
-		 */
-		protected function outputPlayerDodged(dodge:int):void
-		{
+		//Print something about how we miss the player
+		protected function outputPlayerDodged(dodge:int):void {
 			if (dodge==1) outputText("You narrowly avoid " + a + short + "'s " + weaponVerb + "!\n");
 			else if (dodge==2) outputText("You dodge " + a + short + "'s " + weaponVerb + " with superior quickness!\n");
 			else {
@@ -711,97 +576,80 @@
 			}
 		}
 
-		private function playerDodged():Boolean
-		{
-			//Determine if dodged!
+		private function playerDodged():Boolean {
 			var dodge:int = player.speedDodge(this);
-			if (dodge>0) {
+			if (dodge > 0) { //determine if dodged!
 				outputPlayerDodged(dodge);
 				return true;
 			}
-			var evasionResult:String = player.getEvasionReason(false); // use separate function for speed dodge for expanded dodge description
-			//Determine if evaded
-			if (evasionResult === EVASION_EVADE) {
+			var evasionResult:String = player.getEvasionReason(false); //use separate function for speed dodge for expanded dodge description
+			if (evasionResult === EVASION_EVADE) { //determine if evaded
 				outputText("Using your skills at evading attacks, you anticipate and sidestep " + a + short + "'");
 				if (!plural) outputText("s");
 				outputText(" attack.\n");
 				return true;
 			}
-			//("Misdirection"
-			if (evasionResult === EVASION_MISDIRECTION) {
+			if (evasionResult === EVASION_MISDIRECTION) { //"misdirection"
 				outputText("Using Raphael's teachings, you anticipate and sidestep " + a + short + "' attacks.\n");
 				return true;
 			}
-			//Determine if cat'ed
-			if (evasionResult === EVASION_FLEXIBILITY) {
+			if (evasionResult === EVASION_FLEXIBILITY) { //determine if cat'ed
 				outputText("With your incredible flexibility, you squeeze out of the way of " + a + short + "");
 				if (plural) outputText("' attacks.\n");
 				else outputText("'s attack.\n");
 				return true;
 			}
-			if (evasionResult !== null) { // Failsafe fur unhandled
+			if (evasionResult !== null) { //failsafe fur unhandled
 				outputText("Using your superior combat skills you manage to avoid attack completely.\n");
 				return true;
 			}
-			//Parry with weapon
-			if (combatParry()) {
+			if (combatParry()) { //parry with weapon
 				outputText("You manage to block " + a + short + "");
 				if (plural) outputText("' attacks ");
 				else outputText("'s attack ");
 				outputText("with your " + player.weaponName + ".\n");
 				return true;
 			}
-			//Block with shield
-			if (combatBlock(true)) {
+			if (combatBlock(true)) { //block with shield
 				outputText("You block " + a + short + "'s " + weaponVerb + " with your " + player.shieldName + "! ");
 				return true;
 			}
 			return false;
 		}
 
-		public function doAI():void
-		{
-			if (hasStatusEffect(StatusEffects.Stunned)) {
+		public function doAI():void {
+			if (hasStatusEffect(StatusEffects.Stunned))
 				if (!handleStun()) return;
-			}
-			if (hasStatusEffect(StatusEffects.Fear)) {
+			if (hasStatusEffect(StatusEffects.Fear))
 				if (!handleFear()) return;
-			}
 			//Exgartuan gets to do stuff!
-			if (game.player.hasStatusEffect(StatusEffects.Exgartuan) && game.player.statusEffectv2(StatusEffects.Exgartuan) === 0 && rand(3) === 0) {
+			if (game.player.hasStatusEffect(StatusEffects.Exgartuan) && game.player.statusEffectv2(StatusEffects.Exgartuan) === 0 && rand(3) === 0)
 				if (game.exgartuan.exgartuanCombatUpdate()) game.outputText("\n\n");
-			}
-			if (hasStatusEffect(StatusEffects.Constricted)) {
+			if (hasStatusEffect(StatusEffects.Constricted))
 				if (!handleConstricted()) return;
-			}
 			//If grappling... TODO implement grappling
-//			if (game.gameState == 2) {
-//				game.gameState = 1;
+			/*if (game.gameState == 2) {
+				game.gameState = 1;
 				//temperment - used for determining grapple behaviors
-				//0 - avoid grapples/break grapple
-				//1 - lust determines > 50 grapple
-				//2 - random
-				//3 - love grapples
-				/*
-				 //		if (temperment == 0) eGrappleRetreat();
-				 if (temperment == 1) {
-				 //			if (lust < 50) eGrappleRetreat();
-				 mainClassPtr.doNext(3);
-				 return;
-				 }
-				 mainClassPtr.outputText("Lust Placeholder!!");
-				 mainClassPtr.doNext(3);
-				 return;*/
-//			}
+					//0 - avoid grapples/break grapple
+					//1 - lust determines > 50 grapple
+					//2 - random
+					//3 - love grapples
+				if (temperment == 0) eGrappleRetreat();
+				if (temperment == 1) {
+					if (lust < 50) eGrappleRetreat();
+					mainClassPtr.doNext(3);
+					return;
+				}
+				mainClassPtr.outputText("Lust Placeholder!!");
+				mainClassPtr.doNext(3);
+				return;
+			}*/
 			performCombatAction();
 		}
-
-		/**
-		 * Called if monster is constricted. Should return true if constriction is ignored and need to proceed with ai
-		 */
-		protected function handleConstricted():Boolean
-		{
-			//Enemy struggles -
+		//Called if monster is constricted. Should return true if constriction is ignored and need to proceed with ai
+		protected function handleConstricted():Boolean {
+			//Enemy struggles
 			game.outputText("Your prey pushes at your tail, twisting and writhing in an effort to escape from your tail's tight bonds.");
 			if (statusEffectv1(StatusEffects.Constricted) <= 0) {
 				game.outputText("  " + capitalA + short + " proves to be too much for your tail to handle, breaking free of your tightly bound coils.");
@@ -811,12 +659,8 @@
 			combatRoundOver();
 			return false;
 		}
-
-		/**
-		 * Called if monster is under fear. Should return true if fear ignored and need to proceed with ai
-		 */
-		protected function handleFear():Boolean
-		{
+		//Called if monster is under fear. Should return true if fear ignored and need to proceed with ai
+		protected function handleFear():Boolean {
 			if (statusEffectv1(StatusEffects.Fear) === 0) {
 				if (plural) {
 					removeStatusEffect(StatusEffects.Fear);
@@ -835,12 +679,8 @@
 			combatRoundOver();
 			return false;
 		}
-
-		/**
-		 * Called if monster is stunned. Should return true if stun is ignored and need to proceed with ai.
-		 */
-		protected function handleStun():Boolean
-		{
+		//Called if monster is stunned. Should return true if stun is ignored and need to proceed with ai
+		protected function handleStun():Boolean {
 			if (plural) game.outputText("Your foes are too dazed from your last hit to strike back!");
 			else game.outputText("Your foe is too dazed from your last hit to strike back!");
 			if (statusEffectv1(StatusEffects.Stunned) <= 0) removeStatusEffect(StatusEffects.Stunned);
@@ -848,45 +688,23 @@
 			combatRoundOver();
 			return false;
 		}
-
-		/**
-		 * This method is called after all stun/fear/constricted checks.
-		 * Default: Equal chance to do physical or special (if any) attack
-		 */
-		protected function performCombatAction():void
-		{
-			var actions:Array = [eAttack,special1,special2,special3].filter(
-					function(special:Function, idx:int, array:Array):Boolean {
-						return special !== null;
-					}
-			);
+		//This method is called after all stun/fear/constricted checks. Default: Equal chance to do physical or special (if any) attack
+		protected function performCombatAction():void {
+			var actions:Array = [eAttack,special1,special2,special3].filter (function(special:Function, idx:int, array:Array):Boolean { return special !== null; });
 			var rando:int = int(Math.random() * (actions.length));
 			var action:Function = actions[rando];
 			action();
 		}
-
-		/**
-		 * All branches of this method and all subsequent scenes should end either with
-         * 'cleanupAfterCombat', 'awardPlayer' or 'finishCombat'. The latter also displays
-		 * default message like "you defeat %s" or "%s falls and starts masturbating"
-		 */
-		public function defeated(hpVictory:Boolean):void
-		{
-			game.combat.finishCombat();
-		}
-
-		/**
-		 * All branches of this method and all subsequent scenes should end with
-         * 'cleanupAfterCombat'.
-		 */
-		public function won(hpVictory:Boolean,pcCameWorms:Boolean):void
-		{
-			if (hpVictory){
+		//All branches of this method and all subsequent scenes should end either with 'cleanupAfterCombat', 'awardPlayer' or 'finishCombat'. The latter also displays default message like "you defeat %s" or "%s falls and starts masturbating"
+		public function defeated(hpVictory:Boolean):void { game.combat.finishCombat(); }
+		//All branches of this method and all subsequent scenes should end with 'cleanupAfterCombat'
+		public function won(hpVictory:Boolean, pcCameWorms:Boolean):void {
+			clearOutput();
+			if (hpVictory) {
 				player.HP = 1;
-				clearOutput();
 				outputText("Your wounds are too great to bear, and you fall unconscious.");
-			} else {
-				clearOutput();
+			}
+			else {
 				outputText("Your desire reaches uncontrollable levels, and you end up openly masturbating.\n\nThe lust and pleasure cause you to black out for hours on end.");
 				player.lust = 0;
 			}
@@ -898,51 +716,30 @@
 			player.gems -= temp;
 			kGAMECLASS.output.doNext(game.camp.returnToCampUseEightHours);
 		}
-
-		/**
-		 * Function(hpVictory) to call INSTEAD of default defeated(). Call it or finishCombat() manually
-		 */
+		//Function(hpVictory) to call INSTEAD of default defeated(). Call it or finishCombat() manually
 		public var onDefeated:Function = null;
-		/**
-		 * Function(hpVictory,pcCameWorms) to call INSTEAD of default won(). Call it or finishCombat() manually
-		 */
+		//Function(hpVictory,pcCameWorms) to call INSTEAD of default won(). Call it or finishCombat() manually
 		public var onWon:Function = null;
-		/**
-		 * Function() to call INSTEAD of common run attempt. Call runAway(false) to perform default run attempt
-		 */
+		//Function() to call INSTEAD of common run attempt. Call runAway(false) to perform default run attempt
 		public var onPcRunAttempt:Function = null;
-
-		/**
-		 * Final method to handle hooks before calling overriden method
-		 */
-		public final function defeated_(hpVictory:Boolean):void
-		{
+		//Final method to handle hooks before calling overriden method
+		public final function defeated_(hpVictory:Boolean):void {
 			if (onDefeated !== null) onDefeated(hpVictory);
 			else defeated(hpVictory);
 		}
-
-		/**
-		 * Final method to handle hooks before calling overriden method
-		 */
-		public final function won_(hpVictory:Boolean,pcCameWorms:Boolean):void
-		{
+		//Final method to handle hooks before calling overriden method
+		public final function won_(hpVictory:Boolean,pcCameWorms:Boolean):void {
 			if (onWon !== null) onWon(hpVictory,pcCameWorms);
 			else won(hpVictory,pcCameWorms);
 		}
-
-		/**
-		 * Display tease reaction message. Then call applyTease() to increase lust.
-		 * @param lustDelta value to be added to lust (already modified by lustVuln etc)
-		 */
-		public function teased(lustDelta:Number):void
-		{
+		//Display tease reaction message. Then call applyTease() to increase lust. Param (lustDelta): value to be added to lust (already modified by lustVuln, etc)
+		public function teased(lustDelta:Number):void {
 			outputDefaultTeaseReaction(lustDelta);
 			if (lustDelta > 0) {
-				//Imp mob uber interrupt!
-			  	if (hasStatusEffect(StatusEffects.ImpUber)) { // TODO move to proper class
+			  	if (hasStatusEffect(StatusEffects.ImpUber)) { //Imp mob uber interrupt!
+					/** @TODO move to proper class? */
 					outputText("\nThe imps in the back stumble over their spell, their loincloths tenting obviously as your display interrupts their casting.  One of them spontaneously orgasms, having managed to have his spell backfire.  He falls over, weakly twitching as a growing puddle of whiteness surrounds his defeated form.");
-					//(-5% of max enemy HP)
-					HP -= bonusHP * .05;
+					HP -= bonusHP * .05; //-5% of max enemy HP
 					lust -= 15;
 					removeStatusEffect(StatusEffects.ImpUber);
 					createStatusEffect(StatusEffects.ImpSkip,0,0,0,0);
@@ -951,8 +748,7 @@
 			applyTease(lustDelta);
 		}
 
-		protected function outputDefaultTeaseReaction(lustDelta:Number):void
-		{
+		protected function outputDefaultTeaseReaction(lustDelta:Number):void {
 			if (plural) {
 				if (lustDelta === 0) outputText("\n\n" + capitalA + short + " seem unimpressed.");
 				if (lustDelta > 0 && lustDelta < 4) outputText("\n" + capitalA + short + " look intrigued by what " + pronoun1 + " see.");
@@ -983,7 +779,7 @@
 			}
 		}
 
-		protected function applyTease(lustDelta:Number):void{
+		protected function applyTease(lustDelta:Number):void {
 			lust += lustDelta;
 			lustDelta = Math.round(lustDelta * 10)/10;
 			outputText(" <b>(<font color=\"#ff00ff\">" + lustDelta + "</font>)</b>");
@@ -991,7 +787,7 @@
 
 		public function generateDebugDescription():String{
 			var result:String;
-			var be:String =plural?"are":"is";
+			var be:String =plural? "are":"is";
 			var have:String = plural ? "have" : "has";
 			var Heis:String = Pronoun1+" "+be+" ";
 			var Hehas:String = Pronoun1 + " " + have + " ";
@@ -1000,25 +796,21 @@
 					" with "+numberOfThings(cocks.length,"cock") +
 					", "+numberOfThings(vaginas.length,"vagina")+
 					" and "+numberOfThings(breastRows.length,"breast row")+".\n\n";
-			// APPEARANCE
-			result +=Heis+Appearance.inchesAndFeetsAndInches(tallness)+" tall with "+
-					Appearance.describeByScale(hips.rating,Appearance.DEFAULT_HIP_RATING_SCALES,"thinner than","wider than")+" hips and "+
-					Appearance.describeByScale(butt.rating,Appearance.DEFAULT_BUTT_RATING_SCALES,"thinner than","wider than")+" butt.\n";
+			//APPEARANCE
+			result += Heis + Appearance.inchesAndFeetsAndInches(tallness) + " tall with "
+					+Appearance.describeByScale(hips.rating,Appearance.DEFAULT_HIP_RATING_SCALES,"thinner than","wider than")+" hips and "
+					+Appearance.describeByScale(butt.rating,Appearance.DEFAULT_BUTT_RATING_SCALES,"thinner than","wider than")+" butt.\n";
 			result +=Pronoun3+" lower body is "+(Appearance.DEFAULT_LOWER_BODY_NAMES[lowerBody.type]||("lowerBody#"+lowerBody.type));
 			result += ", "+pronoun3+" arms are "+(Appearance.DEFAULT_ARM_NAMES[arms.type]||("armType#"+arms.type));
 			result += ", "+pronoun1+" "+have+" "+skin.tone+" "+skin.adj+" "+skin.desc+" (type "+(Appearance.DEFAULT_SKIN_NAMES[skin.type]||("skinType#"+skin.type))+").\n";
 			result += Hehas;
-			if (hair.length>0){
-				result += hair.color+" "+Appearance.inchesAndFeetsAndInches(hair.length)+" long "+(Appearance.DEFAULT_HAIR_NAMES[hair.type]||("hair.type#"+hair.type))+" hair.\n";
-			} else {
-				result += "no hair.\n";
-			}
+			if (hair.length>0)
+				 result += hair.color+" "+Appearance.inchesAndFeetsAndInches(hair.length)+" long "+(Appearance.DEFAULT_HAIR_NAMES[hair.type]||("hair.type#"+hair.type))+" hair.\n";
+			else result += "no hair.\n";
 			result += Hehas;
-			if (beard.length>0){
-				result += hair.color+" "+Appearance.inchesAndFeetsAndInches(beard.length)+" long "+(Appearance.DEFAULT_BEARD_NAMES[beard.style]||("beardType#"+beard.style))+".\n";
-			} else {
-				result += "no beard.\n";
-			}
+			if (beard.length>0)
+				 result += hair.color+" "+Appearance.inchesAndFeetsAndInches(beard.length)+" long "+(Appearance.DEFAULT_BEARD_NAMES[beard.style]||("beardType#"+beard.style))+".\n";
+			else result += "no beard.\n";
 			result += Hehas
 					+(Appearance.DEFAULT_FACE_NAMES[face.type]||("face.type#"+face.type))+" face, "
 					+(Appearance.DEFAULT_EARS_NAMES[ears.type]||("ears.type#"+ears.type))+" ears, "
@@ -1033,9 +825,8 @@
 			else result += Appearance.DEFAULT_WING_DESCS[wings.type]+" wings (type "+(Appearance.DEFAULT_WING_NAMES[wings.type]||("wingType#"+wings.type))+"), ";
 			if (antennae.type === Antennae.NONE) result += "no antennae.\n\n";
 			else result += (Appearance.DEFAULT_ANTENNAE_NAMES[antennae.type]||("antennaeType#"+antennae.type))+" antennae.\n\n";
-
-			// GENITALS AND BREASTS
-			for (var i:int = 0; i<cocks.length; i++){
+			//GENITALS AND BREASTS
+			for (var i:int = 0; i<cocks.length; i++) {
 				var cock:Cock = (cocks[i] as Cock);
 				result += Pronoun3+(i>0?(" #"+(i+1)):"")+" "+cock.cockType.toString().toLowerCase()+" cock is ";
 				result += Appearance.inchesAndFeetsAndInches(cock.cockLength)+" long and "+cock.cockThickness+"\" thick";
@@ -1053,9 +844,8 @@
 				result += ", "+Appearance.describeByScale(vagina.vaginalWetness,Appearance.DEFAULT_VAGINA_WETNESS_SCALES,"drier than","wetter than");
 				if (vagina.labiaPierced) result += ". Labia are pierced with "+vagina.labiaPLong;
 				if (vagina.clitPierced) result += ". Clit is pierced with "+vagina.clitPLong;
-				if (statusEffectv1(StatusEffects.BonusVCapacity)>0){
+				if (statusEffectv1(StatusEffects.BonusVCapacity)>0)
 					result+="; vaginal capacity is increased by "+statusEffectv1(StatusEffects.BonusVCapacity);
-				}
 				result+=".\n";
 			}
 			if (breastRows.length > 0) {	
@@ -1069,52 +859,35 @@
 				}
 			}
 			result += Pronoun3+" ass is "+Appearance.describeByScale(ass.analLooseness,Appearance.DEFAULT_ANAL_LOOSENESS_SCALES,"tighter than","looser than")+", "+Appearance.describeByScale(ass.analWetness,Appearance.DEFAULT_ANAL_WETNESS_SCALES,"drier than","wetter than");
-			if (statusEffectv1(StatusEffects.BonusACapacity)>0){
+			if (statusEffectv1(StatusEffects.BonusACapacity)>0)
 				result += "; anal capacity is increased by "+statusEffectv1(StatusEffects.BonusACapacity);
-			}
 			result +=".\n\n";
-
-			// COMBAT AND OTHER STATS
+			//COMBAT AND OTHER STATS
 			result += Hehas + "str=" + str + ", tou=" + tou + ", spe=" + spe+", inte=" + inte+", lib=" + lib + ", sens=" + sens + ", cor=" + cor + ".\n";
 			result += Pronoun1 + " can " + weaponVerb + " you with  " + weaponPerk + " " + weaponName+" (attack " + weaponAttack + ", value " + weaponValue+").\n";
 			result += Pronoun1 + " is guarded with " + armorPerk + " " + armorName+" (defense " + armorDef + ", value " + armorValue+").\n";
 			result += Hehas + HP + "/" + maxHP() + " HP, " + lust + "/" + maxLust() + " lust, " + fatigue + "/100 fatigue. " + Pronoun3 + " bonus HP=" + bonusHP + ", and lust vulnerability=" + lustVuln + ".\n";
 			result += Heis + "level " + level + " and " + have+" " + gems + " gems. You will be awarded " + XP + " XP.\n";
-			
 			var numSpec:int = (special1 !== null ? 1 : 0) + (special2 !== null ? 1 : 0) + (special3 !== null ? 1 : 0);
-			if (numSpec > 0) {
-				result += Hehas + numSpec + " special attack" + (numSpec > 1 ? "s" : "") + ".\n";
-			}
-			else {
-				result += Hehas + "no special attacks.\n";
-			}
-
+			if (numSpec > 0)
+				 result += Hehas + numSpec + " special attack" + (numSpec > 1 ? "s" : "") + ".\n";
+			else result += Hehas + "no special attacks.\n";
 			return result;
 		}
 
-		protected function clearOutput():void
-		{
-			game.clearOutput();
-		}
+		protected function clearOutput():void { game.clearOutput(); }
+		public function dropLoot():ItemType { return _drop.roll() as ItemType; }
 
-		public function dropLoot():ItemType
-		{
-			return _drop.roll() as ItemType;
-		}
-
-		public function combatRoundUpdate():void
-		{
+		public function combatRoundUpdate():void {
 			var store:Number = 0;
-			if (hasStatusEffect(StatusEffects.MilkyUrta)) {
+			if (hasStatusEffect(StatusEffects.MilkyUrta))
 				game.urtaQuest.milkyUrtaTic();
-			}
 			//Countdown
 			var tcd:StatusEffectClass = statusEffectByType(StatusEffects.TentacleCoolDown);
 			if (tcd!=null) {
 				tcd.value1-=1;
-				if (tcd.value1 <= 0) {
+				if (tcd.value1 <= 0)
 					removeStatusEffect(StatusEffects.TentacleCoolDown);
-				}
 			}
 			if (hasStatusEffect(StatusEffects.CoonWhip)) {
 				if (statusEffectv2(StatusEffects.CoonWhip) <= 0) {
@@ -1138,9 +911,8 @@
 				}
 				else outputText("<b>" + capitalA + short + (plural ? " are" : " is") + " currently blind!</b>\n\n");
 			}
-			if (hasStatusEffect(StatusEffects.Earthshield)) {
+			if (hasStatusEffect(StatusEffects.Earthshield))
 				outputText("<b>" + capitalA + short + " is protected by a shield of rocks!</b>\n\n");
-			}
 			if (hasStatusEffect(StatusEffects.Sandstorm)) {
 				//Blinded:
 				if (player.hasStatusEffect(StatusEffects.Blind)) {
@@ -1160,9 +932,8 @@
 				}
 				addStatusValue(StatusEffects.Sandstorm,1,1);
 			}
-			if (hasStatusEffect(StatusEffects.Stunned)) {
+			if (hasStatusEffect(StatusEffects.Stunned))
 				outputText("<b>" + capitalA + short + " is still stunned!</b>\n\n");
-			}
 			if (hasStatusEffect(StatusEffects.Shell)) {
 				if (statusEffectv1(StatusEffects.Shell) >= 0) {
 					outputText("<b>A wall of many hues shimmers around " + a + short + ".</b>\n\n");
@@ -1174,15 +945,12 @@
 				}
 			}
 			if (hasStatusEffect(StatusEffects.IzmaBleed)) {
-				//Countdown to heal
-				addStatusValue(StatusEffects.IzmaBleed,1,-1);
-				//Heal wounds
-				if (statusEffectv1(StatusEffects.IzmaBleed) <= 0) {
+				addStatusValue(StatusEffects.IzmaBleed,1,-1); //countdown to heal
+				if (statusEffectv1(StatusEffects.IzmaBleed) <= 0) { //heal wounds
 					outputText("The wounds you left on " + a + short + " stop bleeding so profusely.\n\n");
 					removeStatusEffect(StatusEffects.IzmaBleed);
 				}
-				//Deal damage if still wounded.
-				else {
+				else { //deal damage if still wounded
 					store = maxHP() * (3 + rand(4)) / 100;
 					store = game.combat.doDamage(store);
 					if (plural) outputText(capitalA + short + " bleed profusely from the jagged wounds your weapon left behind. <b>(<font color=\"#800000\">" + store + "</font>)</b>\n\n");
@@ -1200,7 +968,8 @@
 					          +" the remembered words tempting " + pronoun2 + " to look into your eyes again. "
 					          + Pronoun1 + " need to finish this fight as fast as " + pronoun3 + "  heavy limbs will allow."
 					          +" <b>(<font color=\"#800000\">" + Math.round(speedDiff) + "</font>)</b>\n\n");
-				} else {
+				}
+				else {
 					outputText(capitalA + short + "  still feels the spell of those grey eyes, making " + pronoun3 + " movements slow and difficult,"
 					          +" the remembered words tempting " + pronoun2 + " to look into your eyes again. "
 					          + Pronoun1 + " needs to finish this fight as fast as " + pronoun3 + "  heavy limbs will allow."
@@ -1209,15 +978,12 @@
 				}
 			}
 			if (hasStatusEffect(StatusEffects.OnFire)) {
-				//Countdown to heal
-				addStatusValue(StatusEffects.OnFire,1,-1);
-				//Heal fire
-				if (statusEffectv1(StatusEffects.OnFire) <= 0) {
+				addStatusValue(StatusEffects.OnFire,1,-1); //countdown to heal
+				if (statusEffectv1(StatusEffects.OnFire) <= 0) { //heal fire
 					outputText("The flames engulfing " + a + short + " finally fades.\n\n");
 					removeStatusEffect(StatusEffects.OnFire);
 				}
-				//Deal damage if still on fire.
-				else {
+				else { //deal damage if still on fire
 					store = maxHP() * (4 + rand(5)) / 100;
 					store = game.combat.doDamage(store);
 					if (plural) outputText(capitalA + short + " continue to burn from the flames engulfing " + pronoun2 + ". <b>(<font color=\"#800000\">" + store + "</font>)</b>\n\n");
@@ -1225,49 +991,40 @@
 				}
 			}
 			if (hasStatusEffect(StatusEffects.Timer)) {
-				if (statusEffectv1(StatusEffects.Timer) <= 0)
-					removeStatusEffect(StatusEffects.Timer);
+				if (statusEffectv1(StatusEffects.Timer) <= 0) removeStatusEffect(StatusEffects.Timer);
 				addStatusValue(StatusEffects.Timer,1,-1);
 			}
 			if (hasStatusEffect(StatusEffects.LustStick)) {
-				//LoT Effect Messages:
-				switch(statusEffectv1(StatusEffects.LustStick)) {
-					//First:
-					case 1:
+				switch(statusEffectv1(StatusEffects.LustStick)) { //LoT Effect Messages:
+					case 1: //first:
 						if (plural) outputText("One of " + a + short + " pants and crosses " + mf("his","her") + " eyes for a moment.  " + mf("His","Her") + " dick flexes and bulges, twitching as " + mf("he","she") + " loses himself in a lipstick-fueled fantasy.  When " + mf("he","she") + " recovers, you lick your lips and watch " + mf("his","her") + " blush spread.\n\n");
 						else outputText(capitalA + short + " pants and crosses " + pronoun3 + " eyes for a moment.  " + mf("His","Her") + " dick flexes and bulges, twitching as " + pronoun1 + " loses " + mf("himself", "herself") + " in a lipstick-fueled fantasy.  When " + pronoun1 + " recovers, you lick your lips and watch " + mf("his","her") + " blush spread.\n\n");
 						break;
-					//Second:
-					case 2:
+					case 2: //second:
 						if (plural) outputText(capitalA + short + " moan out loud, " + pronoun3 + " dicks leaking and dribbling while " + pronoun1 + " struggle not to touch " + pronoun2 + ".\n\n");
 						else outputText(capitalA + short + " moans out loud, " + pronoun3 + " dick leaking and dribbling while " + pronoun1 + " struggles not to touch it.\n\n");
 						break;
-					//Third:
-					case 3:
+					case 3: //third:
 						if (plural) outputText(capitalA + short + " pump " + pronoun3 + " hips futilely, air-humping non-existent partners.  Clearly your lipstick is getting to " + pronoun2 + ".\n\n");
 						else outputText(capitalA + short + " pumps " + pronoun3 + " hips futilely, air-humping a non-existent partner.  Clearly your lipstick is getting to " + pronoun2 + ".\n\n");
 						break;
-					//Fourth:
-					case 4:
+					case 4: //fourth:
 						if (plural) outputText(capitalA + short + " close " + pronoun3 + " eyes and grunt, " + pronoun3 + " cocks twitching, bouncing, and leaking pre-cum.\n\n");
 						else outputText(capitalA + short + " closes " + pronoun2 + " eyes and grunts, " + pronoun3 + " cock twitching, bouncing, and leaking pre-cum.\n\n");
 						break;
-					//Fifth and repeat:
-					default:
+					default: //fifth and repeat:
 						if (plural) outputText("Drops of pre-cum roll steadily out of their dicks.  It's a marvel " + pronoun1 + " haven't given in to " + pronoun3 + " lusts yet.\n\n");
 						else outputText("Drops of pre-cum roll steadily out of " + a + short + "'s dick.  It's a marvel " + pronoun1 + " hasn't given in to " + pronoun3 + " lust yet.\n\n");
 						break;
 				}
 				addStatusValue(StatusEffects.LustStick,1,1);
 				//Damage = 5 + bonus score minus
-				//Reduced by lust vuln of course
-				lust += Math.round(lustVuln * (5 + statusEffectv2(StatusEffects.LustStick)));
+				lust += Math.round(lustVuln * (5 + statusEffectv2(StatusEffects.LustStick))); //reduced by lust vuln of course
 			}
-			if (hasStatusEffect(StatusEffects.PCTailTangle)) {
-				//when Entwined
+			if (hasStatusEffect(StatusEffects.PCTailTangle)) { //when Entwined
 				outputText("You are bound tightly in the kitsune's tails.  <b>The only thing you can do is try to struggle free!</b>\n\n");
 				outputText("Stimulated by the coils of fur, you find yourself growing more and more aroused...\n\n");
-				game.dynStats("lus", 5+player.sens/10);
+				game.dynStats("lus", 5 + player.sens/10);
 			}
 			if (hasStatusEffect(StatusEffects.QueenBind)) {
 				outputText("You're utterly restrained by the Harpy Queen's magical ropes!\n\n");
@@ -1280,8 +1037,7 @@
 				if (player.lust100 >= 90) outputText("You have trouble keeping your greedy hands away from your groin.  It would be so easy to just lay down and masturbate to the sight of your curvy enemy.  The succubus looks at you with a sexy, knowing expression.\n\n");
 				game.dynStats("lus", 1+rand(8));
 			}
-			//[LUST GAINED PER ROUND] - Omnibus
-			if (hasStatusEffect(StatusEffects.LustAura)) {
+			if (hasStatusEffect(StatusEffects.LustAura)) { //[LUST GAINED PER ROUND] - Omnibus
 				if (player.lust100 < 33) outputText("Your groin tingles warmly.  The demon's aura is starting to get to you.\n\n");
 		 		if (player.lust100 >= 33 && player.lust100 < 66) outputText("You blush as the demon's aura seeps into you, arousing you more and more.\n\n");
 		  		if (player.lust100 >= 66) {
@@ -1295,23 +1051,16 @@
 				game.dynStats("lus", (3 + int(player.lib/20 + player.cor/30)));
 			}
 		}
-		
-		public function handleAwardItemText(itype:ItemType):void
-		{ //New Function, override this function in child classes if you want a monster to output special item drop text
-			if (itype !== null) outputText("\nThere is " + itype.longName + " on your defeated opponent.  ");
-		}
-
-		public function handleAwardText():void
-		{ //New Function, override this function in child classes if you want a monster to output special gem and XP text
-			//This function doesn’t add the gems or XP to the player, it just provides the output text
+		//New Function, override this function in child classes if you want a monster to output special item drop text
+		public function handleAwardItemText(itype:ItemType):void { if (itype !== null) outputText("\nThere is " + itype.longName + " on your defeated opponent.  "); }
+		//New Function, override this function in child classes if you want a monster to output special gem and XP text
+		public function handleAwardText():void { //this function doesn’t add the gems or XP to the player, it just provides the output text
 			if (this.gems === 1) outputText("\n\nYou snag a single gem and " + this.XP + " XP as you walk away from your victory.");
 			else if (this.gems > 1) outputText("\n\nYou grab " + this.gems + " gems and " + this.XP + " XP from your victory.");
 			else if (this.gems === 0) outputText("\n\nYou gain " + this.XP + " XP from the battle.");
 		}
-		
-		public function handleCombatLossText(inDungeon:Boolean, gemsLost:int):int
-		{ //New Function, override this function in child classes if you want a monster to output special text after the player loses in combat
-			//This function doesn’t take the gems away from the player, it just provides the output text
+		//New Function, override this function in child classes if you want a monster to output special text after the player loses in combat
+		public function handleCombatLossText(inDungeon:Boolean, gemsLost:int):int { //This function doesn’t take the gems away from the player, it just provides the output text
 			if (game.prison.inPrison) {
 				game.prison.doPrisonEscapeFightLoss();
 				return 8;
@@ -1329,18 +1078,14 @@
 					}
 				}
 				outputText("\n\nYou'll probably come to your senses in eight hours or so");
-				if (player.gems > 1)
-					outputText(", missing " + gemsLost + " gems.");
-				else if (player.gems === 1)
-					outputText(", missing your only gem.");
+				if (player.gems > 1) outputText(", missing " + gemsLost + " gems.");
+				else if (player.gems === 1) outputText(", missing your only gem.");
 				else outputText(".");
 			}
 			else {
 				outputText("\n\nSomehow you came out of that alive");
-				if (player.gems > 1)
-					outputText(", but after checking your gem pouch, you realize you're missing " + gemsLost + " gems.");
-				else if (player.gems === 1)
-					outputText(", but after checking your gem pouch, you realize you're missing your only gem.");
+				if (player.gems > 1) outputText(", but after checking your gem pouch, you realize you're missing " + gemsLost + " gems.");
+				else if (player.gems === 1) outputText(", but after checking your gem pouch, you realize you're missing your only gem.");
 				else outputText(".");
 			}
 			return 8; //This allows different monsters to delay the player by different amounts of time after a combat loss. Normal loss causes an eight hour blackout

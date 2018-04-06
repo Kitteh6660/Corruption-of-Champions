@@ -1,26 +1,18 @@
-/**
- * ...
- * @author melchi'is first attempt at making a monster 
- * special thanks to ox and everyone for helping
- */
-package classes.Scenes.Areas.Forest 
-{
+/** author @melchi's first attempt at making a monster (special thanks to ox and everyone for helping) */
+package classes.Scenes.Areas.Forest {
 	import classes.*;
 	import classes.BodyParts.Butt;
 	import classes.BodyParts.Hips;
 	import classes.internals.*;
 	import classes.GlobalFlags.*;
 	import classes.Items.ArmorLib;
-	
-	public class Dryad extends Monster
-	{
 
-		//Melee special
+	public class Dryad extends Monster {
+		//Melee Special
 		public function slash():void {
 			outputText("The dryad reaches for you with claw-like wooden hands!  As soon as she is close, she slashes with her claws ");
-			if (player.getEvasionRoll()) {
+			if (player.getEvasionRoll())
 				outputText("and you deftly avoid her claws!");
-			}
 			else {
 				outputText("and tears into your flesh! ");
 				//Get hit
@@ -31,34 +23,26 @@ package classes.Scenes.Areas.Forest
 			}
 			combatRoundOver();
 		}
-		//lust special
+		//Lust Special
 		public function pollen():void {
 			var lustDmg:int = player.lib / 10 + player.cor / 10 + 10;
 			outputText("The dryad runs her hands through her leafy hair and spins around.   \n\n Yellow and pink sparkles of pollen gently float through the air in your direction. ");
-			if (player.getEvasionRoll()) {
+			if (player.getEvasionRoll())
 				outputText("You cover your mouth and nose and avoid breathing in most of the pollen!");
-			}
 			else {
 				outputText("You take a deep breath of the pollen!\n ");
 				outputText("Your mind becomes a haze as a hot wave of arousal washes over you.");
 				player.takeLustDamage(lustDmg, true);
-				if (player.lust >= player.maxLust())
-					doNext(game.combat.endLustLoss);
+				if (player.lust >= player.maxLust()) doNext(game.combat.endLustLoss);
 				else doNext(game.playerMenu);
 			}
 			combatRoundOver();
 		}
-		
-		override public function defeated(hpVictory:Boolean):void
-		{
-			(new DryadScene()).winagainstdryad();
-		}
 
-		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void {
-			(new DryadScene()).loseTodryad();
-		}
-		function Dryad() 
-		{
+		override public function defeated(hpVictory:Boolean):void { (new DryadScene()).winagainstdryad(); }
+		override public function won(hpVictory:Boolean, pcCameWorms:Boolean):void { (new DryadScene()).loseTodryad(); }
+
+		function Dryad() {
 			this.a = "the ";
 			this.short = "Corrupted Dryad";
 			this.imageName = "dryad";
@@ -93,7 +77,6 @@ package classes.Scenes.Areas.Forest
 						add(armors.FRSGOWN, 1);
 			this.special1 = slash;
 			this.special2 = pollen;
-
 			checkMonster();
 		}
 	}
