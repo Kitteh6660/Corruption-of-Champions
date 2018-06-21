@@ -13,6 +13,15 @@ package classes.Scenes {
 	import coc.view.MainView;
 
 	public class Camp extends NPCAwareContent {
+		/*
+		 * Feature switches
+		 */
+		
+		/**
+		 * An in-progress side dungeon
+		 */
+		private static const FEATURE_SWITCH_HELLHOUND_COMPLEX:Boolean = false;
+		
 		protected function set timeQ(value:Number):void { kGAMECLASS.timeQ = value; }
 		private function get campQ():Boolean { return kGAMECLASS.campQ; }
 		private function set campQ(value:Boolean):void { kGAMECLASS.campQ = value; }
@@ -1730,7 +1739,9 @@ private function dungeons():void {
 	if (flags[kFLAGS.DISCOVERED_WITCH_DUNGEON] > 0) addButton(5, "Desert Cave", getGame().dungeons.desertcave.enterDungeon).hint("Visit the cave you've found in the desert." + (flags[kFLAGS.SAND_WITCHES_COWED] + flags[kFLAGS.SAND_WITCHES_FRIENDLY] > 0 ? "\n\nFrom what you've known, this is the source of the Sand Witches." : "") + (kGAMECLASS.dungeons.checkSandCaveClear() ? "\n\nCLEARED!" : ""));
 	if (kGAMECLASS.dungeons.checkPhoenixTowerClear()) addButton(6, "Phoenix Tower", getGame().dungeons.heltower.returnToHeliaDungeon).hint("Re-visit the tower you went there as part of Helia's quest." + (kGAMECLASS.dungeons.checkPhoenixTowerClear() ? "\n\nYou've helped Helia in the quest and resolved the problems. \n\nCLEARED!" : ""));
 		//Fetish Church?
-		//if (debug) addButton(7, "H.Hound Cmplx", getGame().dungeons.hellcomplex.enterDungeonDev).hint("For testing purposes only.", "Hellhound Complex");
+		if (FEATURE_SWITCH_HELLHOUND_COMPLEX) {
+			addButton(7, "H.Hound Cmplx", getGame().dungeons.hellcomplex.enterDungeonDev).hint("For testing purposes only.", "Hellhound Complex");
+		}
 	//Non-hostile dungeons
 	if (flags[kFLAGS.ANZU_PALACE_UNLOCKED] > 0) addButton(10, "Anzu's Palace", getGame().dungeons.palace.enterDungeon).hint("Visit the palace in the Glacial Rift where Anzu the avian deity resides.");
 	addButton(14, "Back", places);
