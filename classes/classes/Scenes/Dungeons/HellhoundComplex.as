@@ -8,8 +8,6 @@ package classes.Scenes.Dungeons
 
 	public class HellhoundComplex extends DungeonAbstractContent
 	{
-		public function HellhoundComplex() {}
-		
 		public function enterDungeonDev():void {
 			kGAMECLASS.inDungeon = true;
 			kGAMECLASS.dungeonLoc = DungeonCore.DUNGEON_HELLHOUND_ENTRANCE;

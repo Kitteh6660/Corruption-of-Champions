@@ -8,11 +8,6 @@ package classes.Scenes.Dungeons.HellhoundComplex
 	public class HellhoundMaster 
 	{
 		
-		public function HellhoundMaster() 
-		{
-			
-		}
-		
 	}
 
 }
