@@ -46,7 +46,6 @@ public function farmExploreEncounter():void {
 		outputText("Whitney marches up to you as soon as you approach the farm, a stoic expression plastered across her face.");
 		outputText("\n\n\"<i>What the fuck do you think you're doing here [name]? After what you did to Marble you still think you're welcome here? Leave. <b>Now</b>.</i>\"");
 		doNext(camp.returnToCampUseOneHour);
-		//addButton(1, "FIGHT!", fightWhitney);
 		return;
 	}
 	if (flags[kFLAGS.FARM_DISABLED] == 2 && flags[kFLAGS.WHITNEY_GONE] < 1)
@@ -55,7 +54,6 @@ public function farmExploreEncounter():void {
 		outputText("Whitney marches up to you as soon as you approach the farm, a stoic expression plastered across her face.");
 		outputText("\n\n\"<i>What the fuck do you think you're doing here [name]? After what you did to Kelt you still think you're welcome here? Leave. <b>Now</b>.</i>\"");
 		doNext(camp.returnToCampUseOneHour);
-		//addButton(1, "FIGHT!", fightWhitney);
 		return;
 	}	
 	
