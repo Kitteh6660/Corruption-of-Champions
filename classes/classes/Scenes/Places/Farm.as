@@ -38,7 +38,9 @@ public function farmExploreEncounter():void {
 		return;
 	}
 	
-	if (farmCorruption.takeoverPrompt() == true) return;
+	if (farmCorruption.takeoverPrompt()) {
+		return;
+	}
 	
 	if (flags[kFLAGS.FARM_DISABLED] == 1 && flags[kFLAGS.WHITNEY_GONE] < 1)
 	{
