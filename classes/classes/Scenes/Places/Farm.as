@@ -25,7 +25,6 @@ package classes.Scenes.Places{
 	{
 		return kGAMECLASS.marbleScene;
 	}
-//const FARM_DISABLED:int = 464;
 
 	public function whitneySprite():void
 	{
