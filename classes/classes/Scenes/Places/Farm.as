@@ -615,13 +615,7 @@ public function exploreFarm():void {
 		outputText("Shaking your head, you clear your thoughts and turn away from the pasture. Cows don't have your problems.");
 		doNext(camp.returnToCampUseOneHour);
 		return;
-	}
-	if (explore == 3) {
-		
-		
-	}
-	//[NOTHING]
-	else {
+	} else {
 		clearOutput();
 		outputText("You wander around, unable to find anything entertaining on this patch of rural bliss.");
 		doNext(camp.returnToCampUseOneHour);
