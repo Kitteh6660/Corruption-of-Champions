@@ -56,7 +56,6 @@ public function farmExploreEncounter():void {
 		return;
 	}	
 	
-	var temporary:Number = 0;
 	//Farm not yet discovered
 	clearOutput();
 	outputText(images.showImage("location-ingnam-farm"));
@@ -104,11 +103,6 @@ public function farmExploreEncounter():void {
 			outputText("Whitney's farm is remarkably large for such a humble operation.  What do you want to do?");
 		}
 		menu();
-		var keltEvent:Number = 0;
-		var milkYou:Number = 0;
-		var milkJojo:Number = 0;
-		var cockMilk:Number = 0;
-		var marble:Number = 0;
 		if (player.hasStatusEffect(StatusEffects.Kelt) && !player.hasStatusEffect(StatusEffects.KeltOff) && flags[kFLAGS.KELT_KILLED] <= 0) {
 			if (flags[kFLAGS.KELT_BREAK_LEVEL] >= 4) {
 				if (flags[kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY] == 1) addButton(0,"Kelly",kelly.breakingKeltOptions);
@@ -518,7 +512,6 @@ public function meetMarble():void {
 }
 
 public function exploreFarm():void {
-	var marbling:Number = 0;
 	var explore:Number = 0;
 	
 	//Marble after-rape
